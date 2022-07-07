@@ -1,0 +1,59 @@
+.gradient-text {
+  background: -webkit-linear-gradient(#cc2d8f, #346da1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-box {
+  display: flex;
+  align-items: center;
+  //width: 50vw;
+  margin: auto;
+
+  position: relative;
+  box-sizing: border-box;
+
+  $border: 2px;
+  color: #000;
+  background: #e6e7ee;
+  background-clip: padding-box; /* !importanté */
+  border: solid $border transparent; /* !importanté */
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    margin: -$border; /* !importanté */
+    border-radius: inherit; /* !importanté */
+    background: linear-gradient(to right, #cc2d8f, #346da1);
+  }
+}
+
+.background {
+  background-color: #e6e7ee;
+  z-index: -1;
+}
+
+#progressInput {
+  margin: 20px auto;
+  width: 30%;
+}
+
+.circle-background,
+.circle-progress {
+  fill: none;
+}
+
+.circle-background {
+  stroke: #ddd;
+}
+
+.circle-progress {
+  stroke: #059235;
+  stroke-linecap: square;
+  stroke-linejoin: square;
+}

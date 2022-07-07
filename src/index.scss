@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+
+@font-face {
+    font-family: "Pilat";
+    src: url("./assets/font/Pilat/PilatExtended-Regular.ttf");
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: "Pilat";
+    src: url("./assets/font/Pilat/PilatExtended-DemiBold.ttf");
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: "Pilat";
+    src: url("./assets/font/Pilat/PilatExtended-Bold.ttf");
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: "Pilat";
+    src: url("./assets/font/Pilat/PilatExtended-Black.ttf");
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: "Manrope";
+    src: url("./assets/font/Manrope/Manrope-Regular.ttf");
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: "Manrope";
+    src: url("./assets/font/Manrope/Manrope-SemiBold.ttf");
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: "Manrope";
+    src: url("./assets/font/Manrope/Manrope-Bold.ttf");
+    font-weight: 900;
+}
+
+@tailwind utilities;
+
+@layer base {
+    html {
+        font-family: Pilat, Manrope
+    }
+}

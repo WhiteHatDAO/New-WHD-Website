@@ -10,7 +10,8 @@ module.exports = {
       boxShadow: {
         'sm': '-4px -4px 5px 0 #fff, 4px 4px 5px 0 #C9CCDA',
         'xl': '-15px -15px 20px 0 #fff, 15px 15px 20px 0 #C9CCDA',
-        'inner': 'inset 7px 7px 7px 0 #C9CCDA, inset -7px -7px 7px 0 #fff'  
+        'inner': 'inset 7px 7px 7px 0 #C9CCDA, inset -7px -7px 7px 0 #fff',
+        'inner-xl': 'inset -15px -15px 20px 0 #fff, inset 15px 15px 20px 0 #C9CCDA'
       }
     },
     colors: {
@@ -24,6 +25,7 @@ module.exports = {
       blue: "#346DA1",
       pink: "#CC2D8F",
       black: "#000000",
+      purple: "#6D29FE",
       current: "currentColor",
     },
     fontSize: {

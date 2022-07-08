@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Dao from "./pages/Dao";
 import Footer from "./pages/Footer";
+import SafetyRatings from "./pages/SafetyRatings";
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
         <Routes>
             <Route path="/" element={<Home/>}></Route>
             <Route path="/dao" element={<Dao/>}></Route>
+            <Route path="/safety-ratings" element={<SafetyRatings />}></Route>
         </Routes>
         <Footer></Footer>
       </div>

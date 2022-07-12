@@ -26,11 +26,11 @@ const SafetyRatings = () => {
           or any other third parties.
         </div>
         <div className="flex flex-row items-center justify-center space-x-8">
-          <div className="rounded-lg shadow-xl px-4 py-2 text-sz24 text-blue font-Manrope font-semibold flex flex-row space-x-2 items-center justify-center">
+          <div className="w-1/3 rounded-lg shadow-xl px-4 py-2 text-sz24 text-blue font-Manrope font-semibold flex flex-row space-x-2 items-center justify-center">
             <div>Apply for Smart Contract Audit</div>
             <img src={pointImage} alt="point"></img>
           </div>
-          <div className="rounded-lg shadow-xl px-4 py-2 text-sz24 text-blue font-Manrope font-semibold flex flex-row space-x-2 items-center justify-center">
+          <div className="w-1/3 rounded-lg shadow-xl px-4 py-2 text-sz24 text-blue font-Manrope font-semibold flex flex-row space-x-2 items-center justify-center">
             <div>Apply for Safety Rating</div>
             <img src={pointImage} alt="point"></img>
           </div>
@@ -135,7 +135,7 @@ const SafetyRatings = () => {
                   The first staked ETH NFT. A 100% community aligned project
                   which rewards NFT holders and protocol token stakers.
                 </div>
-                <img src={goImage} alt="go"></img>
+                <a href="/safety-ratings/rating"><img src={goImage} alt="go"></img></a>
               </div>
             </div>
           </div>

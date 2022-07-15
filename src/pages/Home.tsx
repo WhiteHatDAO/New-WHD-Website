@@ -216,6 +216,7 @@ const Home = () => {
                     sqSize={42}
                     percentage={item.percentage}
                     strokeWidth={5}
+                    type={0}
                   ></CircleProgressBar>
                 </div>
               </div>
@@ -310,6 +311,7 @@ const Home = () => {
                         sqSize={42}
                         percentage={item.percentage}
                         strokeWidth={5}
+                        type={0}
                       ></CircleProgressBar>
                     </div>
                   </td>

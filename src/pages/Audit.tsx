@@ -383,6 +383,7 @@ const Audit = () => {
                         sqSize={42}
                         percentage={item.percentage}
                         strokeWidth={5}
+                        type={0}
                       ></CircleProgressBar>
                     </div>
                   </td>

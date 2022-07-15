@@ -105,6 +105,7 @@ const SafetyRatings = () => {
                     sqSize={42}
                     percentage={88}
                     strokeWidth={5}
+                    type={0}
                   ></CircleProgressBar>
                 </div>
               </div>

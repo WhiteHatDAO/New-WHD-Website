@@ -19,6 +19,7 @@ module.exports = {
       lightgray: "#E6E7EE",
       gray: "#DDDEE8",
       darkgray: "#727272",
+      darkblue: "#4D6380",
       white: "#ffffff",
       red: "#A70505",
       green: "#059235",
@@ -26,6 +27,7 @@ module.exports = {
       pink: "#CC2D8F",
       black: "#000000",
       purple: "#6D29FE",
+      yellow: "#EBA10F",
       current: "currentColor",
     },
     fontSize: {

@@ -13,6 +13,14 @@ import check_t from "../assets/images/rating/check_t.svg";
 import CircleProgressBar from "../components/CircleProgressBar";
 import info from "../assets/images/dao/info.svg";
 import Doughnut from "../components/Doughnut";
+import line from "../assets/images/rating/line.svg";
+import info_small from "../assets/images/info.svg";
+import token_chart from "../assets/images/rating/token_chart.png";
+import icon1 from "../assets/images/rating/table/icon1.svg";
+import icon2 from "../assets/images/rating/table/icon2.svg";
+import ether from "../assets/images/rating/ether.svg";
+
+import member1 from "../assets/images/rating/members/member1.png";
 
 const Rating = () => {
   return (
@@ -219,7 +227,7 @@ const Rating = () => {
               </div>
             </div>
             <div className="flex flex-col space-y-4">
-              <div className="font-pilat font-bold text-sz24 pb-3 border-b border-darkgray">
+              <div className="font-pilat font-bold text-sz24 pb-3 text-blue border-b border-darkgray">
                 Audit Details
               </div>
               <div className="grid grid-cols-2 items-center">
@@ -282,7 +290,8 @@ const Rating = () => {
                 <div className="text-sz12">TOTAL SUPPLY</div>
               </div>
             </div>
-            <div className="px-2 border-r border-l border-darkgray text-sz20 font-Manrope font-light flex flex-col space-y-8">
+            <img className="h-full" src={line} alt="line"></img>
+            <div className="px-2 text-sz20 font-Manrope font-light flex flex-col space-y-8">
               <div className="flex flex-row space-x-4">
                 <div className="px-2 py-1 rounded-full shadow-inner flex flex-row items-center space-x-2">
                   <div className="w-4 h-4 rounded-md bg-yellow"></div>
@@ -320,7 +329,8 @@ const Rating = () => {
                 </div>
               </div>
             </div>
-            <div className="px-2 border-r border-darkgray text-sz20 font-Manrope font-light flex flex-col space-y-8">
+            <img className="h-full" src={line} alt="line"></img>
+            <div className="px-2 text-sz20 font-Manrope font-light flex flex-col space-y-8">
               <div className="flex flex-row space-x-4">
                 <div className="px-2 py-1 rounded-full shadow-inner flex flex-row items-center space-x-2">
                   <div className="w-4 h-4 rounded-md bg-yellow"></div>
@@ -358,6 +368,7 @@ const Rating = () => {
                 </div>
               </div>
             </div>
+            <img className="h-full" src={line} alt="line"></img>
             <div className="px-2 text-sz20 font-Manrope font-light flex flex-col space-y-8">
               <div className="text-center rounded-full shadow-sm text-green p-2">
                 Max Supply - 500,000,000
@@ -674,6 +685,303 @@ const Rating = () => {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
+        <div className="bg-gray px-6 py-4 rounded-t-xl">
+          <div className="pl-4 text-blue text-sz30 font-bold font-pilat text-center">
+            Price Data
+          </div>
+        </div>
+        <div className="m-8 p-6 rounded-xl bg-gray font-Manrope font-light flex flex-col">
+          <div className="pb-4 border-b border-darkgray text-blue text-sz16">
+            Hundred Finance Price Data
+          </div>
+          <div className="py-4 flex flex-row items-center space-x-2">
+            <img src={idolNFtImage} alt="hundred"></img>
+            <div className="font-pilat font-bold text-blue text-sz20">
+              Hundred Finance (HND)
+            </div>
+          </div>
+          <div className="py-4 flex flex-row items-center space-x-2">
+            <div className="font-Manrope text-sz40 font-bold">$0.103</div>
+            <div className="flex flex-row items-center space-x-1">
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 22 22"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M2.63965 7.04004L10.5596 14.96L18.4796 7.04004H2.63965Z"
+                  fill="#A22E2E"
+                />
+              </svg>
+              <div className="text-sz16 text-red">3.76%</div>
+            </div>
+          </div>
+          <div className="font-Manrope text-sz20 grid grid-cols-3 space-x-8 justify-between">
+            <div className="flex flex-col space-y-4">
+              <div className="border-b border-darkgray pb-4 flex flex-row justify-between">
+                <div className=" flex flex-row items-center space-x-2">
+                  <div className="text-darkgray">Market cap</div>
+                  <img src={info_small} alt="info_small"></img>
+                </div>
+                <div>$1,451,392,754</div>
+              </div>
+              <div className="border-b border-darkgray pb-4 flex flex-row justify-between">
+                <div className=" flex flex-row items-center space-x-2">
+                  <div className="text-darkgray">Circulating Supply</div>
+                  <img src={info_small} alt="info_small"></img>
+                </div>
+                <div>$1,451,392,754</div>
+              </div>
+              <div className="border-b border-darkgray pb-4 flex flex-row justify-between">
+                <div className=" flex flex-row items-center space-x-2">
+                  <div className="text-darkgray">Max Supply</div>
+                  <img src={info_small} alt="info_small"></img>
+                </div>
+                <div>392,754</div>
+              </div>
+              <div className="flex flex-row justify-between">
+                <div className="text-darkgray">All time high</div>
+                <div>$100</div>
+              </div>
+            </div>
+
+            <div className="flex flex-col space-y-4">
+              <div className="border-b border-darkgray pb-4 flex flex-row justify-between">
+                <div className=" flex flex-row items-center space-x-2">
+                  <div className="text-darkgray">Market cap Dominance</div>
+                  <img src={info_small} alt="info_small"></img>
+                </div>
+                <div>%0.12</div>
+              </div>
+              <div className="border-b border-darkgray pb-4 flex flex-row justify-between">
+                <div className=" flex flex-row items-center space-x-2">
+                  <div className="text-darkgray">Trading Volume</div>
+                  <div className="text-sz16 bg-white rounded-sm px-1">24h</div>
+                </div>
+                <div>$1,451,392,754</div>
+              </div>
+              <div className="border-b border-darkgray pb-4 flex flex-row justify-between">
+                <div className="text-darkgray">Total Supply</div>
+                <div>392,754</div>
+              </div>
+              <div className="flex flex-row justify-between">
+                <div className="text-darkgray">All time low</div>
+                <div>$0.1002</div>
+              </div>
+            </div>
+
+            <div className="flex flex-col space-y-4">
+              <div className="border-b border-darkgray pb-4 flex flex-row justify-between">
+                <div className="text-darkgray">Volume / Market Cap</div>
+                <div>0.0000221</div>
+              </div>
+              <div className="border-b border-darkgray pb-4 flex flex-row justify-between">
+                <div className="text-darkgray">24h Low / 24h High</div>
+                <div>$0.08 / $0.11</div>
+              </div>
+              <div className="border-b border-darkgray pb-4 flex flex-row justify-between">
+                <div className="text-darkgray">7d Low / 7d High</div>
+                <div>$0.08 / $0.11</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mx-8 mb-8 p-6 rounded-xl bg-gray font-Manrope font-light flex flex-col">
+          <img src={token_chart} alt="token_chart"></img>
+        </div>
+      </div>
+
+      <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
+        <div className="px-6 py-4 rounded-t-xl">
+          <div className="pl-4 text-blue text-sz30 font-bold font-pilat text-center">
+            Hundred Finance Markets
+          </div>
+        </div>
+        <table className="text-center font-Manrope font-light text-sz22">
+          <thead>
+            <tr className="bg-gray text-blue">
+              <th className="p-4">#</th>
+              <th className="py-4">Exchange</th>
+              <th className="py-4">Pairs</th>
+              <th className="py-4">Price</th>
+              <th className="py-4">+2% Depth</th>
+              <th className="py-4">-2% Depth</th>
+              <th className="py-4">Volume %</th>
+              <th className="py-4">Updated</th>
+              <th className="py-4">Trade</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[1, 2, 3, 4].map((item) => (
+              <tr className="border-b border-darkgray">
+                <td className="py-4">{item}</td>
+                <td className="py-4">
+                  <div className="flex flex-row items-center justify-center space-x-2">
+                    <img src={icon1} alt="icon1"></img>
+                    <div>Uniswap(V3)</div>
+                  </div>
+                </td>
+                <td className="py-4 text-blue">HND/ETH</td>
+                <td className="py-4">$0.013</td>
+                <td className="py-4">$0.01134</td>
+                <td className="py-4">$0.00034</td>
+                <td className="py-4">5.32%</td>
+                <td className="py-4">Recently</td>
+                <td className="py-4">
+                  <div className="flex items-center justify-center">
+                    <div className="shadow-inner rounded-full px-2 py-1 text-sz16">
+                      <span className="text-green">Buy</span> /{" "}
+                      <span className="text-red">Sell</span>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
+        <div className="bg-gray px-6 py-4 rounded-t-xl">
+          <div className="pl-4 text-blue text-sz30 font-bold font-pilat text-center">
+            Project Team Members & Developers
+          </div>
+        </div>
+        <div className="p-8 font-Manrope font-light flex flex-col space-y-8">
+          <div className="rounded-md shadow-inner flex flex-col p-6">
+            <div className="border-b border-blue pb-3 flex flex-row space-x-2">
+              <img src={info} alt="info"></img>
+              <div className="text-sz24 font-blue text-blue">Note!</div>
+            </div>
+            <div className="text-blue text-sz20">
+              Please be advised that verified check mark only applies to members
+              who are doxed or verified their identity for public view. WHD
+              reserves the right to verify individuals privately and provide
+              check mark to any projects, developers or project team members.
+              WHD also reserves the right to publish project team members
+              identity for public view, in the event of any fraudulent activity
+              or misconducts by any project team.
+            </div>
+          </div>
+          <div className="grid grid-cols-4 justify-between space-x-8">
+            {[0, 1, 2, 3].map((item) => (
+              <div className="rounded-xl shadow-xl flex flex-col items-center justify-center space-y-2 p-4 text-center">
+                <div className="rounded-full shadow-inner flex flex-col items-center justify-center">
+                  <img
+                    className="p-4 rounded-full"
+                    src={member1}
+                    alt="member1"
+                  ></img>
+                </div>
+                <div className="flex flex-row items-center space-x-2 text-sz22">
+                  <div>Mark Twain</div>
+                  <img src={verify} alt="verify"></img>
+                </div>
+                <div className="text-sz18 text-darkgray">
+                  CEO Hundred Finance
+                </div>
+                <div className="flex flex-row items-center space-x-8">
+                  <div className="shadow-inner rounded-full flex flex-col items-center justify-center">
+                    <div className="p-2">
+                      <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 18 18"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g clip-path="url(#clip0_1091_15042)">
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M11.6436 2.10466C10.3095 2.33853 9.25592 3.28482 8.90314 4.56599C8.84237 4.78666 8.82991 4.91763 8.82811 5.35425C8.82694 5.64223 8.83737 5.93973 8.8513 6.01531L8.87665 6.15281L8.65508 6.13311C7.21476 6.00513 6.04889 5.68434 4.88858 5.09673C3.81699 4.55406 2.70044 3.70202 2.01581 2.9045C1.91351 2.78534 1.81517 2.69255 1.79725 2.69836C1.77936 2.70413 1.70843 2.8324 1.63958 2.98342C1.16982 4.01377 1.2575 5.20497 1.8712 6.13013C2.05084 6.40091 2.34344 6.72087 2.5812 6.90645L2.82864 7.09958H2.69449C2.40758 7.09958 1.80759 6.94247 1.48545 6.78301C1.41406 6.74769 1.34368 6.71878 1.32906 6.71878C1.28288 6.71878 1.344 7.30045 1.41942 7.57859C1.71641 8.67415 2.55445 9.54047 3.66747 9.90255C3.85218 9.96265 3.98241 10.0196 3.95687 10.0291C3.80931 10.084 3.3245 10.1212 2.94795 10.1063L2.52518 10.0897L2.54627 10.1712C2.58218 10.3101 2.82361 10.7551 2.97385 10.9595C3.55189 11.7455 4.49554 12.2854 5.41655 12.357C5.55597 12.3678 5.67001 12.3876 5.67001 12.4008C5.67001 12.4545 4.93691 12.8954 4.48854 13.1114C3.46784 13.6031 2.45922 13.8158 1.27147 13.7898L0.666016 13.7766L0.837843 13.8813C1.0881 14.0338 1.84624 14.4052 2.18702 14.5423C4.0213 15.2803 6.16279 15.4483 8.18424 15.0129C11.1591 14.372 13.6064 12.3677 14.8424 9.55983C15.3709 8.3592 15.636 7.18015 15.6631 5.90958L15.6753 5.33838L15.9121 5.15372C16.2149 4.91756 16.5551 4.60286 16.8112 4.32196C17.0302 4.0818 17.3509 3.66714 17.3319 3.64868C17.3254 3.64239 17.2264 3.67435 17.112 3.71973C16.6788 3.89147 15.6736 4.13892 15.5234 4.11084C15.4863 4.10389 15.5131 4.07289 15.6103 4.01047C15.8571 3.85196 16.2981 3.41356 16.4854 3.14037C16.6481 2.90313 16.8861 2.43805 16.8871 2.35532C16.8874 2.3378 16.6868 2.41891 16.4414 2.53553C15.998 2.74634 15.4195 2.94946 14.9662 3.05358L14.7291 3.108L14.5308 2.92988C13.7652 2.2421 12.6605 1.92638 11.6436 2.10466Z"
+                            fill="#346DA1"
+                          />
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_1091_15042">
+                            <rect
+                              width="16.6667"
+                              height="16.6667"
+                              fill="white"
+                              transform="translate(0.666016 0.666992)"
+                            />
+                          </clipPath>
+                        </defs>
+                      </svg>
+                    </div>
+                  </div>
+                  <div className="shadow-inner rounded-full flex flex-col items-center justify-center">
+                    <div className="p-2">
+                      <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 18 18"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M7.07175 6.72675H9.85725V8.11425C10.2585 7.31625 11.2875 6.59925 12.8333 6.59925C15.7965 6.59925 16.5 8.18775 16.5 11.1023V16.5H13.5V11.766C13.5 10.1062 13.0988 9.17025 12.0773 9.17025C10.6605 9.17025 10.0717 10.179 10.0717 11.7653V16.5H7.07175V6.72675ZM1.9275 16.3725H4.9275V6.59925H1.9275V16.3725ZM5.35725 3.4125C5.35736 3.66396 5.30749 3.91293 5.21054 4.14494C5.11359 4.37695 4.97149 4.58738 4.7925 4.764C4.4298 5.12447 3.93886 5.32624 3.4275 5.325C2.91704 5.32466 2.42723 5.1234 2.064 4.76475C1.88566 4.58753 1.74404 4.37687 1.64726 4.14482C1.55048 3.91278 1.50043 3.66392 1.5 3.4125C1.5 2.90475 1.7025 2.41875 2.06475 2.06025C2.42766 1.70112 2.91768 1.49978 3.42825 1.5C3.93975 1.5 4.43025 1.70175 4.7925 2.06025C5.154 2.41875 5.35725 2.90475 5.35725 3.4125Z"
+                          fill="#346DA1"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                  <div className="shadow-inner rounded-full flex flex-col items-center justify-center">
+                    <div className="p-2">
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M18.3337 4.99967C18.3337 4.08301 17.5837 3.33301 16.667 3.33301H3.33366C2.41699 3.33301 1.66699 4.08301 1.66699 4.99967V14.9997C1.66699 15.9163 2.41699 16.6663 3.33366 16.6663H16.667C17.5837 16.6663 18.3337 15.9163 18.3337 14.9997V4.99967ZM16.667 4.99967L10.0003 9.16634L3.33366 4.99967H16.667ZM16.667 14.9997H3.33366V6.66634L10.0003 10.833L16.667 6.66634V14.9997Z"
+                          fill="#346DA1"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+                <div className="rounded-md shadow-sm flex flex-row">
+                  <div className="p-2 rounded-l-md bg-gray flex flex-col items-center justify-center">
+                    <img src={copy} alt="copy"></img>
+                  </div>
+                  <div className="p-2 flex flex-row items-center space-x-2">
+                    <div className="text-sz20 text-blue">0xd0e4...31da9</div>
+                    <img src={ether} alt="ether"></img>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
+        <div className="bg-gray px-6 py-4 rounded-t-xl">
+          <div className="pl-4 text-red text-sz30 font-bold font-pilat text-center">
+            Disclaimer
+          </div>
+        </div>
+        <div className="p-8 text-sz22 font-Manrope font-light">
+          Cryptocurrencies are speculative, complex and involve significant
+          risks – they are highly volatile and sensitive to secondary activity.
+          Performance is unpredictable and past performance is no guarantee of
+          future performance. Consider your own circumstances, and obtain your
+          own advice, before relying on this information. You should also verify
+          the nature of any product or service (including its legal status and
+          relevant regulatory requirements) and consult the relevant Regulators’
+          websites before making any decision.
         </div>
       </div>
     </div>

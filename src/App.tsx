@@ -8,6 +8,8 @@ import Footer from "./pages/Footer";
 import SafetyRatings from "./pages/SafetyRatings";
 import Audit from "./pages/Audit";
 import Rating from "./pages/Rating";
+import AuditItem from "./pages/AuditItem";
+
 
 const App = () => {
   return (
@@ -20,6 +22,7 @@ const App = () => {
             <Route path="/safety-ratings" element={<SafetyRatings />}></Route>
             <Route path="/audit" element={<Audit />}></Route>
             <Route path="/safety-ratings/rating" element={<Rating />}></Route>
+            <Route path="/audit/item" element={<AuditItem />}></Route>
         </Routes>
         <Footer></Footer>
       </div>

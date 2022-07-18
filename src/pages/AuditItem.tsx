@@ -6,19 +6,9 @@ import twitter from "../assets/images/footer/twitter_black.svg";
 import global from "../assets/images/footer/global.svg";
 import medium from "../assets/images/footer/medium.svg";
 import telegram from "../assets/images/footer/telegram.svg";
-import copy from "../assets/images/copy.svg";
-import pattern from "../assets/images/pattern.svg";
-import file from "../assets/images/file.svg";
-import check_t from "../assets/images/rating/check_t.svg";
 import CircleProgressBar from "../components/CircleProgressBar";
-import info from "../assets/images/dao/info.svg";
-import Doughnut from "../components/Doughnut";
-import line from "../assets/images/rating/line.svg";
-import info_small from "../assets/images/info.svg";
 import token_chart from "../assets/images/rating/token_chart.png";
 import icon1 from "../assets/images/rating/table/icon1.svg";
-import icon2 from "../assets/images/rating/table/icon2.svg";
-import ether from "../assets/images/rating/ether.svg";
 
 import member1 from "../assets/images/rating/members/member1.png";
 
@@ -375,12 +365,28 @@ const AuditItem = () => {
             by The HundredDAO to perform security assessments on the following
             smart contracts:
           </div>
-          <div className="grid grid-cols-3">
-            <div>
-              <ul>
-                <li>Access Control</li>
-              </ul>
-            </div>
+          <div className="px-6 text-sz22 text-blue flex flex-row justify-between">
+            <ul className="list-disc space-y-2">
+              <li>Access Control</li>
+              <li>Arbitrary token minting</li>
+              <li>Business Logics Review</li>
+              <li>Centralization of power</li>
+              <li>Code clones, functionality duplication</li>
+            </ul>
+            <ul className="list-disc space-y-2">
+              <li>Conditional Completion attack</li>
+              <li>Costly Loop</li>
+              <li>Ownership Takeover</li>
+              <li>Redundant fallback function</li>
+              <li>Reentrancy</li>
+            </ul>
+            <ul className="list-disc space-y-2">
+              <li>Remote code execution</li>
+              <li>User Balances manipulation</li>
+              <li>Logic Flaws</li>
+              <li>Scoping and Declarations</li>
+              <li>Integer Overflow and Underflow attacks</li>
+            </ul>
           </div>
         </div>
       </div>

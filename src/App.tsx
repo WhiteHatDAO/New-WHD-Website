@@ -9,12 +9,13 @@ import SafetyRatings from "./pages/SafetyRatings";
 import Audit from "./pages/Audit";
 import Rating from "./pages/Rating";
 import AuditItem from "./pages/AuditItem";
-
+import BlogPost1 from "./pages/BlogPost1";
+import BlogPost2 from "./pages/BlogPost2";
 
 const App = () => {
   return (
     <div className="background">
-      <div className="container mx-auto flex flex-col">
+      <div className="container flex flex-col mx-auto">
         <Navbar></Navbar>
         <Routes>
             <Route path="/" element={<Home/>}></Route>
@@ -23,6 +24,8 @@ const App = () => {
             <Route path="/audit" element={<Audit />}></Route>
             <Route path="/safety-ratings/rating" element={<Rating />}></Route>
             <Route path="/audit/item" element={<AuditItem />}></Route>
+            <Route path="/BlogPost1" element={<BlogPost1 />}></Route>
+            <Route path="/BlogPost2" element={<BlogPost2 />}></Route>
         </Routes>
         <Footer></Footer>
       </div>

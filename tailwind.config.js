@@ -12,6 +12,10 @@ module.exports = {
         'xl': '-15px -15px 20px 0 #fff, 15px 15px 20px 0 #C9CCDA',
         'inner': 'inset 7px 7px 7px 0 #C9CCDA, inset -7px -7px 7px 0 #fff',
         'inner-xl': 'inset -15px -15px 20px 0 #fff, inset 15px 15px 20px 0 #C9CCDA'
+      },
+      padding: {
+        border: '1px',
+        middle: '30px'
       }
     },
     colors: {
@@ -28,6 +32,7 @@ module.exports = {
       black: "#000000",
       purple: "#6D29FE",
       yellow: "#EBA10F",
+      grey: "#404040",
       current: "currentColor",
     },
     fontSize: {

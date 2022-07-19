@@ -17,5 +17,5 @@
     "jsx": "react-jsx"
   },
   "typeRoots": ["./types", "./node_modules/@types"],
-  "include": ["src", "types/react-donut-chart/index.d.ts"]
+  "include": ["src", "types/react-donut-chart/index.d.ts", "src/pages/.tsx"]
 }

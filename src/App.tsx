@@ -11,6 +11,7 @@ import Rating from "./pages/Rating";
 import AuditItem from "./pages/AuditItem";
 import BlogPost1 from "./pages/BlogPost1";
 import BlogPost2 from "./pages/BlogPost2";
+import TopicCreation from "./pages/TopicCreation";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
             <Route path="/audit/item" element={<AuditItem />}></Route>
             <Route path="/BlogPost1" element={<BlogPost1 />}></Route>
             <Route path="/BlogPost2" element={<BlogPost2 />}></Route>
+            <Route path="/TopicCreation" element={<TopicCreation />}></Route>
         </Routes>
         <Footer></Footer>
       </div>

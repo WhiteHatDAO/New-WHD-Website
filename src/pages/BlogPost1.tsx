@@ -8,7 +8,7 @@ import openfile from "../assets/images/blogpost/openfile.png"
 import line from "../assets/images/blogpost/line.png"
 import ellipse from "../assets/images/blogpost/ellipse.png"
 import dot from "../assets/images/blogpost/dot.png"
-import hand from "../assets/images/blogpost/hand.png"
+import like from "../assets/images/blogpost/like.png"
 import message from "../assets/images/blogpost/message.png"
 import web3 from "../assets/images/blogpost/web3.png"
 import web5 from "../assets/images/blogpost/web5.png"
@@ -217,7 +217,7 @@ const BlogPost1 = () => {
           <div className="mb-2 font-semibold leading-6 font-Manrope text-sz20 text-grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
           <div className="mb-4 font-medium leading-6 font-Manrope text-sz16 text-grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
           <div className="flex leading-6 font-Manrope text-sz16 text-blue">
-            <img src={hand} alt="hand" className="h-5 mr-2" /> 2
+            <img src={like} alt="like" className="h-5 mr-2" /> 2
             <img src={message} alt="message" className="h-5 ml-5 mr-2" /> 2
           </div>
         </div>
@@ -239,7 +239,7 @@ const BlogPost1 = () => {
           <div className="mb-4 font-medium leading-6 font-Manrope text-sz16 text-grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
           <img src={web3} alt="web3" className="mt-4 mb-5" />
           <div className="flex leading-6 font-Manrope text-sz16 text-blue">
-            <img src={hand} alt="hand" className="h-5 mr-2" /> 2
+            <img src={like} alt="like" className="h-5 mr-2" /> 2
             <img src={message} alt="message" className="h-5 ml-5 mr-2" /> 2
           </div>
         </div>
@@ -261,7 +261,7 @@ const BlogPost1 = () => {
           <div className="mb-4 font-medium leading-6 font-Manrope text-sz16 text-grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
           <img src={web5} alt="web5" className="mt-4 mb-5" />
           <div className="flex leading-6 font-Manrope text-sz16 text-blue">
-            <img src={hand} alt="hand" className="h-5 mr-2" /> 2
+            <img src={like} alt="like" className="h-5 mr-2" /> 2
           </div>
         </div>
         <div>

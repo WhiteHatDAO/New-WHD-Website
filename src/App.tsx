@@ -15,6 +15,10 @@ import TopicCreate from "./pages/TopicCreate";
 import TopicItem1 from "./pages/TopicShow/TopicItem1";
 import TopicItem2 from "./pages/TopicShow/TopicItem2";
 import TopicItem3 from "./pages/TopicShow/TopicItem3";
+import Summary from "./pages/Profile/Summary";
+import Activity from "./pages/Profile/Activity";
+import Notifications from "./pages/Profile/Notifications";
+import Settings from "./pages/Profile/Settings";
 
 const App = () => {
   return (
@@ -34,6 +38,10 @@ const App = () => {
             <Route path="/TopicItem2" element={<TopicItem2 />}></Route>
             <Route path="/TopicItem3" element={<TopicItem3 />}></Route>
             <Route path="/TopicCreate" element={<TopicCreate />}></Route>
+            <Route path="/Profile/Summary" element={<Summary />}></Route>
+            <Route path="/Profile/Activity" element={<Activity />}></Route>
+            <Route path="/Profile/Notifications" element={<Notifications />}></Route>
+            <Route path="/Profile/Settings" element={<Settings />}></Route>
         </Routes>
         <Footer></Footer>
       </div>

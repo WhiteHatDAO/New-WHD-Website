@@ -11,7 +11,10 @@ import Rating from "./pages/Rating";
 import AuditItem from "./pages/AuditItem";
 import BlogPost1 from "./pages/BlogPost1";
 import BlogPost2 from "./pages/BlogPost2";
-import TopicCreation from "./pages/TopicCreation";
+import TopicCreate from "./pages/TopicCreate";
+import TopicItem1 from "./pages/TopicShow/TopicItem1";
+import TopicItem2 from "./pages/TopicShow/TopicItem2";
+import TopicItem3 from "./pages/TopicShow/TopicItem3";
 
 const App = () => {
   return (
@@ -27,7 +30,10 @@ const App = () => {
             <Route path="/audit/item" element={<AuditItem />}></Route>
             <Route path="/BlogPost1" element={<BlogPost1 />}></Route>
             <Route path="/BlogPost2" element={<BlogPost2 />}></Route>
-            <Route path="/TopicCreation" element={<TopicCreation />}></Route>
+            <Route path="/TopicItem1" element={<TopicItem1 />}></Route>
+            <Route path="/TopicItem2" element={<TopicItem2 />}></Route>
+            <Route path="/TopicItem3" element={<TopicItem3 />}></Route>
+            <Route path="/TopicCreate" element={<TopicCreate />}></Route>
         </Routes>
         <Footer></Footer>
       </div>

@@ -33,6 +33,7 @@ module.exports = {
       purple: "#6D29FE",
       yellow: "#EBA10F",
       grey: "#404040",
+      darkgrey: "#A0A1AD",
       current: "currentColor",
     },
     fontSize: {

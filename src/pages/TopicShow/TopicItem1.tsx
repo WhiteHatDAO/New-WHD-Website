@@ -1,20 +1,19 @@
-import whitehatlogo from "../assets/images/blogpost/what_shield1.png"
-import people from "../assets/images/blogpost/people.png"
-import chatBubble from "../assets/images/blogpost/chat-bubble.png"
-import chart from "../assets/images/blogpost/chart.png"
-import line from "../assets/images/blogpost/line.png"
-import ellipse from "../assets/images/blogpost/ellipse.png"
-import ellipse2 from "../assets/images/blogpost/ellipse2.png"
-import dot from "../assets/images/blogpost/dot.png"
-import like from "../assets/images/blogpost/like.png"
-import dislike from "../assets/images/blogpost/dislike.png"
-import message from "../assets/images/blogpost/message.png"
-import share from "../assets/images/blogpost/share.png"
-import dummy from "../assets/images/blogpost/dummy.png"
-import reply from "../assets/images/blogpost/reply.png"
-import laptop from "../assets/images/blogpost/laptop.png"
+import whitehatlogo from "../../assets/images/blogpost/what_shield1.png"
+import people from "../../assets/images/blogpost/people.png"
+import chatBubble from "../../assets/images/blogpost/chat-bubble.png"
+import chart from "../../assets/images/blogpost/chart.png"
+import line from "../../assets/images/blogpost/line.png"
+import ellipse from "../../assets/images/blogpost/ellipse.png"
+import ellipse2 from "../../assets/images/blogpost/ellipse2.png"
+import dot from "../../assets/images/blogpost/dot.png"
+import like from "../../assets/images/blogpost/like.png"
+import dislike from "../../assets/images/blogpost/dislike.png"
+import message from "../../assets/images/blogpost/message.png"
+import share from "../../assets/images/blogpost/share.png"
+import dummy from "../../assets/images/blogpost/dummy.png"
+import reply from "../../assets/images/blogpost/reply.png"
 
-const TopicCreation = () => {
+const TopicItem1 = () => {
   return (
     <div className="flex my-20 gap-x-16">
       <div className="w-2/3 border shadow-xl p-middle rounded-xl bg-lightgray border-blue">
@@ -45,9 +44,6 @@ const TopicCreation = () => {
             <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
             Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
           </div>
-          {/* topic image */}
-          {/* <img src={laptop} alt="laptop" className="w-full mb-8" />  */}
-          
           <div className="flex justify-between mb-5 leading-6 font-Manrope text-sz16 text-blue">
             <div className="flex">
               <img src={like} alt="like" className="h-6 mr-2" /> 2 Likes
@@ -147,4 +143,4 @@ const TopicCreation = () => {
   );
 };
 
-export default TopicCreation;
+export default TopicItem1;

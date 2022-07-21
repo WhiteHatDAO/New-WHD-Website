@@ -95,14 +95,14 @@ const auditedProjects = [
 
 const Home = () => {
   return (
-    <div className="py-4 flex flex-col">
-      <div className="grid grid-cols-12 space-x-8">
-        <div className="col-span-7 flex flex-col justify-between">
+    <div className="p-4 flex flex-col">
+      <div className="grid grid-cols-12 gap-8">
+        <div className="col-span-12 xl:col-span-7 flex flex-col justify-between">
           <div className="bg-lightgray rounded-xl shadow-xl px-4 pt-8 pb-6 flex flex-col space-y-4">
-            <div className="gradient-text text-sz60 font-black">
+            <div className="gradient-text text-sz28 sm:text-sz30 md:text-sz40 xl:text-sz60 font-black">
               WHITE HAT DAO
             </div>
-            <div className="font-Manrope text-sz22 font-light">
+            <div className="font-Manrope text-sz16  md:text-sz22 font-light">
               Safety and security should be at the heart of all platforms,
               especially pubic goods services, which is why we are passionate
               about providing technical support and high level security
@@ -110,8 +110,11 @@ const Home = () => {
             </div>
             <div className="z-10 cursor-pointer">
               <div className="shadow-sm text-2xl px-8 py-2 border rounded-xl gradient-box text-sz18 flex flex-col items-center">
-                <div className="text-blue">
+                <div className="hidden md:block text-blue">
                   Join the WHD Discussion on Governance / Proposals / Blogposts
+                </div>
+                <div className="block md:hidden text-blue">
+                  Join the WHD Discussion
                 </div>
               </div>
             </div>
@@ -119,19 +122,19 @@ const Home = () => {
           <div className="mt-8 bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-center">
               <img src={alertImage} alt="alert"></img>
-              <div className="pl-4 text-blue text-sz24 font-bold font-pilat">
+              <div className="pl-4 text-blue text-sz16 md:text-sz24 font-bold font-pilat">
                 Announcements & Updates
               </div>
             </div>
             <div className="py-6 px-4 font-Manrope flex flex-col space-y-4 rounded-xl">
               <div className="px-4 py-2 bg-gray rounded-xl flex flex-col">
-                <div className="text-sz20 flex flex-row items-center justify-between">
+                <div className="text-sz14 md:text-sz20 flex flex-row items-center justify-between">
                   <div className="font-bold">
                     Defi Platform; Xend Finance exploit averted
                   </div>
                   <div className="text-darkgray font-light">26-04-2022</div>
                 </div>
-                <div className="text-sz20 flex flex-row items-center justify-between">
+                <div className="text-sz14 md:text-sz20 flex flex-row items-center justify-between">
                   <div className="flex flex-row items-center">
                     <div className="pr-2">Defi loan scam</div>
                     <img src={infoImage} alt="info"></img>
@@ -148,13 +151,13 @@ const Home = () => {
               </div>
 
               <div className="px-4 py-2 bg-gray rounded-xl flex flex-col">
-                <div className="text-sz20 flex flex-row items-center justify-between">
+                <div className="text-sz14 md:text-sz20 flex flex-row items-center justify-between">
                   <div className="font-bold">
                     White Hat DAO, token launch. Airdrop to active ...
                   </div>
                   <div className="text-darkgray font-light">26-07-2022</div>
                 </div>
-                <div className="text-sz20 flex flex-row items-center justify-between">
+                <div className="text-sz14 md:text-sz20 flex flex-row items-center justify-between">
                   <div className="flex flex-row items-center">
                     <div className="pr-2">Token airdrop</div>
                     <img src={infoImage} alt="info"></img>
@@ -168,13 +171,13 @@ const Home = () => {
               </div>
 
               <div className="px-4 py-2 bg-gray rounded-xl flex flex-col">
-                <div className="text-sz20 flex flex-row items-center justify-between">
+                <div className="text-sz14 md:text-sz20 flex flex-row items-center justify-between">
                   <div className="font-bold">
                     Defi Platform; Xend Finance exploit averted
                   </div>
                   <div className="text-darkgray font-light">26-04-2022</div>
                 </div>
-                <div className="text-sz20 flex flex-row items-center justify-between">
+                <div className="text-sz14 md:text-sz20 flex flex-row items-center justify-between">
                   <div className="flex flex-row items-center">
                     <div className="pr-2">Token airdrop</div>
                     <img src={infoImage} alt="info"></img>
@@ -193,9 +196,9 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className="col-span-5 bg-lightgray rounded-xl shadow-xl flex flex-col">
+        <div className="col-span-12 xl:col-span-5 bg-lightgray rounded-xl shadow-xl flex flex-col">
           <div className="bg-gray px-6 py-4 rounded-t-xl">
-            <div className="pl-4 text-blue text-sz24 font-bold font-pilat">
+            <div className="pl-4 text-blue text-sz16 md:text-sz24 font-bold font-pilat">
               Recently Audited Projects
             </div>
           </div>
@@ -203,12 +206,12 @@ const Home = () => {
             {auditedProjects.map((item, index) => (
               <div className="px-4 py-2 bg-gray rounded-xl">
                 <div className="px-4 py-2 flex flex-row items-center justify-between">
-                  <div className="text-blue text-sz20">{index + 1}</div>
+                  <div className="text-blue text-sz14 md:text-sz20">{index + 1}</div>
                   <img src={idolsNFTImage} alt="idolsNFT"></img>
-                  <div className="text-sz20 font-semibold">{item.text}</div>
+                  <div className="text-sz16 md:text-sz20 font-semibold">{item.text}</div>
                   <div className="flex flex-row items-center space-x-2">
                     <img src={copyImage} alt="copy"></img>
-                    <div className="bg-lightgray w-5 flex flex-col items-center rounded-md">
+                    <div className="text-sz12 bg-lightgray w-5 flex flex-col items-center rounded-md">
                       {item.number > 0 ? item.number : " "}
                     </div>
                   </div>
@@ -225,7 +228,7 @@ const Home = () => {
         </div>
       </div>
       <div className="py-10 flex flex-col">
-        <div className="text-black font-Manrope font-light flex flex-row items-center space-x-4">
+        <div className="text-black font-Manrope font-light flex flex-row items-center flex-wrap gap-4">
           <select
             id="role"
             className="w-72 bg-transparent border border-blue text-sz18 rounded-lg block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -352,10 +355,10 @@ const Home = () => {
         </div>
       </div>
       <div className="my-8 w-full flex flex-col">
-        <div className="text-center font-pilat text-sz30 font-semibold">
+        <div className="text-center font-pilat text-sz20 md:text-sz30 font-semibold">
           SERVICES
         </div>
-        <div className="mt-8 grid grid-cols-3 space-x-12 text-center">
+        <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-12 text-center">
           <div className="p-4 bg-gray border border-blue rounded-xl shadow-xl flex flex-col items-center justify-between space-y-2">
             <img className="w-full" src={servImage1} alt="service1"></img>
             <div className="font-pilat font-bold text-blue text-sz22">
@@ -430,7 +433,7 @@ const Home = () => {
         <div className="text-center font-pilat text-sz30 font-semibold">
           Blogposts
         </div>
-        <div className="mt-8 font-Manrope grid grid-cols-4 space-x-8">
+        <div className="mt-8 font-Manrope grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {[postImage1, postImage2, postImage3, postImage4].map((item) => (
             <div className="shadow-xl flex flex-col border rounded-b-xl border-none">
               <img src={item} alt="post1"></img>

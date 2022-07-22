@@ -49,18 +49,18 @@ const ambassadors = [
 
 const Dao = () => {
   return (
-    <div className="py-10 flex flex-col">
+    <div className="px-4 md:px-0 py-10 flex flex-col">
       <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
         <div className="bg-gray px-6 py-4 rounded-t-xl">
-          <div className="pl-4 text-blue text-sz30 font-bold font-pilat text-center">
+          <div className="pl-4 text-blue text-sz20 md:text-sz30 font-bold font-pilat text-center">
             White Hat DAO Governance Framework
           </div>
         </div>
         <div className="p-8 flex flex-col font-Manrope font-light space-y-4">
-          <div className="rounded-md shadow-sm w-56 px-8 py-2 font-pilat font-bold text-pink text-sz24">
+          <div className="rounded-md shadow-sm w-56 px-8 py-2 text-center font-pilat font-bold text-pink text-sz16 md:text-sz24">
             Summary
           </div>
-          <div className="text-sz22">
+          <div className="text-sz16 md:text-sz22">
             White Hat DAO is a decentralized autonomous organization. Governed
             by a clear set of rules and executes actions automatically. Thus,
             effectively disregarding intermediaries. White Hat DAO controlled by
@@ -70,9 +70,9 @@ const Dao = () => {
             Snapshot, the token holders will vote on whether to approve or
             reject these proposal.
           </div>
-          <div className="p-6 rounded-md shadow-inner flex flex-row space-x-4">
+          <div className="p-6 rounded-md shadow-inner flex flex-row items-start md:items-center space-x-4">
             <img src={info} alt="info"></img>
-            <div className="text-sz20 text-blue">
+            <div className="text-sz16 md:text-sz20 text-blue">
               White Hat DAO controlled by Governance token holders. It does not
               have any employees and will utilize the industry standard setup of
               Gnosis Safe, Snapshot, off-chain governance and multi-sig
@@ -81,10 +81,10 @@ const Dao = () => {
             </div>
           </div>
           <div className="flex flex-col space-y-4">
-            <div className="font-pilat font-bold text-sz24 text-pink text-center">
-              key Governance Design Choices
+            <div className="font-pilat font-bold text-sz20 md:text-sz24 text-pink text-center">
+              Key Governance Design Choices
             </div>
-            <div className="my-8 shadow-xl rounded-lg relative overflow-x-auto flex flex-col text-sz20 font-Manrope font-bold text-center">
+            <div className="my-8 shadow-xl rounded-lg relative overflow-x-auto flex flex-col text-sz14 md:text-sz20 font-Manrope font-bold text-center">
               <div className="py-4 bg-gray text-blue grid grid-cols-2">
                 <div>Component or Feature</div>
                 <div>Phase 1 Design</div>
@@ -112,8 +112,8 @@ const Dao = () => {
                 <div className="py-2">Multi-sig</div>
               </div>
             </div>
-            <div className="pt-8 z-10 cursor-pointer">
-              <div className="shadow-sm text-2xl w-2/3 py-4 border rounded-xl gradient-box text-sz22 font-bold flex flex-col items-center">
+            <div className="pt-2 md:pt-8 z-10 cursor-pointer">
+              <div className="shadow-sm text-2xl w-2/3 py-4 border rounded-xl gradient-box text-sz16 md:text-sz22 font-bold flex flex-col items-center">
                 Join our Snapshot Space
               </div>
             </div>
@@ -122,12 +122,12 @@ const Dao = () => {
       </div>
       <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
         <div className="bg-gray px-6 py-4 rounded-t-xl">
-          <div className="pl-4 text-blue text-sz30 font-bold font-pilat text-center">
+          <div className="pl-4 text-blue text-sz20 md:text-sz30 font-bold font-pilat text-center">
             Governance Policy & Constitution
           </div>
         </div>
         <div className="p-8 flex flex-col font-Manrope font-light space-y-4">
-          <div className="text-sz22">
+          <div className="text-sz16 md:text-sz22">
             White Hat DAO is a decentralized autonomous organization. Governed
             by a clear set of rules and executes actions automatically. Thus,
             effectively disregarding intermediaries. White Hat DAO controlled by
@@ -142,17 +142,17 @@ const Dao = () => {
       </div>
       <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
         <div className="bg-gray px-6 py-4 rounded-t-xl">
-          <div className="pl-4 text-blue text-sz30 font-bold font-pilat text-center">
+          <div className="pl-4 text-blue text-sz20 md:text-sz30 font-bold font-pilat text-center">
             Governance Strategies
           </div>
         </div>
         <div className="p-8 flex flex-col items-start font-Manrope font-light space-y-4">
           <div className="z-10 cursor-pointer">
-            <div className="shadow-sm w-80 py-2 border rounded-xl gradient-box text-sz24 font-bold flex flex-col items-start">
+            <div className="shadow-sm w-80 py-2 border rounded-xl gradient-box text-sz16 md:text-sz24 font-bold flex flex-col items-start">
               <div className="text-blue">Snapshot Strategy</div>
             </div>
           </div>
-          <div className="text-sz22">
+          <div className="text-sz16 md:text-sz22">
             Our initial settings for voting weight of each token would be ( 1
             WHD gov token = 1 vote ) weight of voting power. Future strategies
             may include: allocating vote weight to LP tokens to enable gov token
@@ -161,18 +161,18 @@ const Dao = () => {
           </div>
 
           <div className="z-10 cursor-pointer">
-            <div className="shadow-sm w-80 py-2 border rounded-xl gradient-box text-sz24 font-bold flex flex-col items-start">
+            <div className="shadow-sm w-80 py-2 border rounded-xl gradient-box text-sz16 md:text-sz24 font-bold flex flex-col items-start">
               <div className="text-blue">Proposal Threshold</div>
             </div>
           </div>
-          <div className="text-sz22">
+          <div className="text-sz16 md:text-sz22">
             "Proposal Threshold" is typically defined as the number of votes
             required to create a proposal. In White Hat DAO Snapshot Space this
             is done through a visual filter, to only display proposals from
             users who have at least the threshold number of gov tokens in their
             address.
           </div>
-          <div className="text-sz22">
+          <div className="text-sz16 md:text-sz22">
             <span className="font-semibold">Snapshot Strategy</span> = 1 Gov
             Token = 1 Vote Weight <br />
             <span className="font-semibold">Proposal Threshold</span> = 5% of
@@ -185,24 +185,24 @@ const Dao = () => {
             = ( 30% of total token supply ) to pass any proposal.
           </div>
 
-          <div className="w-full p-6 rounded-md shadow-inner flex flex-row space-x-4">
+          <div className="w-full p-6 rounded-md shadow-inner flex flex-row items-start md:items-center space-x-4">
             <img src={info} alt="info"></img>
-            <div className="text-sz20 text-blue">
+            <div className="text-sz16 md:text-sz20 text-blue">
               If this minimum vote weight is not met on a proposal, the vote
               will be unsuccessful even if the majority of voters voted yes.
             </div>
           </div>
 
-          <div className="w-full p-6 rounded-md shadow-inner flex flex-row space-x-4">
+          <div className="w-full p-6 rounded-md shadow-inner flex flex-row items-start md:items-center space-x-4">
             <img src={info} alt="info"></img>
-            <div className="text-sz20 text-blue">
+            <div className="text-sz16 md:text-sz20 text-blue">
               In Snapshot, the above parameters are policies and not enforced by
               code. White Hat DAO will not recognize any proposals that do not
               comply with the above settings.
             </div>
           </div>
 
-          <div className="text-sz22">
+          <div className="text-sz16 md:text-sz22">
             The above settings can be changed via community discussion and
             snapshot voting in accordance with the already existing rules and
             regulation.
@@ -211,13 +211,13 @@ const Dao = () => {
       </div>
       <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
         <div className="bg-gray px-6 py-4 rounded-t-xl">
-          <div className="pl-4 text-blue text-sz30 font-bold font-pilat text-center">
+          <div className="pl-4 text-blue text-sz20 md:text-sz30 font-bold font-pilat text-center">
             Core value
           </div>
         </div>
-        <div className="p-8 flex flex-col font-Manrope space-y-4 text-sz22 font-light">
-          <div className="flex flex-row items-center space-x-2">
-            <div className="px-2 py-1 rounded-full shadow-inner font-bold">
+        <div className="p-8 flex flex-col font-Manrope space-y-4 text-sz16 md:text-sz22 font-light">
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
+            <div className="px-2 py-1 text-sz14 md:text-sz22 rounded-full shadow-inner font-bold">
               Promoting Safety & Security
             </div>
             <div>
@@ -226,8 +226,8 @@ const Dao = () => {
             </div>
           </div>
 
-          <div className="flex flex-row items-center space-x-2">
-            <div className="px-2 py-1 rounded-full shadow-inner font-bold">
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
+            <div className="px-2 py-1 text-sz14 md:text-sz22 rounded-full shadow-inner font-bold">
               Transparency
             </div>
             <div>
@@ -236,15 +236,15 @@ const Dao = () => {
             </div>
           </div>
 
-          <div className="flex flex-row items-center space-x-2">
-            <div className="px-2 py-1 rounded-full shadow-inner font-bold">
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
+            <div className="px-2 py-1 text-sz14 md:text-sz22 rounded-full shadow-inner font-bold">
               Self-Sovereignty
             </div>
             <div>-We enable individuals to decide what they work on</div>
           </div>
 
-          <div className="flex flex-row items-center space-x-2">
-            <div className="px-2 py-1 rounded-full shadow-inner font-bold">
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
+            <div className="px-2 py-1 text-sz14 md:text-sz22 rounded-full shadow-inner font-bold">
               Fair Compensation
             </div>
             <div>
@@ -252,8 +252,8 @@ const Dao = () => {
             </div>
           </div>
 
-          <div className="flex flex-row items-center space-x-2">
-            <div className="px-2 py-1 rounded-full shadow-inner font-bold">
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
+            <div className="px-2 py-1 text-sz14 md:text-sz22 rounded-full shadow-inner font-bold">
               Integrity
             </div>
             <div>
@@ -262,8 +262,8 @@ const Dao = () => {
             </div>
           </div>
 
-          <div className="flex flex-row items-center space-x-2">
-            <div className="px-2 py-1 rounded-full shadow-inner font-bold">
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
+            <div className="px-2 py-1 text-sz14 md:text-sz22 rounded-full shadow-inner font-bold">
               Honesty
             </div>
             <div>
@@ -272,8 +272,8 @@ const Dao = () => {
             </div>
           </div>
 
-          <div className="flex flex-row items-center space-x-2">
-            <div className="px-2 py-1 rounded-full shadow-inner font-bold">
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
+            <div className="px-2 py-1 text-sz14 md:text-sz22 rounded-full shadow-inner font-bold">
               Curiosity
             </div>
             <div>
@@ -285,17 +285,17 @@ const Dao = () => {
       </div>
       <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
         <div className="bg-gray px-6 py-4 rounded-t-xl">
-          <div className="pl-4 text-blue text-sz30 font-bold font-pilat text-center">
+          <div className="pl-4 text-blue text-sz20 md:text-sz30 font-bold font-pilat text-center">
             Contributors Responsibilities
           </div>
         </div>
-        <div className="p-8 flex flex-col items-start font-Manrope font-light space-y-4">
+        <div className="p-4 md:p-8 flex flex-col items-start font-Manrope font-light space-y-4">
           <div className="z-10 cursor-pointer">
-            <div className="shadow-sm w-80 py-2 border rounded-xl gradient-box text-sz24 font-bold flex flex-col items-start">
+            <div className="shadow-sm w-40 md:w-80 py-2 border rounded-xl gradient-box text-sz16 md:text-sz24 font-bold flex flex-col items-start">
               <div>Overview</div>
             </div>
           </div>
-          <div className="text-sz22">
+          <div className="text-sz16 md:text-sz22">
             The nature and scope of this project is enormous. It will require a
             team of dedicated and highly committed individuals to keep things
             running. For the purposes of promoting accountability and enhancing
@@ -303,31 +303,31 @@ const Dao = () => {
             champions willing to stake time and put in the sweat to get the
             project running on a daily basis.
           </div>
-          <div className="w-full grid grid-cols-2 space-x-10">
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="flex flex-col space-y-10">
               <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
                 <div className="bg-gray px-6 py-4 rounded-t-xl">
-                  <div className="pl-4 text-blue text-sz22 font-bold font-pilat text-center">
+                  <div className="pl-4 text-blue text-sz20 md:text-sz22 font-bold font-pilat text-center">
                     Administration's Responsibilities
                   </div>
                 </div>
-                <div className="p-6 flex flex-col items-start font-Manrope font-light space-y-4">
+                <div className="p-4 md:p-6 flex flex-col items-start font-Manrope font-light gap-4">
                   {responsibilities.map((item) => (
                     <div className="w-full py-1 border-b border-gray flex flex-row items-center space-x-4">
                       <Circle></Circle>
-                      <div className="font-Manrope text-sz20">{item}</div>
+                      <div className="font-Manrope text-sz16 md:text-sz20">{item}</div>
                     </div>
                   ))}
                 </div>
               </div>
               <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
                 <div className="bg-gray px-6 py-4 rounded-t-xl">
-                  <div className="pl-4 text-blue text-sz22 font-bold font-pilat text-center">
+                  <div className="pl-4 text-blue text-sz20 md:text-sz22 font-bold font-pilat text-center">
                     Who can apply for the ambassador role ?
                   </div>
                 </div>
                 <div className="p-6 flex flex-col items-start font-Manrope font-light space-y-4">
-                  <div className="p-2 rounded-md bg-gray text-sz18">
+                  <div className="p-2 rounded-md bg-gray text-sz16 md:text-sz18">
                     Anyone can apply to become an ambassador, so long as they
                     can positively contribute to the project and share the same
                     values / principles. White Hat DAO will be accepting

@@ -30,14 +30,10 @@ const AuditItem = () => {
             <div className="flex flex-row items-center space-x-4">
               <div className="px-4 py-1 rounded-full shadow-inner">NFT</div>
               <div className="px-4 py-1 rounded-full shadow-inner">Staking</div>
-              <div className="px-4 py-1 rounded-full shadow-inner">
-                Marketplace
-              </div>
+              <div className="px-4 py-1 rounded-full shadow-inner">Marketplace</div>
               <div className="px-4 py-1 rounded-full shadow-inner">NFT</div>
               <div className="px-4 py-1 rounded-full shadow-inner">Staking</div>
-              <div className="px-4 py-1 rounded-full shadow-inner">
-                Marketplace
-              </div>
+              <div className="px-4 py-1 rounded-full shadow-inner">Marketplace</div>
             </div>
           </div>
         </div>

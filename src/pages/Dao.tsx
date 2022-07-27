@@ -344,12 +344,12 @@ const Dao = () => {
             <div className="flex flex-col space-y-10 justify-between">
               <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
                 <div className="bg-gray px-6 py-4 rounded-t-xl">
-                  <div className="pl-4 text-blue text-sz22 font-bold font-pilat text-center">
+                  <div className="pl-4 text-blue text-sz20 md:text-sz22 font-bold font-pilat text-center">
                     Developers Responsibilities
                   </div>
                 </div>
                 <div className="p-6 flex flex-col items-start font-Manrope font-light space-y-4">
-                  <div className="p-2 rounded-md bg-gray text-sz18">
+                  <div className="p-2 rounded-md bg-gray text-sz16 md:text-sz20">
                     Devs will be responsible for designing, implementing, and
                     creating smart contracts and integration them in the
                     platform. And maintain the protocol with up to date
@@ -358,14 +358,14 @@ const Dao = () => {
                   {dev_responsibilities.map((item) => (
                     <div className="w-full py-1 border-b border-gray flex flex-row items-center space-x-4">
                       <Circle></Circle>
-                      <div className="font-Manrope text-sz20">{item}</div>
+                      <div className="font-Manrope text-sz16 md:text-sz20">{item}</div>
                     </div>
                   ))}
                 </div>
               </div>
               <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
                 <div className="bg-gray px-6 py-4 rounded-t-xl">
-                  <div className="pl-4 text-blue text-sz22 font-bold font-pilat text-center">
+                  <div className="pl-4 text-blue text-sz20 md:text-sz22 font-bold font-pilat text-center">
                     Community Ambassadors
                   </div>
                 </div>
@@ -373,7 +373,7 @@ const Dao = () => {
                   {ambassadors.map((item) => (
                     <div className="w-full py-1 border-b border-gray flex flex-row items-center space-x-4">
                       <Circle></Circle>
-                      <div className="font-Manrope text-sz20">{item}</div>
+                      <div className="font-Manrope text-sz16 md:text-sz20">{item}</div>
                     </div>
                   ))}
                 </div>
@@ -384,11 +384,11 @@ const Dao = () => {
       </div>
       <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
         <div className="bg-gray px-6 py-4 rounded-t-xl">
-          <div className="pl-4 text-pink text-sz30 font-bold font-pilat text-center">
+          <div className="pl-4 text-pink text-sz20 md:text-sz30 font-bold font-pilat text-center">
             A message from White Hat DAO
           </div>
         </div>
-        <div className="p-6 flex flex-col items-start font-Manrope font-light text-sz22 space-y-4">
+        <div className="p-6 flex flex-col items-start font-Manrope font-light text-sz16 md:text-sz22 space-y-4">
           Devs will be responsible for designing, implementing, and creating
           smart contracts and integration them in the platform. And maintain the
           protocol with up to date blockchain technology in the market.

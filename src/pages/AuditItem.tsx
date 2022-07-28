@@ -14,26 +14,30 @@ import member1 from "../assets/images/rating/members/member1.png";
 
 const AuditItem = () => {
   return (
-    <div className="my-10 flex flex-col">
-      <div className="flex flex-row items-end justify-between">
-        <div className="flex flex-col space-y-4">
+    <div className="mx-4 my-10 flex flex-col">
+      <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-4">
+        <div className="flex flex-col gap-4">
           <div className="flex flex-row items-center space-x-2">
             <img src={idolNFtImage} alt="idol"></img>
             <div className="flex flex-row items-start space-x-1">
-              <div className="font-pilat font-bold text-sz40">
+              <div className="font-pilat font-bold text-sz20 md:text-sz40">
                 Hundred Finance
               </div>
               <img className="mt-1" src={verify} alt="verify"></img>
             </div>
           </div>
           <div className="font-Manrope text-sz12 font-light flex flex-row items-center justify-between">
-            <div className="flex flex-row items-center space-x-4">
+            <div className="flex flex-row items-center flex-wrap gap-4">
               <div className="px-4 py-1 rounded-full shadow-inner">NFT</div>
               <div className="px-4 py-1 rounded-full shadow-inner">Staking</div>
-              <div className="px-4 py-1 rounded-full shadow-inner">Marketplace</div>
+              <div className="px-4 py-1 rounded-full shadow-inner">
+                Marketplace
+              </div>
               <div className="px-4 py-1 rounded-full shadow-inner">NFT</div>
               <div className="px-4 py-1 rounded-full shadow-inner">Staking</div>
-              <div className="px-4 py-1 rounded-full shadow-inner">Marketplace</div>
+              <div className="px-4 py-1 rounded-full shadow-inner">
+                Marketplace
+              </div>
             </div>
           </div>
         </div>
@@ -60,26 +64,28 @@ const AuditItem = () => {
           </div>
         </div>
       </div>
-      <div className="my-10 grid grid-cols-3 space-x-8">
-        <div className="shadow-xl rounded-xl col-span-2 p-8 font-Manrope font-light flex flex-col justify-center space-y-8">
-          <div className="text-sz24">
+      <div className="my-10 w-full grid grid-cols-1 xl:grid-cols-3 gap-8 ">
+        <div className="shadow-xl border border-blue rounded-xl col-span-2 p-8 font-Manrope font-light flex flex-col justify-center gap-4 md:gap-8">
+          <div className="text-sz16 md:text-sz24">
             Hundred Finance is a decentralized application (dApp) that enables
             the lending and borrowing of crypto- currencies. A multi-chain
             protocol, it integrates with Chainlink oracles to ensure market
             health and stability, while specializing in providing markets for
             long-tail assets.
           </div>
-          <div className="p-4 bg-gray rounded-xl flex flex-row items-center justify-between space-x-8">
-            <div className="rounded-full shadow-xl">
-              <CircleProgressBar
-                sqSize={180}
-                percentage={88}
-                strokeWidth={28}
-                type={1}
-              ></CircleProgressBar>
+          <div className="p-4 bg-gray rounded-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-8">
+            <div className="w-full flex flex-col items-center">
+              <div className="rounded-full shadow-xl">
+                <CircleProgressBar
+                  sqSize={180}
+                  percentage={88}
+                  strokeWidth={28}
+                  type={1}
+                ></CircleProgressBar>
+              </div>
             </div>
 
-            <div className="font-Manrope font-light flex flex-col space-y-8">
+            <div className="font-Manrope font-light flex flex-col gap-4 md:gap-8">
               <div className="flex flex-col">
                 <div className="text-darkgray text-sz16">Platform</div>
                 <div className="text-sz24">ETH (Multichain)</div>
@@ -90,7 +96,7 @@ const AuditItem = () => {
               </div>
             </div>
 
-            <div className="font-Manrope font-light flex flex-col space-y-8">
+            <div className="font-Manrope font-light flex flex-col gap-4 md:gap-8">
               <div className="flex flex-col">
                 <div className="text-darkgray text-sz16">Codebase</div>
                 <div className="flex flex-row items-center space-x-2">
@@ -136,7 +142,7 @@ const AuditItem = () => {
             </div>
           </div>
         </div>
-        <div className="col-span-1 shadow-xl rounded-xl font-Manrope font-light flex flex-col space-y-4">
+        <div className="w-full col-span-1 shadow-xl rounded-xl font-Manrope font-light flex flex-col space-y-4">
           <div className="px-8 pt-8 flex flex-col space-y-4">
             <div className="grid grid-cols-2">
               <div className="flex flex-col space-y-2">
@@ -241,12 +247,12 @@ const AuditItem = () => {
       </div>
       <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
         <div className="bg-gray px-6 py-4 rounded-t-xl">
-          <div className="pl-4 text-blue text-sz30 font-bold font-pilat">
+          <div className="pl-4 text-blue text-center md:text-left text-sz20 md:text-sz30 font-bold font-pilat">
             Price Data
           </div>
         </div>
-        <div className="p-8 font-Manrope font-light grid grid-cols-4 space-x-8">
-          <div className="col-span-1 p-6 w-full rounded-xl bg-gray flex flex-col space-y-4">
+        <div className="p-8 font-Manrope font-light grid grid-cols-1 md:grid-cols-4 space-x-0 md:space-x-4 space-y-4 md:space-y-0">
+          <div className=" col-span-1 p-6 w-full rounded-xl bg-gray flex flex-col space-y-4">
             <div className="pb-4 text-blue text-sz16 border-b border-blue">
               Hundred Finance Price Data
             </div>
@@ -310,12 +316,12 @@ const AuditItem = () => {
       </div>
       <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
         <div className="bg-gray px-6 py-4 rounded-t-xl">
-          <div className="pl-4 text-blue text-sz30 font-bold font-pilat">
+          <div className="pl-4 text-blue text-sz20 md:text-sz30 font-bold font-pilat">
             Project Scope
           </div>
         </div>
-        <div className="font-Manrope font-light flex flex-col space-y-6">
-          <div className="p-4 grid grid-cols-3 text-center text-sz24 font-bold">
+        <div className="font-Manrope font-light flex flex-col space-y-6 overflow-auto">
+          <div className="p-4 grid grid-cols-3 text-center text-sz16 md:text-sz24 font-bold">
             <div className="flex flex-col space-y-4">
               <div className="text-blue">Source Code</div>
               <div>GaugeControllerV2.vy</div>
@@ -350,18 +356,18 @@ const AuditItem = () => {
       </div>
       <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
         <div className="bg-gray px-6 py-4 rounded-t-xl">
-          <div className="pl-4 text-blue text-sz30 font-bold font-pilat">
+          <div className="pl-4 text-blue text-sz20 md:text-sz30 font-bold font-pilat">
             Methodology
           </div>
         </div>
         <div className="p-6 flex flex-col font-Manrope font-light space-y-4">
-          <div className="text-sz24">
+          <div className="text-sz16 md:text-sz24">
             White Hat DAO auditing team reviewed the code base of “HundredDAO”
             from Feb. 8, 2022, and Feb. 20, 2022. White Hat DAO was commissioned
             by The HundredDAO to perform security assessments on the following
             smart contracts:
           </div>
-          <div className="px-6 text-sz22 text-blue flex flex-row justify-between">
+          <div className="px-6 text-sz22 text-blue flex flex-col md:flex-row justify-between gap-2">
             <ul className="list-disc space-y-2">
               <li>Access Control</li>
               <li>Arbitrary token minting</li>
@@ -387,13 +393,13 @@ const AuditItem = () => {
         </div>
       </div>
 
-      <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
+      <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col overflow-x-auto relative">
         <div className="px-6 py-4 rounded-t-xl">
-          <div className="pl-4 text-blue text-sz30 font-bold font-pilat text-center">
+          <div className="pl-4 text-blue text-sz20 md:text-sz30 font-bold font-pilat text-center">
             Hundred Finance Markets
           </div>
         </div>
-        <table className="text-center font-Manrope font-light text-sz22">
+        <table className="text-center font-Manrope font-light text-sz16 md:text-sz22 table table-auto">
           <thead>
             <tr className="bg-gray text-blue">
               <th className="p-4">#</th>

@@ -24,20 +24,20 @@ import member1 from "../assets/images/rating/members/member1.png";
 
 const Rating = () => {
   return (
-    <div className="my-10 flex flex-col">
-      <div className="flex flex-row items-end justify-between">
-        <div className="flex flex-col space-y-4">
+    <div className="mx-4 my-4 md:my-10 flex flex-col">
+      <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-4">
+        <div className="flex flex-col gap-4">
           <div className="flex flex-row items-center space-x-2">
             <img src={idolNFtImage} alt="idol"></img>
             <div className="flex flex-row items-start space-x-1">
-              <div className="font-pilat font-bold text-sz40">
+              <div className="font-pilat font-bold text-sz20 md:text-sz40">
                 Hundred Finance
               </div>
               <img className="mt-1" src={verify} alt="verify"></img>
             </div>
           </div>
           <div className="font-Manrope text-sz12 font-light flex flex-row items-center justify-between">
-            <div className="flex flex-row items-center space-x-4">
+            <div className="flex flex-row flex-wrap items-center gap-4">
               <div className="px-4 py-1 shadow-sm rounded-full bg-purple text-white">
                 NFT
               </div>
@@ -82,26 +82,28 @@ const Rating = () => {
           </div>
         </div>
       </div>
-      <div className="my-10 grid grid-cols-3 space-x-8">
-        <div className="shadow-xl rounded-xl col-span-2 p-8 font-Manrope font-light flex flex-col justify-center space-y-8">
-          <div className="text-sz24">
+      <div className="my-10 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
+        <div className="shadow-xl rounded-xl col-span-2 p-8 font-Manrope font-light flex flex-col justify-center gap-4 md:gap-8">
+          <div className="text-sz16 md:text-sz24">
             Hundred Finance is a decentralized application (dApp) that enables
             the lending and borrowing of crypto- currencies. A multi-chain
             protocol, it integrates with Chainlink oracles to ensure market
             health and stability, while specializing in providing markets for
             long-tail assets.
           </div>
-          <div className="p-4 bg-gray rounded-xl flex flex-row items-center justify-between space-x-8">
-            <div className="rounded-full shadow-xl">
-              <CircleProgressBar
-                sqSize={180}
-                percentage={88}
-                strokeWidth={28}
-                type={1}
-              ></CircleProgressBar>
+          <div className="p-4 bg-gray rounded-xl flex flex-col md:flex-row items-start md:containeritems-center justify-between gap-4 md:gap-8">
+            <div className="w-full flex flex-col items-center">
+              <div className="rounded-full shadow-xl">
+                <CircleProgressBar
+                  sqSize={180}
+                  percentage={88}
+                  strokeWidth={28}
+                  type={1}
+                ></CircleProgressBar>
+              </div>
             </div>
 
-            <div className="font-Manrope font-light flex flex-col space-y-8">
+            <div className="font-Manrope font-light flex flex-col gap-4 md:gap-8">
               <div className="flex flex-col">
                 <div className="text-darkgray text-sz16">Platform</div>
                 <div className="text-sz24">ETH (Multichain)</div>
@@ -112,7 +114,7 @@ const Rating = () => {
               </div>
             </div>
 
-            <div className="font-Manrope font-light flex flex-col space-y-8">
+            <div className="font-Manrope font-light flex flex-col gap-4 md:gap-8">
               <div className="flex flex-col">
                 <div className="text-darkgray text-sz16">Codebase</div>
                 <div className="flex flex-row items-center space-x-2">
@@ -162,8 +164,8 @@ const Rating = () => {
             </div>
           </div>
         </div>
-        <div className="col-span-1 shadow-xl rounded-xl font-Manrope font-light flex flex-col space-y-4">
-          <div className="px-8 pt-8 flex flex-col space-y-4">
+        <div className="w-full col-span-1 shadow-xl rounded-xl font-Manrope font-light flex flex-col gap-4">
+          <div className="px-8 pt-8 flex flex-col gap-4">
             <div className="grid grid-cols-2">
               <div className="flex flex-col space-y-2">
                 <div className="text-sz16 text-darkgray">Project</div>
@@ -277,21 +279,21 @@ const Rating = () => {
       </div>
       <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
         <div className="bg-gray px-6 py-4 rounded-t-xl">
-          <div className="pl-4 text-blue text-sz30 font-bold font-pilat text-center">
-            Due-Diligence / Auditing
+          <div className="pl-4 text-blue text-sz20 md:text-sz30 font-bold font-pilat text-center">
+            Token Distribution / Tokenomics
           </div>
         </div>
         <div className="p-8 font-Manrope font-light">
-          <div className="w-full rounded-xl p-4 bg-gray flex flex-row items-center justify-between">
-            <div className="relative ">
+          <div className="w-full rounded-xl p-4 bg-gray flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+            <div className="relative w-full flex flex-col items-center">
               <Doughnut type={true} />
               <div className="font-Manrope text-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col">
                 <div className="text-sz22 font-bold">291, 591, 552</div>
                 <div className="text-sz12">TOTAL SUPPLY</div>
               </div>
             </div>
-            <img className="h-full" src={line} alt="line"></img>
-            <div className="px-2 text-sz20 font-Manrope font-light flex flex-col space-y-8">
+            <img className="hidden md:block h-full" src={line} alt="line"></img>
+            <div className="px-2 text-sz20 font-Manrope font-light flex flex-col gap-8">
               <div className="flex flex-row space-x-4">
                 <div className="px-2 py-1 rounded-full shadow-inner flex flex-row items-center space-x-2">
                   <div className="w-4 h-4 rounded-md bg-yellow"></div>
@@ -329,8 +331,8 @@ const Rating = () => {
                 </div>
               </div>
             </div>
-            <img className="h-full" src={line} alt="line"></img>
-            <div className="px-2 text-sz20 font-Manrope font-light flex flex-col space-y-8">
+            <img className="hidden md:block h-full" src={line} alt="line"></img>
+            <div className="px-2 text-sz20 font-Manrope font-light flex flex-col gap-8">
               <div className="flex flex-row space-x-4">
                 <div className="px-2 py-1 rounded-full shadow-inner flex flex-row items-center space-x-2">
                   <div className="w-4 h-4 rounded-md bg-yellow"></div>
@@ -368,8 +370,8 @@ const Rating = () => {
                 </div>
               </div>
             </div>
-            <img className="h-full" src={line} alt="line"></img>
-            <div className="px-2 text-sz20 font-Manrope font-light flex flex-col space-y-8">
+            <img className="hidden md:block h-full" src={line} alt="line"></img>
+            <div className="px-2 text-sz20 font-Manrope font-light flex flex-col gap-8">
               <div className="text-center rounded-full shadow-sm text-green p-2">
                 Max Supply - 500,000,000
               </div>
@@ -413,15 +415,15 @@ const Rating = () => {
             Code Security Assessment
           </div>
         </div>
-        <div className="p-8 font-Manrope font-light flex flex-row">
-          <div className="relative">
+        <div className="p-8 font-Manrope font-light flex flex-col md:flex-row">
+          <div className="relative w-full flex flex-col items-center">
             <Doughnut type={false} />
             <div className="font-Manrope text-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col">
               <div className="text-sz22 font-bold">5</div>
               <div className="text-sz12">Total Findings</div>
             </div>
           </div>
-          <div className="w-full flex flex-col ml-8 px-8 border-l border-darkgray space-y-4">
+          <div className="w-full flex flex-col ml-8 px-8 border-none md:border-l border-darkgray gap-4">
             <div className="w-full grid grid-cols-4 items-start">
               <div className="col-span-1 font-Manrope font-light text-sz18 flex flex-row items-center space-x-4">
                 <div
@@ -431,8 +433,8 @@ const Rating = () => {
                 <div style={{ color: "#A12E2E" }}>0</div>
                 <div className="font-bold">Critical</div>
               </div>
-              <div className="col-span-2"></div>
-              <div className="col-span-1 flex flex-col">
+              <div className="hidden md:block col-span-2"></div>
+              <div className="hidden md:flex col-span-1 flex-col">
                 <div className="flex flex-row items-center space-x-1">
                   <img src={check_t} alt="check"></img>
                   <div className="text-sz12">All Resolved!</div>
@@ -449,7 +451,7 @@ const Rating = () => {
                 <div style={{ color: "#E28A59" }}>2</div>
                 <div className="font-bold">Major</div>
               </div>
-              <div className="col-span-2 flex">
+              <div className="hidden md:flex col-span-2">
                 <div
                   style={{ background: "#E28A59" }}
                   className="text-center rounded-md text-white text-sz14 p-1"
@@ -457,7 +459,7 @@ const Rating = () => {
                   Centralization / Privilege
                 </div>
               </div>
-              <div className="col-span-1 flex flex-col">
+              <div className="hidden md:flex col-span-1 flex-col">
                 <div className="flex flex-row items-center space-x-1">
                   <img src={check_t} alt="check"></img>
                   <div className="text-sz12">All Resolved!</div>
@@ -474,8 +476,8 @@ const Rating = () => {
                 <div style={{ color: "#E1AA4C" }}>0</div>
                 <div className="font-bold">Medium</div>
               </div>
-              <div className="col-span-2"></div>
-              <div className="col-span-1 flex flex-col">
+              <div className="hidden md:block col-span-2"></div>
+              <div className="hidden md:flex col-span-1 flex-col">
                 <div className="flex flex-row items-center space-x-1">
                   <img src={check_t} alt="check"></img>
                   <div className="text-sz12">All Resolved!</div>
@@ -492,8 +494,8 @@ const Rating = () => {
                 <div style={{ color: "#A9B3BD" }}>0</div>
                 <div className="font-bold">Minor</div>
               </div>
-              <div className="col-span-2"></div>
-              <div className="col-span-1 flex flex-col">
+              <div className="hidden md:block col-span-2"></div>
+              <div className="hidden md:flex col-span-1 flex-col">
                 <div className="flex flex-row items-center space-x-1">
                   <img src={check_t} alt="check"></img>
                   <div className="text-sz12">All Resolved!</div>
@@ -510,7 +512,8 @@ const Rating = () => {
                 <div style={{ color: "#4D6380" }}>0</div>
                 <div className="font-bold">Informational</div>
               </div>
-              <div className="col-span-2 flex flex-row items-center space-x-4">
+
+              <div className="hidden md:flex col-span-2 flex-row items-center space-x-4">
                 <div
                   style={{ background: "#4D6380" }}
                   className="p-1 text-white rounded-md text-sz14"
@@ -530,7 +533,7 @@ const Rating = () => {
                   Coding Style
                 </div>
               </div>
-              <div className="col-span-1 flex flex-col">
+              <div className="hidden md:flex col-span-1 flex-col">
                 <div className="flex flex-row items-center space-x-1">
                   <img src={check_t} alt="check"></img>
                   <div className="text-sz12">All Resolved!</div>
@@ -544,16 +547,16 @@ const Rating = () => {
 
       <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
         <div className="bg-gray px-6 py-4 rounded-t-xl">
-          <div className="pl-4 text-blue text-sz30 font-bold font-pilat text-center">
+          <div className="pl-4 text-blue text-sz20 md:text-sz30 font-bold font-pilat text-center">
             Audited Files
           </div>
         </div>
         <div className="p-8 font-Manrope font-light flex flex-col space-y-6">
-          <div className="px-4 py-2 shadow-inner rounded-md text-blue text-sz20 flex flex-row items-center space-x-2">
+          <div className="px-4 py-2 shadow-inner rounded-md text-blue text-sz20 md:text-sz20 flex flex-row items-center space-x-2">
             <img src={info} alt="info"></img>
             <div>This details only available for projets Audited by WHD</div>
           </div>
-          <div className="bg-gray rounded-xl p-4 grid grid-cols-3 text-center text-sz24 font-bold">
+          <div className="bg-gray rounded-xl p-4 grid grid-cols-3 text-center text-sz16 md:text-sz24 font-bold overflow-auto">
             <div className="flex flex-col space-y-4">
               <div className="text-blue">Source Code</div>
               <div>GaugeControllerV2.vy</div>
@@ -568,7 +571,7 @@ const Rating = () => {
               <div className="text-green">Accepted</div>
               <div className="text-green">Accepted</div>
             </div>
-            <div className="font-light flex flex-col items-center space-y-4">
+            <div className="flex flex-col items-center space-y-3">
               <div className="text-blue">SHA-256</div>
               <div className="flex flex-row items-center space-x-2">
                 <div>033953D227B26155CAA6...</div>
@@ -593,17 +596,17 @@ const Rating = () => {
 
       <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
         <div className="bg-gray px-6 py-4 rounded-t-xl">
-          <div className="pl-4 text-blue text-sz30 font-bold font-pilat text-center">
-            Audited Files
+          <div className="pl-4 text-blue text-sz20 md:text-sz30 font-bold font-pilat text-center">
+            Methdology
           </div>
         </div>
         <div className="p-8 font-Manrope font-light flex flex-col space-y-6">
-          <div className="px-4 py-2 shadow-inner rounded-md text-blue text-sz20 flex flex-row items-center space-x-2">
+          <div className="px-4 py-2 shadow-inner rounded-md text-blue text-sz16 md:text-sz20 flex flex-row items-center space-x-2">
             <img src={info} alt="info"></img>
             <div>Feature only available for projects audited by WHD</div>
           </div>
-          <div className="bg-gray rounded-xl p-4 flex flex-row justify-between text-sz20 text-green">
-            <div className="flex flex-col space-y-4">
+          <div className="bg-gray rounded-xl p-4 flex flex-col md:flex-row justify-between text-sz20 text-green gap-4">
+            <div className="flex flex-col gap-4">
               <div className="flex">
                 <div className="px-4 py-1 rounded-full shadow-inner">
                   Access Control
@@ -630,7 +633,7 @@ const Rating = () => {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col space-y-4">
+            <div className="flex flex-col gap-4">
               <div className="flex">
                 <div className="px-4 py-1 rounded-full shadow-inner">
                   Conditional completion attack
@@ -657,7 +660,7 @@ const Rating = () => {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col space-y-4">
+            <div className="flex flex-col gap-4">
               <div className="flex">
                 <div className="px-4 py-1 rounded-full shadow-inner">
                   Remote code execution
@@ -690,7 +693,7 @@ const Rating = () => {
 
       <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
         <div className="bg-gray px-6 py-4 rounded-t-xl">
-          <div className="pl-4 text-blue text-sz30 font-bold font-pilat text-center">
+          <div className="pl-4 text-blue text-sz20 md:text-sz30 font-bold font-pilat text-center">
             Price Data
           </div>
         </div>
@@ -698,13 +701,13 @@ const Rating = () => {
           <div className="pb-4 border-b border-darkgray text-blue text-sz16">
             Hundred Finance Price Data
           </div>
-          <div className="py-4 flex flex-row items-center space-x-2">
+          <div className="py-4 hidden md:flex flex-row items-center space-x-2">
             <img src={idolNFtImage} alt="hundred"></img>
             <div className="font-pilat font-bold text-blue text-sz20">
               Hundred Finance (HND)
             </div>
           </div>
-          <div className="py-4 flex flex-row items-center space-x-2">
+          <div className="py-4 hidden md:flex flex-row items-center space-x-2">
             <div className="font-Manrope text-sz40 font-bold">$0.103</div>
             <div className="flex flex-row items-center space-x-1">
               <svg
@@ -722,61 +725,61 @@ const Rating = () => {
               <div className="text-sz16 text-red">3.76%</div>
             </div>
           </div>
-          <div className="font-Manrope text-sz20 grid grid-cols-3 space-x-8 justify-between">
-            <div className="flex flex-col space-y-4">
-              <div className="border-b border-darkgray pb-4 flex flex-row justify-between">
+          <div className="font-Manrope text-sz16 md:text-sz20 grid grid-cols-2 md:grid-cols-3 gap-8 justify-between">
+            <div className="pt-4 md:pt-0 flex flex-col gap-4">
+              <div className="border-none md:border-b border-darkgray pb-0 md:pb-4 flex flex-col md:flex-row justify-between">
                 <div className=" flex flex-row items-center space-x-2">
                   <div className="text-darkgray">Market cap</div>
                   <img src={info_small} alt="info_small"></img>
                 </div>
                 <div>$1,451,392,754</div>
               </div>
-              <div className="border-b border-darkgray pb-4 flex flex-row justify-between">
+              <div className="border-none md:border-b border-darkgray pb-0 md:pb-4 flex flex-col md:flex-row justify-between">
                 <div className=" flex flex-row items-center space-x-2">
                   <div className="text-darkgray">Circulating Supply</div>
                   <img src={info_small} alt="info_small"></img>
                 </div>
                 <div>$1,451,392,754</div>
               </div>
-              <div className="border-b border-darkgray pb-4 flex flex-row justify-between">
+              <div className="border-none md:border-b border-darkgray pb-0 md:pb-4 flex flex-col md:flex-row justify-between">
                 <div className=" flex flex-row items-center space-x-2">
                   <div className="text-darkgray">Max Supply</div>
                   <img src={info_small} alt="info_small"></img>
                 </div>
                 <div>392,754</div>
               </div>
-              <div className="flex flex-row justify-between">
+              <div className="flex flex-col md:flex-row justify-between">
                 <div className="text-darkgray">All time high</div>
                 <div>$100</div>
               </div>
             </div>
 
-            <div className="flex flex-col space-y-4">
-              <div className="border-b border-darkgray pb-4 flex flex-row justify-between">
+            <div className="pt-4 md:pt-0 flex flex-col gap-4">
+              <div className="border-none md:border-b border-darkgray pb-0 md:pb-4 flex flex-col md:flex-row justify-between">
                 <div className=" flex flex-row items-center space-x-2">
                   <div className="text-darkgray">Market cap Dominance</div>
                   <img src={info_small} alt="info_small"></img>
                 </div>
                 <div>%0.12</div>
               </div>
-              <div className="border-b border-darkgray pb-4 flex flex-row justify-between">
+              <div className="border-none md:border-b border-darkgray pb-0 md:pb-4 flex flex-col md:flex-row justify-between">
                 <div className=" flex flex-row items-center space-x-2">
                   <div className="text-darkgray">Trading Volume</div>
                   <div className="text-sz16 bg-white rounded-sm px-1">24h</div>
                 </div>
                 <div>$1,451,392,754</div>
               </div>
-              <div className="border-b border-darkgray pb-4 flex flex-row justify-between">
+              <div className="border-none md:border-b border-darkgray pb-0 md:pb-4 flex flex-col md:flex-row justify-between">
                 <div className="text-darkgray">Total Supply</div>
                 <div>392,754</div>
               </div>
-              <div className="flex flex-row justify-between">
+              <div className="flex flex-col md:flex-row justify-between">
                 <div className="text-darkgray">All time low</div>
                 <div>$0.1002</div>
               </div>
             </div>
 
-            <div className="flex flex-col space-y-4">
+            <div className="hidden md:flex flex-col space-y-4">
               <div className="border-b border-darkgray pb-4 flex flex-row justify-between">
                 <div className="text-darkgray">Volume / Market Cap</div>
                 <div>0.0000221</div>
@@ -798,13 +801,13 @@ const Rating = () => {
         </div>
       </div>
 
-      <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
+      <div className="my-0 md:my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
         <div className="px-6 py-4 rounded-t-xl">
-          <div className="pl-4 text-blue text-sz30 font-bold font-pilat text-center">
+          <div className="pl-4 text-blue text-sz20 md:text-sz30 font-bold font-pilat text-center">
             Hundred Finance Markets
           </div>
         </div>
-        <table className="text-center font-Manrope font-light text-sz22">
+        <table className="text-center font-Manrope font-light text-sz16 md:text-sz22">
           <thead>
             <tr className="bg-gray text-blue">
               <th className="p-4">#</th>
@@ -818,7 +821,7 @@ const Rating = () => {
               <th className="py-4">Trade</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="overflow-x-auto">
             {[1, 2, 3, 4].map((item) => (
               <tr className="border-b border-darkgray">
                 <td className="py-4">{item}</td>
@@ -850,7 +853,7 @@ const Rating = () => {
 
       <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
         <div className="bg-gray px-6 py-4 rounded-t-xl">
-          <div className="pl-4 text-blue text-sz30 font-bold font-pilat text-center">
+          <div className="pl-4 text-blue text-sz20 md:text-sz30 font-bold font-pilat text-center">
             Project Team Members & Developers
           </div>
         </div>
@@ -858,9 +861,9 @@ const Rating = () => {
           <div className="rounded-md shadow-inner flex flex-col p-6">
             <div className="border-b border-blue pb-3 flex flex-row space-x-2">
               <img src={info} alt="info"></img>
-              <div className="text-sz24 font-blue text-blue">Note!</div>
+              <div className="text-sz18 md:text-sz24 font-blue text-blue">Note!</div>
             </div>
-            <div className="text-blue text-sz20">
+            <div className="text-blue text-sz16 md:text-sz20">
               Please be advised that verified check mark only applies to members
               who are doxed or verified their identity for public view. WHD
               reserves the right to verify individuals privately and provide
@@ -870,7 +873,7 @@ const Rating = () => {
               or misconducts by any project team.
             </div>
           </div>
-          <div className="grid grid-cols-4 justify-between space-x-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-between gap-8">
             {[0, 1, 2, 3].map((item) => (
               <div className="rounded-xl shadow-xl flex flex-col items-center justify-center space-y-2 p-4 text-center">
                 <div className="rounded-full shadow-inner flex flex-col items-center justify-center">
@@ -969,11 +972,11 @@ const Rating = () => {
       </div>
       <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
         <div className="bg-gray px-6 py-4 rounded-t-xl">
-          <div className="pl-4 text-red text-sz30 font-bold font-pilat text-center">
+          <div className="pl-4 text-red text-sz20 md:text-sz30 font-bold font-pilat text-center">
             Disclaimer
           </div>
         </div>
-        <div className="p-8 text-sz22 font-Manrope font-light">
+        <div className="p-8 text-sz16 md:text-sz22 font-Manrope font-light">
           Cryptocurrencies are speculative, complex and involve significant
           risks – they are highly volatile and sensitive to secondary activity.
           Performance is unpredictable and past performance is no guarantee of

@@ -227,7 +227,7 @@ const Audit = () => {
         </div>
         <div className="p-8 flex flex-col font-Manrope font-light space-y-4">
           <div className="p-6 rounded-md shadow-inner flex flex-col space-y-4">
-            <div className="flex flex-row items-center space-x-4">
+            <div className="flex flex-row items-center">
               <div className="w-4 h-4 rounded-full bg-blue"></div>
               <div className="text-sz16 md:text-sz22">
                 Audit may take 3 weeks in total or longer to complete.

@@ -88,33 +88,33 @@ const auditedProjects = [
 
 const Audit = () => {
   return (
-    <div className="my-10 flex flex-col space-y-8">
+    <div className="mx-4 my-10 flex flex-col space-y-8">
       <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
         <div className="bg-gray px-6 py-4 rounded-t-xl">
-          <div className="pl-4 text-blue text-sz30 font-bold font-pilat text-center">
+          <div className="pl-4 text-blue text-sz20 md:text-sz30 font-bold font-pilat text-center">
             Due-Diligence / Auditing
           </div>
         </div>
         <div className="p-8 flex flex-col font-Manrope font-light space-y-4">
-          <div className="text-sz22">
+          <div className="text-sz16 md:text-sz22">
             We provide Due-Diligence, Safety Rating and a Comprehensive Security
             Assessment of your smart contract and blockchain code to identify
             vulnerabilities and recommend ways to fix them.
           </div>
-          <div className="flex flex-row items-start space-x-8">
+          <div className="flex flex-col md:flex-row items-start gap-4 md:gap-8">
             <div className="flex flex-col space-y-8">
               <div className="p-6 shadow-inner text-blue font-Manrope flex flex-col space-y-4">
-                <div className="w-full pb-4 border-b border-blue flex flex-row items-center space-x-2 text-sz24">
+                <div className="w-full pb-4 border-b border-blue flex flex-row items-center space-x-2 text-sz18 md:text-sz24">
                   <img src={info} alt="info"></img>
                   <div>Note!</div>
                 </div>
-                <div className="text-sz20">
+                <div className="text-sz16 md:text-sz20">
                   Our industry-leading audit methodology and tooling includes a
                   review of your code’s logic, with a mathematical approach to
                   ensure your program works as intended.
                 </div>
               </div>
-              <div className="rounded-md shadow-sm p-4 border border-blue text-pink text-sz24 flex flex-row items-center justify-center w-2/3">
+              <div className="w-full md:w-2/3 rounded-md shadow-sm p-4 border border-blue text-pink text-sz16 md:text-sz24 flex flex-row items-center justify-center">
                 <div>Apply for Smart Contract Security Audit</div>
                 <svg
                   width="15"
@@ -138,10 +138,10 @@ const Audit = () => {
         </div>
       </div>
       <div className="font-Manrope flex flex-col text-center space-y-8">
-        <div className="font-pilat text-sz30">Our Services Includes</div>
-        <div className="font-light grid grid-cols-3 space-x-8">
+        <div className="font-pilat text-sz20 md:text-sz30">Our Services Includes</div>
+        <div className="font-light grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="p-4 shadow-xl rounded-md flex flex-col text-center">
-            <div className="font-pilat text-sz22 text-blue">
+            <div className="font-pilat text-sz20 md:text-sz22 text-blue">
               Identify Errors & Risks
             </div>
             <div className="text-sz16">
@@ -150,7 +150,7 @@ const Audit = () => {
             </div>
           </div>
           <div className="p-4 shadow-xl rounded-md flex flex-col text-center">
-            <div className="font-pilat text-sz22 text-blue">
+            <div className="font-pilat text-sz20 md:text-sz22 text-blue">
               Remediate Vulnerabilities
             </div>
             <div className="text-sz16">
@@ -159,7 +159,7 @@ const Audit = () => {
             </div>
           </div>
           <div className="p-4 shadow-xl rounded-md flex flex-col text-center">
-            <div className="font-pilat text-sz22 text-blue">
+            <div className="font-pilat text-sz20 md:text-sz22 text-blue">
               Verify Your Contracts
             </div>
             <div className="text-sz16">
@@ -171,12 +171,12 @@ const Audit = () => {
       </div>
       <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
         <div className="bg-gray px-6 py-4 rounded-t-xl">
-          <div className="pl-4 text-blue text-sz30 font-bold font-pilat text-center">
+          <div className="pl-4 text-blue text-sz16 md:text-sz30 font-bold font-pilat text-center">
             Audit Process
           </div>
         </div>
         <div className="p-8 flex flex-col font-Manrope font-light space-y-4">
-          <div className="flex flex-row items-start justify-between">
+          <div className="flex flex-col md:flex-row items-center md:items-start justify-center md:justify-between">
             <div className="w-40 text-center flex flex-col items-center space-y-2">
               <div className="w-32 h-32 rounded-3xl shadow-inner flex flex-col items-center justify-center">
                 <img src={step1} alt="step1"></img>
@@ -184,7 +184,7 @@ const Audit = () => {
               <div className="text-pink text-sz16">Step 1</div>
               <div className="text-sz24">Share Source Code</div>
             </div>
-            <img className="mt-14" src={arrow} alt="arrow"></img>
+            <img className="mb-8 md:mb-0 mt-8 md:mt-14 transform rotate-90 md:rotate-0" src={arrow} alt="arrow"></img>
             <div className="w-40 text-center flex flex-col items-center space-y-2">
               <div className="w-32 h-32 rounded-3xl shadow-inner flex flex-col items-center justify-center">
                 <img src={step2} alt="step2"></img>
@@ -192,7 +192,7 @@ const Audit = () => {
               <div className="text-pink text-sz16">Step 2</div>
               <div className="text-sz24">Review & Quote</div>
             </div>
-            <img className="mt-14" src={arrow} alt="arrow"></img>
+            <img className="mb-8 md:mb-0 mt-8 md:mt-14 transform rotate-90 md:rotate-0" src={arrow} alt="arrow"></img>
             <div className="w-40 text-center flex flex-col items-center space-y-2">
               <div className="w-32 h-32 rounded-3xl shadow-inner flex flex-col items-center justify-center">
                 <img src={step3} alt="step3"></img>
@@ -200,7 +200,7 @@ const Audit = () => {
               <div className="text-pink text-sz16">Step 3</div>
               <div className="text-sz24">Begin Vulnerability Inspection</div>
             </div>
-            <img className="mt-14" src={arrow} alt="arrow"></img>
+            <img className="mb-8 md:mb-0 mt-8 md:mt-14 transform rotate-90 md:rotate-0" src={arrow} alt="arrow"></img>
             <div className="w-40 text-center flex flex-col items-center space-y-2">
               <div className="w-32 h-32 rounded-3xl shadow-inner flex flex-col items-center justify-center">
                 <img src={step4} alt="step4"></img>
@@ -208,7 +208,7 @@ const Audit = () => {
               <div className="text-pink text-sz16">Step 4</div>
               <div className="text-sz24">Suggest Remediations</div>
             </div>
-            <img className="mt-14" src={arrow} alt="arrow"></img>
+            <img className="mb-8 md:mb-0 mt-8 md:mt-14 transform rotate-90 md:rotate-0" src={arrow} alt="arrow"></img>
             <div className="w-40 text-center flex flex-col items-center space-y-2">
               <div className="w-32 h-32 rounded-3xl shadow-inner flex flex-col items-center justify-center">
                 <img src={step5} alt="step5"></img>
@@ -221,7 +221,7 @@ const Audit = () => {
       </div>
       <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
         <div className="bg-gray px-6 py-4 rounded-t-xl">
-          <div className="pl-4 text-blue text-sz30 font-bold font-pilat text-center">
+          <div className="pl-4 text-blue text-sz16 md:text-sz30 font-bold font-pilat text-center">
             Terms & Conditions
           </div>
         </div>
@@ -229,13 +229,13 @@ const Audit = () => {
           <div className="p-6 rounded-md shadow-inner flex flex-col space-y-4">
             <div className="flex flex-row items-center space-x-4">
               <div className="w-4 h-4 rounded-full bg-blue"></div>
-              <div className="text-sz22">
+              <div className="text-sz16 md:text-sz22">
                 Audit may take 3 weeks in total or longer to complete.
               </div>
             </div>
             <div className="flex flex-row items-center space-x-4">
               <div className="w-4 h-4 rounded-full bg-blue"></div>
-              <div className="text-sz22">
+              <div className="text-sz16 md:text-sz22">
                 White Hat DAO may take 2 weeks or longer to complete a
                 preliminary audit report for clients to review recommended
                 feedback / suggestions.
@@ -243,28 +243,28 @@ const Audit = () => {
             </div>
             <div className="flex flex-row items-center space-x-4">
               <div className="w-4 h-4 rounded-full bg-blue"></div>
-              <div className="text-sz22">
+              <div className="text-sz16 md:text-sz22">
                 1 week for clients to review or acknowledge any issues may be
                 found and resubmit the code for final review.{" "}
               </div>
             </div>
             <div className="flex flex-row items-center space-x-4">
               <div className="w-4 h-4 rounded-full bg-blue"></div>
-              <div className="text-sz22">
+              <div className="text-sz16 md:text-sz22">
                 White Hat DAO doesn’t apply any extra charges on reviewing the
                 audited files.
               </div>
             </div>
             <div className="flex flex-row items-center space-x-4">
               <div className="w-4 h-4 rounded-full bg-blue"></div>
-              <div className="text-sz22">
+              <div className="text-sz16 md:text-sz22">
                 The smart contract still may contain unfound severity and
                 security issues even after the audit is completed.{" "}
               </div>
             </div>
             <div className="flex flex-row items-center space-x-4">
               <div className="w-4 h-4 rounded-full bg-blue"></div>
-              <div className="text-sz22">
+              <div className="text-sz16 md:text-sz22">
                 White Hat DAO may take 1 week or longer to finalize the review
                 on resubmitted source code and deliver final security audit
                 assessments.
@@ -275,18 +275,18 @@ const Audit = () => {
       </div>
       <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
         <div className="bg-gray px-6 py-4 rounded-t-xl">
-          <div className="pl-4 text-blue text-sz30 font-bold font-pilat text-center">
+          <div className="pl-4 text-blue text-sz16 md:text-sz30 font-bold font-pilat text-center">
             What’s In The Audit Report?
           </div>
         </div>
         <div className="p-8 flex flex-col font-Manrope font-light space-y-4">
-          <div className="text-sz22">
+          <div className="text-sz16 md:text-sz22">
             Our audit reports are custom, thorough, and transparent. The report
             will contain the details of any identified vulnerabilities and
             classify them by severity (Critical, Major, Medium, Low, and
             Informational), along with suggested remediations.
           </div>
-          <div className="text-sz22">
+          <div className="text-sz16 md:text-sz22">
             With every successful audit, we’ll provide you with a listing on the
             W-HAT Safety rating leaderboard that is shared publicly with the
             entire crypto community. The Leaderboard contains the details of
@@ -296,8 +296,8 @@ const Audit = () => {
         </div>
       </div>
       <div className="py-10 flex flex-col space-y-8 s">
-        <div className="font-pilat text-sz30 text-center">Audit Leaderboard</div>
-        <div className="text-black font-Manrope font-light flex flex-row items-center space-x-4">
+        <div className="font-pilat text-sz20 md:text-sz30 text-center">Audit Leaderboard</div>
+        <div className="text-black font-Manrope font-light flex flex-row flex-wrap items-center gap-4">
           <select
             id="role"
             className="w-72 bg-transparent border border-blue text-sz18 rounded-lg block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"

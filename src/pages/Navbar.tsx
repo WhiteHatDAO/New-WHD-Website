@@ -2,9 +2,92 @@ import logo from "../assets/images/logo.svg";
 import hamburger from "../assets/images/hamburger.svg";
 import close from "../assets/images/close.svg";
 import { useState } from "react";
+import { useAppContext } from "../context/WalletContext";
+import { web3Modal } from "../utils/web3Modal";
+import { useCallback, useEffect } from "react";
+import { providers } from "ethers";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const [appState, setAppState] = useAppContext();
+
+  const { provider, address } = appState;
+
+  const getSubAddress = (str: string) => {
+    return `${str.substring(0, 5)}...${str.substring(
+      str.length - 3,
+      str.length
+    )}`;
+  };
+
+  const connect = useCallback(async function () {
+    try {
+      const provider = await web3Modal.connect();
+      const web3Provider = new providers.Web3Provider(provider);
+
+      const signer = web3Provider.getSigner();
+      const address = await signer.getAddress();
+
+      setAppState({
+        ...appState,
+        provider: provider,
+        web3Provider: web3Provider,
+        address: address,
+      });
+    } catch (e) {}
+  }, []);
+
+  const disconnect = useCallback(async function () {
+    await web3Modal.clearCachedProvider();
+    if (provider?.disconnect && typeof provider.disconnect === "function") {
+      await provider.disconnect();
+    }
+
+    setAppState({
+      provider: null,
+      web3Provider: null,
+      address: "",
+    });
+  }, []);
+
+  if (address === undefined) {
+    disconnect();
+  }
+
+  // Auto connect to the cached provider
+  useEffect(() => {
+    if (web3Modal.cachedProvider) {
+      connect();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (appState.provider?.on) {
+      const handleAccountsChanged = (accounts: string[]) => {
+        // eslint-disable-next-line no-console
+        setAppState({ ...appState, address: accounts[0] });
+      };
+
+      const handleDisconnect = (error: { code: number; message: string }) => {
+        // eslint-disable-next-line no-console
+        console.log("disconnect", error.code, error.message);
+        if (error.code !== 1013) {
+          disconnect();
+        }
+      };
+
+      provider.on("accountsChanged", handleAccountsChanged);
+      provider.on("disconnect", handleDisconnect);
+
+      // Subscription Cleanup
+      return () => {
+        if (provider.removeListener) {
+          provider.removeListener("accountsChanged", handleAccountsChanged);
+          provider.removeListener("disconnect", handleDisconnect);
+        }
+      };
+    }
+  }, [appState.provider]);
 
   return (
     <div className="relative">
@@ -30,8 +113,13 @@ const Navbar = () => {
           </div>
           <div className="flex flex-row items-center space-x-4">
             <div className="z-10 cursor-pointer">
-              <div className="shadow-sm text-2xl px-8 py-2 border rounded-xl gradient-box text-sz18">
-                CONNECT
+              <div
+                className="shadow-sm text-2xl px-8 py-2 border rounded-xl gradient-box text-sz18"
+                onClick={appState.web3Provider ? disconnect : connect}
+              >
+                {appState.web3Provider && address
+                  ? getSubAddress(address as string)
+                  : "Connect Wallet"}
               </div>
             </div>
             <img

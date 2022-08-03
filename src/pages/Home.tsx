@@ -26,6 +26,12 @@ import postImage4 from "../assets/images/posts/post4.png";
 
 import rexImage from "../assets/images/rex.svg";
 import calendarImage from "../assets/images/calendar.svg";
+import logo from "../assets/images/logo.svg";
+import GradientBox from "../components/GradientBar";
+import ContractAddressBox from "../components/ContractAddressBox";
+
+import icon1 from "../assets/images/rating/table/icon1.svg"
+import icon2 from "../assets/images/rating/table/icon2.svg"
 
 const auditedProjects = [
   {
@@ -197,7 +203,7 @@ const Home = () => {
           </div>
         </div>
         <div className="col-span-12 xl:col-span-5 bg-lightgray rounded-xl shadow-xl flex flex-col">
-          <div className="bg-gray px-6 py-4 rounded-t-xl">
+          {/* <div className="bg-gray px-6 py-4 rounded-t-xl">
             <div className="pl-4 text-blue text-sz16 md:text-sz24 font-bold font-pilat">
               Recently Audited Projects
             </div>
@@ -224,6 +230,131 @@ const Home = () => {
                 </div>
               </div>
             ))}
+          </div> */}
+          <div className="bg-gray px-6 py-4 rounded-t-xl">
+            <div className="pl-4 text-blue text-sz16 md:text-sz24 font-bold font-pilat">
+              White Hat DAO Gov Token Details
+            </div>
+          </div>
+          <div className="p-6 font-Manrope">
+            <div className="p-4 bg-gray rounded-lg flex flex-col space-y-4">
+              <div className="flex flex-row items-center space-x-2">
+                <img className="w-10" src={logo} alt="logo"></img>
+                <div className="font-bold font-pilat text-sz22 text-blue">
+                  Hundred Finance (HND)
+                </div>
+              </div>
+              <div className="font-light grid grid-cols-2">
+                <div className="flex flex-col gap-2">
+                  <div className="text-darkgray text-sz16">Token Price</div>
+                  <div className="text-sz24">$0.103</div>
+                  <div className="flex flex-row items-center text-red text-sz16 space-x-1">
+                    <svg
+                      width="18"
+                      height="9"
+                      viewBox="0 0 18 9"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M0 0L9 9L18 0H0Z" fill="#A22E2E" />
+                    </svg>
+                    <div>15.9%</div>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-2">
+                  <div className="text-darkgray text-sz16">Market cap</div>
+                  <div className="text-sz24">$1,451,392,754</div>
+                  <div className="flex flex-row items-center text-red text-sz16 space-x-1">
+                    <svg
+                      width="18"
+                      height="9"
+                      viewBox="0 0 18 9"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M0 0L9 9L18 0H0Z" fill="#A22E2E" />
+                    </svg>
+                    <div>15.9%</div>
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col space-y-1">
+                <GradientBox percentage={70}></GradientBox>
+                <div className="text-sz16 font-light flex flex-row items-center justify-between">
+                  <div>$0.1002</div>
+                  <div>24H Range</div>
+                  <div>$0.122</div>
+                </div>
+              </div>
+              <div className="pb-4 border-b border-darkgray flex flex-col space-y-4">
+                <div className="text-sz20 font-light flex flex-row items-center justify-between">
+                  <div className="text-darkgray flex flex-row items-center space-x-1">
+                    <div>Circulating Supply</div>
+                    <svg
+                      width="13"
+                      height="13"
+                      viewBox="0 0 13 13"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M5.875 3.375H7.125V4.625H5.875V3.375ZM5.875 5.875H7.125V9.625H5.875V5.875ZM6.5 0.25C3.05 0.25 0.25 3.05 0.25 6.5C0.25 9.95 3.05 12.75 6.5 12.75C9.95 12.75 12.75 9.95 12.75 6.5C12.75 3.05 9.95 0.25 6.5 0.25ZM6.5 11.5C3.74375 11.5 1.5 9.25625 1.5 6.5C1.5 3.74375 3.74375 1.5 6.5 1.5C9.25625 1.5 11.5 3.74375 11.5 6.5C11.5 9.25625 9.25625 11.5 6.5 11.5Z"
+                        fill="#7C7C7C"
+                      />
+                    </svg>
+                  </div>
+                  <div className="font-bold">$1,451,392,754</div>
+                </div>
+                <div className="text-sz20 font-light flex flex-row items-center justify-between">
+                  <div className="text-darkgray">Total Supply</div>
+                  <div className="font-bold">392,754</div>
+                </div>
+                <div className="text-sz20 font-light flex flex-row items-center justify-between">
+                  <div className="text-darkgray">All time high</div>
+                  <div className="font-bold">$100</div>
+                </div>
+                <div className="text-sz20 font-light flex flex-row items-center justify-between">
+                  <div className="text-darkgray">All time low</div>
+                  <div className="font-bold">$0.1002</div>
+                </div>
+              </div>
+              <div className="space-y-2 font-light flex flex-col">
+                <div className="text-darkgray text-sz16">Contract Address</div>
+                <div className="w-3/5">
+                  <ContractAddressBox></ContractAddressBox>
+                </div>
+              </div>
+              <div className="space-y-2 font-light flex flex-col">
+                <div className="text-darkgray text-sz16">Contract Address</div>
+                <div className="text-sz12 text-blue flex flex-row items-center space-x-4">
+                  <div className="rounded-full shadow-inner px-3 py-1">ETH</div>
+                  <div className="rounded-full shadow-inner px-3 py-1">
+                    Polygon
+                  </div>
+                  <div className="rounded-full shadow-inner px-3 py-1">
+                    Optimism
+                  </div>
+                </div>
+              </div>
+              <div className="text-sz22 flex flex-col space-y-4">
+                <div className="pb-4 border-b border-darkgray flex flex-row items-center justify-between">
+                  <div className="flex flex-row items-center space-x-2">
+                    <img src={icon1} alt="icon1"></img>
+                    <div>Uniswap (V3)</div>
+                  </div>
+                  <div className="text-blue">HND/ETH</div>
+                  <div className="rounded-full font-light text-sz16 px-4 py-1 shadow-inner"><span className="text-green">Buy</span> / <span className="text-pink">Sell</span></div>
+                </div>
+                <div className="flex flex-row items-center justify-between">
+                  <div className="flex flex-row items-center space-x-2">
+                    <img src={icon2} alt="icon1"></img>
+                    <div>Sushiswap</div>
+                  </div>
+                  <div className="text-blue">HND/WETH</div>
+                  <div className="rounded-full font-light text-sz16 px-4 py-1 shadow-inner"><span className="text-green">Buy</span> / <span className="text-pink">Sell</span></div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

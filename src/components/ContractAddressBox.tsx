@@ -1,13 +1,18 @@
 import copy from "../assets/images/copy.svg";
 import pattern from "../assets/images/pattern.svg";
 
-const ContractAddressBox = () => {
+interface boxInterface {
+  address: string;
+}
+
+const ContractAddressBox = ({ address }: boxInterface) => {
+  console.log('address', address)
   return (
     <div className="rounded-md shadow-sm flex flex-row">
       <div className="p-2 w-full flex flex-row items-center">
         <img src={copy} alt="copy"></img>
         <img src={pattern} alt="pattern"></img>
-        <div className="text-blue text-sz20">0xd0e4...31da49</div>
+        <div className="text-blue text-sz20">{address}</div>
       </div>
       <div className="p-2 bg-blue rounded-r-md flex items-center justify-center">
         <svg

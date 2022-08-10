@@ -295,7 +295,7 @@ const Home = ({ auditProjects }: homeProps) => {
               <div className="space-y-2 font-light flex flex-col">
                 <div className="text-darkgray text-sz16">Contract Address</div>
                 <div className="w-3/5">
-                  <ContractAddressBox></ContractAddressBox>
+                  <ContractAddressBox address="0xd0e4...31da49"></ContractAddressBox>
                 </div>
               </div>
               <div className="space-y-2 font-light flex flex-col">

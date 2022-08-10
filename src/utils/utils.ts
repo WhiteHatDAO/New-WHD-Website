@@ -12,3 +12,10 @@ export const FormatNumber = (number: string) => {
         return parseFloat(number)
     }
 }
+
+export const getSubAddress = (str: string) => {
+    return `${str.substring(0, 5)}...${str.substring(
+        str.length - 3,
+        str.length
+    )}`
+}

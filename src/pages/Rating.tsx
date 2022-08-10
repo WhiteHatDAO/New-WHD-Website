@@ -21,81 +21,142 @@ import ether from "../assets/images/rating/ether.svg";
 import member1 from "../assets/images/rating/members/member1.png";
 import ContractAddressBox from "../components/ContractAddressBox";
 
-const Rating = () => {
+import { useParams } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { useCoingeckoAPI } from "../utils/useCoingeckoAPI";
+import PrimaryChart from "../components/PrimaryChart";
+import useWindowDimensions from "../hooks/useWindowDimensions";
+
+interface ratingProps {
+  auditProjects: any[];
+}
+
+const Rating = ({ auditProjects }: ratingProps) => {
+  const { id } = useParams();
+  const {
+    handleGetTokenData,
+    handleGetTokenPriceHistory,
+    tokenData,
+    tokenPriceHistory,
+  } = useCoingeckoAPI();
+  const [project, setProject] = useState<any>(null);
+  const [boxWidth, setBoxWidth] = useState<number>(0);
+  const { height } = useWindowDimensions();
+  const gridItemRef = useRef<HTMLDivElement>(null);
+  const [timeRange, setTimeRange] = useState<number>(1);
+
+  useEffect(() => {
+    const handleResize = (width?: number) => {
+      setBoxWidth(width || 0);
+    };
+
+    handleResize(gridItemRef.current?.clientWidth || 0);
+
+    window.addEventListener("resize", () =>
+      handleResize(gridItemRef?.current?.clientWidth || 0)
+    );
+
+    return () => {
+      window.removeEventListener("resize", () => handleResize());
+    };
+  }, [gridItemRef]);
+
+  useEffect(() => {
+    if (id !== undefined && auditProjects.length !== 0) {
+      setProject(auditProjects[parseInt(id)]);
+    }
+  }, [id, auditProjects]);
+
+  useEffect(() => {
+    if (project) {
+      handleGetTokenData(project?.token);
+      handleGetTokenPriceHistory(project?.token, `${timeRange}d`);
+    }
+  }, [project]);
+
+  useEffect(() => {
+    if(project) {
+      handleGetTokenPriceHistory(project?.token, `${timeRange}d`);
+    }
+  }, [timeRange]);
+
   return (
-    <div className="mx-4 my-4 md:my-10 flex flex-col">
+    <div className="mx-4 my-4 md:my-10 flex flex-col" ref={gridItemRef}>
       <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-4">
         <div className="flex flex-col gap-4">
           <div className="flex flex-row items-center space-x-2">
             <img src={idolNFtImage} alt="idol"></img>
             <div className="flex flex-row items-start space-x-1">
               <div className="font-pilat font-bold text-sz20 md:text-sz40">
-                Hundred Finance
+                {project?.name}
               </div>
-              <img className="mt-1" src={verify} alt="verify"></img>
+              {project?.verified && (
+                <img className="mt-1" src={verify} alt="verify"></img>
+              )}
             </div>
           </div>
           <div className="font-Manrope text-sz12 font-light flex flex-row items-center justify-between">
             <div className="flex flex-row flex-wrap items-center gap-4">
-              <div className="px-4 py-1 shadow-sm rounded-full bg-purple text-white">
-                NFT
-              </div>
-              <div className="px-4 py-1 shadow-sm rounded-full bg-green text-white">
-                Staking
-              </div>
-              <div className="px-4 py-1 shadow-sm rounded-full bg-pink text-white">
-                Marketplace
-              </div>
-              <div className="px-4 py-1 shadow-sm rounded-full bg-purple text-white">
-                NFT
-              </div>
-              <div className="px-4 py-1 shadow-sm rounded-full bg-green text-white">
-                Staking
-              </div>
-              <div className="px-4 py-1 shadow-sm rounded-full bg-pink text-white">
-                Marketplace
-              </div>
+              {project?.tags?.map((tag: string, index: number) => (
+                <div
+                  className={
+                    index % 3 === 0
+                      ? "px-4 py-1 shadow-sm rounded-full bg-purple text-white"
+                      : index % 3 === 1
+                      ? "px-4 py-1 shadow-sm rounded-full bg-green text-white"
+                      : "px-4 py-1 shadow-sm rounded-full bg-pink text-white"
+                  }
+                >
+                  {tag}
+                </div>
+              ))}
             </div>
           </div>
         </div>
         <div className="flex flex-row items-end justify-between">
           <div className="flex flex-row items-center space-x-4">
-            <div className="rounded-full shadow-inner">
-              <img className="w-12 p-3" src={twitter} alt="twitter"></img>
-            </div>
-            <div className="rounded-full shadow-inner">
-              <img className="w-12 p-3" src={github} alt="github"></img>
-            </div>
-            <div className="rounded-full shadow-inner">
-              <img className="w-12 p-3" src={discord} alt="discord"></img>
-            </div>
-            <div className="rounded-full shadow-inner">
-              <img className="w-12 p-3" src={medium} alt="medium"></img>
-            </div>
-            <div className="rounded-full shadow-inner">
-              <img className="w-12 p-3" src={global} alt="global"></img>
-            </div>
-            <div className="rounded-full shadow-inner">
-              <img className="w-12 p-3" src={telegram} alt="telegram"></img>
-            </div>
+            {project?.socials?.twitter && (
+              <div className="rounded-full shadow-inner">
+                <img className="w-12 p-3" src={twitter} alt="twitter"></img>
+              </div>
+            )}
+            {project?.socials?.github && (
+              <div className="rounded-full shadow-inner">
+                <img className="w-12 p-3" src={github} alt="github"></img>
+              </div>
+            )}
+            {project?.socials?.discord && (
+              <div className="rounded-full shadow-inner">
+                <img className="w-12 p-3" src={discord} alt="discord"></img>
+              </div>
+            )}
+            {project?.socials?.medium && (
+              <div className="rounded-full shadow-inner">
+                <img className="w-12 p-3" src={medium} alt="medium"></img>
+              </div>
+            )}
+            {project?.socials?.web && (
+              <div className="rounded-full shadow-inner">
+                <img className="w-12 p-3" src={global} alt="web"></img>
+              </div>
+            )}
+            {project?.socials?.telegram && (
+              <div className="rounded-full shadow-inner">
+                <img className="w-12 p-3" src={telegram} alt="telegram"></img>
+              </div>
+            )}
           </div>
         </div>
       </div>
       <div className="my-10 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
         <div className="shadow-xl rounded-xl col-span-2 p-8 font-Manrope font-light flex flex-col justify-center gap-4 md:gap-8">
-          <div className="text-sz16 md:text-sz24">
-            Hundred Finance is a decentralized application (dApp) that enables
-            the lending and borrowing of crypto- currencies. A multi-chain
-            protocol, it integrates with Chainlink oracles to ensure market
-            health and stability, while specializing in providing markets for
-            long-tail assets.
-          </div>
-          <div className="p-4 bg-gray rounded-xl flex flex-col md:flex-row items-start md:containeritems-center justify-between gap-4 md:gap-8">
+          <div className="text-sz16 md:text-sz24">{project?.description}</div>
+          <div className="p-4 bg-gray rounded-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-8">
             <div className="w-full flex flex-col items-center">
               <div className="rounded-full shadow-xl">
                 <CircleProgressBar
                   sqSize={180}
-                  percentage={88}
+                  percentage={project?.safety_score}
                   strokeWidth={28}
                   type={1}
                 ></CircleProgressBar>
@@ -105,11 +166,11 @@ const Rating = () => {
             <div className="font-Manrope font-light flex flex-col gap-4 md:gap-8">
               <div className="flex flex-col">
                 <div className="text-darkgray text-sz16">Platform</div>
-                <div className="text-sz24">ETH (Multichain)</div>
+                <div className="text-sz24">{project?.platform?.join(",")}</div>
               </div>
               <div className="flex flex-col">
                 <div className="text-darkgray text-sz16">Language used</div>
-                <div className="text-sz24">Vyper</div>
+                <div className="text-sz24">{project?.language}</div>
               </div>
             </div>
 
@@ -138,7 +199,9 @@ const Rating = () => {
               </div>
               <div className="space-y-2 flex flex-col">
                 <div className="text-darkgray text-sz16">Contract Address</div>
-                <ContractAddressBox></ContractAddressBox>
+                <ContractAddressBox
+                  address={project?.contract_addr}
+                ></ContractAddressBox>
               </div>
             </div>
           </div>
@@ -148,7 +211,7 @@ const Rating = () => {
             <div className="grid grid-cols-2">
               <div className="flex flex-col space-y-2">
                 <div className="text-sz16 text-darkgray">Project</div>
-                <div className="text-sz24">Hundred DAO</div>
+                <div className="text-sz24">{project?.name}</div>
               </div>
               <div className="flex flex-col space-y-2">
                 <div className="text-sz16 text-darkgray">Audit Reports</div>
@@ -161,7 +224,7 @@ const Rating = () => {
             <div className="grid grid-cols-2">
               <div className="flex flex-col space-y-2">
                 <div className="text-sz16 text-darkgray">Token Price</div>
-                <div className="text-sz24">$0.103</div>
+                <div className="text-sz24">${tokenData?.price}</div>
                 <div className="flex flex-row items-center">
                   <svg
                     width="25"
@@ -172,12 +235,17 @@ const Rating = () => {
                   >
                     <path d="M3 8L12 17L21 8H3Z" fill="#A22E2E" />
                   </svg>
-                  <div className="text-sz16 text-red">15.9%</div>
+                  <div className="text-sz16 text-red">
+                    {tokenData?.price_change < 0
+                      ? `-${tokenData?.price_change}`
+                      : tokenData?.price_change}
+                    %
+                  </div>
                 </div>
               </div>
               <div className="flex flex-col space-y-2">
                 <div className="text-sz16 text-darkgray">Market cap</div>
-                <div className="text-sz24">$1,451,392,754</div>
+                <div className="text-sz24">${tokenData?.market_cap}</div>
                 <div className="flex flex-row items-center">
                   <svg
                     width="25"
@@ -188,21 +256,28 @@ const Rating = () => {
                   >
                     <path d="M3 8L12 17L21 8H3Z" fill="#A22E2E" />
                   </svg>
-                  <div className="text-sz16 text-red">15.9%</div>
+                  <div className="text-sz16 text-red">
+                    {tokenData?.market_cap_change < 0
+                      ? `-${tokenData?.market_cap_change}`
+                      : tokenData?.market_cap_change}
+                    %
+                  </div>
                 </div>
               </div>
             </div>
             <div className="grid grid-cols-2">
               <div className="flex flex-col space-y-2">
                 <div className="text-sz16 text-darkgray">Audits</div>
-                <div className="text-sz24">1 available</div>
+                <div className="text-sz24">
+                  {project?.audit_available} available
+                </div>
               </div>
               <div className="flex flex-col space-y-2">
                 <div className="text-sz16 text-darkgray">
                   WHD Security Score
                 </div>
                 <div className="text-sz24">
-                  <span className="text-green">88</span>
+                  <span className="text-green">{project?.safety_score}</span>
                   <span> / 100</span>
                 </div>
               </div>
@@ -213,18 +288,12 @@ const Rating = () => {
               </div>
               <div className="grid grid-cols-2 items-center">
                 <div className="flex flex-row space-x-4">
-                  <div className="flex flex-col items-center">
-                    <img src={file} alt="file"></img>
-                    <div className="text-sz16 text-darkgray">WHD</div>
-                  </div>
-                  <div className="flex flex-col items-center">
-                    <img src={file} alt="file"></img>
-                    <div className="text-sz16 text-darkgray">External</div>
-                  </div>
-                  <div className="flex flex-col items-center">
-                    <img src={file} alt="file"></img>
-                    <div className="text-sz16 text-darkgray">Reports</div>
-                  </div>
+                  {project?.audited_by?.map((audit: any) => (
+                    <div className="flex flex-col items-center">
+                      <img src={file} alt="file"></img>
+                      <div className="text-sz16 text-darkgray">{audit}</div>
+                    </div>
+                  ))}
                 </div>
                 <div className="flex flex-col">
                   <div className="text-sz24">08 / 02 / 2022</div>
@@ -263,11 +332,13 @@ const Rating = () => {
           </div>
         </div>
         <div className="p-8 font-Manrope font-light">
-          <div className="w-full rounded-xl p-4 bg-gray flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+          <div className="w-full rounded-xl p-4 bg-gray flex flex-col md:flex-row items-start md:items-center gap-8">
             <div className="relative w-full flex flex-col items-center">
               <Doughnut type={true} />
               <div className="font-Manrope text-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col">
-                <div className="text-sz22 font-bold">291, 591, 552</div>
+                <div className="text-sz22 font-bold">
+                  {tokenData?.total_supply}
+                </div>
                 <div className="text-sz12">TOTAL SUPPLY</div>
               </div>
             </div>
@@ -352,16 +423,18 @@ const Rating = () => {
             <img className="hidden md:block h-full" src={line} alt="line"></img>
             <div className="px-2 text-sz20 font-Manrope font-light flex flex-col gap-8">
               <div className="text-center rounded-full shadow-sm text-green p-2">
-                Max Supply - 500,000,000
+                Max Supply - {tokenData?.max_supply}
               </div>
               <div className="rounded-full shadow-sm text-green p-2">
-                Total Supply - 2,300,000,000
+                Total Supply - {tokenData?.total_supply}
               </div>
               <div className="space-y-2 flex flex-col">
                 <div className="text-darkgray text-sz16">
                   Project Treasury multisig address
                 </div>
-                <ContractAddressBox></ContractAddressBox>
+                <ContractAddressBox
+                  address={project?.contract_addr}
+                ></ContractAddressBox>
               </div>
             </div>
           </div>
@@ -375,7 +448,7 @@ const Rating = () => {
           </div>
         </div>
         <div className="p-8 font-Manrope font-light flex flex-col md:flex-row">
-          <div className="relative w-full flex flex-col items-center">
+          <div className="relative flex flex-col items-center">
             <Doughnut type={false} />
             <div className="font-Manrope text-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col">
               <div className="text-sz22 font-bold">5</div>
@@ -663,11 +736,13 @@ const Rating = () => {
           <div className="py-4 hidden md:flex flex-row items-center space-x-2">
             <img src={idolNFtImage} alt="hundred"></img>
             <div className="font-pilat font-bold text-blue text-sz20">
-              Hundred Finance (HND)
+              {project?.name}
             </div>
           </div>
           <div className="py-4 hidden md:flex flex-row items-center space-x-2">
-            <div className="font-Manrope text-sz40 font-bold">$0.103</div>
+            <div className="font-Manrope text-sz40 font-bold">
+              ${tokenData?.price}
+            </div>
             <div className="flex flex-row items-center space-x-1">
               <svg
                 width="22"
@@ -681,7 +756,12 @@ const Rating = () => {
                   fill="#A22E2E"
                 />
               </svg>
-              <div className="text-sz16 text-red">3.76%</div>
+              <div className="text-sz16 text-red">
+                {tokenData?.price_change < 0
+                  ? `-${tokenData?.price_change}`
+                  : tokenData?.price_change}
+                %
+              </div>
             </div>
           </div>
           <div className="font-Manrope text-sz16 md:text-sz20 grid grid-cols-2 md:grid-cols-3 gap-8 justify-between">
@@ -691,25 +771,27 @@ const Rating = () => {
                   <div className="text-darkgray">Market cap</div>
                   <img src={info_small} alt="info_small"></img>
                 </div>
-                <div>$1,451,392,754</div>
+                <div>${tokenData?.market_cap}</div>
               </div>
               <div className="border-none md:border-b border-darkgray pb-0 md:pb-4 flex flex-col md:flex-row justify-between">
                 <div className=" flex flex-row items-center space-x-2">
                   <div className="text-darkgray">Circulating Supply</div>
                   <img src={info_small} alt="info_small"></img>
                 </div>
-                <div>$1,451,392,754</div>
+                <div>
+                  ${parseFloat(tokenData?.circulating_supply).toFixed(2)}
+                </div>
               </div>
               <div className="border-none md:border-b border-darkgray pb-0 md:pb-4 flex flex-col md:flex-row justify-between">
                 <div className=" flex flex-row items-center space-x-2">
                   <div className="text-darkgray">Max Supply</div>
                   <img src={info_small} alt="info_small"></img>
                 </div>
-                <div>392,754</div>
+                <div>{tokenData?.max_supply}</div>
               </div>
               <div className="flex flex-col md:flex-row justify-between">
                 <div className="text-darkgray">All time high</div>
-                <div>$100</div>
+                <div>${tokenData?.ath}</div>
               </div>
             </div>
 
@@ -719,7 +801,7 @@ const Rating = () => {
                   <div className="text-darkgray">Market cap Dominance</div>
                   <img src={info_small} alt="info_small"></img>
                 </div>
-                <div>%0.12</div>
+                <div>{tokenData?.market_cap_change}%</div>
               </div>
               <div className="border-none md:border-b border-darkgray pb-0 md:pb-4 flex flex-col md:flex-row justify-between">
                 <div className=" flex flex-row items-center space-x-2">
@@ -730,33 +812,151 @@ const Rating = () => {
               </div>
               <div className="border-none md:border-b border-darkgray pb-0 md:pb-4 flex flex-col md:flex-row justify-between">
                 <div className="text-darkgray">Total Supply</div>
-                <div>392,754</div>
+                <div>{tokenData?.total_supply}</div>
               </div>
               <div className="flex flex-col md:flex-row justify-between">
                 <div className="text-darkgray">All time low</div>
-                <div>$0.1002</div>
+                <div>${tokenData?.atl}</div>
               </div>
             </div>
 
             <div className="hidden md:flex flex-col space-y-4">
               <div className="border-b border-darkgray pb-4 flex flex-row justify-between">
                 <div className="text-darkgray">Volume / Market Cap</div>
-                <div>0.0000221</div>
+                <div>
+                  {(
+                    (tokenData?.market_cap * tokenData?.market_cap_change) /
+                    tokenData?.total_supply
+                  ).toFixed(2)}
+                </div>
               </div>
               <div className="border-b border-darkgray pb-4 flex flex-row justify-between">
                 <div className="text-darkgray">24h Low / 24h High</div>
-                <div>$0.08 / $0.11</div>
-              </div>
-              <div className="border-b border-darkgray pb-4 flex flex-row justify-between">
-                <div className="text-darkgray">7d Low / 7d High</div>
-                <div>$0.08 / $0.11</div>
+                <div>
+                  ${parseFloat(tokenData?.lowPrice_24h).toFixed(2)} / $
+                  {parseFloat(tokenData?.highPrice_24h).toFixed(2)}
+                </div>
               </div>
             </div>
           </div>
         </div>
 
         <div className="mx-8 mb-8 p-6 rounded-xl bg-gray font-Manrope font-light flex flex-col">
-          <img src={token_chart} alt="token_chart"></img>
+          <div className="pb-4 border-b border-darkgray flex flex-row items-center justify-between">
+            <div className="text-blue text-sz16">
+              {project?.name} Price Chart
+            </div>
+            <div className="flex flex-row items-center flex-wrap gap-2">
+              <div
+                onClick={() => setTimeRange(1)}
+                className={
+                  timeRange === 1
+                    ? "px-3 font-bold rounded-md text-white bg-blue border border-blue shadow-sm cursor-pointer"
+                    : "px-3 font-bold rounded-md text-blue border border-blue shadow-sm cursor-pointer"
+                }
+              >
+                1d
+              </div>
+              <div
+                onClick={() => setTimeRange(7)}
+                className={
+                  timeRange === 7
+                    ? "px-3 font-bold rounded-md text-white bg-blue border border-blue shadow-sm cursor-pointer"
+                    : "px-3 font-bold rounded-md text-blue border border-blue shadow-sm cursor-pointer"
+                }
+              >
+                7d
+              </div>
+              <div
+                onClick={() => setTimeRange(14)}
+                className={
+                  timeRange === 14
+                    ? "px-3 font-bold rounded-md text-white bg-blue border border-blue shadow-sm cursor-pointer"
+                    : "px-3 font-bold rounded-md text-blue border border-blue shadow-sm cursor-pointer"
+                }
+              >
+                14d
+              </div>
+              <div
+                onClick={() => setTimeRange(30)}
+                className={
+                  timeRange === 30
+                    ? "px-3 font-bold rounded-md text-white bg-blue border border-blue shadow-sm cursor-pointer"
+                    : "px-3 font-bold rounded-md text-blue border border-blue shadow-sm cursor-pointer"
+                }
+              >
+                30d
+              </div>
+              <div
+                onClick={() => setTimeRange(90)}
+                className={
+                  timeRange === 90
+                    ? "px-3 font-bold rounded-md text-white bg-blue border border-blue shadow-sm cursor-pointer"
+                    : "px-3 font-bold rounded-md text-blue border border-blue shadow-sm cursor-pointer"
+                }
+              >
+                90d
+              </div>
+              <div
+                onClick={() => setTimeRange(180)}
+                className={
+                  timeRange === 180
+                    ? "px-3 font-bold rounded-md text-white bg-blue border border-blue shadow-sm cursor-pointer"
+                    : "px-3 font-bold rounded-md text-blue border border-blue shadow-sm cursor-pointer"
+                }
+              >
+                180d
+              </div>
+              <div
+                onClick={() => setTimeRange(365)}
+                className={
+                  timeRange === 365
+                    ? "px-3 font-bold rounded-md text-white bg-blue border border-blue shadow-sm cursor-pointer"
+                    : "px-3 font-bold rounded-md text-blue border border-blue shadow-sm cursor-pointer"
+                }
+              >
+                365d
+              </div>
+            </div>
+          </div>
+          <PrimaryChart
+            data={tokenPriceHistory ?? []}
+            height={
+              boxWidth >= 1024
+                ? Math.floor(height * 0.6)
+                : Math.floor(height * 0.4)
+            }
+            width={boxWidth * 0.9}
+            margin={
+              boxWidth >= 1280
+                ? {
+                    top: 16,
+                    right: 0,
+                    bottom: 40,
+                    left: 48,
+                  }
+                : boxWidth >= 1024
+                ? {
+                    top: 16,
+                    right: 132,
+                    bottom: 40,
+                    left: 48,
+                  }
+                : boxWidth >= 768
+                ? {
+                    top: 16,
+                    right: 132,
+                    bottom: 40,
+                    left: 48,
+                  }
+                : {
+                    top: 16,
+                    right: 100,
+                    bottom: 40,
+                    left: 48,
+                  }
+            }
+          />
         </div>
       </div>
 
@@ -820,7 +1020,9 @@ const Rating = () => {
           <div className="rounded-md shadow-inner flex flex-col p-6">
             <div className="border-b border-blue pb-3 flex flex-row space-x-2">
               <img src={info} alt="info"></img>
-              <div className="text-sz18 md:text-sz24 font-blue text-blue">Note!</div>
+              <div className="text-sz18 md:text-sz24 font-blue text-blue">
+                Note!
+              </div>
             </div>
             <div className="text-blue text-sz16 md:text-sz20">
               Please be advised that verified check mark only applies to members

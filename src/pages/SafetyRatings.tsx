@@ -5,10 +5,11 @@ import discord from "../assets/images/footer/discord_black.svg";
 import github from "../assets/images/footer/github_black.svg";
 import twitter from "../assets/images/footer/twitter_black.svg";
 import global from "../assets/images/footer/global.svg";
-import medium from "../assets/images/footer/medium.svg";
+import medium from "../assets/images/footer/medium.svg"
 import telegram from "../assets/images/footer/telegram.svg";
 import CircleProgressBar from "../components/CircleProgressBar";
 import goImage from "../assets/images/safety/go.svg";
+import { useNavigate } from "react-router-dom";
 
 import { useEffect, useState } from "react";
 
@@ -17,6 +18,9 @@ interface propsSafetyRatings {
 }
 
 const SafetyRatings = ({ auditProjects }: propsSafetyRatings) => {
+
+  const navigate = useNavigate()
+
   useEffect(() => {
     console.log("auditProjects", auditProjects);
   }, [auditProjects]);
@@ -175,9 +179,7 @@ const SafetyRatings = ({ auditProjects }: propsSafetyRatings) => {
                       </div>
                     ))}
                   </div>
-                  <a href="/safety-ratings/rating">
-                    <img src={goImage} alt="go"></img>
-                  </a>
+                  <img src={goImage} alt="go" onClick={() => navigate(`/safety-ratings/rating/${index}`)}></img>
                 </div>
               </div>
               <div className="shadow-xl hidden border border-blue rounded-xl px-8 py-4 md:flex flex-row items-center gap-4">
@@ -288,9 +290,7 @@ const SafetyRatings = ({ auditProjects }: propsSafetyRatings) => {
                   </div>
                   <div className="text-sz22 flex flex-row items-end justify-between">
                     <div className="w-2/3">{project?.description}</div>
-                    <a href="/safety-ratings/rating">
-                      <img src={goImage} alt="go"></img>
-                    </a>
+                      <img src={goImage} alt="go" onClick={() => navigate(`/safety-ratings/rating/${index}`)}></img>
                   </div>
                 </div>
               </div>

@@ -31,28 +31,14 @@ import ContractAddressBox from "../components/ContractAddressBox";
 
 import icon1 from "../assets/images/rating/table/icon1.svg";
 import icon2 from "../assets/images/rating/table/icon2.svg";
-import axios from "axios";
 
-import { BACKEND_SERVER } from "../global/global";
+import { FormatYMD, FormatNumber } from "../utils/utils";
 
-import { useState, useEffect } from "react";
-import { FormatYMD } from "../utils/utils";
+interface homeProps {
+  auditProjects: any[];
+}
 
-const Home = () => {
-  const [auditedProjects, setAuditedProjects] = useState<any[]>([]);
-
-  const getAuditedProjects = async () => {
-    try {
-      const res = await axios.get(BACKEND_SERVER + "/api/projects");
-      if (res.status === 200) {
-        console.log('res:', res.data.data)
-        setAuditedProjects(res.data.data);
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
+const Home = ({ auditProjects }: homeProps) => {
   // const addProject = async() => {
   //   try {
   //     const res = await axios.post(BACKEND_SERVER + "/api/project", {
@@ -87,10 +73,6 @@ const Home = () => {
   //     console.error(e)
   //   }
   // }
-
-  useEffect(() => {
-    getAuditedProjects();
-  }, []);
 
   return (
     <div className="p-4 flex flex-col">
@@ -415,10 +397,10 @@ const Home = () => {
               </tr>
             </thead>
             <tbody>
-              {auditedProjects.map((project, index) => (
+              {auditProjects?.map((project, index) => (
                 <tr
                   className={
-                    auditedProjects.length === index + 1
+                    auditProjects?.length === index + 1
                       ? "bg-lightgray border-none"
                       : "bg-lightgray border-b border-blue"
                   }
@@ -451,9 +433,13 @@ const Home = () => {
                     {project.price === -1 ? "N/A" : project.price}
                   </td>
                   <td className="px-6 py-3">
-                    {project.market === -1 ? "N/A" : project.market}
+                    {project.market === "-1"
+                      ? "N/A"
+                      : FormatNumber(project.market)}
                   </td>
-                  <td className="px-6 py-3">{project.date}</td>
+                  <td className="px-6 py-3">
+                    {FormatYMD(project.onboard_date)}
+                  </td>
                 </tr>
               ))}
             </tbody>

@@ -2,7 +2,7 @@ import logo from "../assets/images/logo.svg";
 import hamburger from "../assets/images/hamburger.svg";
 import close from "../assets/images/close.svg";
 import { useState } from "react";
-import { useAppContext } from "../context/WalletContext";
+import { useAppContext } from "../context/appContext";
 import { web3Modal } from "../utils/web3Modal";
 import { useCallback, useEffect } from "react";
 import { providers } from "ethers";

@@ -1,20 +1,22 @@
 import React, { createContext, useState, useContext } from "react";
 
-interface WalletState {
+interface appState {
   provider? : any,
   web3Provider?: any,
-  address?: string
+  address?: string,
+  auditProjects?: any[]
 }
 
-const defaultState: WalletState = {
+const defaultState: appState = {
   provider: null,
   web3Provider: null,
-  address: ''
+  address: '',
+  auditProjects: []
 }
 
 type ContextType<TValue> = [TValue, (newValue: TValue) => void];
 
-const defaultContextValue: ContextType<WalletState> = [defaultState, () => {}];
+const defaultContextValue: ContextType<appState> = [defaultState, () => {}];
 
 export const AppContext = createContext(defaultContextValue);
 
@@ -23,11 +25,11 @@ interface Props {
 }
 
 export const AppContextProvider: React.FC<Props> = ({ children, ...props }) => {
-  const [contextState, setContextState] = useState<WalletState>(defaultState);
+  const [contextState, setContextState] = useState<appState>(defaultState);
 
-  const ctxValue: ContextType<WalletState> = [
+  const ctxValue: ContextType<appState> = [
     contextState,
-    (value: WalletState) => {
+    (value: appState) => {
       setContextState(value);
     },
   ];

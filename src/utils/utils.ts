@@ -1,10 +1,11 @@
-export const FormatYMD = (date: Date) => {
-    return String([date.getDate(), date.getMonth(), date.getFullYear()].join("-"))
+export const FormatYMD = (date: string) => {
+    const data = new Date(date)
+    return String([data.getDate(), data.getMonth(), data.getFullYear()].join("-"))
 }
 
 export const FormatNumber = (number: string) => {
     if(parseFloat(number) >= 1000000000) {
-        return parseInt(number) / 1000000000
+        return String(parseInt(number) / 1000000000) + "M"
     } else if(parseInt(number) >= 1000000 && parseInt(number) < 1000000000) {
         return parseInt(number) / 1000000
     } else {

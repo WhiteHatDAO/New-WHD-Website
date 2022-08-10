@@ -10,7 +10,17 @@ import telegram from "../assets/images/footer/telegram.svg";
 import CircleProgressBar from "../components/CircleProgressBar";
 import goImage from "../assets/images/safety/go.svg";
 
-const SafetyRatings = () => {
+import { useEffect, useState } from "react";
+
+interface propsSafetyRatings {
+  auditProjects: any[];
+}
+
+const SafetyRatings = ({ auditProjects }: propsSafetyRatings) => {
+  useEffect(() => {
+    console.log("auditProjects", auditProjects);
+  }, [auditProjects]);
+
   return (
     <div className="mx-4 flex flex-col">
       <div className="my-10 p-8 rounded-xl border border-blue shadow-xl flex flex-col space-y-6 text-center font-Manrope font-light">
@@ -70,72 +80,100 @@ const SafetyRatings = () => {
           </div>
         </div>
         <div className="flex flex-col gap-8">
-          {[1, 2, 3].map((item) => (
+          {auditProjects?.map((project, index) => (
             <>
               <div className="shadow-sm border-blue font-Manrope font-light rounded-lg p-4 flex md:hidden flex-col gap-4">
                 <div className="flex flex-row items-start justify-between">
                   <img src={idolnftImage} alt="idol"></img>
                   <CircleProgressBar
                     sqSize={42}
-                    percentage={88}
+                    percentage={project?.safety_score}
                     strokeWidth={5}
                     type={0}
                   ></CircleProgressBar>
                 </div>
                 <div className="flex flex-row items-start space-x-2">
                   <div className="font-pilat font-bold text-sz20">
-                    The Idols NFT
+                    {project.name}
                   </div>
-                  <img className="" src={verify} alt="verify"></img>
+                  {project.verified && (
+                    <img className="" src={verify} alt="verify"></img>
+                  )}
                 </div>
                 <div className="flex flex-row items-center gap-4">
-                  <div className="px-4 py-1 rounded-full bg-purple text-white">
-                    NFT
-                  </div>
-                  <div className="px-4 py-1 rounded-full bg-green text-white">
-                    Staking
-                  </div>
-                  <div className="px-4 py-1 rounded-full bg-pink text-white">
-                    Marketplace
-                  </div>
+                  {project?.tags.map((tag: any, index: number) => (
+                    <div
+                      className={
+                        index === 0
+                          ? "px-4 py-1 rounded-full bg-purple text-white"
+                          : index === 1
+                          ? "px-4 py-1 rounded-full bg-green text-white"
+                          : "px-4 py-1 rounded-full bg-pink text-white"
+                      }
+                    >
+                      {tag}
+                    </div>
+                  ))}
                 </div>
                 <div className="flex flex-row items-center gap-4 flex-wrap">
-                  <div className="rounded-full shadow-inner">
-                    <img className="w-12 p-3" src={twitter} alt="twitter"></img>
-                  </div>
-                  <div className="rounded-full shadow-inner">
-                    <img className="w-12 p-3" src={github} alt="github"></img>
-                  </div>
-                  <div className="rounded-full shadow-inner">
-                    <img className="w-12 p-3" src={discord} alt="discord"></img>
-                  </div>
-                  <div className="rounded-full shadow-inner">
-                    <img className="w-12 p-3" src={medium} alt="medium"></img>
-                  </div>
-                  <div className="rounded-full shadow-inner">
-                    <img className="w-12 p-3" src={global} alt="global"></img>
-                  </div>
-                  <div className="rounded-full shadow-inner">
-                    <img
-                      className="w-12 p-3"
-                      src={telegram}
-                      alt="telegram"
-                    ></img>
-                  </div>
+                  {project?.socials?.twitter && (
+                    <div className="rounded-full shadow-inner">
+                      <img
+                        className="w-12 p-3"
+                        src={twitter}
+                        alt="twitter"
+                      ></img>
+                    </div>
+                  )}
+                  {project?.socials?.github && (
+                    <div className="rounded-full shadow-inner">
+                      <img className="w-12 p-3" src={github} alt="github"></img>
+                    </div>
+                  )}
+                  {project?.socials?.discord && (
+                    <div className="rounded-full shadow-inner">
+                      <img
+                        className="w-12 p-3"
+                        src={discord}
+                        alt="discord"
+                      ></img>
+                    </div>
+                  )}
+                  {project?.socials?.medium && (
+                    <div className="rounded-full shadow-inner">
+                      <img className="w-12 p-3" src={medium} alt="medium"></img>
+                    </div>
+                  )}
+                  {project?.socials?.web && (
+                    <div className="rounded-full shadow-inner">
+                      <img className="w-12 p-3" src={global} alt="web"></img>
+                    </div>
+                  )}
+                  {project?.socials?.telegram && (
+                    <div className="rounded-full shadow-inner">
+                      <img
+                        className="w-12 p-3"
+                        src={telegram}
+                        alt="telegram"
+                      ></img>
+                    </div>
+                  )}
                 </div>
-                <div className="text-sz16">
-                  The first staked ETH NFT. A 100% community aligned project
-                  which rewards NFT holders and protocol token stakers.
-                </div>
+                <div className="text-sz16">{project?.description}</div>
                 <div className="flex flex-row items-end justify-between">
                   <div className="flex flex-col items-start gap-4">
                     <div className="text-black">Audited by:</div>
-                    <div className="px-4 py-1 rounded-full shadow-inner text-pink ">
-                      Staking
-                    </div>
-                    <div className="px-4 py-1 rounded-full shadow-inner text-blue">
-                      Marketplace
-                    </div>
+                    {project?.audited_by?.map((audit: any) => (
+                      <div
+                        className={
+                          audit === "WHD"
+                            ? "px-4 py-1 rounded-full shadow-inner text-pink"
+                            : "px-4 py-1 rounded-full shadow-inner text-blue"
+                        }
+                      >
+                        {audit}
+                      </div>
+                    ))}
                   </div>
                   <a href="/safety-ratings/rating">
                     <img src={goImage} alt="go"></img>
@@ -148,56 +186,70 @@ const SafetyRatings = () => {
                   <div className="flex flex-row items-center justify-between">
                     <div className="flex flex-row items-start space-x-2">
                       <div className="font-pilat font-bold text-sz30">
-                        The Idols NFT
+                        {project.name}
                       </div>
-                      <img className="" src={verify} alt="verify"></img>
+                      {project.verified && (
+                        <img className="" src={verify} alt="verify"></img>
+                      )}
                     </div>
                     <div className="flex flex-row items-center space-x-4">
-                      <div className="rounded-full shadow-inner">
-                        <img
-                          className="w-12 p-3"
-                          src={twitter}
-                          alt="twitter"
-                        ></img>
-                      </div>
-                      <div className="rounded-full shadow-inner">
-                        <img
-                          className="w-12 p-3"
-                          src={github}
-                          alt="github"
-                        ></img>
-                      </div>
-                      <div className="rounded-full shadow-inner">
-                        <img
-                          className="w-12 p-3"
-                          src={discord}
-                          alt="discord"
-                        ></img>
-                      </div>
-                      <div className="rounded-full shadow-inner">
-                        <img
-                          className="w-12 p-3"
-                          src={medium}
-                          alt="medium"
-                        ></img>
-                      </div>
-                      <div className="rounded-full shadow-inner">
-                        <img
-                          className="w-12 p-3"
-                          src={global}
-                          alt="global"
-                        ></img>
-                      </div>
-                      <div className="rounded-full shadow-inner">
-                        <img
-                          className="w-12 p-3"
-                          src={telegram}
-                          alt="telegram"
-                        ></img>
-                      </div>
+                      {project?.socials?.twitter && (
+                        <div className="rounded-full shadow-inner">
+                          <img
+                            className="w-12 p-3"
+                            src={twitter}
+                            alt="twitter"
+                          ></img>
+                        </div>
+                      )}
+                      {project?.socials?.github && (
+                        <div className="rounded-full shadow-inner">
+                          <img
+                            className="w-12 p-3"
+                            src={github}
+                            alt="github"
+                          ></img>
+                        </div>
+                      )}
+                      {project?.socials?.discord && (
+                        <div className="rounded-full shadow-inner">
+                          <img
+                            className="w-12 p-3"
+                            src={discord}
+                            alt="discord"
+                          ></img>
+                        </div>
+                      )}
+                      {project?.socials?.medium && (
+                        <div className="rounded-full shadow-inner">
+                          <img
+                            className="w-12 p-3"
+                            src={medium}
+                            alt="medium"
+                          ></img>
+                        </div>
+                      )}
+                      {project?.socials?.web && (
+                        <div className="rounded-full shadow-inner">
+                          <img
+                            className="w-12 p-3"
+                            src={global}
+                            alt="web"
+                          ></img>
+                        </div>
+                      )}
+                      {project?.socials?.telegram && (
+                        <div className="rounded-full shadow-inner">
+                          <img
+                            className="w-12 p-3"
+                            src={telegram}
+                            alt="telegram"
+                          ></img>
+                        </div>
+                      )}
                       <CircleProgressBar
                         sqSize={42}
-                        percentage={88}
+                        percentage={project.safety_score}
                         strokeWidth={5}
                         type={0}
                       ></CircleProgressBar>
@@ -205,31 +257,37 @@ const SafetyRatings = () => {
                   </div>
                   <div className="font-Manrope text-sz12 font-light flex flex-row items-center justify-between">
                     <div className="flex flex-row items-center space-x-4">
-                      <div className="px-4 py-1 rounded-full bg-purple text-white">
-                        NFT
-                      </div>
-                      <div className="px-4 py-1 rounded-full bg-green text-white">
-                        Staking
-                      </div>
-                      <div className="px-4 py-1 rounded-full bg-pink text-white">
-                        Marketplace
-                      </div>
+                      {project?.tags.map((tag: any, index: number) => (
+                        <div
+                          className={
+                            index === 0
+                              ? "px-4 py-1 rounded-full bg-purple text-white"
+                              : index === 1
+                              ? "px-4 py-1 rounded-full bg-green text-white"
+                              : "px-4 py-1 rounded-full bg-pink text-white"
+                          }
+                        >
+                          {tag}
+                        </div>
+                      ))}
                     </div>
                     <div className="flex flex-row items-center space-x-4">
                       <div className="text-black">Audited by:</div>
-                      <div className="px-4 py-1 rounded-full shadow-inner text-pink ">
-                        Staking
-                      </div>
-                      <div className="px-4 py-1 rounded-full shadow-inner text-blue">
-                        Marketplace
-                      </div>
+                      {project?.audited_by?.map((audit: any) => (
+                        <div
+                          className={
+                            audit === "WHD"
+                              ? "px-4 py-1 rounded-full shadow-inner text-pink"
+                              : "px-4 py-1 rounded-full shadow-inner text-blue"
+                          }
+                        >
+                          {audit}
+                        </div>
+                      ))}
                     </div>
                   </div>
                   <div className="text-sz22 flex flex-row items-end justify-between">
-                    <div className="w-2/3">
-                      The first staked ETH NFT. A 100% community aligned project
-                      which rewards NFT holders and protocol token stakers.
-                    </div>
+                    <div className="w-2/3">{project?.description}</div>
                     <a href="/safety-ratings/rating">
                       <img src={goImage} alt="go"></img>
                     </a>

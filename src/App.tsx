@@ -19,19 +19,40 @@ import Summary from "./pages/Profile/Summary";
 import Activity from "./pages/Profile/Activity";
 import Notifications from "./pages/Profile/Notifications";
 import Settings from "./pages/Profile/Settings";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { BACKEND_SERVER } from "./global/global";
+import { useCoingeckoAPI } from "./utils/useCoingeckoAPI";
 
 const App = () => {
+  const [auditProjects, setAuditProjects] = useState<any[]>([])
+
+  const getAuditedProjects = async () => {
+    try {
+      const res = await axios.get(BACKEND_SERVER + "/api/projects");
+      if (res.status === 200) {
+        setAuditProjects(res.data.data);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  useEffect(() => {
+    getAuditedProjects()
+  }, [])
+
   return (
     <div className="background">
       <div className="container flex flex-col mx-auto">
         <Navbar></Navbar>
         <Routes>
-            <Route path="/" element={<Home/>}></Route>
+            <Route path="/" element={<Home auditProjects={auditProjects}/>}></Route>
             <Route path="/dao" element={<Dao/>}></Route>
-            <Route path="/safety-ratings" element={<SafetyRatings />}></Route>
+            <Route path="/safety-ratings" element={<SafetyRatings auditProjects={auditProjects}/>}></Route>
             <Route path="/audit" element={<Audit />}></Route>
             <Route path="/safety-ratings/rating" element={<Rating />}></Route>
-            <Route path="/audit/item" element={<AuditItem />}></Route>
+            <Route path="/audit/:id" element={<AuditItem auditProjects={auditProjects}/>}></Route>
             <Route path="/BlogPost1" element={<BlogPost1 />}></Route>
             <Route path="/BlogPost2" element={<BlogPost2 />}></Route>
             <Route path="/TopicItem1" element={<TopicItem1 />}></Route>

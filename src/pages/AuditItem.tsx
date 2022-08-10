@@ -9,8 +9,32 @@ import telegram from "../assets/images/footer/telegram.svg";
 import CircleProgressBar from "../components/CircleProgressBar";
 import token_chart from "../assets/images/rating/token_chart.png";
 import icon1 from "../assets/images/rating/table/icon1.svg";
+import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useCoingeckoAPI } from "../utils/useCoingeckoAPI"
 
-const AuditItem = () => {
+interface auditItemProps {
+  auditProjects: any[];
+}
+const AuditItem = ({ auditProjects }: auditItemProps) => {
+  const { id } = useParams();
+  const { handleGetTokenData, handleGetTokenPriceHistory, tokenData, tokenPriceHistory } = useCoingeckoAPI();
+  const [project, setProject] = useState<any>();
+
+  useEffect(() => {
+    if(id !== undefined) {
+      setProject(auditProjects[parseInt(id)]);
+    }
+  }, [id])
+
+  useEffect(() => {
+    handleGetTokenData(project.token)
+  }, [project])
+
+  useEffect(() => {
+    console.log('tokenData', tokenData)
+  }, [tokenData])
+
   return (
     <div className="mx-4 my-10 flex flex-col">
       <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-4">

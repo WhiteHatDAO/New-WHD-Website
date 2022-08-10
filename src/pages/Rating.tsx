@@ -7,7 +7,6 @@ import global from "../assets/images/footer/global.svg";
 import medium from "../assets/images/footer/medium.svg";
 import telegram from "../assets/images/footer/telegram.svg";
 import copy from "../assets/images/copy.svg";
-import pattern from "../assets/images/pattern.svg";
 import file from "../assets/images/file.svg";
 import check_t from "../assets/images/rating/check_t.svg";
 import CircleProgressBar from "../components/CircleProgressBar";
@@ -17,7 +16,6 @@ import line from "../assets/images/rating/line.svg";
 import info_small from "../assets/images/info.svg";
 import token_chart from "../assets/images/rating/token_chart.png";
 import icon1 from "../assets/images/rating/table/icon1.svg";
-import icon2 from "../assets/images/rating/table/icon2.svg";
 import ether from "../assets/images/rating/ether.svg";
 
 import member1 from "../assets/images/rating/members/member1.png";

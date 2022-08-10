@@ -10,8 +10,6 @@ import CircleProgressBar from "../components/CircleProgressBar";
 import token_chart from "../assets/images/rating/token_chart.png";
 import icon1 from "../assets/images/rating/table/icon1.svg";
 
-import member1 from "../assets/images/rating/members/member1.png";
-
 const AuditItem = () => {
   return (
     <div className="mx-4 my-10 flex flex-col">

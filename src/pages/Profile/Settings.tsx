@@ -1,15 +1,9 @@
 import avatar from '../../assets/images/profile/avatar.png'
-import heart from '../../assets/images/profile/heart.png'
 import pen from '../../assets/images/profile/pen.png'
 import info from '../../assets/images/profile/info.png'
 import up from '../../assets/images/profile/up.png'
 import wallet from '../../assets/images/profile/wallet.png'
 import deletion from '../../assets/images/profile/delete.png'
-import swol from '../../assets/images/profile/swol.png'
-import reply from '../../assets/images/profile/reply.png'
-import dot from "../../assets/images/blogpost/dot.png"
-import openfile from "../../assets/images/blogpost/openfile.png"
-import line from "../../assets/images/blogpost/line.png"
 
 const Settings = () => {
     return (

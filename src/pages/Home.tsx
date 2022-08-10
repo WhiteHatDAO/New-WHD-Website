@@ -3,7 +3,6 @@ import infoImage from "../assets/images/info.svg";
 import groupSlideImage from "../assets/images/group_slide.svg";
 import idolsNFTImage from "../assets/images/idolsNFT.svg";
 import hundredImage from "../assets/images/hundred.svg";
-import copyImage from "../assets/images/copy.svg";
 import CircleProgressBar from "../components/CircleProgressBar";
 import searchImage from "../assets/images/search.svg";
 import auditWHD from "../assets/images/auditWHD.svg";
@@ -30,76 +29,69 @@ import logo from "../assets/images/logo.svg";
 import GradientBox from "../components/GradientBar";
 import ContractAddressBox from "../components/ContractAddressBox";
 
-import icon1 from "../assets/images/rating/table/icon1.svg"
-import icon2 from "../assets/images/rating/table/icon2.svg"
+import icon1 from "../assets/images/rating/table/icon1.svg";
+import icon2 from "../assets/images/rating/table/icon2.svg";
+import axios from "axios";
 
-const auditedProjects = [
-  {
-    image: idolsNFTImage,
-    text: "The Idols NFT",
-    price: null,
-    marketcap: null,
-    number: 2,
-    percentage: 95,
-    date: "26-04-2022",
-  },
-  {
-    image: hundredImage,
-    text: "The Idols NFT",
-    price: 0.2158,
-    marketcap: "31.87 B",
-    number: 2,
-    percentage: 40,
-    date: "12-04-2022",
-  },
-  {
-    image: hundredImage,
-    text: "The Idols NFT",
-    price: null,
-    marketcap: null,
-    number: 1,
-    percentage: 35,
-    date: "26-04-2022",
-  },
-  {
-    image: hundredImage,
-    text: "The Idols NFT",
-    price: 0.2158,
-    marketcap: "31.87 B",
-    number: 1,
-    percentage: 72,
-    date: "12-04-2022",
-  },
-  {
-    image: hundredImage,
-    text: "The Idols NFT",
-    price: 0.2158,
-    marketcap: "31.87 B",
-    number: 3,
-    percentage: 90,
-    date: "12-04-2022",
-  },
-  {
-    image: hundredImage,
-    text: "The Idols NFT",
-    price: null,
-    marketcap: null,
-    number: 1,
-    percentage: 25,
-    date: "26-04-2022",
-  },
-  {
-    image: hundredImage,
-    text: "The Idols NFT",
-    price: 0.2158,
-    marketcap: "31.87 B",
-    number: 1,
-    percentage: 60,
-    date: "12-04-2022",
-  },
-];
+import { BACKEND_SERVER } from "../global/global";
+
+import { useState, useEffect } from "react";
+import { FormatYMD } from "../utils/utils";
 
 const Home = () => {
+  const [auditedProjects, setAuditedProjects] = useState<any[]>([]);
+
+  const getAuditedProjects = async () => {
+    try {
+      const res = await axios.get(BACKEND_SERVER + "/api/projects");
+      if (res.status === 200) {
+        console.log('res:', res.data.data)
+        setAuditedProjects(res.data.data);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  // const addProject = async() => {
+  //   try {
+  //     const res = await axios.post(BACKEND_SERVER + "/api/project", {
+  //       name: "The Idols NFT",
+  //       logo: "The Idols NFT",
+  //       audited_by: "WHD,EXTERNAL",
+  //       safety_score: 95,
+  //       price: 0.2158,
+  //       market: 3187000000,
+  //       onboard_date: "2022-04-26",
+  //       tags: "NFT,STAKING,MARKETPLACE",
+  //       socials: {
+  //         twitter: "https://twitter.com",
+  //         github: "https://github.com",
+  //         discord: "https://discord.com",
+  //         medium: "https://medium.com",
+  //         web: "https://web.skype.com",
+  //         telegram: "https://telegram.org",
+  //       },
+  //       description: "The first staked ETH NFT. A 100% community aligned project which rewards NFT holders and protocol token stakers.",
+  //       verified: true,
+  //       audit_available: true,
+  //       platform: "ETH,POLYGON,OPTIMISM",
+  //       language: "ENG",
+  //       contract_addr: "0x510171F0bf052e2Bd1c04539c96AB341F497492d",
+  //       token: "IDF",
+  //       member: "1,2,3,4"
+  //     })
+
+  //     console.log('res', res)
+  //   } catch (e) {
+  //     console.error(e)
+  //   }
+  // }
+
+  useEffect(() => {
+    getAuditedProjects();
+  }, []);
+
   return (
     <div className="p-4 flex flex-col">
       <div className="grid grid-cols-12 gap-8">
@@ -325,7 +317,7 @@ const Home = () => {
                 </div>
               </div>
               <div className="space-y-2 font-light flex flex-col">
-                <div className="text-darkgray text-sz16">Contract Address</div>
+                <div className="text-darkgray text-sz16">Networks</div>
                 <div className="text-sz12 text-blue flex flex-row items-center space-x-4">
                   <div className="rounded-full shadow-inner px-3 py-1">ETH</div>
                   <div className="rounded-full shadow-inner px-3 py-1">
@@ -343,7 +335,10 @@ const Home = () => {
                     <div>Uniswap (V3)</div>
                   </div>
                   <div className="text-blue">HND/ETH</div>
-                  <div className="rounded-full font-light text-sz16 px-4 py-1 shadow-inner"><span className="text-green">Buy</span> / <span className="text-pink">Sell</span></div>
+                  <div className="rounded-full font-light text-sz16 px-4 py-1 shadow-inner">
+                    <span className="text-green">Buy</span> /{" "}
+                    <span className="text-pink">Sell</span>
+                  </div>
                 </div>
                 <div className="flex flex-row items-center justify-between">
                   <div className="flex flex-row items-center space-x-2">
@@ -351,7 +346,10 @@ const Home = () => {
                     <div>Sushiswap</div>
                   </div>
                   <div className="text-blue">HND/WETH</div>
-                  <div className="rounded-full font-light text-sz16 px-4 py-1 shadow-inner"><span className="text-green">Buy</span> / <span className="text-pink">Sell</span></div>
+                  <div className="rounded-full font-light text-sz16 px-4 py-1 shadow-inner">
+                    <span className="text-green">Buy</span> /{" "}
+                    <span className="text-pink">Sell</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -417,7 +415,7 @@ const Home = () => {
               </tr>
             </thead>
             <tbody>
-              {auditedProjects.map((item, index) => (
+              {auditedProjects.map((project, index) => (
                 <tr
                   className={
                     auditedProjects.length === index + 1
@@ -425,17 +423,17 @@ const Home = () => {
                       : "bg-lightgray border-b border-blue"
                   }
                 >
-                  <td className="px-6 py-3">{item.text}</td>
+                  <td className="px-6 py-3">{project.name}</td>
                   <td className="px-6 py-3">
                     <div className="flex flex-row items-center justify-center">
-                      {item.number === 1 && (
-                        <img src={auditWHD} alt="WHD"></img>
-                      )}
-                      {item.number > 1 && (
-                        <>
-                          <img className="pr-2" src={auditWHD} alt="WHD"></img>
-                          <img src={auditExt} alt="EXT"></img>
-                        </>
+                      {project.audited_by.map((item: any) =>
+                        item === "WHD" ? (
+                          <img src={auditWHD} alt="WHD"></img>
+                        ) : (
+                          item === "EXTERNAL" && (
+                            <img src={auditExt} alt="EXT"></img>
+                          )
+                        )
                       )}
                     </div>
                   </td>
@@ -443,19 +441,19 @@ const Home = () => {
                     <div className="flex flex-col items-center">
                       <CircleProgressBar
                         sqSize={42}
-                        percentage={item.percentage}
+                        percentage={project.safety_score}
                         strokeWidth={5}
                         type={0}
                       ></CircleProgressBar>
                     </div>
                   </td>
                   <td className="px-6 py-3">
-                    {item.price === null ? "N/A" : item.price}
+                    {project.price === -1 ? "N/A" : project.price}
                   </td>
                   <td className="px-6 py-3">
-                    {item.marketcap === null ? "N/A" : item.marketcap}
+                    {project.market === -1 ? "N/A" : project.market}
                   </td>
-                  <td className="px-6 py-3">{item.date}</td>
+                  <td className="px-6 py-3">{project.date}</td>
                 </tr>
               ))}
             </tbody>

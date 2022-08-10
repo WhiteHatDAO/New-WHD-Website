@@ -35,7 +35,7 @@ const Navbar = () => {
         address: address,
       });
     } catch (e) {}
-  }, []);
+  }, [appState, setAppState]);
 
   const disconnect = useCallback(async function () {
     await web3Modal.clearCachedProvider();
@@ -59,7 +59,7 @@ const Navbar = () => {
     if (web3Modal.cachedProvider) {
       connect();
     }
-  }, []);
+  }, [connect]);
 
   useEffect(() => {
     if (appState.provider?.on) {
@@ -87,7 +87,7 @@ const Navbar = () => {
         }
       };
     }
-  }, [appState.provider]);
+  }, [appState.provider, appState, disconnect, provider, setAppState]);
 
   return (
     <div className="relative">

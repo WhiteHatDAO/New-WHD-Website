@@ -22,7 +22,6 @@ import Settings from "./pages/Profile/Settings";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { BACKEND_SERVER } from "./global/global";
-import { useCoingeckoAPI } from "./utils/useCoingeckoAPI";
 
 const App = () => {
   const [auditProjects, setAuditProjects] = useState<any[]>([])

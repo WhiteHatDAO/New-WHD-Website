@@ -1,18 +1,21 @@
 import copy from "../assets/images/copy.svg";
 import pattern from "../assets/images/pattern.svg";
+import { getSubAddress } from "../utils/utils";
 
 interface boxInterface {
   address: string;
 }
 
 const ContractAddressBox = ({ address }: boxInterface) => {
-  console.log('address', address)
+  console.log("address", address);
   return (
     <div className="rounded-md shadow-sm flex flex-row">
       <div className="p-2 w-full flex flex-row items-center">
         <img src={copy} alt="copy"></img>
         <img src={pattern} alt="pattern"></img>
-        <div className="text-blue text-sz20">{address}</div>
+        {address && (
+          <div className="text-blue text-sz20">{getSubAddress(address)}</div>
+        )}
       </div>
       <div className="p-2 bg-blue rounded-r-md flex items-center justify-center">
         <svg

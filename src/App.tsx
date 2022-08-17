@@ -49,7 +49,7 @@ const App = () => {
             <Route path="/" element={<Home auditProjects={auditProjects}/>}></Route>
             <Route path="/dao" element={<Dao/>}></Route>
             <Route path="/safety-ratings" element={<SafetyRatings auditProjects={auditProjects}/>}></Route>
-            <Route path="/audit" element={<Audit />}></Route>
+            <Route path="/audit" element={<Audit auditProjects={auditProjects}/>}></Route>
             <Route path="/safety-ratings/rating/:id" element={<Rating auditProjects={auditProjects}/>}></Route>
             <Route path="/audit/:id" element={<AuditItem auditProjects={auditProjects}/>}></Route>
             <Route path="/BlogPost1" element={<BlogPost1 />}></Route>

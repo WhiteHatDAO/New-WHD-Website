@@ -24,6 +24,7 @@ import { useParams } from "react-router-dom";
 
 import { useState, useEffect, useRef } from "react";
 import { useCoingeckoAPI } from "../utils/useCoingeckoAPI";
+import { FormatBigNumber } from "../utils/utils";
 import PrimaryChart from "../components/PrimaryChart";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 
@@ -334,11 +335,11 @@ const Rating = ({ auditProjects }: ratingProps) => {
         </div>
         <div className="p-8 font-Manrope font-light">
           <div className="w-full rounded-xl p-4 bg-gray flex flex-col md:flex-row items-start md:items-center gap-8">
-            <div className="relative w-full flex flex-col items-center">
+            <div className="relative flex flex-col items-center">
               <Doughnut type={true} />
               <div className="font-Manrope text-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col">
                 <div className="text-sz22 font-bold">
-                  {tokenData?.total_supply}
+                  {FormatBigNumber(tokenData?.total_supply)}
                 </div>
                 <div className="text-sz12">TOTAL SUPPLY</div>
               </div>
@@ -424,10 +425,10 @@ const Rating = ({ auditProjects }: ratingProps) => {
             <img className="hidden md:block h-full" src={line} alt="line"></img>
             <div className="px-2 text-sz20 font-Manrope font-light flex flex-col gap-8">
               <div className="text-center rounded-full shadow-sm text-green p-2">
-                Max Supply - {tokenData?.max_supply}
+                Max Supply - {FormatBigNumber(tokenData?.max_supply)}
               </div>
               <div className="rounded-full shadow-sm text-green p-2">
-                Total Supply - {tokenData?.total_supply}
+                Total Supply - {FormatBigNumber(tokenData?.total_supply)}
               </div>
               <div className="space-y-2 flex flex-col">
                 <div className="text-darkgray text-sz16">
@@ -742,7 +743,7 @@ const Rating = ({ auditProjects }: ratingProps) => {
           </div>
           <div className="py-4 hidden md:flex flex-row items-center space-x-2">
             <div className="font-Manrope text-sz40 font-bold">
-              ${tokenData?.price}
+              ${Number(tokenData?.price).toFixed(4)}
             </div>
             <div className="flex flex-row items-center space-x-1">
               <svg
@@ -759,8 +760,8 @@ const Rating = ({ auditProjects }: ratingProps) => {
               </svg>
               <div className="text-sz16 text-red">
                 {tokenData?.price_change < 0
-                  ? `-${tokenData?.price_change}`
-                  : tokenData?.price_change}
+                  ? `-${Number(tokenData?.price_change).toFixed(2)}`
+                  : Number(tokenData?.price_change).toFixed(2)}
                 %
               </div>
             </div>
@@ -772,7 +773,7 @@ const Rating = ({ auditProjects }: ratingProps) => {
                   <div className="text-darkgray">Market cap</div>
                   <img src={info_small} alt="info_small"></img>
                 </div>
-                <div>${tokenData?.market_cap}</div>
+                <div>${FormatBigNumber(tokenData?.market_cap)}</div>
               </div>
               <div className="border-none md:border-b border-darkgray pb-0 md:pb-4 flex flex-col md:flex-row justify-between">
                 <div className=" flex flex-row items-center space-x-2">
@@ -780,7 +781,7 @@ const Rating = ({ auditProjects }: ratingProps) => {
                   <img src={info_small} alt="info_small"></img>
                 </div>
                 <div>
-                  ${parseFloat(tokenData?.circulating_supply).toFixed(2)}
+                  ${FormatBigNumber(parseFloat(tokenData?.circulating_supply).toFixed(0))}
                 </div>
               </div>
               <div className="border-none md:border-b border-darkgray pb-0 md:pb-4 flex flex-col md:flex-row justify-between">
@@ -788,7 +789,7 @@ const Rating = ({ auditProjects }: ratingProps) => {
                   <div className="text-darkgray">Max Supply</div>
                   <img src={info_small} alt="info_small"></img>
                 </div>
-                <div>{tokenData?.max_supply}</div>
+                <div>{FormatBigNumber(tokenData?.max_supply)}</div>
               </div>
               <div className="flex flex-col md:flex-row justify-between">
                 <div className="text-darkgray">All time high</div>
@@ -813,7 +814,7 @@ const Rating = ({ auditProjects }: ratingProps) => {
               </div>
               <div className="border-none md:border-b border-darkgray pb-0 md:pb-4 flex flex-col md:flex-row justify-between">
                 <div className="text-darkgray">Total Supply</div>
-                <div>{tokenData?.total_supply}</div>
+                <div>{FormatBigNumber(tokenData?.total_supply)}</div>
               </div>
               <div className="flex flex-col md:flex-row justify-between">
                 <div className="text-darkgray">All time low</div>

@@ -20,73 +20,16 @@ import CircleProgressBar from "../components/CircleProgressBar";
 import prevImage from "../assets/images/prev.svg";
 import nextImage from "../assets/images/next.svg";
 
-const auditedProjects = [
-  {
-    image: idolsNFTImage,
-    text: "The Idols NFT",
-    price: null,
-    marketcap: null,
-    number: 2,
-    percentage: 95,
-    date: "26-04-2022",
-  },
-  {
-    image: hundredImage,
-    text: "The Idols NFT",
-    price: 0.2158,
-    marketcap: "31.87 B",
-    number: 2,
-    percentage: 40,
-    date: "12-04-2022",
-  },
-  {
-    image: hundredImage,
-    text: "The Idols NFT",
-    price: null,
-    marketcap: null,
-    number: 1,
-    percentage: 35,
-    date: "26-04-2022",
-  },
-  {
-    image: hundredImage,
-    text: "The Idols NFT",
-    price: 0.2158,
-    marketcap: "31.87 B",
-    number: 1,
-    percentage: 72,
-    date: "12-04-2022",
-  },
-  {
-    image: hundredImage,
-    text: "The Idols NFT",
-    price: 0.2158,
-    marketcap: "31.87 B",
-    number: 3,
-    percentage: 90,
-    date: "12-04-2022",
-  },
-  {
-    image: hundredImage,
-    text: "The Idols NFT",
-    price: null,
-    marketcap: null,
-    number: 1,
-    percentage: 25,
-    date: "26-04-2022",
-  },
-  {
-    image: hundredImage,
-    text: "The Idols NFT",
-    price: 0.2158,
-    marketcap: "31.87 B",
-    number: 1,
-    percentage: 60,
-    date: "12-04-2022",
-  },
-];
+import { FormatYMD, FormatNumber } from "../utils/utils";
+import { useNavigate } from "react-router-dom"
 
-const Audit = () => {
+interface AuditProps {
+  auditProjects: any[];
+}
+
+const Audit = ({ auditProjects }: AuditProps) => {
+  const navigate = useNavigate()
+
   return (
     <div className="mx-4 my-10 flex flex-col space-y-8">
       <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
@@ -138,7 +81,9 @@ const Audit = () => {
         </div>
       </div>
       <div className="font-Manrope flex flex-col text-center space-y-8">
-        <div className="font-pilat text-sz20 md:text-sz30">Our Services Includes</div>
+        <div className="font-pilat text-sz20 md:text-sz30">
+          Our Services Includes
+        </div>
         <div className="font-light grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="p-4 shadow-xl rounded-md flex flex-col text-center">
             <div className="font-pilat text-sz20 md:text-sz22 text-blue">
@@ -184,7 +129,11 @@ const Audit = () => {
               <div className="text-pink text-sz16">Step 1</div>
               <div className="text-sz24">Share Source Code</div>
             </div>
-            <img className="mb-8 md:mb-0 mt-8 md:mt-14 transform rotate-90 md:rotate-0" src={arrow} alt="arrow"></img>
+            <img
+              className="mb-8 md:mb-0 mt-8 md:mt-14 transform rotate-90 md:rotate-0"
+              src={arrow}
+              alt="arrow"
+            ></img>
             <div className="w-40 text-center flex flex-col items-center space-y-2">
               <div className="w-32 h-32 rounded-3xl shadow-inner flex flex-col items-center justify-center">
                 <img src={step2} alt="step2"></img>
@@ -192,7 +141,11 @@ const Audit = () => {
               <div className="text-pink text-sz16">Step 2</div>
               <div className="text-sz24">Review & Quote</div>
             </div>
-            <img className="mb-8 md:mb-0 mt-8 md:mt-14 transform rotate-90 md:rotate-0" src={arrow} alt="arrow"></img>
+            <img
+              className="mb-8 md:mb-0 mt-8 md:mt-14 transform rotate-90 md:rotate-0"
+              src={arrow}
+              alt="arrow"
+            ></img>
             <div className="w-40 text-center flex flex-col items-center space-y-2">
               <div className="w-32 h-32 rounded-3xl shadow-inner flex flex-col items-center justify-center">
                 <img src={step3} alt="step3"></img>
@@ -200,7 +153,11 @@ const Audit = () => {
               <div className="text-pink text-sz16">Step 3</div>
               <div className="text-sz24">Begin Vulnerability Inspection</div>
             </div>
-            <img className="mb-8 md:mb-0 mt-8 md:mt-14 transform rotate-90 md:rotate-0" src={arrow} alt="arrow"></img>
+            <img
+              className="mb-8 md:mb-0 mt-8 md:mt-14 transform rotate-90 md:rotate-0"
+              src={arrow}
+              alt="arrow"
+            ></img>
             <div className="w-40 text-center flex flex-col items-center space-y-2">
               <div className="w-32 h-32 rounded-3xl shadow-inner flex flex-col items-center justify-center">
                 <img src={step4} alt="step4"></img>
@@ -208,7 +165,11 @@ const Audit = () => {
               <div className="text-pink text-sz16">Step 4</div>
               <div className="text-sz24">Suggest Remediations</div>
             </div>
-            <img className="mb-8 md:mb-0 mt-8 md:mt-14 transform rotate-90 md:rotate-0" src={arrow} alt="arrow"></img>
+            <img
+              className="mb-8 md:mb-0 mt-8 md:mt-14 transform rotate-90 md:rotate-0"
+              src={arrow}
+              alt="arrow"
+            ></img>
             <div className="w-40 text-center flex flex-col items-center space-y-2">
               <div className="w-32 h-32 rounded-3xl shadow-inner flex flex-col items-center justify-center">
                 <img src={step5} alt="step5"></img>
@@ -296,7 +257,9 @@ const Audit = () => {
         </div>
       </div>
       <div className="py-10 flex flex-col space-y-8 s">
-        <div className="font-pilat text-sz20 md:text-sz30 text-center">Audit Leaderboard</div>
+        <div className="font-pilat text-sz20 md:text-sz30 text-center">
+          Audit Leaderboard
+        </div>
         <div className="text-black font-Manrope font-light flex flex-row flex-wrap items-center gap-4">
           <select
             id="role"
@@ -355,25 +318,26 @@ const Audit = () => {
               </tr>
             </thead>
             <tbody>
-              {auditedProjects.map((item, index) => (
+              {auditProjects?.map((project, index) => (
                 <tr
+                  onClick={() => navigate(`/audit/${index}`)}
                   className={
-                    auditedProjects.length === index + 1
+                    auditProjects?.length === index + 1
                       ? "bg-lightgray border-none"
                       : "bg-lightgray border-b border-blue"
                   }
                 >
-                  <td className="px-6 py-3">{item.text}</td>
+                  <td className="px-6 py-3">{project.name}</td>
                   <td className="px-6 py-3">
                     <div className="flex flex-row items-center justify-center">
-                      {item.number === 1 && (
-                        <img src={auditWHD} alt="WHD"></img>
-                      )}
-                      {item.number > 1 && (
-                        <>
-                          <img className="pr-2" src={auditWHD} alt="WHD"></img>
-                          <img src={auditExt} alt="EXT"></img>
-                        </>
+                      {project.audited_by.map((item: any) =>
+                        item === "WHD" ? (
+                          <img src={auditWHD} alt="WHD"></img>
+                        ) : (
+                          item === "EXTERNAL" && (
+                            <img src={auditExt} alt="EXT"></img>
+                          )
+                        )
                       )}
                     </div>
                   </td>
@@ -381,19 +345,23 @@ const Audit = () => {
                     <div className="flex flex-col items-center">
                       <CircleProgressBar
                         sqSize={42}
-                        percentage={item.percentage}
+                        percentage={project.safety_score}
                         strokeWidth={5}
                         type={0}
                       ></CircleProgressBar>
                     </div>
                   </td>
                   <td className="px-6 py-3">
-                    {item.price === null ? "N/A" : item.price}
+                    {project.price === -1 ? "N/A" : project.price}
                   </td>
                   <td className="px-6 py-3">
-                    {item.marketcap === null ? "N/A" : item.marketcap}
+                    {project.market === "-1"
+                      ? "N/A"
+                      : FormatNumber(project.market)}
                   </td>
-                  <td className="px-6 py-3">{item.date}</td>
+                  <td className="px-6 py-3">
+                    {FormatYMD(project.onboard_date)}
+                  </td>
                 </tr>
               ))}
             </tbody>

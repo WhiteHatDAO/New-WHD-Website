@@ -14,7 +14,7 @@ import servImage2 from "../assets/images/service2.png";
 import servImage3 from "../assets/images/service3.png";
 
 import hundredfinance from "../assets/images/brands/hundredfinance.svg";
-import bitdao from "../assets/images/brands/bitdao.svg";
+import bitdao from "../assets/images/brands/bitdao.svg";  
 import dao from "../assets/images/brands/dao.svg";
 import whitehat from "../assets/images/brands/whitehat.svg";
 

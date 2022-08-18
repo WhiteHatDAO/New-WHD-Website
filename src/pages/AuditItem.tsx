@@ -11,29 +11,41 @@ import token_chart from "../assets/images/rating/token_chart.png";
 import icon1 from "../assets/images/rating/table/icon1.svg";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useCoingeckoAPI } from "../utils/useCoingeckoAPI"
+import { useCoingeckoAPI } from "../utils/useCoingeckoAPI";
 
 interface auditItemProps {
   auditProjects: any[];
 }
 const AuditItem = ({ auditProjects }: auditItemProps) => {
   const { id } = useParams();
-  const { handleGetTokenData, handleGetTokenPriceHistory, tokenData, tokenPriceHistory } = useCoingeckoAPI();
+  const {
+    handleGetTokenData,
+    handleGetTokenPriceHistory,
+    tokenData,
+    tokenPriceHistory,
+  } = useCoingeckoAPI();
   const [project, setProject] = useState<any>();
 
   useEffect(() => {
-    if(id !== undefined) {
+    console.log("auditProjects", auditProjects);
+  }, []);
+
+  useEffect(() => {
+    if (id !== undefined && auditProjects.length > 0) {
       setProject(auditProjects[parseInt(id)]);
     }
-  }, [id])
+  }, [id]);
 
   useEffect(() => {
-    handleGetTokenData(project.token)
-  }, [project])
+    if (project) {
+      console.log("project", project);
+      handleGetTokenData(project.token);
+    }
+  }, [project]);
 
   useEffect(() => {
-    console.log('tokenData', tokenData)
-  }, [tokenData])
+    console.log("tokenData", tokenData);
+  }, [tokenData]);
 
   return (
     <div className="mx-4 my-10 flex flex-col">
@@ -43,64 +55,63 @@ const AuditItem = ({ auditProjects }: auditItemProps) => {
             <img src={idolNFtImage} alt="idol"></img>
             <div className="flex flex-row items-start space-x-1">
               <div className="font-pilat font-bold text-sz20 md:text-sz40">
-                Hundred Finance
+                {project?.name}
               </div>
               <img className="mt-1" src={verify} alt="verify"></img>
             </div>
           </div>
           <div className="font-Manrope text-sz12 font-light flex flex-row items-center justify-between">
             <div className="flex flex-row items-center flex-wrap gap-4">
-              <div className="px-4 py-1 rounded-full shadow-inner">NFT</div>
-              <div className="px-4 py-1 rounded-full shadow-inner">Staking</div>
-              <div className="px-4 py-1 rounded-full shadow-inner">
-                Marketplace
-              </div>
-              <div className="px-4 py-1 rounded-full shadow-inner">NFT</div>
-              <div className="px-4 py-1 rounded-full shadow-inner">Staking</div>
-              <div className="px-4 py-1 rounded-full shadow-inner">
-                Marketplace
-              </div>
+              {project?.tags.map((tag: string) => (
+                <div className="px-4 py-1 rounded-full shadow-inner">{tag}</div>
+              ))}
             </div>
           </div>
         </div>
         <div className="flex flex-row items-end justify-between">
           <div className="flex flex-row items-center space-x-4">
-            <div className="rounded-full shadow-inner">
-              <img className="w-12 p-3" src={twitter} alt="twitter"></img>
-            </div>
-            <div className="rounded-full shadow-inner">
-              <img className="w-12 p-3" src={github} alt="github"></img>
-            </div>
-            <div className="rounded-full shadow-inner">
-              <img className="w-12 p-3" src={discord} alt="discord"></img>
-            </div>
-            <div className="rounded-full shadow-inner">
-              <img className="w-12 p-3" src={medium} alt="medium"></img>
-            </div>
-            <div className="rounded-full shadow-inner">
-              <img className="w-12 p-3" src={global} alt="global"></img>
-            </div>
-            <div className="rounded-full shadow-inner">
-              <img className="w-12 p-3" src={telegram} alt="telegram"></img>
-            </div>
+            {project?.socials?.twitter && (
+              <div className="rounded-full shadow-inner">
+                <img className="w-12 p-3" src={twitter} alt="twitter"></img>
+              </div>
+            )}
+            {project?.socials?.github && (
+              <div className="rounded-full shadow-inner">
+                <img className="w-12 p-3" src={github} alt="github"></img>
+              </div>
+            )}
+            {project?.socials?.discord && (
+              <div className="rounded-full shadow-inner">
+                <img className="w-12 p-3" src={discord} alt="discord"></img>
+              </div>
+            )}
+            {project?.socials?.medium && (
+              <div className="rounded-full shadow-inner">
+                <img className="w-12 p-3" src={medium} alt="medium"></img>
+              </div>
+            )}
+            {project?.socials?.web && (
+              <div className="rounded-full shadow-inner">
+                <img className="w-12 p-3" src={global} alt="web"></img>
+              </div>
+            )}
+            {project?.socials?.telegram && (
+              <div className="rounded-full shadow-inner">
+                <img className="w-12 p-3" src={telegram} alt="telegram"></img>
+              </div>
+            )}
           </div>
         </div>
       </div>
       <div className="my-10 w-full grid grid-cols-1 xl:grid-cols-3 gap-8 ">
         <div className="shadow-xl border border-blue rounded-xl col-span-2 p-8 font-Manrope font-light flex flex-col justify-center gap-4 md:gap-8">
-          <div className="text-sz16 md:text-sz24">
-            Hundred Finance is a decentralized application (dApp) that enables
-            the lending and borrowing of crypto- currencies. A multi-chain
-            protocol, it integrates with Chainlink oracles to ensure market
-            health and stability, while specializing in providing markets for
-            long-tail assets.
-          </div>
+          <div className="text-sz16 md:text-sz24">{project?.description}</div>
           <div className="p-4 bg-gray rounded-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-8">
-            <div className="w-full flex flex-col items-center">
+            <div className="flex flex-col items-start">
               <div className="rounded-full shadow-xl">
                 <CircleProgressBar
                   sqSize={180}
-                  percentage={88}
+                  percentage={project?.safety_score}
                   strokeWidth={28}
                   type={1}
                 ></CircleProgressBar>
@@ -110,11 +121,11 @@ const AuditItem = ({ auditProjects }: auditItemProps) => {
             <div className="font-Manrope font-light flex flex-col gap-4 md:gap-8">
               <div className="flex flex-col">
                 <div className="text-darkgray text-sz16">Platform</div>
-                <div className="text-sz24">ETH (Multichain)</div>
+                <div className="text-sz24">{project?.platform?.join(",")}</div>
               </div>
               <div className="flex flex-col">
                 <div className="text-darkgray text-sz16">Language used</div>
-                <div className="text-sz24">Vyper</div>
+                <div className="text-sz24">{project?.language}</div>
               </div>
             </div>
 
@@ -169,7 +180,7 @@ const AuditItem = ({ auditProjects }: auditItemProps) => {
             <div className="grid grid-cols-2">
               <div className="flex flex-col space-y-2">
                 <div className="text-sz16 text-darkgray">Project</div>
-                <div className="text-sz24">Hundred DAO</div>
+                <div className="text-sz24">{project?.name}</div>
               </div>
               <div className="flex flex-col space-y-2">
                 <div className="text-sz16 text-darkgray">Audit Reports</div>
@@ -182,7 +193,7 @@ const AuditItem = ({ auditProjects }: auditItemProps) => {
             <div className="grid grid-cols-2">
               <div className="flex flex-col space-y-2">
                 <div className="text-sz16 text-darkgray">Token Price</div>
-                <div className="text-sz24">$0.103</div>
+                <div className="text-sz24">${tokenData?.price}</div>
                 <div className="flex flex-row items-center">
                   <svg
                     width="25"
@@ -193,12 +204,17 @@ const AuditItem = ({ auditProjects }: auditItemProps) => {
                   >
                     <path d="M3 8L12 17L21 8H3Z" fill="#A22E2E" />
                   </svg>
-                  <div className="text-sz16 text-red">15.9%</div>
+                  <div className="text-sz16 text-red">
+                    {tokenData?.price_change < 0
+                      ? `-${tokenData?.price_change}`
+                      : tokenData?.price_change}
+                    %
+                  </div>
                 </div>
               </div>
               <div className="flex flex-col space-y-2">
                 <div className="text-sz16 text-darkgray">Market cap</div>
-                <div className="text-sz24">$1,451,392,754</div>
+                <div className="text-sz24">${tokenData?.market_cap}</div>
                 <div className="flex flex-row items-center">
                   <svg
                     width="25"
@@ -209,21 +225,26 @@ const AuditItem = ({ auditProjects }: auditItemProps) => {
                   >
                     <path d="M3 8L12 17L21 8H3Z" fill="#A22E2E" />
                   </svg>
-                  <div className="text-sz16 text-red">15.9%</div>
+                  <div className="text-sz16 text-red">
+                    {tokenData?.market_cap_change < 0
+                      ? `-${tokenData?.market_cap_change}`
+                      : tokenData?.market_cap_change}
+                    %
+                  </div>
                 </div>
               </div>
             </div>
             <div className="grid grid-cols-2">
               <div className="flex flex-col space-y-2">
                 <div className="text-sz16 text-darkgray">Audits</div>
-                <div className="text-sz24">1 available</div>
+                <div className="text-sz24">{project?.audit_available} available</div>
               </div>
               <div className="flex flex-col space-y-2">
                 <div className="text-sz16 text-darkgray">
                   WHD Security Score
                 </div>
                 <div className="text-sz24">
-                  <span className="text-green">88</span>
+                  <span className="text-green">{project?.safety_score}</span>
                   <span> / 100</span>
                 </div>
               </div>

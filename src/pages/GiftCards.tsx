@@ -1,0 +1,9 @@
+const GiftCards = () => {
+    return (
+        <div>
+
+        </div>
+    )
+}
+
+export default GiftCards;

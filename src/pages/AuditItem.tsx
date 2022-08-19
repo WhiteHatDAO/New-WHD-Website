@@ -297,7 +297,7 @@ const AuditItem = ({ auditProjects }: auditItemProps) => {
         <div className="p-8 font-Manrope font-light grid grid-cols-1 md:grid-cols-4 space-x-0 md:space-x-4 space-y-4 md:space-y-0">
           <div className=" col-span-1 p-6 w-full rounded-xl bg-gray flex flex-col space-y-4">
             <div className="pb-4 text-blue text-sz16 border-b border-blue">
-              Hundred Finance Price Data
+              {project?.name} Price Data
             </div>
             <div className="grid grid-cols-2">
               <div className="flex flex-col space-y-4">

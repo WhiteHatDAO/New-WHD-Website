@@ -20,22 +20,25 @@ const Navbar = () => {
     )}`;
   };
 
-  const connect = useCallback(async function () {
-    try {
-      const provider = await web3Modal.connect();
-      const web3Provider = new providers.Web3Provider(provider);
+  const connect = useCallback(
+    async function () {
+      try {
+        const provider = await web3Modal.connect();
+        const web3Provider = new providers.Web3Provider(provider);
 
-      const signer = web3Provider.getSigner();
-      const address = await signer.getAddress();
+        const signer = web3Provider.getSigner();
+        const address = await signer.getAddress();
 
-      setAppState({
-        ...appState,
-        provider: provider,
-        web3Provider: web3Provider,
-        address: address,
-      });
-    } catch (e) {}
-  }, [appState, setAppState]);
+        setAppState({
+          ...appState,
+          provider: provider,
+          web3Provider: web3Provider,
+          address: address,
+        });
+      } catch (e) {}
+    },
+    [appState, setAppState]
+  );
 
   const disconnect = useCallback(async function () {
     await web3Modal.clearCachedProvider();
@@ -107,8 +110,8 @@ const Navbar = () => {
             <a href="/audit">
               <div>AUDIT</div>
             </a>
-            <a href="/whd-nft-market">
-              <div>WHD - NFT - MARKET</div>
+            <a href="/gift-cards">
+              <div>GIFT CARDS - MARKET</div>
             </a>
           </div>
           <div className="flex flex-row items-center space-x-4">
@@ -151,8 +154,8 @@ const Navbar = () => {
               <a href="/audit">
                 <div>AUDIT</div>
               </a>
-              <a href="/whd-nft-market">
-                <div>WHD - NFT - MARKET</div>
+              <a href="/gift-cards">
+                <div>GIFT CARDS - MARKET</div>
               </a>
               <div className="z-10 cursor-pointer">
                 <div className="shadow-sm text-2xl px-8 py-2 border rounded-xl gradient-box text-sz18">

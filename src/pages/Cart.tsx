@@ -3,6 +3,12 @@ import info from "../assets/images/shop/info.svg";
 import edit from "../assets/images/shop/edit.png";
 import uncheck from "../assets/images/shop/uncheck.png";
 import check from "../assets/images/shop/check.png";
+import whitehat from "../assets/images/shop/whitehat_medium.png";
+import bitcoin from "../assets/images/shop/bitcoin.png";
+import ethereum from "../assets/images/shop/ethereum.png";
+import metamask from "../assets/images/shop/metamask.png";
+import wallet from "../assets/images/shop/wallet.png";
+import coinbase from "../assets/images/shop/coinbase.png";
 
 const Cart = () => {
   return (
@@ -93,6 +99,83 @@ const Cart = () => {
           <div className="z-10 cursor-pointer">
             <div className="shadow-sm text-2xl px-8 py-2 text-sz24 flex flex-col items-center border rounded-xl gradient-box">
               <div className="text-blue">Continue</div>
+            </div>
+          </div>
+        </div>
+        <div className="p-6 rounded-xl shadow-xl border border-blue flex flex-col space-y-4">
+          <div className="p-4 text-blue text-sz16 bg-gray">
+            Connect wallet to pay, receive rewards and more!
+          </div>
+          <div className="text-sz20 font-bold">Choose Payment method</div>
+          <div className="flex flex-row items-center justify-between">
+            <div className="p-2 bg-gray rounded-md flex flex-row items-center space-x-2">
+              <img src={whitehat} alt="whitehat"></img>
+              <div className="text-blue text-sz16 flex flex-col">
+                <div className="font-bold">White Hat DAO (WHD)</div>
+                <div>0.03452 WHD</div>
+              </div>
+            </div>
+            <div className="p-2 bg-gray rounded-md flex flex-row items-center space-x-2">
+              <img src={bitcoin} alt="bitcoin"></img>
+              <div className="text-blue text-sz16 flex flex-col">
+                <div className="font-bold">Bitcoin (BTC)</div>
+                <div>0.000427 BTC</div>
+              </div>
+            </div>
+            <div className="p-2 bg-gray rounded-md flex flex-row items-center space-x-2">
+              <img src={ethereum} alt="ethereum"></img>
+              <div className="text-blue text-sz16 flex flex-col">
+                <div className="font-bold">Ethereum (ETH)</div>
+                <div>0.005435 ETH</div>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-row items-center justify-between">
+            <div className="p-2 bg-gray rounded-md flex flex-row items-center space-x-2">
+              <img src={whitehat} alt="whitehat"></img>
+              <div className="text-blue text-sz16 flex flex-col">
+                <div className="font-bold">White Hat DAO (WHD)</div>
+                <div>0.03452 WHD</div>
+              </div>
+            </div>
+            <div className="p-2 bg-gray rounded-md flex flex-row items-center space-x-2">
+              <img src={bitcoin} alt="bitcoin"></img>
+              <div className="text-blue text-sz16 flex flex-col">
+                <div className="font-bold">Bitcoin (BTC)</div>
+                <div>0.000427 BTC</div>
+              </div>
+            </div>
+            <div className="p-2 bg-gray rounded-md flex flex-row items-center space-x-2">
+              <img src={ethereum} alt="ethereum"></img>
+              <div className="text-blue text-sz16 flex flex-col">
+                <div className="font-bold">Ethereum (ETH)</div>
+                <div>0.005435 ETH</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="p-6 rounded-xl shadow-xl border border-blue flex flex-col space-y-4">
+          <div className="text-sz22 font-bold">Payment</div>
+          <div className="p-4 text-blue text-sz16 bg-gray">
+            Connect your wallet for the best experience
+          </div>
+          <div className="z-10 cursor-pointer">
+            <div className="shadow-sm text-2xl px-8 py-2 text-sz24 flex flex-col items-center border rounded-md gradient-box">
+              <div className="text-blue">Connect</div>
+            </div>
+          </div>
+          <div className="pb-4 border-b border-blue flex flex-row items-center justify-between">
+            <div className="p-2 bg-gray rounded-md flex flex-row items-center space-x-2 justify-between">
+              <img src={metamask} alt="metamask"></img>
+              <div className="text-sz24">Metamask</div>
+            </div>
+            <div className="p-2 bg-gray rounded-md flex flex-row items-center space-x-2 justify-between">
+              <img src={wallet} alt="wallet"></img>
+              <div className="text-sz24">Wallet Connect</div>
+            </div>
+            <div className="p-2 bg-gray rounded-md flex flex-row items-center space-x-2 justify-between">
+              <img src={coinbase} alt="coinbase"></img>
+              <div className="text-sz24">Coinbase</div>
             </div>
           </div>
         </div>

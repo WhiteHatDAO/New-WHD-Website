@@ -50,6 +50,7 @@ module.exports = {
       'sz24': '24px',
       'sz30': '30px',
       'sz40': '40px',
+      'sz48': '48px',
       'sz60': '60px'
     },
     fontFamily: {

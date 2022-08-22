@@ -52,7 +52,7 @@ const App = () => {
             <Route path="/safety-ratings" element={<SafetyRatings auditProjects={auditProjects}/>}></Route>
             <Route path="/audit" element={<Audit auditProjects={auditProjects}/>}></Route>
             <Route path="/safety-ratings/rating/:id" element={<Rating auditProjects={auditProjects}/>}></Route>
-            <Route path="//gift-cards" element={<GiftCards />}></Route>
+            <Route path="/gift-cards" element={<GiftCards />}></Route>
             <Route path="/audit/:id" element={<AuditItem auditProjects={auditProjects}/>}></Route>
             <Route path="/BlogPost1" element={<BlogPost1 />}></Route>
             <Route path="/BlogPost2" element={<BlogPost2 />}></Route>

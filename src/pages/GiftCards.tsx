@@ -230,7 +230,7 @@ const GiftCards = () => {
             <div className="grid grid-cols-3 gap-6">
                 {
                     cards.map((card, index) => (
-                        <div className="text-sz20 flex flex-col items-center text-center space-y-6">
+                        <div key={index} className="text-sz20 flex flex-col items-center text-center space-y-6">
                             <img src={card.image} alt={card.text}></img>
                             <div>{card.text}</div>
                         </div>

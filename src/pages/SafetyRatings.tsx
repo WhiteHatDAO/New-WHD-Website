@@ -11,7 +11,7 @@ import CircleProgressBar from "../components/CircleProgressBar";
 import goImage from "../assets/images/safety/go.svg";
 import { useNavigate } from "react-router-dom";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 interface propsSafetyRatings {
   auditProjects: any[];

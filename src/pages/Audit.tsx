@@ -9,8 +9,6 @@ import step5 from "../assets/images/audit/step5.svg";
 
 import arrow from "../assets/images/audit/arrow.svg";
 
-import idolsNFTImage from "../assets/images/idolsNFT.svg";
-import hundredImage from "../assets/images/hundred.svg";
 import searchImage from "../assets/images/search.svg";
 import auditWHD from "../assets/images/auditWHD.svg";
 import auditExt from "../assets/images/auditExt.svg";

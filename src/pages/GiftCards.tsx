@@ -2,7 +2,7 @@ import white_hat from "../assets/images/shop/whitehat.png";
 import ether from "../assets/images/shop/ether.png";
 import matic from "../assets/images/shop/matic.png";
 import shopmark from "../assets/images/shop/shopmark.png";
-import top_gitcards from "../assets/images/shop/top_gitcards.png"
+import top_gitcards from "../assets/images/shop/top_gitcards.png";
 import games from "../assets/images/shop/games.png";
 import ecommerce from "../assets/images/shop/ecommerce.png";
 import entertainment from "../assets/images/shop/entertainment.png";
@@ -16,6 +16,98 @@ import whd_discussion from "../assets/images/shop/whd_discussion.png";
 import req_add_product from "../assets/images/shop/req_add_product.png";
 import partnership from "../assets/images/shop/partnership.png";
 import contact from "../assets/images/shop/contact.png";
+import cart from "../assets/images/shop/cart.png";
+import hotel from "../assets/images/shop/hotel.png";
+import nufferton from "../assets/images/shop/nufferton.png";
+import swaggy from "../assets/images/shop/swaggy.png";
+import beeer_tan from "../assets/images/shop/beeer_tan.png";
+
+const cards = [
+    {
+        image: hotel,
+        text: "Hotels.com"
+    },
+    {
+        image: nufferton,
+        text: "Nufferton"
+    },
+    {
+        image: swaggy,
+        text: "Swaggy"
+    },
+    {
+        image: beeer_tan,
+        text: "Beeer Tan"
+    },
+    {
+        image: hotel,
+        text: "Hotels.com"
+    },
+    {
+        image: nufferton,
+        text: "Nufferton"
+    },
+    {
+        image: swaggy,
+        text: "Swaggy"
+    },
+    {
+        image: beeer_tan,
+        text: "Beeer Tan"
+    },
+    {
+        image: hotel,
+        text: "Hotels.com"
+    },
+    {
+        image: nufferton,
+        text: "Nufferton"
+    },
+    {
+        image: swaggy,
+        text: "Swaggy"
+    },
+    {
+        image: beeer_tan,
+        text: "Beeer Tan"
+    },
+    {
+        image: hotel,
+        text: "Hotels.com"
+    },
+    {
+        image: nufferton,
+        text: "Nufferton"
+    },
+    {
+        image: swaggy,
+        text: "Swaggy"
+    },
+    {
+        image: beeer_tan,
+        text: "Beeer Tan"
+    },
+    {
+        image: hotel,
+        text: "Hotels.com"
+    },
+    {
+        image: nufferton,
+        text: "Nufferton"
+    },
+    {
+        image: swaggy,
+        text: "Swaggy"
+    },
+    {
+        image: beeer_tan,
+        text: "Beeer Tan"
+    },
+    {
+        image: beeer_tan,
+        text: "Beeer Tan"
+    },
+]
 
 const GiftCards = () => {
   return (
@@ -68,64 +160,83 @@ const GiftCards = () => {
         <div className="flex flex-col gap-8">
           <div className="p-4 rounded-xl shadow-xl flex flex-col gap-4 text-blue text-sz20">
             <div className="px-4 py-1 rounded-md flex flex-row space-x-2">
-                <img src={top_gitcards} alt="top_gitcards"></img>
-                <div>Top GiftCards</div>
+              <img src={top_gitcards} alt="top_gitcards"></img>
+              <div>Top GiftCards</div>
             </div>
             <div className="px-4 py-1 rounded-md flex flex-row space-x-2">
-                <img src={games} alt="games"></img>
-                <div>Games</div>
+              <img src={games} alt="games"></img>
+              <div>Games</div>
             </div>
             <div className="px-4 py-1 rounded-md flex flex-row space-x-2">
-                <img src={ecommerce} alt="ecommerce"></img>
-                <div>Ecommerce</div>
+              <img src={ecommerce} alt="ecommerce"></img>
+              <div>Ecommerce</div>
             </div>
             <div className="px-4 py-1 rounded-md flex flex-row space-x-2">
-                <img src={entertainment} alt="entertainment"></img>
-                <div>Entertainment</div>
+              <img src={entertainment} alt="entertainment"></img>
+              <div>Entertainment</div>
             </div>
             <div className="px-4 py-1 rounded-md flex flex-row space-x-2">
-                <img src={electronics} alt="electronics"></img>
-                <div>Electronics</div>
+              <img src={electronics} alt="electronics"></img>
+              <div>Electronics</div>
             </div>
             <div className="px-4 py-1 rounded-md flex flex-row space-x-2">
-                <img src={travel} alt="travel"></img>
-                <div>Travel</div>
+              <img src={travel} alt="travel"></img>
+              <div>Travel</div>
             </div>
             <div className="px-4 py-1 rounded-md flex flex-row space-x-2">
-                <img src={apparel} alt="apparel"></img>
-                <div>Apparel</div>
+              <img src={apparel} alt="apparel"></img>
+              <div>Apparel</div>
             </div>
           </div>
           <div className="p-4 rounded-xl shadow-xl flex flex-col gap-4 text-blue text-sz20">
             <div className="px-4 py-1 rounded-md flex flex-row space-x-2">
-                <img src={fyi} alt="fyi"></img>
-                <div>FYI - Category</div>
+              <img src={fyi} alt="fyi"></img>
+              <div>FYI - Category</div>
             </div>
             <div className="px-4 py-1 rounded-md flex flex-row space-x-2">
-                <img src={how_it_works} alt="How it works"></img>
-                <div>How it works</div>
+              <img src={how_it_works} alt="How it works"></img>
+              <div>How it works</div>
             </div>
             <div className="px-4 py-1 rounded-md flex flex-row space-x-2">
-                <img src={freq_question} alt="freq_question"></img>
-                <div>Frequently Asked Questions</div>
+              <img src={freq_question} alt="freq_question"></img>
+              <div>Frequently Asked Questions</div>
             </div>
             <div className="px-4 py-1 rounded-md flex flex-row space-x-2">
-                <img src={whd_discussion} alt="WHD Discussion forum"></img>
-                <div>WHD Discussion forum</div>
+              <img src={whd_discussion} alt="WHD Discussion forum"></img>
+              <div>WHD Discussion forum</div>
             </div>
             <div className="px-4 py-1 rounded-md flex flex-row space-x-2">
-                <img src={req_add_product} alt="Request to add a product"></img>
-                <div>Request to add a product</div>
+              <img src={req_add_product} alt="Request to add a product"></img>
+              <div>Request to add a product</div>
             </div>
             <div className="px-4 py-1 rounded-md flex flex-row space-x-2">
-                <img src={partnership} alt="Partnership"></img>
-                <div>Partnership</div>
+              <img src={partnership} alt="Partnership"></img>
+              <div>Partnership</div>
             </div>
             <div className="px-4 py-1 rounded-md flex flex-row space-x-2">
-                <img src={contact} alt="Contact Admin for help"></img>
-                <div>Contact Admin for help</div>
+              <img src={contact} alt="Contact Admin for help"></img>
+              <div>Contact Admin for help</div>
             </div>
           </div>
+        </div>
+        <div className="col-span-2 p-8 rounded-xl shadow-xl flex flex-col space-y-6">
+            <div className="flex flex-row items-center justify-between">
+                <div className="text-sz24 font-bold font-pilat">Top Giftcards</div>
+                <div className="px-2 rounded-md bg-gray flex flex-row items-center">
+                    <img src={cart} alt="cart"></img>
+                    <div className="text-sz20 text-blue">Cart</div>
+                </div>
+            </div>
+            <div className="grid grid-cols-3 gap-6">
+                {
+                    cards.map((card, index) => (
+                        <div className="text-sz20 flex flex-col items-center text-center space-y-6">
+                            <img src={card.image} alt={card.text}></img>
+                            <div>{card.text}</div>
+                        </div>
+                    ))
+                }
+            </div>
         </div>
       </div>
     </div>

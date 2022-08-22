@@ -2,6 +2,20 @@ import white_hat from "../assets/images/shop/whitehat.png";
 import ether from "../assets/images/shop/ether.png";
 import matic from "../assets/images/shop/matic.png";
 import shopmark from "../assets/images/shop/shopmark.png";
+import top_gitcards from "../assets/images/shop/top_gitcards.png"
+import games from "../assets/images/shop/games.png";
+import ecommerce from "../assets/images/shop/ecommerce.png";
+import entertainment from "../assets/images/shop/entertainment.png";
+import electronics from "../assets/images/shop/electronics.png";
+import travel from "../assets/images/shop/travel.png";
+import apparel from "../assets/images/shop/apparel.png";
+import fyi from "../assets/images/shop/fyi.png";
+import how_it_works from "../assets/images/shop/how_it_works.png";
+import freq_question from "../assets/images/shop/freq_question.png";
+import whd_discussion from "../assets/images/shop/whd_discussion.png";
+import req_add_product from "../assets/images/shop/req_add_product.png";
+import partnership from "../assets/images/shop/partnership.png";
+import contact from "../assets/images/shop/contact.png";
 
 const GiftCards = () => {
   return (
@@ -50,10 +64,67 @@ const GiftCards = () => {
         </div>
         <img className="h-full" src={shopmark} alt="shopmark"></img>
       </div>
-      <div className="grid grid-cols-3 gap-6">
-        <div className="flex flex-col gap-6">
-          <div className="p-4 rounded-xl shadow-xl flex flex-col gap-4">
-
+      <div className="grid grid-cols-3 gap-8">
+        <div className="flex flex-col gap-8">
+          <div className="p-4 rounded-xl shadow-xl flex flex-col gap-4 text-blue text-sz20">
+            <div className="px-4 py-1 rounded-md flex flex-row space-x-2">
+                <img src={top_gitcards} alt="top_gitcards"></img>
+                <div>Top GiftCards</div>
+            </div>
+            <div className="px-4 py-1 rounded-md flex flex-row space-x-2">
+                <img src={games} alt="games"></img>
+                <div>Games</div>
+            </div>
+            <div className="px-4 py-1 rounded-md flex flex-row space-x-2">
+                <img src={ecommerce} alt="ecommerce"></img>
+                <div>Ecommerce</div>
+            </div>
+            <div className="px-4 py-1 rounded-md flex flex-row space-x-2">
+                <img src={entertainment} alt="entertainment"></img>
+                <div>Entertainment</div>
+            </div>
+            <div className="px-4 py-1 rounded-md flex flex-row space-x-2">
+                <img src={electronics} alt="electronics"></img>
+                <div>Electronics</div>
+            </div>
+            <div className="px-4 py-1 rounded-md flex flex-row space-x-2">
+                <img src={travel} alt="travel"></img>
+                <div>Travel</div>
+            </div>
+            <div className="px-4 py-1 rounded-md flex flex-row space-x-2">
+                <img src={apparel} alt="apparel"></img>
+                <div>Apparel</div>
+            </div>
+          </div>
+          <div className="p-4 rounded-xl shadow-xl flex flex-col gap-4 text-blue text-sz20">
+            <div className="px-4 py-1 rounded-md flex flex-row space-x-2">
+                <img src={fyi} alt="fyi"></img>
+                <div>FYI - Category</div>
+            </div>
+            <div className="px-4 py-1 rounded-md flex flex-row space-x-2">
+                <img src={how_it_works} alt="How it works"></img>
+                <div>How it works</div>
+            </div>
+            <div className="px-4 py-1 rounded-md flex flex-row space-x-2">
+                <img src={freq_question} alt="freq_question"></img>
+                <div>Frequently Asked Questions</div>
+            </div>
+            <div className="px-4 py-1 rounded-md flex flex-row space-x-2">
+                <img src={whd_discussion} alt="WHD Discussion forum"></img>
+                <div>WHD Discussion forum</div>
+            </div>
+            <div className="px-4 py-1 rounded-md flex flex-row space-x-2">
+                <img src={req_add_product} alt="Request to add a product"></img>
+                <div>Request to add a product</div>
+            </div>
+            <div className="px-4 py-1 rounded-md flex flex-row space-x-2">
+                <img src={partnership} alt="Partnership"></img>
+                <div>Partnership</div>
+            </div>
+            <div className="px-4 py-1 rounded-md flex flex-row space-x-2">
+                <img src={contact} alt="Contact Admin for help"></img>
+                <div>Contact Admin for help</div>
+            </div>
           </div>
         </div>
       </div>

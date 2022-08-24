@@ -21,8 +21,8 @@ import copy_black from "../assets/images/shop/copy_black.svg";
 
 const Cart = () => {
   return (
-    <div className="mx-4 my-10 font-Manrope flex flex-row gap-8">
-      <div className="w-1/2 flex flex-col space-y-8">
+    <div className="mx-4 my-10 font-Manrope flex flex-col lg:flex-row gap-8">
+      <div className="w-full lg:w-1/2 flex flex-col space-y-8">
         <div className="p-6 rounded-xl shadow-xl border border-blue flex flex-col space-y-4">
           <div className="text-blue text-sz22">Order details</div>
           <div className="p-3 rounded-md bg-gray flex flex-row items-center space-x-4">
@@ -79,7 +79,7 @@ const Cart = () => {
           </div>
         </div>
       </div>
-      <div className="w-1/2 flex flex-col space-y-8">
+      <div className="w-full lg:w-1/2 flex flex-col space-y-8">
         <div className="p-6 rounded-xl shadow-xl border border-blue flex flex-col space-y-4">
           <div className="text-blue text-sz16">
             Email address for order status updates
@@ -116,7 +116,7 @@ const Cart = () => {
             Connect wallet to pay, receive rewards and more!
           </div>
           <div className="text-sz20 font-bold">Choose Payment method</div>
-          <div className="flex flex-row items-center justify-between">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
             <div className="p-2 bg-gray rounded-md flex flex-row items-center space-x-2">
               <img src={whitehat} alt="whitehat"></img>
               <div className="text-blue text-sz16 flex flex-col">
@@ -138,8 +138,6 @@ const Cart = () => {
                 <div>0.005435 ETH</div>
               </div>
             </div>
-          </div>
-          <div className="flex flex-row items-center justify-between">
             <div className="p-2 bg-gray rounded-md flex flex-row items-center space-x-2">
               <img src={whitehat} alt="whitehat"></img>
               <div className="text-blue text-sz16 flex flex-col">
@@ -175,22 +173,28 @@ const Cart = () => {
           </div>
           <div className="pb-4 border-b border-blue flex flex-row items-center justify-between">
             <div className="p-2 bg-gray rounded-md flex flex-row items-center space-x-2 justify-between">
-              <img src={metamask} alt="metamask"></img>
-              <div className="text-sz24">Metamask</div>
+              <img className="w-8 h-8" src={metamask} alt="metamask"></img>
+              <div className="text-sz12 xl:text-sz24">Metamask</div>
             </div>
             <div className="p-2 bg-gray rounded-md flex flex-row items-center space-x-2 justify-between">
-              <img src={wallet} alt="wallet"></img>
-              <div className="text-sz24">Wallet Connect</div>
+              <img className="w-8 h-8" src={wallet} alt="wallet"></img>
+              <div className="text-sz12 xl:text-sz24">Wallet Connect</div>
             </div>
             <div className="p-2 bg-gray rounded-md flex flex-row items-center space-x-2 justify-between">
-              <img src={coinbase} alt="coinbase"></img>
-              <div className="text-sz24">Coinbase</div>
+              <img className="w-8 h-8" src={coinbase} alt="coinbase"></img>
+              <div className="text-sz12 xl:text-sz24">Coinbase</div>
             </div>
           </div>
-          <div className="flex flex-row gap-4">
+          <div className="flex flex-col xl:flex-row gap-4">
+            <div className="bg-gray rounded-md text-blue p-2 flex xl:hidden flex-row items-center space-x-2">
+              <img src={info} alt="info"></img>
+              <div className="text-sz16">
+                Only send WHD using Ethereum network
+              </div>
+            </div>
             <img src={barcode} alt="barcode"></img>
             <div className="text-blue flex flex-col space-y-4">
-              <div className="bg-gray rounded-md p-2 flex flex-row items-center space-x-2">
+              <div className="hidden bg-gray rounded-md p-2 xl:flex flex-row items-center space-x-2">
                 <img src={info} alt="info"></img>
                 <div className="text-sz16">
                   Only send WHD using Ethereum network

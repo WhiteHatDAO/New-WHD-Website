@@ -92,8 +92,8 @@ const cards = [
 const Card = () => {
   return (
     <div className="mx-4 my-10 font-Manrope flex flex-col space-y-8">
-      <div className="flex flex-row gap-8">
-        <div className="rounded-xl w-96 h-96 shadow-xl border border-blue flex flex-col items-center justify-center px-20 py-20">
+      <div className="flex flex-col lg:flex-row gap-8">
+        <div className="w-full lg:w-96 rounded-xl h-96 shadow-xl border border-blue flex flex-col items-center justify-center px-20 py-20">
           <img src={hotel} alt="hotel"></img>
         </div>
         <div className="rounded-xl w-full shadow-xl border border-blue p-4 flex flex-col space-y-4">
@@ -112,7 +112,7 @@ const Card = () => {
             Dogecoin, and Litecoin.
           </div>
           <div className="text-blue text-sz20">Enter amount</div>
-          <div className="flex flex-row items-center gap-6">
+          <div className="flex flex-col lg:flex-row items-start lg:items-center gap-6">
             <input
               type="text"
               id="website-admin"
@@ -204,7 +204,7 @@ const Card = () => {
       </div>
       <div className="rounded-xl shadow-xl p-8 border-blue border flex flex-col space-y-4">
         <div className="text-sz24 font-pilat">More products</div>
-        <div className="grid grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {
                 cards.map((card, index) => (
                     <div key={index} className="p-4 rounded-xl shadow-xl flex flex-col space-y-4">

@@ -121,7 +121,7 @@ const AuditItem = ({ auditProjects }: auditItemProps) => {
             <div className="font-Manrope font-light flex flex-col gap-4 md:gap-8">
               <div className="flex flex-col">
                 <div className="text-darkgray text-sz16">Platform</div>
-                <div className="text-sz24">{project?.platform?.join(",")}</div>
+                <div className="text-sz24">{project?.platform}</div>
               </div>
               <div className="flex flex-col">
                 <div className="text-darkgray text-sz16">Language used</div>

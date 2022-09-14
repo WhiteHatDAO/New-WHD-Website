@@ -17,379 +17,780 @@ import CircleProgressBar from "../components/CircleProgressBar";
 
 import prevImage from "../assets/images/prev.svg";
 import nextImage from "../assets/images/next.svg";
+import save from "../assets/images/modal/save.png";
+import discard from "../assets/images/modal/discard.png";
+import edit from "../assets/images/edit.png";
 
 import { FormatYMD, FormatNumber } from "../utils/utils";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+
+import axios from "axios";
+import { BACKEND_SERVER } from "../global/global";
 
 interface AuditProps {
   auditProjects: any[];
+  mainProData: any;
+  count: number,
+  handleCount: (count: number) => void
 }
 
-const Audit = ({ auditProjects }: AuditProps) => {
-  const navigate = useNavigate()
+const Audit = ({ auditProjects, mainProData, count, handleCount }: AuditProps) => {
+  const navigate = useNavigate();
+  const [showFirstModal, setShowFirstModal] = useState(false);
+  const [showSecondModal, setShowSecondModal] = useState(false);
+  const [showThirdModal, setShowThirdModal] = useState(false);
 
+  const [diligenceAuditing, setDiligenceAuditing] = useState<string>()
+  const [diligenceAuditingTxt, setDiligenceAuditingTxt] = useState<string>()
+  const [diligenceAuditingNote, setDiligenceAuditingNote] = useState<string>()
+  const [diligenceAuditingBtn, setDiligenceAuditingBtn] = useState<string>()
+  const [diligenceAuditingBtnLink, setDiligenceAuditingBtnLink] = useState<string>()
+  const [terms, setTerms] = useState<string>()
+  const [termsText, setTermsText] = useState<string>()
+  const [auditReport, setAuditReport] = useState<string>()
+  const [auditReportText, setAuditReportText] = useState<string>()
+
+  const [searchText, setSearchText] = useState<string>("");
+  const [filteredProjects, setFilteredProjects] = useState<any[]>([]);
+
+  useEffect(() => {
+    if (auditProjects && searchText.length === 0) {
+      let projects = auditProjects;
+      setFilteredProjects(projects);
+    }
+  }, [auditProjects]);
+
+  const handleSearchItem = () => {
+    if (auditProjects.length === 0) return;
+    if (searchText.length === 0) {
+      let projects = auditProjects;
+      setFilteredProjects(projects);
+    } else {
+      let projects = [];
+      for (let i = 0; i < auditProjects.length; i++) {
+        if (auditProjects[i].name.includes(searchText)) {
+          projects.push(auditProjects[i]);
+        }
+      }
+      setFilteredProjects(projects);
+    }
+  };
+
+  useEffect(() => {
+    if(auditProjects && mainProData) {
+      setDiligenceAuditing(mainProData.audit.diligence_auditing)
+      setDiligenceAuditingTxt(mainProData.audit.diligence_auditing_text)
+      setDiligenceAuditingNote(mainProData.audit.diligence_auditing_note)
+      setDiligenceAuditingBtn(mainProData.audit.diligence_auditing_button)
+      setDiligenceAuditingBtnLink(mainProData.audit.diligence_auditing_button_link)
+      setTerms(mainProData.audit.terms)
+      setTermsText(mainProData.audit.terms_text)
+      setAuditReport(mainProData.audit.audit_report)
+      setAuditReportText(mainProData.audit.audit_report_text)
+    }
+  }, [auditProjects, mainProData])
+
+  const handleSaveFirstModal = async() => {
+    try {
+      const data = {
+        id: mainProData._id,
+        home: mainProData.home,
+        dao: mainProData.dao,
+        rating: mainProData.rating,
+        audit: {
+          diligence_auditing:  diligenceAuditing,
+          diligence_auditing_text: diligenceAuditingTxt,
+          diligence_auditing_note: diligenceAuditingNote,
+          diligence_auditing_button: diligenceAuditingBtn,
+          diligence_auditing_button_link: diligenceAuditingBtnLink,
+          terms: mainProData.audit.terms,
+          terms_text: mainProData.audit.terms_text,
+          audit_report: mainProData.audit.audit_report,
+          audit_report_text: mainProData.audit.audit_report_text,
+        },
+      };
+
+      const res = await axios.put(BACKEND_SERVER + "/api/main-pro", data);
+
+      if(res.status === 200) {
+        let c = count + 1
+        handleCount(c)
+      }
+    } catch (e) {
+      console.log(e);
+    }
+    setShowFirstModal(false)
+  };
+
+  const handleDiscardFirstModal = () => {
+    setDiligenceAuditing(mainProData.audit.diligence_auditing)
+    setDiligenceAuditingTxt(mainProData.audit.diligence_auditing_text)
+    setDiligenceAuditingNote(mainProData.audit.diligence_auditing_note)
+    setDiligenceAuditingBtn(mainProData.audit.diligence_auditing_button)
+    setDiligenceAuditingBtnLink(mainProData.audit.diligence_auditing_button_link)
+    setShowFirstModal(false)
+  }
+
+  const handleSaveSecondModal = async() => {
+    try {
+      const data = {
+        id: mainProData._id,
+        home: mainProData.home,
+        dao: mainProData.dao,
+        rating: mainProData.rating,
+        audit: {
+          diligence_auditing:  mainProData.audit.diligence_auditing,
+          diligence_auditing_text: mainProData.audit.diligence_auditing_text,
+          diligence_auditing_note: mainProData.audit.diligence_auditing_note,
+          diligence_auditing_button: mainProData.audit.diligence_auditing_button,
+          diligence_auditing_button_link: mainProData.audit.diligence_auditing_button_link,
+          terms: terms,
+          terms_text: termsText,
+          audit_report: mainProData.audit.audit_report,
+          audit_report_text: mainProData.audit.audit_report_text,
+        },
+      };
+
+      const res = await axios.put(BACKEND_SERVER + "/api/main-pro", data);
+
+      if(res.status === 200) {
+        let c = count + 1
+        handleCount(c)
+      }
+    } catch (e) {
+      console.log(e);
+    }
+    setShowSecondModal(false)
+  };
+
+  const handleDiscardSecondModal = () => {
+    setTerms(mainProData.audit.terms)
+    setTermsText(mainProData.audit.terms_text)
+    setShowSecondModal(false)
+  }
+
+  const handleSaveThirdModal = async() => {
+    try {
+      const data = {
+        id: mainProData._id,
+        home: mainProData.home,
+        dao: mainProData.dao,
+        rating: mainProData.rating,
+        audit: {
+          diligence_auditing:  mainProData.audit.diligence_auditing,
+          diligence_auditing_text: mainProData.audit.diligence_auditing_text,
+          diligence_auditing_note: mainProData.audit.diligence_auditing_note,
+          diligence_auditing_button: mainProData.audit.diligence_auditing_button,
+          diligence_auditing_button_link: mainProData.audit.diligence_auditing_button_link,
+          terms: mainProData.audit.terms,
+          terms_text: mainProData.audit.terms_text,
+          audit_report: auditReport,
+          audit_report_text: auditReportText,
+        },
+      };
+
+      const res = await axios.put(BACKEND_SERVER + "/api/main-pro", data);
+
+      if(res.status === 200) {
+        let c = count + 1
+        handleCount(c)
+      }
+    } catch (e) {
+      console.log(e);
+    }
+    setShowThirdModal(false)
+  };
+
+  const handleDiscardThirdModal = () => {
+    setAuditReport(mainProData.audit.audit_report)
+    setAuditReportText(mainProData.audit.audit_report_text)
+    setShowThirdModal(false)
+  }
+  
   return (
-    <div className="mx-4 my-10 flex flex-col space-y-8">
-      <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
-        <div className="bg-gray px-6 py-4 rounded-t-xl">
-          <div className="pl-4 text-blue text-sz20 md:text-sz30 font-bold font-pilat text-center">
-            Due-Diligence / Auditing
-          </div>
-        </div>
-        <div className="p-8 flex flex-col font-Manrope font-light space-y-4">
-          <div className="text-sz16 md:text-sz22">
-            We provide Due-Diligence, Safety Rating and a Comprehensive Security
-            Assessment of your smart contract and blockchain code to identify
-            vulnerabilities and recommend ways to fix them.
-          </div>
-          <div className="flex flex-col md:flex-row items-start gap-4 md:gap-8">
-            <div className="flex flex-col space-y-8">
-              <div className="p-6 shadow-inner text-blue font-Manrope flex flex-col space-y-4">
-                <div className="w-full pb-4 border-b border-blue flex flex-row items-center space-x-2 text-sz18 md:text-sz24">
-                  <img src={info} alt="info"></img>
-                  <div>Note!</div>
-                </div>
-                <div className="text-sz16 md:text-sz20">
-                  Our industry-leading audit methodology and tooling includes a
-                  review of your code’s logic, with a mathematical approach to
-                  ensure your program works as intended.
-                </div>
-              </div>
-              <div className="w-full md:w-2/3 rounded-md shadow-sm p-4 border border-blue text-pink text-sz16 md:text-sz24 flex flex-row items-center justify-center">
-                <div>Apply for Smart Contract Security Audit</div>
-                <svg
-                  width="15"
-                  height="15"
-                  viewBox="0 0 15 15"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M3.16667 1H14V11.8333M14 1L1 14L14 1Z"
-                    stroke="#CC2D8F"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </div>
-            </div>
-            <img src={audit} alt="audit"></img>
-          </div>
-        </div>
-      </div>
-      <div className="font-Manrope flex flex-col text-center space-y-8">
-        <div className="font-pilat text-sz20 md:text-sz30">
-          Our Services Includes
-        </div>
-        <div className="font-light grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="p-4 shadow-xl rounded-md flex flex-col text-center">
-            <div className="font-pilat text-sz20 md:text-sz22 text-blue">
-              Identify Errors & Risks
-            </div>
-            <div className="text-sz16">
-              Have your code reviewed by W-HAT team of seasoned security
-              experts.
-            </div>
-          </div>
-          <div className="p-4 shadow-xl rounded-md flex flex-col text-center">
-            <div className="font-pilat text-sz20 md:text-sz22 text-blue">
-              Remediate Vulnerabilities
-            </div>
-            <div className="text-sz16">
-              Receive reporting and recommendations on how to remediate
-              vulnerabilities.
-            </div>
-          </div>
-          <div className="p-4 shadow-xl rounded-md flex flex-col text-center">
-            <div className="font-pilat text-sz20 md:text-sz22 text-blue">
-              Verify Your Contracts
-            </div>
-            <div className="text-sz16">
-              Prove the correctness of your contract code with highly scalable
-              Formal Verification techniques.
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
-        <div className="bg-gray px-6 py-4 rounded-t-xl">
-          <div className="pl-4 text-blue text-sz16 md:text-sz30 font-bold font-pilat text-center">
-            Audit Process
-          </div>
-        </div>
-        <div className="p-8 flex flex-col font-Manrope font-light space-y-4">
-          <div className="flex flex-col md:flex-row items-center md:items-start justify-center md:justify-between">
-            <div className="w-40 text-center flex flex-col items-center space-y-2">
-              <div className="w-32 h-32 rounded-3xl shadow-inner flex flex-col items-center justify-center">
-                <img src={step1} alt="step1"></img>
-              </div>
-              <div className="text-pink text-sz16">Step 1</div>
-              <div className="text-sz24">Share Source Code</div>
-            </div>
-            <img
-              className="mb-8 md:mb-0 mt-8 md:mt-14 transform rotate-90 md:rotate-0"
-              src={arrow}
-              alt="arrow"
-            ></img>
-            <div className="w-40 text-center flex flex-col items-center space-y-2">
-              <div className="w-32 h-32 rounded-3xl shadow-inner flex flex-col items-center justify-center">
-                <img src={step2} alt="step2"></img>
-              </div>
-              <div className="text-pink text-sz16">Step 2</div>
-              <div className="text-sz24">Review & Quote</div>
-            </div>
-            <img
-              className="mb-8 md:mb-0 mt-8 md:mt-14 transform rotate-90 md:rotate-0"
-              src={arrow}
-              alt="arrow"
-            ></img>
-            <div className="w-40 text-center flex flex-col items-center space-y-2">
-              <div className="w-32 h-32 rounded-3xl shadow-inner flex flex-col items-center justify-center">
-                <img src={step3} alt="step3"></img>
-              </div>
-              <div className="text-pink text-sz16">Step 3</div>
-              <div className="text-sz24">Begin Vulnerability Inspection</div>
-            </div>
-            <img
-              className="mb-8 md:mb-0 mt-8 md:mt-14 transform rotate-90 md:rotate-0"
-              src={arrow}
-              alt="arrow"
-            ></img>
-            <div className="w-40 text-center flex flex-col items-center space-y-2">
-              <div className="w-32 h-32 rounded-3xl shadow-inner flex flex-col items-center justify-center">
-                <img src={step4} alt="step4"></img>
-              </div>
-              <div className="text-pink text-sz16">Step 4</div>
-              <div className="text-sz24">Suggest Remediations</div>
-            </div>
-            <img
-              className="mb-8 md:mb-0 mt-8 md:mt-14 transform rotate-90 md:rotate-0"
-              src={arrow}
-              alt="arrow"
-            ></img>
-            <div className="w-40 text-center flex flex-col items-center space-y-2">
-              <div className="w-32 h-32 rounded-3xl shadow-inner flex flex-col items-center justify-center">
-                <img src={step5} alt="step5"></img>
-              </div>
-              <div className="text-pink text-sz16">Step 5</div>
-              <div className="text-sz24">Deliver Report</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
-        <div className="bg-gray px-6 py-4 rounded-t-xl">
-          <div className="pl-4 text-blue text-sz16 md:text-sz30 font-bold font-pilat text-center">
-            Terms & Conditions
-          </div>
-        </div>
-        <div className="p-8 flex flex-col font-Manrope font-light space-y-4">
-          <div className="p-6 rounded-md shadow-inner flex flex-col space-y-4">
-            <div className="flex flex-row items-center">
-              <div className="w-4 h-4 rounded-full bg-blue"></div>
-              <div className="text-sz16 md:text-sz22">
-                Audit may take 3 weeks in total or longer to complete.
-              </div>
-            </div>
-            <div className="flex flex-row items-center space-x-4">
-              <div className="w-4 h-4 rounded-full bg-blue"></div>
-              <div className="text-sz16 md:text-sz22">
-                White Hat DAO may take 2 weeks or longer to complete a
-                preliminary audit report for clients to review recommended
-                feedback / suggestions.
-              </div>
-            </div>
-            <div className="flex flex-row items-center space-x-4">
-              <div className="w-4 h-4 rounded-full bg-blue"></div>
-              <div className="text-sz16 md:text-sz22">
-                1 week for clients to review or acknowledge any issues may be
-                found and resubmit the code for final review.{" "}
-              </div>
-            </div>
-            <div className="flex flex-row items-center space-x-4">
-              <div className="w-4 h-4 rounded-full bg-blue"></div>
-              <div className="text-sz16 md:text-sz22">
-                White Hat DAO doesn’t apply any extra charges on reviewing the
-                audited files.
-              </div>
-            </div>
-            <div className="flex flex-row items-center space-x-4">
-              <div className="w-4 h-4 rounded-full bg-blue"></div>
-              <div className="text-sz16 md:text-sz22">
-                The smart contract still may contain unfound severity and
-                security issues even after the audit is completed.{" "}
-              </div>
-            </div>
-            <div className="flex flex-row items-center space-x-4">
-              <div className="w-4 h-4 rounded-full bg-blue"></div>
-              <div className="text-sz16 md:text-sz22">
-                White Hat DAO may take 1 week or longer to finalize the review
-                on resubmitted source code and deliver final security audit
-                assessments.
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
-        <div className="bg-gray px-6 py-4 rounded-t-xl">
-          <div className="pl-4 text-blue text-sz16 md:text-sz30 font-bold font-pilat text-center">
-            What’s In The Audit Report?
-          </div>
-        </div>
-        <div className="p-8 flex flex-col font-Manrope font-light space-y-4">
-          <div className="text-sz16 md:text-sz22">
-            Our audit reports are custom, thorough, and transparent. The report
-            will contain the details of any identified vulnerabilities and
-            classify them by severity (Critical, Major, Medium, Low, and
-            Informational), along with suggested remediations.
-          </div>
-          <div className="text-sz16 md:text-sz22">
-            With every successful audit, we’ll provide you with a listing on the
-            W-HAT Safety rating leaderboard that is shared publicly with the
-            entire crypto community. The Leaderboard contains the details of
-            projects alongside their audit reports, as well as the community’s
-            security sentiment of the project.
-          </div>
-        </div>
-      </div>
-      <div className="py-10 flex flex-col space-y-8 s">
-        <div className="font-pilat text-sz20 md:text-sz30 text-center">
-          Audit Leaderboard
-        </div>
-        <div className="text-black font-Manrope font-light flex flex-row flex-wrap items-center gap-4">
-          <select
-            id="role"
-            className="w-72 bg-transparent border border-blue text-sz18 rounded-lg block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          >
-            <option selected>Choose a Role</option>
-            <option value="frontend">Frontend</option>
-            <option value="backend">Backend</option>
-            <option value="fullstack">Fullstack</option>
-            <option value="BlockChain">Blockchain</option>
-          </select>
-          <select
-            id="category"
-            className="w-72 bg-transparent border border-blue text-sz18 rounded-lg block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          >
-            <option selected>Choose a category</option>
-            <option value="frontend">Solidity</option>
-            <option value="backend">Web3</option>
-            <option value="fullstack">Nest</option>
-            <option value="BlockChain">React</option>
-          </select>
-          <div className="w-full flex">
-            <div className="inline-flex items-center px-3 text-sm text-gray-900 bg-blue rounded-l-md border border-r-0 border-gray">
-              <img src={searchImage} alt="search"></img>
-            </div>
-            <input
-              type="text"
-              id="website-admin"
-              className="rounded-none shadow-inner rounded-r-lg bg-lightgray border border-darkgray focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="elonmusk"
-            />
-          </div>
-        </div>
-        <div className="my-8 shadow-xl relative overflow-x-auto rounded-lg">
-          <table className="w-full font-Manrope font-light text-sm text-center text-black">
-            <thead className="bg-gray text-blue uppercase border-b border-blue">
-              <tr>
-                <th scope="col" className="px-6 py-4">
-                  Name
-                </th>
-                <th scope="col" className="px-6 py-4">
-                  Audit Reports
-                </th>
-                <th scope="col" className="px-6 py-4">
-                  Safety Score
-                </th>
-                <th scope="col" className="px-6 py-4">
-                  Price
-                </th>
-                <th scope="col" className="px-6 py-4">
-                  Market Cap
-                </th>
-                <th scope="col" className="px-6 py-4">
-                  Onboard date
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {auditProjects?.map((project, index) => (
-                <tr
-                  onClick={() => navigate(`/audit/${index}`)}
-                  className={
-                    auditProjects?.length === index + 1
-                      ? "bg-lightgray border-none"
-                      : "bg-lightgray border-b border-blue"
-                  }
-                >
-                  <td className="px-6 py-3">{project.name}</td>
-                  <td className="px-6 py-3">
-                    <div className="flex flex-row items-center justify-center">
-                      {project.audited_by.map((item: any) =>
-                        item === "WHD" ? (
-                          <img src={auditWHD} alt="WHD"></img>
-                        ) : (
-                          item === "EXTERNAL" && (
-                            <img src={auditExt} alt="EXT"></img>
-                          )
-                        )
-                      )}
+    <>
+      {auditProjects && mainProData && (
+        <div className="mx-4 my-10 flex flex-col space-y-8">
+          <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
+            <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
+              <div className="w-full pl-4 text-blue text-sz20 md:text-sz30 font-bold font-pilat text-center">{mainProData.audit.diligence_auditing}</div>
+              {/* <div
+                className="text-sz20 text-blue font-Manrope flex flex-row items-center space-x-2 cursor-pointer"
+                onClick={() => setShowFirstModal(true)}
+              >
+                <img src={edit} alt="edit"></img>
+                <div>Edit</div>
+              </div> */}
+              {showFirstModal ? (
+                <>
+                  <div className="justify-center items-center flex fixed inset-0 z-50 outline-none focus:outline-none">
+                    <div className="relative my-6 w-5/6 md:w-2/3 lg:w-3/5 xl:w-1/3 rounded-xl shadow-xl font-Manrope">
+                      {/*content*/}
+                      <div className="border-0 rounded-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                        {/*header*/}
+                        <div className="flex flex-row bg-gray items-center px-8 py-4 space-x-8 rounded-t-lg">
+                          <div
+                            className="flex flex-row items-center cursor-pointer gap-2"
+                            onClick={handleSaveFirstModal}
+                          >
+                            <img src={save} alt="save"></img>
+                            <div className="text-sz20 text-pink">Save</div>
+                          </div>
+                          <div
+                            className="flex flex-row items-center cursor-pointer gap-2"
+                            onClick={handleDiscardFirstModal}
+                          >
+                            <img src={discard} alt="discard"></img>
+                            <div className="text-sz20 text-blue">Discard</div>
+                          </div>
+                        </div>
+                        {/*body*/}
+                        <div className="text-sz20 text-left bg-lightgray relative p-8 rounded-b-xl flex flex-col space-y-3">
+                          <div className="flex flex-col space-y-2">
+                            <div className="text-sz20 text-blue">
+                              Edit H1 Text
+                            </div>
+                            <input
+                              type="text"
+                              id="website-admin"
+                              value={diligenceAuditing}
+                              onChange={(e) => setDiligenceAuditing(e.target.value)}
+                              className="shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sz16 border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              placeholder="Due-Diligence / Auditing"
+                            />
+                          </div>
+                          <div className="flex flex-col space-y-2">
+                            <div className="text-blue">Text</div>
+                            <textarea
+                              rows={4}
+                              value={diligenceAuditingTxt}
+                              onChange={(e) => setDiligenceAuditingTxt(e.target.value)}
+                              className="text-sz14 shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              placeholder="We provide Due-Diligence, Safety Rating and a Comprehensive Security Assessment of your smart contract and blockchain code to identify vulnerabilities and recommend ways to fix them."
+                            />
+                          </div>
+                          <div className="flex flex-col space-y-2">
+                            <div className="text-blue">Note</div>
+                            <textarea
+                              rows={3}
+                              value={diligenceAuditingNote}
+                              onChange={(e) => setDiligenceAuditingNote(e.target.value)}
+                              className="text-sz14 shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              placeholder="Our industry-leading audit methodology and tooling includes a review of your code’s logic, with a mathematical approach to ensure your program works as intended."
+                            />
+                          </div>
+                          <div className="flex flex-col space-y-2">
+                            <div className="text-sz20 text-blue">
+                              Edit Button{" "}
+                            </div>
+                            <input
+                              type="text"
+                              id="website-admin"
+                              value={diligenceAuditingBtn}
+                              onChange={(e) => setDiligenceAuditingBtn(e.target.value)}
+                              className="shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sz16 border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              placeholder="Apply For Smart Contract Audit"
+                            />
+                          </div>
+                          <div className="flex flex-col space-y-2">
+                            <div className="text-sz20 text-blue">
+                              Edit Button Link
+                            </div>
+                            <input
+                              type="text"
+                              id="website-admin"
+                              value={diligenceAuditingBtnLink}
+                              onChange={(e) => setDiligenceAuditingBtnLink(e.target.value)}
+                              className="shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sz16 border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              placeholder="https://example.link"
+                            />
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </td>
-                  <td className="px-6 py-3">
-                    <div className="flex flex-col items-center">
-                      <CircleProgressBar
-                        sqSize={42}
-                        percentage={project.safety_score}
-                        strokeWidth={5}
-                        type={0}
-                      ></CircleProgressBar>
+                  </div>
+                  <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+                </>
+              ) : null}
+            </div>
+            <div className="p-8 flex flex-col font-Manrope font-light space-y-4">
+              <div className="text-sz16 md:text-sz22">{mainProData.audit.diligence_auditing_text}</div>
+              <div className="flex flex-col md:flex-row items-start gap-4 md:gap-8">
+                <div className="flex flex-col space-y-8">
+                  <div className="p-6 shadow-inner text-blue font-Manrope flex flex-col space-y-4">
+                    <div className="w-full pb-4 border-b border-blue flex flex-row items-center space-x-2 text-sz18 md:text-sz24">
+                      <img src={info} alt="info"></img>
+                      <div>Note!</div>
                     </div>
-                  </td>
-                  <td className="px-6 py-3">
-                    {project.price === -1 ? "N/A" : project.price}
-                  </td>
-                  <td className="px-6 py-3">
-                    {project.market === "-1"
-                      ? "N/A"
-                      : FormatNumber(project.market)}
-                  </td>
-                  <td className="px-6 py-3">
-                    {FormatYMD(project.onboard_date)}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                    <div className="text-sz16 md:text-sz20">{mainProData.audit.diligence_auditing_note}</div>
+                  </div>
+                  <div className="w-full md:w-2/3 rounded-md shadow-sm p-4 border border-blue text-pink text-sz16 md:text-sz24 flex flex-row items-center justify-center">
+                    <div><a href={mainProData.audit.diligence_auditing_button_link}>{mainProData.audit.diligence_auditing_button}</a></div>
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 15 15"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M3.16667 1H14V11.8333M14 1L1 14L14 1Z"
+                        stroke="#CC2D8F"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <img src={audit} alt="audit"></img>
+              </div>
+            </div>
+          </div>
+          <div className="font-Manrope flex flex-col text-center space-y-8">
+            <div className="font-pilat text-sz20 md:text-sz30">
+              Our Services Includes
+            </div>
+            <div className="font-light grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="p-4 shadow-xl rounded-md flex flex-col text-center">
+                <div className="font-pilat text-sz20 md:text-sz22 text-blue">
+                  Identify Errors & Risks
+                </div>
+                <div className="text-sz16">
+                  Have your code reviewed by W-HAT team of seasoned security
+                  experts.
+                </div>
+              </div>
+              <div className="p-4 shadow-xl rounded-md flex flex-col text-center">
+                <div className="font-pilat text-sz20 md:text-sz22 text-blue">
+                  Remediate Vulnerabilities
+                </div>
+                <div className="text-sz16">
+                  Receive reporting and recommendations on how to remediate
+                  vulnerabilities.
+                </div>
+              </div>
+              <div className="p-4 shadow-xl rounded-md flex flex-col text-center">
+                <div className="font-pilat text-sz20 md:text-sz22 text-blue">
+                  Verify Your Contracts
+                </div>
+                <div className="text-sz16">
+                  Prove the correctness of your contract code with highly
+                  scalable Formal Verification techniques.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
+            <div className="bg-gray px-6 py-4 rounded-t-xl">
+              <div className="pl-4 text-blue text-sz16 md:text-sz30 font-bold font-pilat text-center">
+                Audit Process
+              </div>
+            </div>
+            <div className="p-8 flex flex-col font-Manrope font-light space-y-4">
+              <div className="flex flex-col md:flex-row items-center md:items-start justify-center md:justify-between">
+                <div className="w-40 text-center flex flex-col items-center space-y-2">
+                  <div className="w-32 h-32 rounded-3xl shadow-inner flex flex-col items-center justify-center">
+                    <img src={step1} alt="step1"></img>
+                  </div>
+                  <div className="text-pink text-sz16">Step 1</div>
+                  <div className="text-sz24">Share Source Code</div>
+                </div>
+                <img
+                  className="mb-8 md:mb-0 mt-8 md:mt-14 transform rotate-90 md:rotate-0"
+                  src={arrow}
+                  alt="arrow"
+                ></img>
+                <div className="w-40 text-center flex flex-col items-center space-y-2">
+                  <div className="w-32 h-32 rounded-3xl shadow-inner flex flex-col items-center justify-center">
+                    <img src={step2} alt="step2"></img>
+                  </div>
+                  <div className="text-pink text-sz16">Step 2</div>
+                  <div className="text-sz24">Review & Quote</div>
+                </div>
+                <img
+                  className="mb-8 md:mb-0 mt-8 md:mt-14 transform rotate-90 md:rotate-0"
+                  src={arrow}
+                  alt="arrow"
+                ></img>
+                <div className="w-40 text-center flex flex-col items-center space-y-2">
+                  <div className="w-32 h-32 rounded-3xl shadow-inner flex flex-col items-center justify-center">
+                    <img src={step3} alt="step3"></img>
+                  </div>
+                  <div className="text-pink text-sz16">Step 3</div>
+                  <div className="text-sz24">
+                    Begin Vulnerability Inspection
+                  </div>
+                </div>
+                <img
+                  className="mb-8 md:mb-0 mt-8 md:mt-14 transform rotate-90 md:rotate-0"
+                  src={arrow}
+                  alt="arrow"
+                ></img>
+                <div className="w-40 text-center flex flex-col items-center space-y-2">
+                  <div className="w-32 h-32 rounded-3xl shadow-inner flex flex-col items-center justify-center">
+                    <img src={step4} alt="step4"></img>
+                  </div>
+                  <div className="text-pink text-sz16">Step 4</div>
+                  <div className="text-sz24">Suggest Remediations</div>
+                </div>
+                <img
+                  className="mb-8 md:mb-0 mt-8 md:mt-14 transform rotate-90 md:rotate-0"
+                  src={arrow}
+                  alt="arrow"
+                ></img>
+                <div className="w-40 text-center flex flex-col items-center space-y-2">
+                  <div className="w-32 h-32 rounded-3xl shadow-inner flex flex-col items-center justify-center">
+                    <img src={step5} alt="step5"></img>
+                  </div>
+                  <div className="text-pink text-sz16">Step 5</div>
+                  <div className="text-sz24">Deliver Report</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
+            <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
+              <div className="w-full pl-4 text-blue text-sz16 md:text-sz30 font-bold font-pilat text-center">{mainProData.audit.terms}</div>
+              {/* <div
+                className="text-sz20 text-blue font-Manrope flex flex-row items-center space-x-2 cursor-pointer"
+                onClick={() => setShowSecondModal(true)}
+              >
+                <img src={edit} alt="edit"></img>
+                <div>Edit</div>
+              </div> */}
+              {showSecondModal ? (
+                <>
+                  <div className="justify-center items-center flex fixed inset-0 z-50 outline-none focus:outline-none">
+                    <div className="relative my-6 w-5/6 md:w-2/3 lg:w-3/5 xl:w-1/3 rounded-xl shadow-xl font-Manrope">
+                      {/*content*/}
+                      <div className="border-0 rounded-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                        {/*header*/}
+                        <div className="flex flex-row bg-gray items-center px-8 py-4 space-x-8 rounded-t-lg">
+                          <div
+                            className="flex flex-row items-center cursor-pointer gap-2"
+                            onClick={handleSaveSecondModal}
+                          >
+                            <img src={save} alt="save"></img>
+                            <div className="text-sz20 text-pink">Save</div>
+                          </div>
+                          <div
+                            className="flex flex-row items-center cursor-pointer gap-2"
+                            onClick={handleSaveSecondModal}
+                          >
+                            <img src={discard} alt="discard"></img>
+                            <div className="text-sz20 text-blue">Discard</div>
+                          </div>
+                        </div>
+                        {/*body*/}
+                        <div className="text-sz20 text-left bg-lightgray relative p-8 rounded-b-xl flex flex-col space-y-3">
+                          <div className="flex flex-col space-y-2">
+                            <div className="text-sz20 text-blue">
+                              Edit H1 Text
+                            </div>
+                            <input
+                              type="text"
+                              id="website-admin"
+                              value={terms}
+                              onChange={(e) => setTerms(e.target.value)}
+                              className="shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sz16 border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              placeholder="Due-Diligence / Auditing"
+                            />
+                          </div>
+                          <div className="flex flex-col space-y-2">
+                            <div className="text-blue">Edit Text</div>
+                            <textarea
+                              rows={12}
+                              value={termsText}
+                              onChange={(e) => setTermsText(e.target.value)}
+                              className="text-sz14 shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              placeholder="Audit may take 3 weeks in total or longer to complete.
+
+                          White Hat DAO may take 2 weeks or longer to complete a preliminary audit report for clients to review recommended feedback / suggestions.
+                          
+                          1 week for clients to review or acknowledge any issues may be found and resubmit the code for final review. 
+                          
+                          White Hat DAO doesn’t apply any extra charges on reviewing the audited files.
+                          
+                          The smart contract still may contain unfound severity and security issues even after the audit is completed. 
+                          
+                          White Hat DAO may take 1 week or longer to finalize the review on resubmitted source code and deliver final security audit assessments."
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+                </>
+              ) : null}
+            </div>
+            <div className="p-8 flex flex-col font-Manrope font-light space-y-4">
+              <div className="text-sz16 md:text-sz22 p-6 rounded-md shadow-inner flex flex-col space-y-4" dangerouslySetInnerHTML={{ __html: mainProData.audit.terms_text }}>
+                {/* <div className="flex flex-row items-center">
+                  <div className="w-4 h-4 rounded-full bg-blue"></div>
+                  <div className="text-sz16 md:text-sz22">
+                    Audit may take 3 weeks in total or longer to complete.
+                  </div>
+                </div>
+                <div className="flex flex-row items-center space-x-4">
+                  <div className="w-4 h-4 rounded-full bg-blue"></div>
+                  <div className="text-sz16 md:text-sz22">
+                    White Hat DAO may take 2 weeks or longer to complete a
+                    preliminary audit report for clients to review recommended
+                    feedback / suggestions.
+                  </div>
+                </div>
+                <div className="flex flex-row items-center space-x-4">
+                  <div className="w-4 h-4 rounded-full bg-blue"></div>
+                  <div className="text-sz16 md:text-sz22">
+                    1 week for clients to review or acknowledge any issues may
+                    be found and resubmit the code for final review.{" "}
+                  </div>
+                </div>
+                <div className="flex flex-row items-center space-x-4">
+                  <div className="w-4 h-4 rounded-full bg-blue"></div>
+                  <div className="text-sz16 md:text-sz22">
+                    White Hat DAO doesn’t apply any extra charges on reviewing
+                    the audited files.
+                  </div>
+                </div>
+                <div className="flex flex-row items-center space-x-4">
+                  <div className="w-4 h-4 rounded-full bg-blue"></div>
+                  <div className="text-sz16 md:text-sz22">
+                    The smart contract still may contain unfound severity and
+                    security issues even after the audit is completed.{" "}
+                  </div>
+                </div>
+                <div className="flex flex-row items-center space-x-4">
+                  <div className="w-4 h-4 rounded-full bg-blue"></div>
+                  <div className="text-sz16 md:text-sz22">
+                    White Hat DAO may take 1 week or longer to finalize the
+                    review on resubmitted source code and deliver final security
+                    audit assessments.
+                  </div>
+                </div> */}
+              </div>
+            </div>
+          </div>
+          <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
+            <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
+              <div className="w-full pl-4 text-blue text-sz16 md:text-sz30 font-bold font-pilat text-center">{mainProData.audit.audit_report}</div>
+              {/* <div
+                className="text-sz20 text-blue font-Manrope flex flex-row items-center space-x-2 cursor-pointer"
+                onClick={() => setShowThirdModal(true)}
+              >
+                <img src={edit} alt="edit"></img>
+                <div>Edit</div>
+              </div> */}
+              {showThirdModal ? (
+                <>
+                  <div className="justify-center items-center flex fixed inset-0 z-50 outline-none focus:outline-none">
+                    <div className="relative my-6 w-5/6 md:w-2/3 lg:w-3/5 xl:w-1/3 rounded-xl shadow-xl font-Manrope">
+                      {/*content*/}
+                      <div className="border-0 rounded-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                        {/*header*/}
+                        <div className="flex flex-row bg-gray items-center px-8 py-4 space-x-8 rounded-t-lg">
+                          <div
+                            className="flex flex-row items-center cursor-pointer gap-2"
+                            onClick={handleSaveThirdModal}
+                          >
+                            <img src={save} alt="save"></img>
+                            <div className="text-sz20 text-pink">Save</div>
+                          </div>
+                          <div
+                            className="flex flex-row items-center cursor-pointer gap-2"
+                            onClick={handleDiscardThirdModal}
+                          >
+                            <img src={discard} alt="discard"></img>
+                            <div className="text-sz20 text-blue">Discard</div>
+                          </div>
+                        </div>
+                        {/*body*/}
+                        <div className="text-sz20 text-left bg-lightgray relative p-8 rounded-b-xl flex flex-col space-y-3">
+                          <div className="flex flex-col space-y-2">
+                            <div className="text-sz20 text-blue">
+                              Edit H1 Text
+                            </div>
+                            <input
+                              type="text"
+                              id="website-admin"
+                              value={auditReport}
+                              onChange={(e) => setAuditReport(e.target.value)}
+                              className="shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sz16 border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              placeholder="Due-Diligence / Auditing"
+                            />
+                          </div>
+                          <div className="flex flex-col space-y-2">
+                            <div className="text-blue">Text</div>
+                            <textarea
+                              rows={3}
+                              value={auditReportText}
+                              onChange={(e) => setAuditReportText(e.target.value)}
+                              className="text-sz14 shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              placeholder="Our audit reports are custom, thorough, and transparent. The report will contain the details of any identified vulnerabilities and classify them by severity (Critical, Major, Medium, Low, and Informational), along with suggested remediations."
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+                </>
+              ) : null}
+            </div>
+            <div className="p-8 flex flex-col font-Manrope font-light space-y-4">
+              <div className="text-sz16 md:text-sz22">{mainProData.audit.audit_report_text}</div>
+              <div className="text-sz16 md:text-sz22">
+                With every successful audit, we’ll provide you with a listing on
+                the W-HAT Safety rating leaderboard that is shared publicly with
+                the entire crypto community. The Leaderboard contains the
+                details of projects alongside their audit reports, as well as
+                the community’s security sentiment of the project.
+              </div>
+            </div>
+          </div>
+          <div className="py-10 flex flex-col space-y-8 s">
+            <div className="font-pilat text-sz20 md:text-sz30 text-center">
+              Audit Leaderboard
+            </div>
+            <div className="text-black font-Manrope font-light flex flex-row flex-wrap items-center gap-4">
+              <select
+                id="role"
+                className="w-72 bg-transparent border border-blue text-sz18 rounded-lg block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option selected>Choose a Role</option>
+                <option value="frontend">Frontend</option>
+                <option value="backend">Backend</option>
+                <option value="fullstack">Fullstack</option>
+                <option value="BlockChain">Blockchain</option>
+              </select>
+              <select
+                id="category"
+                className="w-72 bg-transparent border border-blue text-sz18 rounded-lg block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option selected>Choose a category</option>
+                <option value="frontend">Solidity</option>
+                <option value="backend">Web3</option>
+                <option value="fullstack">Nest</option>
+                <option value="BlockChain">React</option>
+              </select>
+              <div className="w-full flex">
+                <div onClick={handleSearchItem} className="inline-flex items-center px-3 text-sm text-gray-900 bg-blue rounded-l-md border border-r-0 border-gray">
+                  <img src={searchImage} alt="search"></img>
+                </div>
+                <input
+                  type="text"
+                  id="website-admin"
+                  value={searchText}
+                  onChange={(e) => setSearchText(e.target.value)}
+                  className="rounded-none shadow-inner rounded-r-lg bg-lightgray border border-darkgray focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="elonmusk"
+                />
+              </div>
+            </div>
+            <div className="my-8 shadow-xl relative overflow-x-auto rounded-lg">
+              <table className="w-full font-Manrope font-light text-sm text-center text-black">
+                <thead className="bg-gray text-blue uppercase border-b border-blue">
+                  <tr>
+                    <th scope="col" className="px-6 py-4">
+                      Name
+                    </th>
+                    <th scope="col" className="px-6 py-4">
+                      Audit Reports
+                    </th>
+                    <th scope="col" className="px-6 py-4">
+                      Safety Score
+                    </th>
+                    <th scope="col" className="px-6 py-4">
+                      Price
+                    </th>
+                    <th scope="col" className="px-6 py-4">
+                      Market Cap
+                    </th>
+                    <th scope="col" className="px-6 py-4">
+                      Onboard date
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredProjects?.map((project, index) => (
+                    <tr
+                      // onClick={() => navigate(`/audit/${index}`)}
+                      className={
+                        filteredProjects?.length === index + 1
+                          ? "bg-lightgray border-none"
+                          : "bg-lightgray border-b border-blue"
+                      }
+                    >
+                      <td className="px-6 py-3">{project.name}</td>
+                      <td className="px-6 py-3">
+                        <div className="flex flex-row items-center justify-center">
+                          {project.audited_by.map((item: any) =>
+                            item === "WHD" ? (
+                              <img src={auditWHD} alt="WHD"></img>
+                            ) : (
+                              item === "EXTERNAL" && (
+                                <img src={auditExt} alt="EXT"></img>
+                              )
+                            )
+                          )}
+                        </div>
+                      </td>
+                      <td className="px-6 py-3">
+                        <div className="flex flex-col items-center">
+                          <CircleProgressBar
+                            sqSize={42}
+                            percentage={project.safety_score}
+                            strokeWidth={5}
+                            type={0}
+                          ></CircleProgressBar>
+                        </div>
+                      </td>
+                      <td className="px-6 py-3">
+                        {project.price === -1 ? "N/A" : project.price}
+                      </td>
+                      <td className="px-6 py-3">
+                        {project.market === "-1"
+                          ? "N/A"
+                          : FormatNumber(project.market)}
+                      </td>
+                      <td className="px-6 py-3">
+                        {FormatYMD(project.onboard_date)}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="font-Manrope text-sz15 w-full flex flex-row items-center justify-center space-x-4">
+              <div className="shadow-sm w-12 h-12 flex flex-row items-center justify-center">
+                <img src={prevImage} alt="prev"></img>
+              </div>
+              <div className="shadow-sm w-12 h-12 flex flex-row items-center justify-center">
+                1
+              </div>
+              <div className="shadow-sm w-12 h-12 flex flex-row items-center justify-center">
+                2
+              </div>
+              <div className="shadow-sm w-12 h-12 flex flex-row items-center justify-center">
+                3
+              </div>
+              <div className="shadow-sm w-12 h-12 flex flex-row items-center justify-center">
+                ...
+              </div>
+              <div className="shadow-sm w-12 h-12 flex flex-row items-center justify-center">
+                500
+              </div>
+              <div className="shadow-sm w-12 h-12 flex flex-row items-center justify-center">
+                <img src={nextImage} alt="next"></img>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="font-Manrope text-sz15 w-full flex flex-row items-center justify-center space-x-4">
-          <div className="shadow-sm w-12 h-12 flex flex-row items-center justify-center">
-            <img src={prevImage} alt="prev"></img>
-          </div>
-          <div className="shadow-sm w-12 h-12 flex flex-row items-center justify-center">
-            1
-          </div>
-          <div className="shadow-sm w-12 h-12 flex flex-row items-center justify-center">
-            2
-          </div>
-          <div className="shadow-sm w-12 h-12 flex flex-row items-center justify-center">
-            3
-          </div>
-          <div className="shadow-sm w-12 h-12 flex flex-row items-center justify-center">
-            ...
-          </div>
-          <div className="shadow-sm w-12 h-12 flex flex-row items-center justify-center">
-            500
-          </div>
-          <div className="shadow-sm w-12 h-12 flex flex-row items-center justify-center">
-            <img src={nextImage} alt="next"></img>
-          </div>
-        </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 

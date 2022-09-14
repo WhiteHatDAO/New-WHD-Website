@@ -56,7 +56,7 @@ export const useCoingeckoAPI = () => {
           for (let i = 0; i < data.prices.length; i++) {
             const ele = {
               date: new Date(data.prices[i][0]).toString(),
-              price: data.prices[i][1]
+              price: data.prices[i][1] 
             }
             mappingData.push(ele);
           }

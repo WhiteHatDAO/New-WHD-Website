@@ -27,7 +27,9 @@ import Card from "./pages/Card";
 import Cart from "./pages/Cart";
 
 const App = () => {
+  const [count, setCount] = useState<number>(0)
   const [auditProjects, setAuditProjects] = useState<any[]>([])
+  const [mainProData, setMainProData] = useState<any>()
 
   const getAuditedProjects = async () => {
     try {
@@ -40,20 +42,38 @@ const App = () => {
     }
   };
 
+  const handleCount = (c: number) => {
+    setCount(c)
+  }
+
+  const getMainPro = async () => {
+    try {
+      const res = await axios.get(BACKEND_SERVER + "/api/main-pro");
+      if(res.status === 200 && res.data.data.length > 0) {
+        setMainProData(res.data.data[0]);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   useEffect(() => {
+    console.log(count)
+
     getAuditedProjects()
-  }, [])
+    getMainPro()
+  }, [count])
 
   return (
     <div className="background">
       <div className="container flex flex-col mx-auto">
         <Navbar></Navbar>
         <Routes>
-            <Route path="/" element={<Home auditProjects={auditProjects}/>}></Route>
-            <Route path="/dao" element={<Dao/>}></Route>
-            <Route path="/safety-ratings" element={<SafetyRatings auditProjects={auditProjects}/>}></Route>
-            <Route path="/audit" element={<Audit auditProjects={auditProjects}/>}></Route>
-            <Route path="/safety-ratings/rating/:id" element={<Rating auditProjects={auditProjects}/>}></Route>
+            <Route path="/" element={<Home auditProjects={auditProjects} mainProData={mainProData} count={count} handleCount={handleCount}/>}></Route>
+            <Route path="/dao" element={<Dao mainProData={mainProData} count={count} handleCount={handleCount}/>}></Route>
+            <Route path="/safety-ratings" element={<SafetyRatings auditProjects={auditProjects} mainProData={mainProData} count={count} handleCount={handleCount}/>}></Route>
+            <Route path="/audit" element={<Audit auditProjects={auditProjects} mainProData={mainProData} count={count} handleCount={handleCount}/>}></Route>
+            <Route path="/safety-ratings/rating/:id" element={<Rating auditProjects={auditProjects} count={count} handleCount={handleCount}/>}></Route>
             <Route path="/gift-cards" element={<GiftCards />}></Route>
             <Route path="/gift-cards/card" element={<Card />}></Route>
             <Route path="/gift-cards/cart" element={<Cart />}></Route>

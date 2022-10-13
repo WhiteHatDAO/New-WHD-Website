@@ -35,7 +35,7 @@ const TopicItem = () => {
             <div className="px-3 py-1 rounded-3xl bg-pink">Security</div>
             <div className="px-3 py-1 rounded-3xl bg-purple">Blockchain</div>
           </div>
-          <div className="mb-5 font-semibold leading-6 font-Manrope text-sz20 text-grey">Should we host twitter spaces and how often should this be?</div>
+          <div className="mb-5 font-semibold leading-6 font-Manrope text-sz18 text-grey">Should we host twitter spaces and how often should this be?</div>
           <div className="mb-12 font-medium leading-6 font-Manrope text-sz16 text-grey">
             <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div><br></br>
             <div>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div><br></br>
@@ -79,9 +79,9 @@ const TopicItem = () => {
           <div className="mb-6 leading-6 font-Manrope text-sz16">2 Comment</div>
           <input className="w-full h-12 px-3 py-5 mb-6 font-normal leading-6 border rounded-lg shadow-inner border-blue bg-lightgray font-Manrope text-sz16" placeholder="Make a comment"></input>
           <div className="flex items-center justify-end mb-8">
-            <div className="mr-10 font-semibold leading-8 text-pink text-sz20 font-Manrope">Cancel</div>
+            <div className="mr-10 font-semibold leading-8 text-pink text-sz18 font-Manrope">Cancel</div>
             <div className="rounded shadow-xl p-border bg-gradient-to-r from-pink to-blue">
-              <div className="px-12 py-3 font-bold leading-8 text-center rounded bg-gray text-blue font-Manrope text-sz24">
+              <div className="px-12 py-3 font-bold leading-8 text-center rounded bg-gray text-blue font-Manrope text-sz18">
                 Post
               </div>
             </div>
@@ -137,7 +137,7 @@ const TopicItem = () => {
             <img src={whitehatlogo} alt="logo" />
           </div>
           <div className="px-5 pt-5 pb-middle bg-lightgray rounded-b-xl">
-            <div className="mb-4 font-bold leading-8 font-pilat text-sz24">WHITE HAT DAO</div>
+            <div className="mb-4 font-bold leading-8 font-pilat text-sz18">WHITE HAT DAO</div>
             <div className="mb-2 leading-6 font-Manrope text-sz18 text-pink">www.whitehatdao.com</div>
             <div className="mb-5 leading-6 font-Manrope text-sz18 text-grey">Empowering community voice</div>
             <div className="flex mb-4 leading-6 font-Manrope text-sz16 text-blue">
@@ -153,7 +153,7 @@ const TopicItem = () => {
               23 Proposals
             </div>
             <div className="rounded shadow-xl p-border bg-gradient-to-r from-pink to-blue">
-              <div className="py-3 font-bold leading-8 text-center rounded bg-gray text-blue font-Manrope text-sz24">
+              <div className="py-3 font-bold leading-8 text-center rounded bg-gray text-blue font-Manrope text-sz18">
                 Join
               </div>
             </div>

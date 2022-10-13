@@ -100,7 +100,7 @@ const Card = () => {
           <div className="text-sz16 text-blue pb-3 border-b border-blue">
             Category / Travel / Hotels.com
           </div>
-          <div className="font-pilat text-sz24">Hotels.com Gift Card</div>
+          <div className="font-pilat text-sz18">Hotels.com Gift Card</div>
           <div className="flex flex-row items-center gap-2">
             <img src={rating} alt="rating"></img>
             <div className="text-blue text-sz16">Rating: 5 - 14 reviews</div>
@@ -111,7 +111,7 @@ const Card = () => {
             you can now book your next hotel with Bitcoin, Ethereum, Dash,
             Dogecoin, and Litecoin.
           </div>
-          <div className="text-blue text-sz20">Enter amount</div>
+          <div className="text-blue text-sz18">Enter amount</div>
           <div className="flex flex-col lg:flex-row items-start lg:items-center gap-6">
             <input
               type="text"
@@ -133,19 +133,19 @@ const Card = () => {
           <div className="flex flex-row items-center flex-wrap gap-6">
             <div className="z-10 cursor-pointer">
               <div className="shadow-sm px-8 py-2 border rounded-md gradient-box flex flex-col items-center">
-                <div className="text-blue text-sz24 flex flex-row items-center space-x-2">
+                <div className="text-blue text-sz18 flex flex-row items-center space-x-2">
                   <img src={cart} alt="cart"></img>
                   <div>Add to cart</div>
                 </div>
               </div>
             </div>
-            <div className="shadow-sm px-8 py-2 rounded-md text-sz24 flex flex-row items-center text-blue space-x-2">
+            <div className="shadow-sm px-8 py-2 rounded-md text-sz18 flex flex-row items-center text-blue space-x-2">
               <img src={purchase} alt="purchase"></img>
               <div>Purchase as gift</div>
             </div>
           </div>
           <div className="p-4 rounded-xl bg-gray flex flex-col space-y-4">
-            <div className="text-blue font-bold text-sz20 flex flex-row items-center justify-between">
+            <div className="text-blue font-bold text-sz18 flex flex-row items-center justify-between">
               <div>Description</div>
               <svg
                 width="24"
@@ -159,7 +159,7 @@ const Card = () => {
             </div>
           </div>
           <div className="p-4 rounded-xl bg-gray flex flex-col space-y-4">
-            <div className="text-blue font-bold text-sz20 flex flex-row items-center justify-between">
+            <div className="text-blue font-bold text-sz18 flex flex-row items-center justify-between">
               <div>How to Redeem</div>
               <svg
                 width="24"
@@ -173,7 +173,7 @@ const Card = () => {
             </div>
           </div>
           <div className="p-4 rounded-xl bg-gray flex flex-col space-y-4">
-            <div className="text-blue font-bold text-sz20 flex flex-row items-center justify-between">
+            <div className="text-blue font-bold text-sz18 flex flex-row items-center justify-between">
               <div>Reviews (12)</div>
               <svg
                 width="24"
@@ -187,7 +187,7 @@ const Card = () => {
             </div>
           </div>
           <div className="p-4 rounded-xl bg-gray flex flex-col space-y-4">
-            <div className="text-blue font-bold text-sz20 flex flex-row items-center justify-between">
+            <div className="text-blue font-bold text-sz18 flex flex-row items-center justify-between">
               <div>Terms and Conditions</div>
               <svg
                 width="24"
@@ -203,13 +203,13 @@ const Card = () => {
         </div>
       </div>
       <div className="rounded-xl shadow-xl p-8 border-blue border flex flex-col space-y-4">
-        <div className="text-sz24 font-pilat">More products</div>
+        <div className="text-sz18 font-pilat">More products</div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {
                 cards.map((card, index) => (
                     <div key={index} className="p-4 rounded-xl shadow-xl flex flex-col space-y-4">
                         <img src={card.image} className="rounded-sm" alt={card.text}></img>
-                        <div className="text-sz24 text-center">{card.text}</div>
+                        <div className="text-sz18 text-center">{card.text}</div>
                     </div>
                 ))
             }

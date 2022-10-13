@@ -56,59 +56,7 @@ const cards = [
   {
     image: beeer_tan,
     text: "Beeer Tan",
-  },
-  {
-    image: hotel,
-    text: "Hotels.com",
-  },
-  {
-    image: nufferton,
-    text: "Nufferton",
-  },
-  {
-    image: swaggy,
-    text: "Swaggy",
-  },
-  {
-    image: beeer_tan,
-    text: "Beeer Tan",
-  },
-  {
-    image: hotel,
-    text: "Hotels.com",
-  },
-  {
-    image: nufferton,
-    text: "Nufferton",
-  },
-  {
-    image: swaggy,
-    text: "Swaggy",
-  },
-  {
-    image: beeer_tan,
-    text: "Beeer Tan",
-  },
-  {
-    image: hotel,
-    text: "Hotels.com",
-  },
-  {
-    image: nufferton,
-    text: "Nufferton",
-  },
-  {
-    image: swaggy,
-    text: "Swaggy",
-  },
-  {
-    image: beeer_tan,
-    text: "Beeer Tan",
-  },
-  {
-    image: beeer_tan,
-    text: "Beeer Tan",
-  },
+  }
 ];
 
 const GiftCards = () => {
@@ -117,13 +65,12 @@ const GiftCards = () => {
 
   return (
     <div className="mx-4 my-10 font-Manrope flex flex-col space-y-8">
-      <div className="rounded-xl shadow-xl flex flex-col lg:flex-row justify-between">
+      <div className="rounded-xl shadow-xl flex flex-col items-center lg:flex-row justify-between">
         <div className="p-4 lg:p-8 flex flex-col space-y-4 lg:space-y-8">
-          <div className="text-sz28 lg:text-sz48 font-bold">
-            <span>Shop with </span>
-            <span className="text-pink">Crypto</span>
+          <div className="text-red">
+            Coming Soon
           </div>
-          <div className="text-sz16 lg:text-sz24">
+          <div className="text-sz16 lg:text-sz18">
             Gift Cards are the easiest way to live on crypto! We have the
             Biggest Brands! 🛍️ Explore for your favourites!
           </div>
@@ -167,7 +114,7 @@ const GiftCards = () => {
       </div>
       <div className="grid grid-cols-3 gap-4 lg:gap-8">
         <div className="col-span-3 lg:col-span-1 flex flex-col gap-4 lg:gap-8">
-          <div className="p-4 rounded-xl shadow-xl flex flex-col gap-4 text-blue text-sz20">
+          <div className="p-4 rounded-xl shadow-xl flex flex-col gap-4 text-blue text-sz18">
             <div
               className="px-4 py-1 bg-gray rounded-md flex flex-row items-center justify-between"
               onClick={() => setShowGiftCards(!showGiftCards)}
@@ -207,7 +154,7 @@ const GiftCards = () => {
               </>
             )}
           </div>
-          <div className="p-4 rounded-xl shadow-xl flex flex-col gap-4 text-blue text-sz20">
+          <div className="p-4 rounded-xl shadow-xl flex flex-col gap-4 text-blue text-sz18">
             <div
               className="px-4 py-1 bg-gray rounded-md flex flex-row items-center justify-between"
               onClick={() => setShowCategories(!showCategories)}
@@ -253,17 +200,17 @@ const GiftCards = () => {
         </div>
         <div className="col-span-3 lg:col-span-2 p-8 rounded-xl shadow-xl flex flex-col space-y-6">
           <div className="flex flex-row items-center justify-between">
-            <div className="text-sz20 lg:text-sz24 font-bold font-pilat">Top Giftcards</div>
+            <div className="text-sz18 lg:text-sz18 font-bold font-pilat">Top Giftcards</div>
             <div className="px-2 rounded-md bg-gray flex flex-row items-center">
               <img src={cart} alt="cart"></img>
-              <div className="text-sz20 text-blue">Cart</div>
+              <div className="text-sz18 text-blue">Cart</div>
             </div>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {cards.map((card, index) => (
               <div
                 key={index}
-                className="text-sz20 flex flex-col items-center text-center space-y-6"
+                className="text-sz18 flex flex-col items-center text-center space-y-6"
               >
                 <img src={card.image} alt={card.text}></img>
                 <div>{card.text}</div>

@@ -3,5 +3,13 @@ export enum SECURITY_COLOR {
     MAJOR = "Major",
     MEDIUM = "Medium",
     MINOR = "Minor",
-    INFORMATIONAL = "Informational"
+    INFORMATIONAL = "Informational",
+    YELLOW = "Yellow",
+    PURPLE = "Purple",
+    GREEN = "Green",
+    BLUE = "Blue",
+    RED = "Red",
+    CYAN = "Cyan",
+    PINK = "Pink",
+    ORANGE = "Orange"
 }

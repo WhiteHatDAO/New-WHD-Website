@@ -24,11 +24,11 @@ const Cart = () => {
     <div className="mx-4 my-10 font-Manrope flex flex-col lg:flex-row gap-8">
       <div className="w-full lg:w-1/2 flex flex-col space-y-8">
         <div className="p-6 rounded-xl shadow-xl border border-blue flex flex-col space-y-4">
-          <div className="text-blue text-sz22">Order details</div>
+          <div className="text-blue text-sz18">Order details</div>
           <div className="p-3 rounded-md bg-gray flex flex-row items-center space-x-4">
             <img src={cart_logo} alt="cart"></img>
             <div className="flex flex-col space-y-2">
-              <div className="text-sz20 font-bold">
+              <div className="text-sz18 font-bold">
                 Hotels.com International
               </div>
               <div className="text-sz16 text-darkgray">$10.00</div>
@@ -39,35 +39,35 @@ const Cart = () => {
               <div className="text-sz16">Total Estimate</div>
               <img src={info} alt="info"></img>
             </div>
-            <div className="text-sz20">0.00345 WHD</div>
+            <div className="text-sz18">0.00345 WHD</div>
           </div>
         </div>
         <div className="p-6 rounded-xl shadow-xl border border-blue flex flex-col space-y-6">
-          <div className="text-blue text-sz22">Order details</div>
+          <div className="text-blue text-sz18">Order details</div>
           <div className="flex flex-row items-end justify-between">
             <div className="flex flex-col">
               <div className="text-sz16">Email address</div>
-              <div className="text-sz20 font-bold">Israel06.rex@gmail.com</div>
+              <div className="text-sz18 font-bold">Israel06.rex@gmail.com</div>
             </div>
             <img className="cursor-pointer" src={edit} alt="edit"></img>
           </div>
           <div className="flex flex-row items-end justify-between">
             <div className="flex flex-col">
               <div className="text-sz16">Payment method</div>
-              <div className="text-sz20 font-bold">WHD Token (ERC20)</div>
+              <div className="text-sz18 font-bold">WHD Token (ERC20)</div>
             </div>
             <img className="cursor-pointer" src={edit} alt="edit"></img>
           </div>
           <div className="flex flex-col">
             <div className="text-sz16">Invoice id</div>
-            <div className="text-sz20 font-bold">
+            <div className="text-sz18 font-bold">
               1fb61aa3-0c9c-4c15-97a3-446c6538bb46
             </div>
           </div>
           <div className="p-3 rounded-md bg-gray flex flex-row items-center space-x-4">
             <img src={cart_logo} alt="cart"></img>
             <div className="flex flex-col space-y-2">
-              <div className="text-sz20 font-bold">
+              <div className="text-sz18 font-bold">
                 Hotels.com International
               </div>
               <div className="text-sz16 text-darkgray">$10.00</div>
@@ -75,7 +75,7 @@ const Cart = () => {
           </div>
           <div className="text-blue flex flex-row items-center justify-between">
             <div className="text-sz16">Total</div>
-            <div className="text-sz20">0.00345 WHD</div>
+            <div className="text-sz18">0.00345 WHD</div>
           </div>
         </div>
       </div>
@@ -106,7 +106,7 @@ const Cart = () => {
             </div>
           </div>
           <div className="z-10 cursor-pointer">
-            <div className="shadow-sm text-2xl px-8 py-2 text-sz24 flex flex-col items-center border rounded-xl gradient-box">
+            <div className="shadow-sm text-2xl px-8 py-2 text-sz18 flex flex-col items-center border rounded-xl gradient-box">
               <div className="text-blue">Continue</div>
             </div>
           </div>
@@ -115,7 +115,7 @@ const Cart = () => {
           <div className="p-4 text-blue text-sz16 bg-gray">
             Connect wallet to pay, receive rewards and more!
           </div>
-          <div className="text-sz20 font-bold">Choose Payment method</div>
+          <div className="text-sz18 font-bold">Choose Payment method</div>
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
             <div className="p-2 bg-gray rounded-md flex flex-row items-center space-x-2">
               <img src={whitehat} alt="whitehat"></img>
@@ -162,27 +162,27 @@ const Cart = () => {
           </div>
         </div>
         <div className="p-6 rounded-xl shadow-xl border border-blue flex flex-col space-y-4">
-          <div className="text-sz22 font-bold">Payment</div>
+          <div className="text-sz18 font-bold">Payment</div>
           <div className="p-4 text-blue text-sz16 bg-gray">
             Connect your wallet for the best experience
           </div>
           <div className="z-10 cursor-pointer">
-            <div className="shadow-sm text-2xl px-8 py-2 text-sz24 flex flex-col items-center border rounded-md gradient-box">
+            <div className="shadow-sm text-2xl px-8 py-2 text-sz18 flex flex-col items-center border rounded-md gradient-box">
               <div className="text-blue">Connect</div>
             </div>
           </div>
           <div className="pb-4 border-b border-blue flex flex-row items-center justify-between">
             <div className="p-2 bg-gray rounded-md flex flex-row items-center space-x-2 justify-between">
               <img className="w-8 h-8" src={metamask} alt="metamask"></img>
-              <div className="text-sz12 xl:text-sz24">Metamask</div>
+              <div className="text-sz12 xl:text-sz18">Metamask</div>
             </div>
             <div className="p-2 bg-gray rounded-md flex flex-row items-center space-x-2 justify-between">
               <img className="w-8 h-8" src={wallet} alt="wallet"></img>
-              <div className="text-sz12 xl:text-sz24">Wallet Connect</div>
+              <div className="text-sz12 xl:text-sz18">Wallet Connect</div>
             </div>
             <div className="p-2 bg-gray rounded-md flex flex-row items-center space-x-2 justify-between">
               <img className="w-8 h-8" src={coinbase} alt="coinbase"></img>
-              <div className="text-sz12 xl:text-sz24">Coinbase</div>
+              <div className="text-sz12 xl:text-sz18">Coinbase</div>
             </div>
           </div>
           <div className="flex flex-col xl:flex-row gap-4">
@@ -201,7 +201,7 @@ const Cart = () => {
                 </div>
               </div>
               <div className="z-10 cursor-pointer">
-                <div className="shadow-sm text-2xl px-8 py-2 text-sz24 flex flex-row items-center space-x-2 justify-center border rounded-md gradient-box">
+                <div className="shadow-sm text-2xl px-8 py-2 text-sz18 flex flex-row items-center space-x-2 justify-center border rounded-md gradient-box">
                   <img src={foldo} alt="foldo"></img>
                   <div className="text-blue text-sz18">Pay in Wallet</div>
                 </div>
@@ -220,7 +220,7 @@ const Cart = () => {
           <div className="flex flex-col items-center justify-center">
             <img src={spin} alt="spin"></img>
           </div>
-          <div className="text-center text-sz22">Payment Pending</div>
+          <div className="text-center text-sz18">Payment Pending</div>
           <div className="text-center text-sz16">
             We have detected your payment of{" "}
             <span className="font-bold">0.00345 WHD</span> and are waiting for
@@ -272,16 +272,16 @@ const Cart = () => {
               src={transaction_success}
               alt="transaction_success"
             ></img>
-            <div className="text-sz22 font-bold">Order completed</div>
+            <div className="text-sz18 font-bold">Order completed</div>
             <div className="text-sz16">Thank you for your purchase</div>
           </div>
           <div className="p-8 rounded-xl bg-gray background_cover flex flex-col justify-between">
             <div className="flex flex-row items-center justify-between">
               <div className="flex flex-row items-center space-x-4">
                 <img src={cart_logo} alt="cart logo"></img>
-                <div className="text-sz20">Hotels.com International</div>
+                <div className="text-sz18">Hotels.com International</div>
               </div>
-              <div className="font-bold text-sz24">$10.00</div>
+              <div className="font-bold text-sz18">$10.00</div>
             </div>
             <div className="pt-10 flex flex-col space-y-4">
               <div className="text-sz16">Gift card code</div>
@@ -343,7 +343,7 @@ const Cart = () => {
             </div>
           </div>
           <div className="z-10 cursor-pointer">
-            <div className="shadow-sm text-2xl px-8 py-2 text-sz24 flex flex-col items-center border rounded-md gradient-box">
+            <div className="shadow-sm text-2xl px-8 py-2 text-sz18 flex flex-col items-center border rounded-md gradient-box">
               <div className="text-blue">New order</div>
             </div>
           </div>

@@ -1,0 +1,40 @@
+blockquote{
+    border-left: 2px solid #ddd;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 10px;
+    color: #aaa;
+    font-style: italic;
+}
+
+.btnActive{
+    opacity: 1;
+}
+.editor-wrapper{
+    min-height: 400px;
+    height: fit-content;
+}
+table{
+    width:100%;
+}
+td{
+    height: 50px;
+    padding:0 5px;
+}
+.popup-wrapper{
+    display: inline;
+    position: relative;
+}
+.popup{
+    position: absolute;
+    left: 0;
+    background-color: white;
+    padding: 6px 10px;
+    border: 1px solid lightgray;
+    height: fit-content;
+    z-index: 1;
+
+}
+button{
+    cursor: pointer;
+}

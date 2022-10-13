@@ -12,6 +12,7 @@ import arrow from "../assets/images/audit/arrow.svg";
 import searchImage from "../assets/images/search.svg";
 import auditWHD from "../assets/images/auditWHD.svg";
 import auditExt from "../assets/images/auditExt.svg";
+import addItem from "../assets/images/addItem.png";
 
 import CircleProgressBar from "../components/CircleProgressBar";
 
@@ -19,37 +20,44 @@ import prevImage from "../assets/images/prev.svg";
 import nextImage from "../assets/images/next.svg";
 import save from "../assets/images/modal/save.png";
 import discard from "../assets/images/modal/discard.png";
-import edit from "../assets/images/edit.png";
+// import edit from "../assets/images/edit.png";
 
 import { FormatYMD, FormatNumber } from "../utils/utils";
-import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import axios from "axios";
 import { BACKEND_SERVER } from "../global/global";
+import { useNavigate } from "react-router-dom";
 
 interface AuditProps {
   auditProjects: any[];
   mainProData: any;
-  count: number,
-  handleCount: (count: number) => void
+  count: number;
+  handleCount: (count: number) => void;
 }
 
-const Audit = ({ auditProjects, mainProData, count, handleCount }: AuditProps) => {
+const Audit = ({
+  auditProjects,
+  mainProData,
+  count,
+  handleCount,
+}: AuditProps) => {
   const navigate = useNavigate();
+
   const [showFirstModal, setShowFirstModal] = useState(false);
   const [showSecondModal, setShowSecondModal] = useState(false);
   const [showThirdModal, setShowThirdModal] = useState(false);
 
-  const [diligenceAuditing, setDiligenceAuditing] = useState<string>()
-  const [diligenceAuditingTxt, setDiligenceAuditingTxt] = useState<string>()
-  const [diligenceAuditingNote, setDiligenceAuditingNote] = useState<string>()
-  const [diligenceAuditingBtn, setDiligenceAuditingBtn] = useState<string>()
-  const [diligenceAuditingBtnLink, setDiligenceAuditingBtnLink] = useState<string>()
-  const [terms, setTerms] = useState<string>()
-  const [termsText, setTermsText] = useState<string>()
-  const [auditReport, setAuditReport] = useState<string>()
-  const [auditReportText, setAuditReportText] = useState<string>()
+  const [diligenceAuditing, setDiligenceAuditing] = useState<string>();
+  const [diligenceAuditingTxt, setDiligenceAuditingTxt] = useState<string>();
+  const [diligenceAuditingNote, setDiligenceAuditingNote] = useState<string>();
+  const [diligenceAuditingBtn, setDiligenceAuditingBtn] = useState<string>();
+  const [diligenceAuditingBtnLink, setDiligenceAuditingBtnLink] =
+    useState<string>();
+  const [terms, setTerms] = useState<string>();
+  const [termsText, setTermsText] = useState<string[]>([]);
+  const [auditReport, setAuditReport] = useState<string>();
+  const [auditReportText, setAuditReportText] = useState<string>();
 
   const [searchText, setSearchText] = useState<string>("");
   const [filteredProjects, setFilteredProjects] = useState<any[]>([]);
@@ -59,7 +67,7 @@ const Audit = ({ auditProjects, mainProData, count, handleCount }: AuditProps) =
       let projects = auditProjects;
       setFilteredProjects(projects);
     }
-  }, [auditProjects]);
+  }, [auditProjects, searchText.length]);
 
   const handleSearchItem = () => {
     if (auditProjects.length === 0) return;
@@ -78,20 +86,43 @@ const Audit = ({ auditProjects, mainProData, count, handleCount }: AuditProps) =
   };
 
   useEffect(() => {
-    if(auditProjects && mainProData) {
-      setDiligenceAuditing(mainProData.audit.diligence_auditing)
-      setDiligenceAuditingTxt(mainProData.audit.diligence_auditing_text)
-      setDiligenceAuditingNote(mainProData.audit.diligence_auditing_note)
-      setDiligenceAuditingBtn(mainProData.audit.diligence_auditing_button)
-      setDiligenceAuditingBtnLink(mainProData.audit.diligence_auditing_button_link)
-      setTerms(mainProData.audit.terms)
-      setTermsText(mainProData.audit.terms_text)
-      setAuditReport(mainProData.audit.audit_report)
-      setAuditReportText(mainProData.audit.audit_report_text)
+    if (auditProjects && mainProData) {
+      setDiligenceAuditing(mainProData.audit.diligence_auditing);
+      setDiligenceAuditingTxt(mainProData.audit.diligence_auditing_text);
+      setDiligenceAuditingNote(mainProData.audit.diligence_auditing_note);
+      setDiligenceAuditingBtn(mainProData.audit.diligence_auditing_button);
+      setDiligenceAuditingBtnLink(
+        mainProData.audit.diligence_auditing_button_link
+      );
+      setTerms(mainProData.audit.terms);
+      setTermsText(mainProData.audit.terms_text);
+      setAuditReport(mainProData.audit.audit_report);
+      setAuditReportText(mainProData.audit.audit_report_text);
     }
-  }, [auditProjects, mainProData])
+  }, [auditProjects, mainProData]);
 
-  const handleSaveFirstModal = async() => {
+  const addNewItem = () => {
+    let tempArr = [...termsText];
+    tempArr.push("");
+    setTermsText(tempArr);
+  };
+
+  const handleTermsText = (value: string, index: number) => {
+    let tempArr = [];
+    for (let i = 0; i < index; i++) {
+      tempArr.push(termsText[i]);
+    }
+
+    tempArr.push(value);
+
+    for (let i = index + 1; i < termsText.length; i++) {
+      tempArr.push(termsText[i]);
+    }
+
+    setTermsText(tempArr);
+  };
+
+  const handleSaveFirstModal = async () => {
     try {
       const data = {
         id: mainProData._id,
@@ -99,7 +130,7 @@ const Audit = ({ auditProjects, mainProData, count, handleCount }: AuditProps) =
         dao: mainProData.dao,
         rating: mainProData.rating,
         audit: {
-          diligence_auditing:  diligenceAuditing,
+          diligence_auditing: diligenceAuditing,
           diligence_auditing_text: diligenceAuditingTxt,
           diligence_auditing_note: diligenceAuditingNote,
           diligence_auditing_button: diligenceAuditingBtn,
@@ -113,26 +144,28 @@ const Audit = ({ auditProjects, mainProData, count, handleCount }: AuditProps) =
 
       const res = await axios.put(BACKEND_SERVER + "/api/main-pro", data);
 
-      if(res.status === 200) {
-        let c = count + 1
-        handleCount(c)
+      if (res.status === 200) {
+        let c = count + 1;
+        handleCount(c);
       }
     } catch (e) {
       console.log(e);
     }
-    setShowFirstModal(false)
+    setShowFirstModal(false);
   };
 
   const handleDiscardFirstModal = () => {
-    setDiligenceAuditing(mainProData.audit.diligence_auditing)
-    setDiligenceAuditingTxt(mainProData.audit.diligence_auditing_text)
-    setDiligenceAuditingNote(mainProData.audit.diligence_auditing_note)
-    setDiligenceAuditingBtn(mainProData.audit.diligence_auditing_button)
-    setDiligenceAuditingBtnLink(mainProData.audit.diligence_auditing_button_link)
-    setShowFirstModal(false)
-  }
+    setDiligenceAuditing(mainProData.audit.diligence_auditing);
+    setDiligenceAuditingTxt(mainProData.audit.diligence_auditing_text);
+    setDiligenceAuditingNote(mainProData.audit.diligence_auditing_note);
+    setDiligenceAuditingBtn(mainProData.audit.diligence_auditing_button);
+    setDiligenceAuditingBtnLink(
+      mainProData.audit.diligence_auditing_button_link
+    );
+    setShowFirstModal(false);
+  };
 
-  const handleSaveSecondModal = async() => {
+  const handleSaveSecondModal = async () => {
     try {
       const data = {
         id: mainProData._id,
@@ -140,11 +173,13 @@ const Audit = ({ auditProjects, mainProData, count, handleCount }: AuditProps) =
         dao: mainProData.dao,
         rating: mainProData.rating,
         audit: {
-          diligence_auditing:  mainProData.audit.diligence_auditing,
+          diligence_auditing: mainProData.audit.diligence_auditing,
           diligence_auditing_text: mainProData.audit.diligence_auditing_text,
           diligence_auditing_note: mainProData.audit.diligence_auditing_note,
-          diligence_auditing_button: mainProData.audit.diligence_auditing_button,
-          diligence_auditing_button_link: mainProData.audit.diligence_auditing_button_link,
+          diligence_auditing_button:
+            mainProData.audit.diligence_auditing_button,
+          diligence_auditing_button_link:
+            mainProData.audit.diligence_auditing_button_link,
           terms: terms,
           terms_text: termsText,
           audit_report: mainProData.audit.audit_report,
@@ -154,23 +189,23 @@ const Audit = ({ auditProjects, mainProData, count, handleCount }: AuditProps) =
 
       const res = await axios.put(BACKEND_SERVER + "/api/main-pro", data);
 
-      if(res.status === 200) {
-        let c = count + 1
-        handleCount(c)
+      if (res.status === 200) {
+        let c = count + 1;
+        handleCount(c);
       }
     } catch (e) {
       console.log(e);
     }
-    setShowSecondModal(false)
+    setShowSecondModal(false);
   };
 
   const handleDiscardSecondModal = () => {
-    setTerms(mainProData.audit.terms)
-    setTermsText(mainProData.audit.terms_text)
-    setShowSecondModal(false)
-  }
+    setTerms(mainProData.audit.terms);
+    setTermsText(mainProData.audit.terms_text);
+    setShowSecondModal(false);
+  };
 
-  const handleSaveThirdModal = async() => {
+  const handleSaveThirdModal = async () => {
     try {
       const data = {
         id: mainProData._id,
@@ -178,11 +213,13 @@ const Audit = ({ auditProjects, mainProData, count, handleCount }: AuditProps) =
         dao: mainProData.dao,
         rating: mainProData.rating,
         audit: {
-          diligence_auditing:  mainProData.audit.diligence_auditing,
+          diligence_auditing: mainProData.audit.diligence_auditing,
           diligence_auditing_text: mainProData.audit.diligence_auditing_text,
           diligence_auditing_note: mainProData.audit.diligence_auditing_note,
-          diligence_auditing_button: mainProData.audit.diligence_auditing_button,
-          diligence_auditing_button_link: mainProData.audit.diligence_auditing_button_link,
+          diligence_auditing_button:
+            mainProData.audit.diligence_auditing_button,
+          diligence_auditing_button_link:
+            mainProData.audit.diligence_auditing_button_link,
           terms: mainProData.audit.terms,
           terms_text: mainProData.audit.terms_text,
           audit_report: auditReport,
@@ -192,31 +229,64 @@ const Audit = ({ auditProjects, mainProData, count, handleCount }: AuditProps) =
 
       const res = await axios.put(BACKEND_SERVER + "/api/main-pro", data);
 
-      if(res.status === 200) {
-        let c = count + 1
-        handleCount(c)
+      if (res.status === 200) {
+        let c = count + 1;
+        handleCount(c);
       }
     } catch (e) {
       console.log(e);
     }
-    setShowThirdModal(false)
+    setShowThirdModal(false);
   };
 
   const handleDiscardThirdModal = () => {
-    setAuditReport(mainProData.audit.audit_report)
-    setAuditReportText(mainProData.audit.audit_report_text)
-    setShowThirdModal(false)
-  }
-  
+    setAuditReport(mainProData.audit.audit_report);
+    setAuditReportText(mainProData.audit.audit_report_text);
+    setShowThirdModal(false);
+  };
+
+  const handleChangeNetwork = (e: any) => {
+    const value = e.target.value;
+
+    if (value === "choose") {
+      setFilteredProjects(auditProjects);
+    } else {
+      let projects = [];
+      for (let i = 0; i < auditProjects.length; i++) {
+        if (auditProjects[i].platform.includes(value)) {
+          projects.push(auditProjects[i]);
+        }
+      }
+      setFilteredProjects(projects);
+    }
+  };
+
+  const handleChangeCategory = (e: any) => {
+    const value = e.target.value;
+    if (value === "choose") {
+      setFilteredProjects(auditProjects);
+    } else {
+      let projects = [];
+      for (let i = 0; i < auditProjects.length; i++) {
+        if (auditProjects[i].tags.includes(value)) {
+          projects.push(auditProjects[i]);
+        }
+      }
+      setFilteredProjects(projects);
+    }
+  };
+
   return (
     <>
-      {auditProjects && mainProData && (
+      {auditProjects && mainProData ? (
         <div className="mx-4 my-10 flex flex-col space-y-8">
           <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
-              <div className="w-full pl-4 text-blue text-sz20 md:text-sz30 font-bold font-pilat text-center">{mainProData.audit.diligence_auditing}</div>
+              <div className="w-full pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat text-center">
+                {mainProData.audit.diligence_auditing}
+              </div>
               {/* <div
-                className="text-sz20 text-blue font-Manrope flex flex-row items-center space-x-2 cursor-pointer"
+                className="text-sz18 text-blue font-Manrope flex flex-row items-center space-x-2 cursor-pointer"
                 onClick={() => setShowFirstModal(true)}
               >
                 <img src={edit} alt="edit"></img>
@@ -235,27 +305,29 @@ const Audit = ({ auditProjects, mainProData, count, handleCount }: AuditProps) =
                             onClick={handleSaveFirstModal}
                           >
                             <img src={save} alt="save"></img>
-                            <div className="text-sz20 text-pink">Save</div>
+                            <div className="text-sz18 text-pink">Save</div>
                           </div>
                           <div
                             className="flex flex-row items-center cursor-pointer gap-2"
                             onClick={handleDiscardFirstModal}
                           >
                             <img src={discard} alt="discard"></img>
-                            <div className="text-sz20 text-blue">Discard</div>
+                            <div className="text-sz18 text-blue">Discard</div>
                           </div>
                         </div>
                         {/*body*/}
-                        <div className="text-sz20 text-left bg-lightgray relative p-8 rounded-b-xl flex flex-col space-y-3">
+                        <div className="text-sz18 text-left bg-lightgray relative p-8 rounded-b-xl flex flex-col space-y-3">
                           <div className="flex flex-col space-y-2">
-                            <div className="text-sz20 text-blue">
+                            <div className="text-sz18 text-blue">
                               Edit H1 Text
                             </div>
                             <input
                               type="text"
                               id="website-admin"
                               value={diligenceAuditing}
-                              onChange={(e) => setDiligenceAuditing(e.target.value)}
+                              onChange={(e) =>
+                                setDiligenceAuditing(e.target.value)
+                              }
                               className="shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sz16 border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                               placeholder="Due-Diligence / Auditing"
                             />
@@ -265,7 +337,9 @@ const Audit = ({ auditProjects, mainProData, count, handleCount }: AuditProps) =
                             <textarea
                               rows={4}
                               value={diligenceAuditingTxt}
-                              onChange={(e) => setDiligenceAuditingTxt(e.target.value)}
+                              onChange={(e) =>
+                                setDiligenceAuditingTxt(e.target.value)
+                              }
                               className="text-sz14 shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                               placeholder="We provide Due-Diligence, Safety Rating and a Comprehensive Security Assessment of your smart contract and blockchain code to identify vulnerabilities and recommend ways to fix them."
                             />
@@ -275,33 +349,39 @@ const Audit = ({ auditProjects, mainProData, count, handleCount }: AuditProps) =
                             <textarea
                               rows={3}
                               value={diligenceAuditingNote}
-                              onChange={(e) => setDiligenceAuditingNote(e.target.value)}
+                              onChange={(e) =>
+                                setDiligenceAuditingNote(e.target.value)
+                              }
                               className="text-sz14 shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                               placeholder="Our industry-leading audit methodology and tooling includes a review of your code’s logic, with a mathematical approach to ensure your program works as intended."
                             />
                           </div>
                           <div className="flex flex-col space-y-2">
-                            <div className="text-sz20 text-blue">
+                            <div className="text-sz18 text-blue">
                               Edit Button{" "}
                             </div>
                             <input
                               type="text"
                               id="website-admin"
                               value={diligenceAuditingBtn}
-                              onChange={(e) => setDiligenceAuditingBtn(e.target.value)}
+                              onChange={(e) =>
+                                setDiligenceAuditingBtn(e.target.value)
+                              }
                               className="shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sz16 border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                               placeholder="Apply For Smart Contract Audit"
                             />
                           </div>
                           <div className="flex flex-col space-y-2">
-                            <div className="text-sz20 text-blue">
+                            <div className="text-sz18 text-blue">
                               Edit Button Link
                             </div>
                             <input
                               type="text"
                               id="website-admin"
                               value={diligenceAuditingBtnLink}
-                              onChange={(e) => setDiligenceAuditingBtnLink(e.target.value)}
+                              onChange={(e) =>
+                                setDiligenceAuditingBtnLink(e.target.value)
+                              }
                               className="shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sz16 border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                               placeholder="https://example.link"
                             />
@@ -315,18 +395,28 @@ const Audit = ({ auditProjects, mainProData, count, handleCount }: AuditProps) =
               ) : null}
             </div>
             <div className="p-8 flex flex-col font-Manrope font-light space-y-4">
-              <div className="text-sz16 md:text-sz22">{mainProData.audit.diligence_auditing_text}</div>
+              <div className="text-sz16 md:text-sz18">
+                {mainProData.audit.diligence_auditing_text}
+              </div>
               <div className="flex flex-col md:flex-row items-start gap-4 md:gap-8">
                 <div className="flex flex-col space-y-8">
                   <div className="p-6 shadow-inner text-blue font-Manrope flex flex-col space-y-4">
-                    <div className="w-full pb-4 border-b border-blue flex flex-row items-center space-x-2 text-sz18 md:text-sz24">
+                    <div className="w-full pb-4 border-b border-blue flex flex-row items-center space-x-2 text-sz18 md:text-sz18">
                       <img src={info} alt="info"></img>
                       <div>Note!</div>
                     </div>
-                    <div className="text-sz16 md:text-sz20">{mainProData.audit.diligence_auditing_note}</div>
+                    <div className="text-sz16 md:text-sz18">
+                      {mainProData.audit.diligence_auditing_note}
+                    </div>
                   </div>
-                  <div className="w-full md:w-2/3 rounded-md shadow-sm p-4 border border-blue text-pink text-sz16 md:text-sz24 flex flex-row items-center justify-center">
-                    <div><a href={mainProData.audit.diligence_auditing_button_link}>{mainProData.audit.diligence_auditing_button}</a></div>
+                  <div className="w-full md:w-2/3 rounded-md shadow-sm p-4 border border-blue text-pink text-sz16 md:text-sz18 flex flex-row items-center justify-center">
+                    <div>
+                      <a
+                        href={mainProData.audit.diligence_auditing_button_link}
+                      >
+                        {mainProData.audit.diligence_auditing_button}
+                      </a>
+                    </div>
                     <svg
                       width="15"
                       height="15"
@@ -349,12 +439,12 @@ const Audit = ({ auditProjects, mainProData, count, handleCount }: AuditProps) =
             </div>
           </div>
           <div className="font-Manrope flex flex-col text-center space-y-8">
-            <div className="font-pilat text-sz20 md:text-sz30">
+            <div className="font-pilat text-sz18 md:text-sz20">
               Our Services Includes
             </div>
             <div className="font-light grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="p-4 shadow-xl rounded-md flex flex-col text-center">
-                <div className="font-pilat text-sz20 md:text-sz22 text-blue">
+                <div className="font-pilat text-sz18 md:text-sz18 text-blue">
                   Identify Errors & Risks
                 </div>
                 <div className="text-sz16">
@@ -363,7 +453,7 @@ const Audit = ({ auditProjects, mainProData, count, handleCount }: AuditProps) =
                 </div>
               </div>
               <div className="p-4 shadow-xl rounded-md flex flex-col text-center">
-                <div className="font-pilat text-sz20 md:text-sz22 text-blue">
+                <div className="font-pilat text-sz18 md:text-sz18 text-blue">
                   Remediate Vulnerabilities
                 </div>
                 <div className="text-sz16">
@@ -372,7 +462,7 @@ const Audit = ({ auditProjects, mainProData, count, handleCount }: AuditProps) =
                 </div>
               </div>
               <div className="p-4 shadow-xl rounded-md flex flex-col text-center">
-                <div className="font-pilat text-sz20 md:text-sz22 text-blue">
+                <div className="font-pilat text-sz18 md:text-sz18 text-blue">
                   Verify Your Contracts
                 </div>
                 <div className="text-sz16">
@@ -384,7 +474,7 @@ const Audit = ({ auditProjects, mainProData, count, handleCount }: AuditProps) =
           </div>
           <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl">
-              <div className="pl-4 text-blue text-sz16 md:text-sz30 font-bold font-pilat text-center">
+              <div className="pl-4 text-blue text-sz16 md:text-sz20 font-bold font-pilat text-center">
                 Audit Process
               </div>
             </div>
@@ -395,7 +485,7 @@ const Audit = ({ auditProjects, mainProData, count, handleCount }: AuditProps) =
                     <img src={step1} alt="step1"></img>
                   </div>
                   <div className="text-pink text-sz16">Step 1</div>
-                  <div className="text-sz24">Share Source Code</div>
+                  <div className="text-sz18">Share Source Code</div>
                 </div>
                 <img
                   className="mb-8 md:mb-0 mt-8 md:mt-14 transform rotate-90 md:rotate-0"
@@ -407,7 +497,7 @@ const Audit = ({ auditProjects, mainProData, count, handleCount }: AuditProps) =
                     <img src={step2} alt="step2"></img>
                   </div>
                   <div className="text-pink text-sz16">Step 2</div>
-                  <div className="text-sz24">Review & Quote</div>
+                  <div className="text-sz18">Review & Quote</div>
                 </div>
                 <img
                   className="mb-8 md:mb-0 mt-8 md:mt-14 transform rotate-90 md:rotate-0"
@@ -419,7 +509,7 @@ const Audit = ({ auditProjects, mainProData, count, handleCount }: AuditProps) =
                     <img src={step3} alt="step3"></img>
                   </div>
                   <div className="text-pink text-sz16">Step 3</div>
-                  <div className="text-sz24">
+                  <div className="text-sz18">
                     Begin Vulnerability Inspection
                   </div>
                 </div>
@@ -433,7 +523,7 @@ const Audit = ({ auditProjects, mainProData, count, handleCount }: AuditProps) =
                     <img src={step4} alt="step4"></img>
                   </div>
                   <div className="text-pink text-sz16">Step 4</div>
-                  <div className="text-sz24">Suggest Remediations</div>
+                  <div className="text-sz18">Suggest Remediations</div>
                 </div>
                 <img
                   className="mb-8 md:mb-0 mt-8 md:mt-14 transform rotate-90 md:rotate-0"
@@ -445,16 +535,18 @@ const Audit = ({ auditProjects, mainProData, count, handleCount }: AuditProps) =
                     <img src={step5} alt="step5"></img>
                   </div>
                   <div className="text-pink text-sz16">Step 5</div>
-                  <div className="text-sz24">Deliver Report</div>
+                  <div className="text-sz18">Deliver Report</div>
                 </div>
               </div>
             </div>
           </div>
           <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
-              <div className="w-full pl-4 text-blue text-sz16 md:text-sz30 font-bold font-pilat text-center">{mainProData.audit.terms}</div>
+              <div className="w-full pl-4 text-blue text-sz16 md:text-sz20 font-bold font-pilat text-center">
+                {mainProData.audit.terms}
+              </div>
               {/* <div
-                className="text-sz20 text-blue font-Manrope flex flex-row items-center space-x-2 cursor-pointer"
+                className="text-sz18 text-blue font-Manrope flex flex-row items-center space-x-2 cursor-pointer"
                 onClick={() => setShowSecondModal(true)}
               >
                 <img src={edit} alt="edit"></img>
@@ -473,20 +565,20 @@ const Audit = ({ auditProjects, mainProData, count, handleCount }: AuditProps) =
                             onClick={handleSaveSecondModal}
                           >
                             <img src={save} alt="save"></img>
-                            <div className="text-sz20 text-pink">Save</div>
+                            <div className="text-sz18 text-pink">Save</div>
                           </div>
                           <div
                             className="flex flex-row items-center cursor-pointer gap-2"
-                            onClick={handleSaveSecondModal}
+                            onClick={handleDiscardSecondModal}
                           >
                             <img src={discard} alt="discard"></img>
-                            <div className="text-sz20 text-blue">Discard</div>
+                            <div className="text-sz18 text-blue">Discard</div>
                           </div>
                         </div>
                         {/*body*/}
-                        <div className="text-sz20 text-left bg-lightgray relative p-8 rounded-b-xl flex flex-col space-y-3">
+                        <div className="text-sz18 text-left bg-lightgray relative p-8 rounded-b-xl flex flex-col space-y-3">
                           <div className="flex flex-col space-y-2">
-                            <div className="text-sz20 text-blue">
+                            <div className="text-sz18 text-blue">
                               Edit H1 Text
                             </div>
                             <input
@@ -500,23 +592,25 @@ const Audit = ({ auditProjects, mainProData, count, handleCount }: AuditProps) =
                           </div>
                           <div className="flex flex-col space-y-2">
                             <div className="text-blue">Edit Text</div>
-                            <textarea
-                              rows={12}
-                              value={termsText}
-                              onChange={(e) => setTermsText(e.target.value)}
-                              className="text-sz14 shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                              placeholder="Audit may take 3 weeks in total or longer to complete.
-
-                          White Hat DAO may take 2 weeks or longer to complete a preliminary audit report for clients to review recommended feedback / suggestions.
-                          
-                          1 week for clients to review or acknowledge any issues may be found and resubmit the code for final review. 
-                          
-                          White Hat DAO doesn’t apply any extra charges on reviewing the audited files.
-                          
-                          The smart contract still may contain unfound severity and security issues even after the audit is completed. 
-                          
-                          White Hat DAO may take 1 week or longer to finalize the review on resubmitted source code and deliver final security audit assessments."
-                            />
+                            {termsText.map((term: string, index: number) => (
+                              <input
+                                type="text"
+                                id="website-admin"
+                                value={term}
+                                onChange={(e) =>
+                                  handleTermsText(e.target.value, index)
+                                }
+                                className="shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sz16 border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="Due-Diligence / Auditing"
+                              />
+                            ))}
+                          </div>
+                          <div
+                            className="text-sz18 text-blue flex flex-row items-center space-x-2 cursor-pointer"
+                            onClick={() => addNewItem()}
+                          >
+                            <img src={addItem} alt="addItem"></img>
+                            <div>Add Item</div>
                           </div>
                         </div>
                       </div>
@@ -527,58 +621,26 @@ const Audit = ({ auditProjects, mainProData, count, handleCount }: AuditProps) =
               ) : null}
             </div>
             <div className="p-8 flex flex-col font-Manrope font-light space-y-4">
-              <div className="text-sz16 md:text-sz22 p-6 rounded-md shadow-inner flex flex-col space-y-4" dangerouslySetInnerHTML={{ __html: mainProData.audit.terms_text }}>
-                {/* <div className="flex flex-row items-center">
-                  <div className="w-4 h-4 rounded-full bg-blue"></div>
-                  <div className="text-sz16 md:text-sz22">
-                    Audit may take 3 weeks in total or longer to complete.
-                  </div>
-                </div>
-                <div className="flex flex-row items-center space-x-4">
-                  <div className="w-4 h-4 rounded-full bg-blue"></div>
-                  <div className="text-sz16 md:text-sz22">
-                    White Hat DAO may take 2 weeks or longer to complete a
-                    preliminary audit report for clients to review recommended
-                    feedback / suggestions.
-                  </div>
-                </div>
-                <div className="flex flex-row items-center space-x-4">
-                  <div className="w-4 h-4 rounded-full bg-blue"></div>
-                  <div className="text-sz16 md:text-sz22">
-                    1 week for clients to review or acknowledge any issues may
-                    be found and resubmit the code for final review.{" "}
-                  </div>
-                </div>
-                <div className="flex flex-row items-center space-x-4">
-                  <div className="w-4 h-4 rounded-full bg-blue"></div>
-                  <div className="text-sz16 md:text-sz22">
-                    White Hat DAO doesn’t apply any extra charges on reviewing
-                    the audited files.
-                  </div>
-                </div>
-                <div className="flex flex-row items-center space-x-4">
-                  <div className="w-4 h-4 rounded-full bg-blue"></div>
-                  <div className="text-sz16 md:text-sz22">
-                    The smart contract still may contain unfound severity and
-                    security issues even after the audit is completed.{" "}
-                  </div>
-                </div>
-                <div className="flex flex-row items-center space-x-4">
-                  <div className="w-4 h-4 rounded-full bg-blue"></div>
-                  <div className="text-sz16 md:text-sz22">
-                    White Hat DAO may take 1 week or longer to finalize the
-                    review on resubmitted source code and deliver final security
-                    audit assessments.
-                  </div>
-                </div> */}
+              <div
+                className="text-sz16 md:text-sz18 p-6 rounded-md shadow-inner flex flex-col space-y-4"
+              >
+                <ul className="pl-8 list-outside list-disc space-y-4">
+                  {mainProData.audit.terms_text.map((text: string) => (
+                    <li className="text-blue">
+                      <div className="text-black">{text}</div>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </div>
           <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
-              <div className="w-full pl-4 text-blue text-sz16 md:text-sz30 font-bold font-pilat text-center">{mainProData.audit.audit_report}</div>
+              <div className="w-full pl-4 text-blue text-sz16 md:text-sz20 font-bold font-pilat text-center">
+                {mainProData.audit.audit_report}
+              </div>
               {/* <div
-                className="text-sz20 text-blue font-Manrope flex flex-row items-center space-x-2 cursor-pointer"
+                className="text-sz18 text-blue font-Manrope flex flex-row items-center space-x-2 cursor-pointer"
                 onClick={() => setShowThirdModal(true)}
               >
                 <img src={edit} alt="edit"></img>
@@ -597,20 +659,20 @@ const Audit = ({ auditProjects, mainProData, count, handleCount }: AuditProps) =
                             onClick={handleSaveThirdModal}
                           >
                             <img src={save} alt="save"></img>
-                            <div className="text-sz20 text-pink">Save</div>
+                            <div className="text-sz18 text-pink">Save</div>
                           </div>
                           <div
                             className="flex flex-row items-center cursor-pointer gap-2"
                             onClick={handleDiscardThirdModal}
                           >
                             <img src={discard} alt="discard"></img>
-                            <div className="text-sz20 text-blue">Discard</div>
+                            <div className="text-sz18 text-blue">Discard</div>
                           </div>
                         </div>
                         {/*body*/}
-                        <div className="text-sz20 text-left bg-lightgray relative p-8 rounded-b-xl flex flex-col space-y-3">
+                        <div className="text-sz18 text-left bg-lightgray relative p-8 rounded-b-xl flex flex-col space-y-3">
                           <div className="flex flex-col space-y-2">
-                            <div className="text-sz20 text-blue">
+                            <div className="text-sz18 text-blue">
                               Edit H1 Text
                             </div>
                             <input
@@ -627,7 +689,9 @@ const Audit = ({ auditProjects, mainProData, count, handleCount }: AuditProps) =
                             <textarea
                               rows={3}
                               value={auditReportText}
-                              onChange={(e) => setAuditReportText(e.target.value)}
+                              onChange={(e) =>
+                                setAuditReportText(e.target.value)
+                              }
                               className="text-sz14 shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                               placeholder="Our audit reports are custom, thorough, and transparent. The report will contain the details of any identified vulnerabilities and classify them by severity (Critical, Major, Medium, Low, and Informational), along with suggested remediations."
                             />
@@ -641,8 +705,10 @@ const Audit = ({ auditProjects, mainProData, count, handleCount }: AuditProps) =
               ) : null}
             </div>
             <div className="p-8 flex flex-col font-Manrope font-light space-y-4">
-              <div className="text-sz16 md:text-sz22">{mainProData.audit.audit_report_text}</div>
-              <div className="text-sz16 md:text-sz22">
+              <div className="text-sz16 md:text-sz18">
+                {mainProData.audit.audit_report_text}
+              </div>
+              <div className="text-sz16 md:text-sz18">
                 With every successful audit, we’ll provide you with a listing on
                 the W-HAT Safety rating leaderboard that is shared publicly with
                 the entire crypto community. The Leaderboard contains the
@@ -652,32 +718,48 @@ const Audit = ({ auditProjects, mainProData, count, handleCount }: AuditProps) =
             </div>
           </div>
           <div className="py-10 flex flex-col space-y-8 s">
-            <div className="font-pilat text-sz20 md:text-sz30 text-center">
+            <div className="font-pilat text-sz18 md:text-sz20 text-center">
               Audit Leaderboard
             </div>
             <div className="text-black font-Manrope font-light flex flex-row flex-wrap items-center gap-4">
               <select
                 id="role"
-                className="w-72 bg-transparent border border-blue text-sz18 rounded-lg block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                onChange={handleChangeNetwork}
+                className="w-72 h-12 box-border-blue bg-transparent border border-blue text-sz18 rounded-lg block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               >
-                <option selected>Choose a Role</option>
-                <option value="frontend">Frontend</option>
-                <option value="backend">Backend</option>
-                <option value="fullstack">Fullstack</option>
-                <option value="BlockChain">Blockchain</option>
+                <option value="choose" selected>
+                  Choose a network
+                </option>
+                <option value="ETH">ETH</option>
+                <option value="Polygon">Polygon</option>
+                <option value="AVAX">AVAX</option>
+                <option value="BSC">BSC</option>
+                <option value="Optimism">Optimism</option>
+                <option value="Arbitrum">Arbitrum</option>
+                <option value="Gnosis">Gnosis</option>
+                <option value="Avalanche">Avalanche</option>
+                <option value="Fantom">Fantom</option>
+                <option value="Klaytn">Klaytn</option>
+                <option value="Aurora">Aurora</option>
+                <option value="zkSync">zkSync</option>
               </select>
               <select
                 id="category"
-                className="w-72 bg-transparent border border-blue text-sz18 rounded-lg block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                onChange={handleChangeCategory}
+                className="w-72 h-12 box-border-blue bg-transparent text-sz18 rounded-lg block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               >
-                <option selected>Choose a category</option>
-                <option value="frontend">Solidity</option>
-                <option value="backend">Web3</option>
-                <option value="fullstack">Nest</option>
-                <option value="BlockChain">React</option>
+                <option value="choose" selected>
+                  Choose a category
+                </option>
+                <option value="Defi">Defi</option>
+                <option value="NFT">NFT</option>
+                <option value="Token">Token</option>
               </select>
               <div className="w-full flex">
-                <div onClick={handleSearchItem} className="inline-flex items-center px-3 text-sm text-gray-900 bg-blue rounded-l-md border border-r-0 border-gray">
+                <div
+                  onClick={handleSearchItem}
+                  className="inline-flex items-center px-3 text-sm text-gray-900 bg-blue rounded-l-md border border-r-0 border-gray"
+                >
                   <img src={searchImage} alt="search"></img>
                 </div>
                 <input
@@ -686,7 +768,7 @@ const Audit = ({ auditProjects, mainProData, count, handleCount }: AuditProps) =
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
                   className="rounded-none shadow-inner rounded-r-lg bg-lightgray border border-darkgray focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="elonmusk"
+                  placeholder="Input Search name"
                 />
               </div>
             </div>
@@ -717,7 +799,7 @@ const Audit = ({ auditProjects, mainProData, count, handleCount }: AuditProps) =
                 <tbody>
                   {filteredProjects?.map((project, index) => (
                     <tr
-                      // onClick={() => navigate(`/audit/${index}`)}
+                      onClick={() => navigate(`/safety-ratings/rating/${index}`)}
                       className={
                         filteredProjects?.length === index + 1
                           ? "bg-lightgray border-none"
@@ -742,7 +824,7 @@ const Audit = ({ auditProjects, mainProData, count, handleCount }: AuditProps) =
                         <div className="flex flex-col items-center">
                           <CircleProgressBar
                             sqSize={42}
-                            percentage={project.safety_score}
+                            data={{ percent: project.safety_score }}
                             strokeWidth={5}
                             type={0}
                           ></CircleProgressBar>
@@ -757,7 +839,7 @@ const Audit = ({ auditProjects, mainProData, count, handleCount }: AuditProps) =
                           : FormatNumber(project.market)}
                       </td>
                       <td className="px-6 py-3">
-                        {FormatYMD(project.onboard_date)}
+                        {FormatYMD(project.createdAt)}
                       </td>
                     </tr>
                   ))}
@@ -789,6 +871,8 @@ const Audit = ({ auditProjects, mainProData, count, handleCount }: AuditProps) =
             </div>
           </div>
         </div>
+      ) : (
+        <div className="h-screen"></div>
       )}
     </>
   );

@@ -4,7 +4,7 @@ import discord from "../assets/images/footer/discord_black.svg";
 import github from "../assets/images/footer/github_black.svg";
 import twitter from "../assets/images/footer/twitter_black.svg";
 import global from "../assets/images/footer/global.svg";
-import medium from "../assets/images/footer/medium.svg";
+import medium from "../assets/images/footer/medium.png";
 import telegram from "../assets/images/footer/telegram.svg";
 import CircleProgressBar from "../components/CircleProgressBar";
 import token_chart from "../assets/images/rating/token_chart.png";
@@ -20,28 +20,21 @@ const AuditItem = ({ auditProjects }: auditItemProps) => {
   const { id } = useParams();
   const {
     handleGetTokenData,
-    handleGetTokenPriceHistory,
     tokenData,
-    tokenPriceHistory,
   } = useCoingeckoAPI();
   const [project, setProject] = useState<any>();
-
-  useEffect(() => {
-    console.log("auditProjects", auditProjects);
-  }, []);
 
   useEffect(() => {
     if (id !== undefined && auditProjects.length > 0) {
       setProject(auditProjects[parseInt(id)]);
     }
-  }, [id]);
+  }, [id, auditProjects]);
 
   useEffect(() => {
     if (project) {
-      console.log("project", project);
       handleGetTokenData(project.token);
     }
-  }, [project]);
+  }, [project, handleGetTokenData]);
 
   useEffect(() => {
     console.log("tokenData", tokenData);
@@ -54,7 +47,7 @@ const AuditItem = ({ auditProjects }: auditItemProps) => {
           <div className="flex flex-row items-center space-x-2">
             <img src={idolNFtImage} alt="idol"></img>
             <div className="flex flex-row items-start space-x-1">
-              <div className="font-pilat font-bold text-sz20 md:text-sz40">
+              <div className="font-pilat font-bold text-sz18 md:text-sz40">
                 {project?.name}
               </div>
               <img className="mt-1" src={verify} alt="verify"></img>
@@ -105,13 +98,13 @@ const AuditItem = ({ auditProjects }: auditItemProps) => {
       </div>
       <div className="my-10 w-full grid grid-cols-1 xl:grid-cols-3 gap-8 ">
         <div className="shadow-xl border border-blue rounded-xl col-span-2 p-8 font-Manrope font-light flex flex-col justify-center gap-4 md:gap-8">
-          <div className="text-sz16 md:text-sz24">{project?.description}</div>
+          <div className="text-sz16 md:text-sz18">{project?.description}</div>
           <div className="p-4 bg-gray rounded-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-8">
             <div className="flex flex-col items-start">
               <div className="rounded-full shadow-xl">
                 <CircleProgressBar
                   sqSize={180}
-                  percentage={project?.safety_score}
+                  data={{subtext: project.circle_subtext, text: project.circle_text, percent: project?.safety_score}}
                   strokeWidth={28}
                   type={1}
                 ></CircleProgressBar>
@@ -121,11 +114,11 @@ const AuditItem = ({ auditProjects }: auditItemProps) => {
             <div className="font-Manrope font-light flex flex-col gap-4 md:gap-8">
               <div className="flex flex-col">
                 <div className="text-darkgray text-sz16">Platform</div>
-                <div className="text-sz24">{project?.platform}</div>
+                <div className="text-sz18">{project?.platform}</div>
               </div>
               <div className="flex flex-col">
                 <div className="text-darkgray text-sz16">Language used</div>
-                <div className="text-sz24">{project?.language}</div>
+                <div className="text-sz18">{project?.language}</div>
               </div>
             </div>
 
@@ -133,7 +126,7 @@ const AuditItem = ({ auditProjects }: auditItemProps) => {
               <div className="flex flex-col">
                 <div className="text-darkgray text-sz16">Codebase</div>
                 <div className="flex flex-row items-center space-x-2">
-                  <div className="text-blue text-sz24">github.com/hund</div>
+                  <div className="text-blue text-sz18">github.com/hund</div>
                   <svg
                     width="20"
                     height="20"
@@ -155,7 +148,7 @@ const AuditItem = ({ auditProjects }: auditItemProps) => {
               <div className="space-y-2 flex flex-col">
                 <div className="text-darkgray text-sz16">Commit</div>
                 <div className="flex flex-row space-x-2">
-                  <div className="text-sz24 text-blue">0d0e431da4849...</div>
+                  <div className="text-sz18 text-blue">0d0e431da4849...</div>
                   <svg
                     width="20"
                     height="20"
@@ -180,11 +173,11 @@ const AuditItem = ({ auditProjects }: auditItemProps) => {
             <div className="grid grid-cols-2">
               <div className="flex flex-col space-y-2">
                 <div className="text-sz16 text-darkgray">Project</div>
-                <div className="text-sz24">{project?.name}</div>
+                <div className="text-sz18">{project?.name}</div>
               </div>
               <div className="flex flex-col space-y-2">
                 <div className="text-sz16 text-darkgray">Audit Reports</div>
-                <div className="text-sz24">
+                <div className="text-sz18">
                   <span className="text-green">WHD,</span>
                   <span className="text-blue">EXTERNAL</span>
                 </div>
@@ -193,7 +186,7 @@ const AuditItem = ({ auditProjects }: auditItemProps) => {
             <div className="grid grid-cols-2">
               <div className="flex flex-col space-y-2">
                 <div className="text-sz16 text-darkgray">Token Price</div>
-                <div className="text-sz24">${tokenData?.price}</div>
+                <div className="text-sz18">${tokenData?.price}</div>
                 <div className="flex flex-row items-center">
                   <svg
                     width="25"
@@ -214,7 +207,7 @@ const AuditItem = ({ auditProjects }: auditItemProps) => {
               </div>
               <div className="flex flex-col space-y-2">
                 <div className="text-sz16 text-darkgray">Market cap</div>
-                <div className="text-sz24">${tokenData?.market_cap}</div>
+                <div className="text-sz18">${tokenData?.market_cap}</div>
                 <div className="flex flex-row items-center">
                   <svg
                     width="25"
@@ -237,30 +230,30 @@ const AuditItem = ({ auditProjects }: auditItemProps) => {
             <div className="grid grid-cols-2">
               <div className="flex flex-col space-y-2">
                 <div className="text-sz16 text-darkgray">Audits</div>
-                <div className="text-sz24">{project?.audit_available} available</div>
+                <div className="text-sz18">{project?.audit_available} available</div>
               </div>
               <div className="flex flex-col space-y-2">
                 <div className="text-sz16 text-darkgray">
                   WHD Security Score
                 </div>
-                <div className="text-sz24">
+                <div className="text-sz18">
                   <span className="text-green">{project?.safety_score}</span>
                   <span> / 100</span>
                 </div>
               </div>
             </div>
             <div className="flex flex-col space-y-4">
-              <div className="font-pilat font-bold text-sz24 pb-3 border-b text-blue border-darkgray">
+              <div className="font-pilat font-bold text-sz18 pb-3 border-b text-blue border-darkgray">
                 Audit Details
               </div>
               <div className="grid grid-cols-2 items-center">
                 <div className="flex flex-col">
                   <div className="text-sz16 text-darkgray">Delivery Date</div>
-                  <div className="text-sz24">26 / 02 / 2022</div>
+                  <div className="text-sz18">26 / 02 / 2022</div>
                 </div>
                 <div className="flex flex-col">
                   <div className="text-sz16 text-darkgray">Submission Date</div>
-                  <div className="text-sz24">08 / 02 / 2022</div>
+                  <div className="text-sz18">08 / 02 / 2022</div>
                 </div>
               </div>
             </div>
@@ -290,7 +283,7 @@ const AuditItem = ({ auditProjects }: auditItemProps) => {
       </div>
       <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
         <div className="bg-gray px-6 py-4 rounded-t-xl">
-          <div className="pl-4 text-blue text-center md:text-left text-sz20 md:text-sz30 font-bold font-pilat">
+          <div className="pl-4 text-blue text-center md:text-left text-sz18 md:text-sz20 font-bold font-pilat">
             Price Data
           </div>
         </div>
@@ -303,11 +296,11 @@ const AuditItem = ({ auditProjects }: auditItemProps) => {
               <div className="flex flex-col space-y-4">
                 <div className="flex flex-col">
                   <div className="text-sz16 text-darkgray">Token Price</div>
-                  <div className="text-sz24">$0.103</div>
+                  <div className="text-sz18">$0.103</div>
                 </div>
                 <div className="flex flex-col">
                   <div className="text-sz16 text-darkgray">24h%</div>
-                  <div className="text-sz24">- $0.013</div>
+                  <div className="text-sz18">- $0.013</div>
                   <div className="flex flex-row items-center space-x-2">
                     <svg
                       width="25"
@@ -323,17 +316,17 @@ const AuditItem = ({ auditProjects }: auditItemProps) => {
                 </div>
                 <div className="flex flex-col">
                   <div className="text-sz16 text-darkgray">30-Day High</div>
-                  <div className="text-sz24">$2.0</div>
+                  <div className="text-sz18">$2.0</div>
                 </div>
               </div>
               <div className="flex flex-col space-y-4">
                 <div className="flex flex-col">
                   <div className="text-sz16 text-darkgray">Market cap</div>
-                  <div className="text-sz24">$1,451,392,754</div>
+                  <div className="text-sz18">$1,451,392,754</div>
                 </div>
                 <div className="flex flex-col">
                   <div className="text-sz16 text-darkgray">7d%</div>
-                  <div className="text-sz24">- $0.013</div>
+                  <div className="text-sz18">- $0.013</div>
                   <div className="flex flex-row items-center space-x-2">
                     <svg
                       width="25"
@@ -349,7 +342,7 @@ const AuditItem = ({ auditProjects }: auditItemProps) => {
                 </div>
                 <div className="flex flex-col">
                   <div className="text-sz16 text-darkgray">30-Day Low</div>
-                  <div className="text-sz24">$0.03</div>
+                  <div className="text-sz18">$0.03</div>
                 </div>
               </div>
             </div>
@@ -359,12 +352,12 @@ const AuditItem = ({ auditProjects }: auditItemProps) => {
       </div>
       <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
         <div className="bg-gray px-6 py-4 rounded-t-xl">
-          <div className="pl-4 text-blue text-sz20 md:text-sz30 font-bold font-pilat">
+          <div className="pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat">
             Project Scope
           </div>
         </div>
         <div className="font-Manrope font-light flex flex-col space-y-6 overflow-auto">
-          <div className="p-4 grid grid-cols-3 text-center text-sz16 md:text-sz24 font-bold">
+          <div className="p-4 grid grid-cols-3 text-center text-sz16 md:text-sz18 font-bold">
             <div className="flex flex-col space-y-4">
               <div className="text-blue">Source Code</div>
               <div>GaugeControllerV2.vy</div>
@@ -399,18 +392,18 @@ const AuditItem = ({ auditProjects }: auditItemProps) => {
       </div>
       <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
         <div className="bg-gray px-6 py-4 rounded-t-xl">
-          <div className="pl-4 text-blue text-sz20 md:text-sz30 font-bold font-pilat">
+          <div className="pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat">
             Methodology
           </div>
         </div>
         <div className="p-6 flex flex-col font-Manrope font-light space-y-4">
-          <div className="text-sz16 md:text-sz24">
+          <div className="text-sz16 md:text-sz18">
             White Hat DAO auditing team reviewed the code base of “HundredDAO”
             from Feb. 8, 2022, and Feb. 20, 2022. White Hat DAO was commissioned
             by The HundredDAO to perform security assessments on the following
             smart contracts:
           </div>
-          <div className="px-6 text-sz22 text-blue flex flex-col md:flex-row justify-between gap-2">
+          <div className="px-6 text-sz18 text-blue flex flex-col md:flex-row justify-between gap-2">
             <ul className="list-disc space-y-2">
               <li>Access Control</li>
               <li>Arbitrary token minting</li>
@@ -438,11 +431,11 @@ const AuditItem = ({ auditProjects }: auditItemProps) => {
 
       <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col overflow-x-auto relative">
         <div className="px-6 py-4 rounded-t-xl">
-          <div className="pl-4 text-blue text-sz20 md:text-sz30 font-bold font-pilat text-center">
+          <div className="pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat text-center">
             Hundred Finance Markets
           </div>
         </div>
-        <table className="text-center font-Manrope font-light text-sz16 md:text-sz22 table table-auto">
+        <table className="text-center font-Manrope font-light text-sz16 md:text-sz18 table table-auto">
           <thead>
             <tr className="bg-gray text-blue">
               <th className="p-4">#</th>

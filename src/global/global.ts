@@ -1,1 +1,1 @@
-export const BACKEND_SERVER = process.env.REACT_APP_SERVER
+export const BACKEND_SERVER = "https://whdbackend.herokuapp.com"

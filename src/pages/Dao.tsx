@@ -2,7 +2,7 @@ import info from "../assets/images/dao/info.svg";
 import governance_img from "../assets/images/dao/governance.png";
 import save from "../assets/images/modal/save.png";
 import discard from "../assets/images/modal/discard.png";
-import edit from "../assets/images/edit.png";
+// import edit from "../assets/images/edit.png";
 import Circle from "../components/Circle";
 
 import axios from "axios";
@@ -56,20 +56,24 @@ const ambassadors = [
 
 interface daoProps {
   mainProData: any;
-  count: number,
-  handleCount: (count: number) => void
+  count: number;
+  handleCount: (count: number) => void;
 }
 
 const Dao = ({ mainProData, count, handleCount }: daoProps) => {
   const [showFirstModal, setShowFirstModal] = useState(false);
   const [showSecondModal, setShowSecondModal] = useState(false);
   const [showThirdModal, setShowThirdModal] = useState(false);
+  const [showContributorModal, setShowContributorModal] =
+    useState<boolean>(false);
+  const [showMessageModal, setShowMessageModal] = useState<boolean>(false);
 
   const [governance, setGovernance] = useState<string>();
   const [summary, setSummary] = useState<string>();
   const [governanceText, setGovernanceText] = useState<string>();
   const [compFeature, setCompFeature] = useState<string[]>([]);
   const [phase, setPhase] = useState<string[]>([]);
+  const [snapshotLink, setSnapshotLink] = useState<string>("");
   const [strategyTitle, setStrategyTitle] = useState<string>();
   const [strategy1Btn, setStrategy1Btn] = useState<string>();
   const [strategy1BtnText, setStrategy1BtnText] = useState<string>();
@@ -85,27 +89,42 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
   const [coreIntegrity, setCoreIntegrity] = useState<string>();
   const [coreHonesty, setCoreHonesty] = useState<string>();
   const [coreCuriosity, setCoreCuriosity] = useState<string>();
+  const [contributorTitle, setContributorTitle] = useState<string>();
+  const [contributorOverview, setContributorOverview] = useState<string>();
+  const [contributorDeveloper, setContributorDeveloper] = useState<string>();
+  const [contributorAmbassador, setContributorAmbassador] = useState<string>();
+  const [messageTitle, setMessageTitle] = useState<string>();
+  const [messageText, setMessageText] = useState<string>();
 
   useEffect(() => {
     if (mainProData) {
-      setGovernance(mainProData.dao.governance)
-      setSummary(mainProData.dao.summary)
-      setGovernanceText(mainProData.dao.governance_text)
-      setStrategyTitle(mainProData.dao.strategy_title)
-      setStrategy1Btn(mainProData.dao.strategy_first_button)
-      setStrategy1BtnText(mainProData.dao.strategy_first_button_text)
-      setStrategy2Btn(mainProData.dao.strategy_second_button)
-      setStrategy2BtnText(mainProData.dao.strategy_second_button_text)
-      setStrategyText1(mainProData.dao.strategy_text_first)
-      setStrategyText2(mainProData.dao.strategy_text_second)
-      setCoreText(mainProData.dao.core_text)
-      setCoreSafetySecurity(mainProData.dao.core_safety_security)
-      setCoreTransparency(mainProData.dao.core_transparency)
-      setCoreSelfSovereignty(mainProData.dao.core_self_sovereignty)
-      setCoreFairCompensation(mainProData.dao.core_fair_compensation)
-      setCoreIntegrity(mainProData.dao.core_integrity)
-      setCoreHonesty(mainProData.dao.core_honesty)
-      setCoreCuriosity(mainProData.dao.core_curiosity)
+      setGovernance(mainProData.dao.governance);
+      setSummary(mainProData.dao.summary);
+      setGovernanceText(mainProData.dao.governance_text);
+      setCompFeature(mainProData.dao.component_feature);
+      setPhase(mainProData.dao.phase_design);
+      setSnapshotLink(mainProData.dao.snapshot_link);
+      setStrategyTitle(mainProData.dao.strategy_title);
+      setStrategy1Btn(mainProData.dao.strategy_first_button);
+      setStrategy1BtnText(mainProData.dao.strategy_first_button_text);
+      setStrategy2Btn(mainProData.dao.strategy_second_button);
+      setStrategy2BtnText(mainProData.dao.strategy_second_button_text);
+      setStrategyText1(mainProData.dao.strategy_text_first);
+      setStrategyText2(mainProData.dao.strategy_text_second);
+      setCoreText(mainProData.dao.core_text);
+      setCoreSafetySecurity(mainProData.dao.core_safety_security);
+      setCoreTransparency(mainProData.dao.core_transparency);
+      setCoreSelfSovereignty(mainProData.dao.core_self_sovereignty);
+      setCoreFairCompensation(mainProData.dao.core_fair_compensation);
+      setCoreIntegrity(mainProData.dao.core_integrity);
+      setCoreHonesty(mainProData.dao.core_honesty);
+      setCoreCuriosity(mainProData.dao.core_curiosity);
+      setContributorTitle(mainProData.dao.contributor_title);
+      setContributorOverview(mainProData.dao.contributor_overview);
+      setContributorDeveloper(mainProData.dao.contributor_developer);
+      setContributorAmbassador(mainProData.dao.contributor_ambassador);
+      setMessageTitle(mainProData.dao.message_title);
+      setMessageText(mainProData.dao.message_text);
     }
   }, [mainProData]);
 
@@ -133,7 +152,7 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
     setPhase(tPhase);
   };
 
-  const handleSaveFirstModal = async() => {
+  const handleSaveFirstModal = async () => {
     try {
       const data = {
         id: mainProData._id,
@@ -144,11 +163,14 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
           governance_text: governanceText,
           component_feature: compFeature,
           phase_design: phase,
+          snapshot_link: snapshotLink,
           strategy_title: mainProData.dao.strategy_title,
           strategy_first_button: mainProData.dao.strategy_first_button,
-          strategy_first_button_text: mainProData.dao.strategy_first_button_text,
+          strategy_first_button_text:
+            mainProData.dao.strategy_first_button_text,
           strategy_second_button: mainProData.dao.strategy_second_button,
-          strategy_second_button_text: mainProData.dao.strategy_second_button_text,
+          strategy_second_button_text:
+            mainProData.dao.strategy_second_button_text,
           strategy_text_first: mainProData.dao.strategy_text_first,
           strategy_text_second: mainProData.dao.strategy_text_second,
           core_text: mainProData.dao.core_text,
@@ -158,7 +180,13 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
           core_fair_compensation: mainProData.dao.core_fair_compensation,
           core_integrity: mainProData.dao.core_integrity,
           core_honesty: mainProData.dao.core_honesty,
-          core_curiosity: mainProData.dao.core_curiosity
+          core_curiosity: mainProData.dao.core_curiosity,
+          contributor_title: mainProData.dao.contributor_title,
+          contributor_overview: mainProData.dao.contributor_overview,
+          contributor_developer: mainProData.dao.contributor_developer,
+          contributor_ambassador: mainProData.dao.contributor_ambassador,
+          message_title: mainProData.dao.message_title,
+          message_text: mainProData.dao.message_text,
         },
         rating: mainProData.rating,
         audit: mainProData.audit,
@@ -166,24 +194,85 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
 
       const res = await axios.put(BACKEND_SERVER + "/api/main-pro", data);
 
-      if(res.status === 200) {
-        let c = count + 1
-        handleCount(c)
+      if (res.status === 200) {
+        let c = count + 1;
+        handleCount(c);
       }
     } catch (e) {
       console.log(e);
     }
-    setShowFirstModal(false)
+    setShowFirstModal(false);
   };
 
   const handleDiscardFirstModal = () => {
-    setGovernance(mainProData.dao.governance)
-    setSummary(mainProData.dao.summary)
-    setGovernanceText(mainProData.dao.governance_text)
-    setShowFirstModal(false)
-  }
+    setGovernance(mainProData.dao.governance);
+    setSummary(mainProData.dao.summary);
+    setGovernanceText(mainProData.dao.governance_text);
+    setCompFeature(mainProData.dao.component_feature);
+    setPhase(mainProData.dao.phase_design);
+    setSnapshotLink(mainProData.dao.snapshot_link);
+    setShowFirstModal(false);
+  };
 
-  const handleSaveSecondModal = async() => {
+  const handleSaveMessageModal = async () => {
+    try {
+      const data = {
+        id: mainProData._id,
+        home: mainProData.home,
+        dao: {
+          governance: mainProData.dao.governance,
+          summary: mainProData.dao.governance,
+          governance_text: mainProData.dao.governance_text,
+          component_feature: mainProData.dao.component_feature,
+          phase_design: mainProData.dao.phase_design,
+          snapshot_link: mainProData.dao.snapshot_link,
+          strategy_title: mainProData.dao.strategy_title,
+          strategy_first_button: mainProData.dao.strategy_first_button,
+          strategy_first_button_text:
+            mainProData.dao.strategy_first_button_text,
+          strategy_second_button: mainProData.dao.strategy_second_button,
+          strategy_second_button_text:
+            mainProData.dao.strategy_second_button_text,
+          strategy_text_first: mainProData.dao.strategy_text_first,
+          strategy_text_second: mainProData.dao.strategy_text_second,
+          core_text: mainProData.dao.core_text,
+          core_safety_security: mainProData.dao.core_safety_security,
+          core_transparency: mainProData.dao.core_transparency,
+          core_self_sovereignty: mainProData.dao.core_self_sovereignty,
+          core_fair_compensation: mainProData.dao.core_fair_compensation,
+          core_integrity: mainProData.dao.core_integrity,
+          core_honesty: mainProData.dao.core_honesty,
+          core_curiosity: mainProData.dao.core_curiosity,
+          contributor_title: mainProData.dao.contributor_title,
+          contributor_overview: mainProData.dao.contributor_overview,
+          contributor_developer: mainProData.dao.contributor_developer,
+          contributor_ambassador: mainProData.dao.contributor_ambassador,
+          message_title: messageTitle,
+          message_text: messageText,
+        },
+        rating: mainProData.rating,
+        audit: mainProData.audit,
+      };
+
+      const res = await axios.put(BACKEND_SERVER + "/api/main-pro", data);
+
+      if (res.status === 200) {
+        let c = count + 1;
+        handleCount(c);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+    setShowMessageModal(false);
+  };
+
+  const handleDiscardMessageModal = () => {
+    setMessageTitle(mainProData.dao.message_title);
+    setMessageText(mainProData.dao.message_text);
+    setShowMessageModal(false);
+  };
+
+  const handleSaveSecondModal = async () => {
     try {
       const data = {
         id: mainProData._id,
@@ -194,6 +283,7 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
           governance_text: mainProData.dao.governance_text,
           component_feature: mainProData.dao.component_feature,
           phase_design: mainProData.dao.phase_design,
+          snapshot_link: mainProData.dao.snapshot_link,
           strategy_title: strategyTitle,
           strategy_first_button: strategy1Btn,
           strategy_first_button_text: strategy1BtnText,
@@ -208,7 +298,13 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
           core_fair_compensation: mainProData.dao.core_fair_compensation,
           core_integrity: mainProData.dao.core_integrity,
           core_honesty: mainProData.dao.core_honesty,
-          core_curiosity: mainProData.dao.core_curiosity
+          core_curiosity: mainProData.dao.core_curiosity,
+          contributor_title: mainProData.dao.contributor_title,
+          contributor_overview: mainProData.dao.contributor_overview,
+          contributor_developer: mainProData.dao.contributor_developer,
+          contributor_ambassador: mainProData.dao.contributor_ambassador,
+          message_title: mainProData.dao.message_title,
+          message_text: mainProData.dao.message_text,
         },
         rating: mainProData.rating,
         audit: mainProData.audit,
@@ -216,28 +312,28 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
 
       const res = await axios.put(BACKEND_SERVER + "/api/main-pro", data);
 
-      if(res.status === 200) {
-        let c = count + 1
-        handleCount(c)
+      if (res.status === 200) {
+        let c = count + 1;
+        handleCount(c);
       }
     } catch (e) {
       console.log(e);
     }
-    setShowSecondModal(false)
+    setShowSecondModal(false);
   };
 
   const handleDiscardSecondModal = () => {
-    setStrategyTitle(mainProData.dao.strategy_title)
-    setStrategy1Btn(mainProData.dao.strategy_first_button)
-    setStrategy1BtnText(mainProData.dao.strategy_first_button_text)
-    setStrategy2Btn(mainProData.dao.strategy_second_button)
-    setStrategy2BtnText(mainProData.dao.strategy_second_button_text)
-    setStrategyText1(mainProData.dao.strategy_text_first)
-    setStrategyText2(mainProData.dao.strategy_text_second)
-    setShowSecondModal(false)
-  }
+    setStrategyTitle(mainProData.dao.strategy_title);
+    setStrategy1Btn(mainProData.dao.strategy_first_button);
+    setStrategy1BtnText(mainProData.dao.strategy_first_button_text);
+    setStrategy2Btn(mainProData.dao.strategy_second_button);
+    setStrategy2BtnText(mainProData.dao.strategy_second_button_text);
+    setStrategyText1(mainProData.dao.strategy_text_first);
+    setStrategyText2(mainProData.dao.strategy_text_second);
+    setShowSecondModal(false);
+  };
 
-  const handleSaveThirdModal = async() => {
+  const handleSaveContributorModal = async () => {
     try {
       const data = {
         id: mainProData._id,
@@ -248,11 +344,74 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
           governance_text: mainProData.dao.governance_text,
           component_feature: mainProData.dao.component_feature,
           phase_design: mainProData.dao.phase_design,
+          snapshot_link: mainProData.dao.snapshot_link,
           strategy_title: mainProData.dao.strategy_title,
           strategy_first_button: mainProData.dao.strategy_first_button,
-          strategy_first_button_text: mainProData.dao.strategy_first_button_text,
+          strategy_first_button_text:
+            mainProData.dao.strategy_first_button_text,
           strategy_second_button: mainProData.dao.strategy_second_button,
-          strategy_second_button_text: mainProData.dao.strategy_second_button_text,
+          strategy_second_button_text:
+            mainProData.dao.strategy_second_button_text,
+          strategy_text_first: mainProData.dao.strategy_text_first,
+          strategy_text_second: mainProData.dao.strategy_text_second,
+          core_text: mainProData.dao.core_text,
+          core_safety_security: mainProData.dao.core_safety_security,
+          core_transparency: mainProData.dao.core_transparency,
+          core_self_sovereignty: mainProData.dao.core_self_sovereignty,
+          core_fair_compensation: mainProData.dao.core_fair_compensation,
+          core_integrity: mainProData.dao.core_integrity,
+          core_honesty: mainProData.dao.core_honesty,
+          core_curiosity: mainProData.dao.core_curiosity,
+          contributor_title: contributorTitle,
+          contributor_overview: contributorOverview,
+          contributor_developer: contributorDeveloper,
+          contributor_ambassador: contributorAmbassador,
+          message_title: mainProData.dao.message_title,
+          message_text: mainProData.dao.message_text,
+        },
+        rating: mainProData.rating,
+        audit: mainProData.audit,
+      };
+
+      const res = await axios.put(BACKEND_SERVER + "/api/main-pro", data);
+
+      if (res.status === 200) {
+        let c = count + 1;
+        handleCount(c);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+    setShowContributorModal(false);
+  };
+
+  const handleDiscardContributorModal = () => {
+    setContributorTitle(mainProData.dao.contributor_title);
+    setContributorOverview(mainProData.dao.contributor_overview);
+    setContributorDeveloper(mainProData.dao.contributor_developer);
+    setContributorAmbassador(mainProData.dao.contributor_ambassador);
+    setShowContributorModal(false);
+  };
+
+  const handleSaveThirdModal = async () => {
+    try {
+      const data = {
+        id: mainProData._id,
+        home: mainProData.home,
+        dao: {
+          governance: mainProData.dao.governance,
+          summary: mainProData.dao.summary,
+          governance_text: mainProData.dao.governance_text,
+          component_feature: mainProData.dao.component_feature,
+          phase_design: mainProData.dao.phase_design,
+          snapshot_link: mainProData.dao.snapshot_link,
+          strategy_title: mainProData.dao.strategy_title,
+          strategy_first_button: mainProData.dao.strategy_first_button,
+          strategy_first_button_text:
+            mainProData.dao.strategy_first_button_text,
+          strategy_second_button: mainProData.dao.strategy_second_button,
+          strategy_second_button_text:
+            mainProData.dao.strategy_second_button_text,
           strategy_text_first: mainProData.dao.strategy_text_first,
           strategy_text_second: mainProData.dao.strategy_text_second,
           core_text: coreText,
@@ -262,7 +421,13 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
           core_fair_compensation: coreFairCompensation,
           core_integrity: coreIntegrity,
           core_honesty: coreHonesty,
-          core_curiosity: coreCuriosity
+          core_curiosity: coreCuriosity,
+          contributor_title: mainProData.dao.contributor_title,
+          contributor_overview: mainProData.dao.contributor_overview,
+          contributor_developer: mainProData.dao.contributor_developer,
+          contributor_ambassador: mainProData.dao.contributor_ambassador,
+          message_title: mainProData.dao.message_title,
+          message_text: mainProData.dao.message_text,
         },
         rating: mainProData.rating,
         audit: mainProData.audit,
@@ -270,35 +435,35 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
 
       const res = await axios.put(BACKEND_SERVER + "/api/main-pro", data);
 
-      if(res.status === 200) {
-        let c = count + 1
-        handleCount(c)
+      if (res.status === 200) {
+        let c = count + 1;
+        handleCount(c);
       }
     } catch (e) {
       console.log(e);
     }
-    setShowThirdModal(false)
+    setShowThirdModal(false);
   };
 
   const handleDiscardThirdModal = () => {
-    setCoreText(mainProData.dao.core_text)
-    setCoreSafetySecurity(mainProData.dao.core_safety_security)
-    setCoreTransparency(mainProData.dao.core_transparency)
-    setCoreSelfSovereignty(mainProData.dao.core_self_sovereignty)
-    setCoreFairCompensation(mainProData.dao.core_fair_compensation)
-    setCoreIntegrity(mainProData.dao.core_integrity)
-    setCoreHonesty(mainProData.dao.core_honesty)
-    setCoreCuriosity(mainProData.dao.core_curiosity)
-    setShowThirdModal(false)
-  }
+    setCoreText(mainProData.dao.core_text);
+    setCoreSafetySecurity(mainProData.dao.core_safety_security);
+    setCoreTransparency(mainProData.dao.core_transparency);
+    setCoreSelfSovereignty(mainProData.dao.core_self_sovereignty);
+    setCoreFairCompensation(mainProData.dao.core_fair_compensation);
+    setCoreIntegrity(mainProData.dao.core_integrity);
+    setCoreHonesty(mainProData.dao.core_honesty);
+    setCoreCuriosity(mainProData.dao.core_curiosity);
+    setShowThirdModal(false);
+  };
 
   return (
     <>
-      {mainProData && (
+      {mainProData ? (
         <div className="px-4 md:px-0 py-10 flex flex-col">
           <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
-              <div className="w-full pl-4 text-blue text-sz20 md:text-sz30 font-bold font-pilat text-center">
+              <div className="w-full pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat text-center">
                 {mainProData.dao.governance}
               </div>
               {/* <div
@@ -306,7 +471,7 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                 onClick={() => setShowFirstModal(true)}
               >
                 <img src={edit} alt="edit"></img>
-                <div className="text-blue text-sz20 font-Manrope">Edit</div>
+                <div className="text-blue text-sz18 font-Manrope">Edit</div>
               </div> */}
               {showFirstModal ? (
                 <>
@@ -321,20 +486,23 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                             onClick={handleSaveFirstModal}
                           >
                             <img src={save} alt="save"></img>
-                            <div className="text-sz20 text-pink">Save</div>
+                            <div className="text-sz18 text-pink">Save</div>
                           </div>
                           <div
                             className="flex flex-row items-center cursor-pointer gap-2"
                             onClick={handleDiscardFirstModal}
                           >
                             <img src={discard} alt="discard"></img>
-                            <div className="text-sz20 text-blue">Discard</div>
+                            <div className="text-sz18 text-blue">Discard</div>
                           </div>
                         </div>
                         {/*body*/}
-                        <div className="bg-lightgray relative px-8 py-2 rounded-b-xl flex flex-col space-y-3 overflow-y-scroll">
+                        <div
+                          className="bg-lightgray relative px-8 py-2 rounded-b-xl flex flex-col space-y-3 overflow-y-scroll"
+                          style={{ height: "700px" }}
+                        >
                           <div className="flex flex-col space-y-2">
-                            <div className="text-sz20 text-blue">
+                            <div className="text-sz18 text-blue">
                               Edit H1 Text
                             </div>
                             <input
@@ -347,7 +515,7 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                             />
                           </div>
                           <div className="flex flex-col space-y-2">
-                            <div className="text-sz20 text-blue">
+                            <div className="text-sz18 text-blue">
                               Edit Summary
                             </div>
                             <textarea
@@ -359,7 +527,7 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                             />
                           </div>
                           <div className="flex flex-col space-y-2">
-                            <div className="text-sz20 text-blue">Edit Text</div>
+                            <div className="text-sz18 text-blue">Edit Text</div>
                             <textarea
                               rows={5}
                               value={governanceText}
@@ -372,7 +540,7 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                           </div>
                           <div className="flex flex-row items-start justify-between">
                             <div className="flex flex-col space-y-2">
-                              <div className="text-blue text-sz20">
+                              <div className="text-blue text-sz18">
                                 Component or Feature
                               </div>
                               <input
@@ -409,7 +577,7 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                               />
                             </div>
                             <div className="flex flex-col space-y-2">
-                              <div className="text-blue text-sz20">
+                              <div className="text-blue text-sz18">
                                 Phase 1 Design
                               </div>
                               <input
@@ -446,6 +614,19 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                               />
                             </div>
                           </div>
+                          <div className="flex flex-col space-y-2">
+                            <div className="text-sz18 text-blue">
+                              Edit Button Link
+                            </div>
+                            <input
+                              type="text"
+                              id="website-admin"
+                              value={snapshotLink}
+                              onChange={(e) => setSnapshotLink(e.target.value)}
+                              className="shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              placeholder="https://example.com"
+                            />
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -455,23 +636,23 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
               ) : null}
             </div>
             <div className="p-8 flex flex-col font-Manrope font-light space-y-4">
-              <div className="rounded-md shadow-sm w-56 px-8 py-2 text-center font-pilat font-bold text-pink text-sz16 md:text-sz24">
+              <div className="rounded-md shadow-sm w-56 px-8 py-2 text-center font-pilat font-bold text-pink text-sz16 md:text-sz18">
                 Summary
               </div>
-              <div className="text-sz16 md:text-sz22">
+              <div className="text-sz16 md:text-sz18">
                 {mainProData.dao.summary}
               </div>
               <div className="p-6 rounded-md shadow-inner flex flex-row items-start md:items-center space-x-4">
                 <img src={info} alt="info"></img>
-                <div className="text-sz16 md:text-sz20 text-blue">
+                <div className="text-sz16 md:text-sz18 text-blue">
                   {mainProData.dao.governance_text}
                 </div>
               </div>
               <div className="flex flex-col space-y-4">
-                <div className="font-pilat font-bold text-sz20 md:text-sz24 text-pink text-center">
+                <div className="font-pilat font-bold text-sz18 md:text-sz18 text-pink text-center">
                   Key Governance Design Choices
                 </div>
-                <div className="my-8 shadow-xl rounded-lg relative overflow-x-auto flex flex-col text-sz14 md:text-sz20 font-Manrope font-bold text-center">
+                <div className="my-8 shadow-xl rounded-lg relative overflow-x-auto flex flex-col text-sz14 md:text-sz18 font-Manrope font-bold text-center">
                   <div className="py-4 bg-gray text-blue grid grid-cols-2">
                     <div>Component or Feature</div>
                     <div>Phase 1 Design</div>
@@ -489,22 +670,22 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                     )
                   )}
                 </div>
-                <div className="pt-2 md:pt-8 z-10 cursor-pointer">
-                  <div className="shadow-sm text-2xl w-2/3 py-4 border rounded-xl gradient-box text-sz16 md:text-sz22 font-bold flex flex-col items-center">
+                <a href={mainProData.dao.snapshot_link} className="pt-2 md:pt-8 z-10 cursor-pointer">
+                  <div className="shadow-sm text-2xl w-2/3 py-4 border rounded-xl gradient-box text-sz16 md:text-sz18 font-bold flex flex-col items-center">
                     Join our Snapshot Space
                   </div>
-                </div>
+                </a>
               </div>
             </div>
           </div>
           <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl">
-              <div className="pl-4 text-blue text-sz20 md:text-sz30 font-bold font-pilat text-center">
+              <div className="pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat text-center">
                 Governance Policy & Constitution
               </div>
             </div>
             <div className="p-8 flex flex-col font-Manrope font-light space-y-4">
-              <div className="text-sz16 md:text-sz22">
+              <div className="text-sz16 md:text-sz18">
                 White Hat DAO is a decentralized autonomous organization.
                 Governed by a clear set of rules and executes actions
                 automatically. Thus, effectively disregarding intermediaries.
@@ -514,12 +695,16 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                 community forum. Once submitted in Snapshot, the token holders
                 will vote on whether to approve or reject these proposal.
               </div>
-              <img src={governance_img} alt="governance"></img>
+              <img
+                className="w-full h-auto"
+                src={governance_img}
+                alt="governance"
+              ></img>
             </div>
           </div>
           <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
-              <div className="w-full pl-4 text-blue text-sz20 md:text-sz30 font-bold font-pilat text-center">
+              <div className="w-full pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat text-center">
                 {mainProData.dao.strategy_title}
               </div>
               {/* <div
@@ -527,7 +712,7 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                 onClick={() => setShowSecondModal(true)}
               >
                 <img src={edit} alt="edit"></img>
-                <div className="text-blue text-sz20 font-Manrope">Edit</div>
+                <div className="text-blue text-sz18 font-Manrope">Edit</div>
               </div> */}
               {showSecondModal ? (
                 <>
@@ -542,14 +727,14 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                             onClick={handleSaveSecondModal}
                           >
                             <img src={save} alt="save"></img>
-                            <div className="text-sz20 text-pink">Save</div>
+                            <div className="text-sz18 text-pink">Save</div>
                           </div>
                           <div
                             className="flex flex-row items-center cursor-pointer gap-2"
                             onClick={handleDiscardSecondModal}
                           >
                             <img src={discard} alt="discard"></img>
-                            <div className="text-sz20 text-blue">Discard</div>
+                            <div className="text-sz18 text-blue">Discard</div>
                           </div>
                         </div>
                         {/*body*/}
@@ -558,7 +743,7 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                           style={{ height: "700px" }}
                         >
                           <div className="flex flex-col space-y-2">
-                            <div className="text-sz20 text-blue">
+                            <div className="text-sz18 text-blue">
                               Edit H1 Text
                             </div>
                             <input
@@ -571,7 +756,7 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                             />
                           </div>
                           <div className="flex flex-col space-y-2">
-                            <div className="text-sz20 text-blue">
+                            <div className="text-sz18 text-blue">
                               Edit First Button
                             </div>
                             <input
@@ -584,19 +769,21 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                             />
                           </div>
                           <div className="flex flex-col space-y-2">
-                            <div className="text-sz20 text-blue">
+                            <div className="text-sz18 text-blue">
                               Edit First Button Text
                             </div>
                             <textarea
                               rows={4}
                               value={strategy1BtnText}
-                              onChange={(e) => setStrategy1BtnText(e.target.value)}
+                              onChange={(e) =>
+                                setStrategy1BtnText(e.target.value)
+                              }
                               className="shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sz16 border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                               placeholder="Our initial settings for voting weight of each token would be ( 1 WHD gov token = 1 vote ) weight of voting power. Future strategies may include: allocating vote weight to LP tokens to enable gov token holders who have staked, wrapped, or provided liquidity to retain voting power."
                             />
                           </div>
                           <div className="flex flex-col space-y-2">
-                            <div className="text-sz20 text-blue">
+                            <div className="text-sz18 text-blue">
                               Edit Second Button
                             </div>
                             <input
@@ -609,19 +796,21 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                             />
                           </div>
                           <div className="flex flex-col space-y-2">
-                            <div className="text-sz20 text-blue">
+                            <div className="text-sz18 text-blue">
                               Edit Second Button Text
                             </div>
                             <textarea
                               rows={5}
                               value={strategy2BtnText}
-                              onChange={(e) => setStrategy2BtnText(e.target.value)}
+                              onChange={(e) =>
+                                setStrategy2BtnText(e.target.value)
+                              }
                               className="shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sz16 border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                               placeholder="Proposal Threshold is typically defined as the number of votes required to create a proposal. In White Hat DAO Snapshot Space this is done through a visual filter, to only display proposals from users who have at least the threshold number of gov tokens in their address. "
                             />
                           </div>
                           <div className="flex flex-col space-y-2">
-                            <div className="text-sz20 text-blue">
+                            <div className="text-sz18 text-blue">
                               Edit Text 1
                             </div>
                             <textarea
@@ -633,7 +822,7 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                             />
                           </div>
                           <div className="flex flex-col space-y-2">
-                            <div className="text-sz20 text-blue">
+                            <div className="text-sz18 text-blue">
                               Edit Text 2
                             </div>
                             <textarea
@@ -654,27 +843,27 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
             </div>
             <div className="p-8 flex flex-col items-start font-Manrope font-light space-y-4">
               <div className="z-10 cursor-pointer">
-                <div className="shadow-sm w-80 py-2 border rounded-xl gradient-box text-sz16 md:text-sz24 font-bold flex flex-col items-start">
+                <div className="shadow-sm w-80 py-2 border rounded-xl gradient-box text-sz16 md:text-sz18 font-bold flex flex-col items-start">
                   <div className="text-blue">
                     {mainProData.dao.strategy_first_button}
                   </div>
                 </div>
               </div>
-              <div className="text-sz16 md:text-sz22">
+              <div className="text-sz16 md:text-sz18">
                 {mainProData.dao.strategy_first_button_text}
               </div>
 
               <div className="z-10 cursor-pointer">
-                <div className="shadow-sm w-80 py-2 border rounded-xl gradient-box text-sz16 md:text-sz24 font-bold flex flex-col items-start">
+                <div className="shadow-sm w-80 py-2 border rounded-xl gradient-box text-sz16 md:text-sz18 font-bold flex flex-col items-start">
                   <div className="text-blue">
                     {mainProData.dao.strategy_second_button}
                   </div>
                 </div>
               </div>
-              <div className="text-sz16 md:text-sz22">
+              <div className="text-sz16 md:text-sz18">
                 {mainProData.dao.strategy_second_button_text}
               </div>
-              <div className="text-sz16 md:text-sz22">
+              <div className="text-sz16 md:text-sz18">
                 <span className="font-semibold">Snapshot Strategy</span> = 1 Gov
                 Token = 1 Vote Weight <br />
                 <span className="font-semibold">Proposal Threshold</span> = 5%
@@ -689,19 +878,19 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
 
               <div className="w-full p-6 rounded-md shadow-inner flex flex-row items-start md:items-center space-x-4">
                 <img src={info} alt="info"></img>
-                <div className="text-sz16 md:text-sz20 text-blue">
+                <div className="text-sz16 md:text-sz18 text-blue">
                   {mainProData.dao.strategy_text_first}
                 </div>
               </div>
 
               <div className="w-full p-6 rounded-md shadow-inner flex flex-row items-start md:items-center space-x-4">
                 <img src={info} alt="info"></img>
-                <div className="text-sz16 md:text-sz20 text-blue">
+                <div className="text-sz16 md:text-sz18 text-blue">
                   {mainProData.dao.strategy_text_second}
                 </div>
               </div>
 
-              <div className="text-sz16 md:text-sz22">
+              <div className="text-sz16 md:text-sz18">
                 The above settings can be changed via community discussion and
                 snapshot voting in accordance with the already existing rules
                 and regulation.
@@ -710,7 +899,7 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
           </div>
           <div className="mt-8 bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
-              <div className="w-full pl-4 text-blue text-sz20 md:text-sz30 font-bold font-pilat text-center">
+              <div className="w-full pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat text-center">
                 {mainProData.dao.core_text}
               </div>
               {/* <div
@@ -718,7 +907,7 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                 onClick={() => setShowThirdModal(true)}
               >
                 <img src={edit} alt="edit"></img>
-                <div className="text-blue text-sz20 font-Manrope">Edit</div>
+                <div className="text-blue text-sz18 font-Manrope">Edit</div>
               </div> */}
               {showThirdModal ? (
                 <>
@@ -733,20 +922,23 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                             onClick={handleSaveThirdModal}
                           >
                             <img src={save} alt="save"></img>
-                            <div className="text-sz20 text-pink">Save</div>
+                            <div className="text-sz18 text-pink">Save</div>
                           </div>
                           <div
                             className="flex flex-row items-center cursor-pointer gap-2"
                             onClick={handleDiscardThirdModal}
                           >
                             <img src={discard} alt="discard"></img>
-                            <div className="text-sz20 text-blue">Discard</div>
+                            <div className="text-sz18 text-blue">Discard</div>
                           </div>
                         </div>
                         {/*body*/}
-                        <div className="bg-lightgray relative px-8 py-2 rounded-b-xl flex flex-col space-y-3 h-full overflow-y-auto">
+                        <div
+                          className="bg-lightgray relative px-8 py-2 rounded-b-xl flex flex-col space-y-3 h-full overflow-y-auto"
+                          style={{ height: "700px" }}
+                        >
                           <div className="flex flex-col space-y-2">
-                            <div className="text-sz20 text-blue">
+                            <div className="text-sz18 text-blue">
                               Edit H1 Text
                             </div>
                             <input
@@ -759,59 +951,67 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                             />
                           </div>
                           <div className="flex flex-col space-y-2">
-                            <div className="text-sz20 text-blue">
+                            <div className="text-sz18 text-blue">
                               Promoting Safety & Security
                             </div>
                             <input
                               type="text"
                               id="website-admin"
                               value={coreSafetySecurity}
-                              onChange={(e) => setCoreSafetySecurity(e.target.value)}
+                              onChange={(e) =>
+                                setCoreSafetySecurity(e.target.value)
+                              }
                               className="shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                               placeholder="WHITE HAT DAO"
                             />
                           </div>
                           <div className="flex flex-col space-y-2">
-                            <div className="text-sz20 text-blue">
+                            <div className="text-sz18 text-blue">
                               Transparency
                             </div>
                             <input
                               type="text"
                               id="website-admin"
                               value={coreTransparency}
-                              onChange={(e) => setCoreTransparency(e.target.value)}
+                              onChange={(e) =>
+                                setCoreTransparency(e.target.value)
+                              }
                               className="shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                               placeholder="WHITE HAT DAO"
                             />
                           </div>
                           <div className="flex flex-col space-y-2">
-                            <div className="text-sz20 text-blue">
+                            <div className="text-sz18 text-blue">
                               Self-Sovereignty
                             </div>
                             <input
                               type="text"
                               id="website-admin"
                               value={coreSelfSovereignty}
-                              onChange={(e) => setCoreSelfSovereignty(e.target.value)}
+                              onChange={(e) =>
+                                setCoreSelfSovereignty(e.target.value)
+                              }
                               className="shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                               placeholder="WHITE HAT DAO"
                             />
                           </div>
                           <div className="flex flex-col space-y-2">
-                            <div className="text-sz20 text-blue">
+                            <div className="text-sz18 text-blue">
                               Fair Compensation
                             </div>
                             <input
                               type="text"
                               id="website-admin"
                               value={coreFairCompensation}
-                              onChange={(e) => setCoreFairCompensation(e.target.value)}
+                              onChange={(e) =>
+                                setCoreFairCompensation(e.target.value)
+                              }
                               className="shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                               placeholder="WHITE HAT DAO"
                             />
                           </div>
                           <div className="flex flex-col space-y-2">
-                            <div className="text-sz20 text-blue">Integrity</div>
+                            <div className="text-sz18 text-blue">Integrity</div>
                             <input
                               type="text"
                               id="website-admin"
@@ -822,7 +1022,7 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                             />
                           </div>
                           <div className="flex flex-col space-y-2">
-                            <div className="text-sz20 text-blue">Honesty</div>
+                            <div className="text-sz18 text-blue">Honesty</div>
                             <input
                               type="text"
                               id="website-admin"
@@ -833,7 +1033,7 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                             />
                           </div>
                           <div className="flex flex-col space-y-2">
-                            <div className="text-sz20 text-blue">Curiosity</div>
+                            <div className="text-sz18 text-blue">Curiosity</div>
                             <input
                               type="text"
                               id="website-admin"
@@ -851,51 +1051,51 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                 </>
               ) : null}
             </div>
-            <div className="p-8 flex flex-col font-Manrope space-y-4 text-sz16 md:text-sz22 font-light">
+            <div className="p-8 flex flex-col font-Manrope space-y-4 text-sz16 md:text-sz18 font-light">
               <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
-                <div className="px-2 py-1 text-sz14 md:text-sz22 rounded-full shadow-inner font-bold">
+                <div className="px-2 py-1 text-sz14 md:text-sz18 rounded-full shadow-inner font-bold">
                   Promoting Safety & Security
                 </div>
                 <div>-{mainProData.dao.core_safety_security}</div>
               </div>
 
               <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
-                <div className="px-2 py-1 text-sz14 md:text-sz22 rounded-full shadow-inner font-bold">
+                <div className="px-2 py-1 text-sz14 md:text-sz18 rounded-full shadow-inner font-bold">
                   Transparency
                 </div>
                 <div>-{mainProData.dao.core_transparency}</div>
               </div>
 
               <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
-                <div className="px-2 py-1 text-sz14 md:text-sz22 rounded-full shadow-inner font-bold">
+                <div className="px-2 py-1 text-sz14 md:text-sz18 rounded-full shadow-inner font-bold">
                   Self-Sovereignty
                 </div>
                 <div>-{mainProData.dao.core_self_sovereignty}</div>
               </div>
 
               <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
-                <div className="px-2 py-1 text-sz14 md:text-sz22 rounded-full shadow-inner font-bold">
+                <div className="px-2 py-1 text-sz14 md:text-sz18 rounded-full shadow-inner font-bold">
                   Fair Compensation
                 </div>
                 <div>-{mainProData.dao.core_fair_compensation}</div>
               </div>
 
               <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
-                <div className="px-2 py-1 text-sz14 md:text-sz22 rounded-full shadow-inner font-bold">
+                <div className="px-2 py-1 text-sz14 md:text-sz18 rounded-full shadow-inner font-bold">
                   Integrity
                 </div>
                 <div>-{mainProData.core_integrity}</div>
               </div>
 
               <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
-                <div className="px-2 py-1 text-sz14 md:text-sz22 rounded-full shadow-inner font-bold">
+                <div className="px-2 py-1 text-sz14 md:text-sz18 rounded-full shadow-inner font-bold">
                   Honesty
                 </div>
                 <div>-{mainProData.dao.core_honesty}</div>
               </div>
 
               <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
-                <div className="px-2 py-1 text-sz14 md:text-sz22 rounded-full shadow-inner font-bold">
+                <div className="px-2 py-1 text-sz14 md:text-sz18 rounded-full shadow-inner font-bold">
                   Curiosity
                 </div>
                 <div>-{mainProData.dao.core_curiosity}</div>
@@ -904,30 +1104,121 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
           </div>
           <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl">
-              <div className="pl-4 text-blue text-sz20 md:text-sz30 font-bold font-pilat text-center">
-                Contributors Responsibilities
+              <div className="pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat text-center flex flex-row items-center justify-between">
+                <div className="w-full">
+                  {mainProData.dao.contributor_title}
+                </div>
+                {/* <div
+                  className="flex flex-row items-center font-light cursor-pointer space-x-2"
+                  onClick={() => setShowContributorModal(true)}
+                >
+                  <img src={edit} alt="edit"></img>
+                  <div className="text-blue text-sz18 font-Manrope">Edit</div>
+                </div> */}
               </div>
             </div>
+            {showContributorModal ? (
+              <>
+                <div className="justify-center items-center flex fixed inset-0 z-50 outline-none focus:outline-none">
+                  <div className="relative my-6 w-5/6 md:w-2/3 lg:w-3/5 xl:w-2/5 rounded-xl shadow-xl font-Manrope">
+                    {/*content*/}
+                    <div className="border-0 rounded-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                      {/*header*/}
+                      <div className="flex flex-row bg-gray items-center px-8 py-4 space-x-8 rounded-t-lg">
+                        <div
+                          className="flex flex-row items-center cursor-pointer gap-2"
+                          onClick={handleSaveContributorModal}
+                        >
+                          <img src={save} alt="save"></img>
+                          <div className="text-sz18 text-pink">Save</div>
+                        </div>
+                        <div
+                          className="flex flex-row items-center cursor-pointer gap-2"
+                          onClick={handleDiscardContributorModal}
+                        >
+                          <img src={discard} alt="discard"></img>
+                          <div className="text-sz18 text-blue">Discard</div>
+                        </div>
+                      </div>
+                      {/*body*/}
+                      <div
+                        className="bg-lightgray relative px-8 py-2 rounded-b-xl flex flex-col space-y-3 overflow-y-scroll"
+                        style={{ height: "700px" }}
+                      >
+                        <div className="flex flex-col space-y-2">
+                          <div className="text-sz18 text-blue">Edit Header</div>
+                          <input
+                            type="text"
+                            id="website-admin"
+                            value={contributorTitle}
+                            onChange={(e) =>
+                              setContributorTitle(e.target.value)
+                            }
+                            className="shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="WHITE HAT DAO"
+                          />
+                        </div>
+                        <div className="flex flex-col space-y-2">
+                          <div className="text-sz18 text-blue">Overview</div>
+                          <textarea
+                            rows={5}
+                            value={contributorOverview}
+                            onChange={(e) =>
+                              setContributorOverview(e.target.value)
+                            }
+                            className="shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sz16 border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="The nature and scope of this project is enormous. It will require a team of dedicated and highly committed individuals to keep things running. For the purposes of promoting accountability and enhancing commitments, the following roles are created. Dedicated project champions willing to stake time and put in the sweat to get the project running on a daily basis."
+                          />
+                        </div>
+                        <div className="flex flex-col space-y-2">
+                          <div className="text-sz18 text-blue">
+                            Developers Responsibilities
+                          </div>
+                          <textarea
+                            rows={5}
+                            value={contributorDeveloper}
+                            onChange={(e) =>
+                              setContributorDeveloper(e.target.value)
+                            }
+                            className="shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sz16 border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Devs will be responsible for designing, implementing, and creating smart contracts and integration them in the platform. And maintain the protocol with up to date blockchain technology in the market. "
+                          />
+                        </div>
+                        <div className="flex flex-col space-y-2">
+                          <div className="text-sz18 text-blue">
+                            Who can apply for the ambassador role ?
+                          </div>
+                          <textarea
+                            rows={5}
+                            value={contributorAmbassador}
+                            onChange={(e) =>
+                              setContributorAmbassador(e.target.value)
+                            }
+                            className="shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sz16 border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Anyone can apply to become an ambassador, so long as they can positively contribute to the project and share the same values / principles. White Hat DAO will be accepting applications from all content niches and industries.s will be responsible for designing, implementing, and creating smart contracts and integration them in the platform. And maintain the protocol with up to date blockchain technology in the market. "
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+              </>
+            ) : null}
             <div className="p-4 md:p-8 flex flex-col items-start font-Manrope font-light space-y-4">
               <div className="z-10 cursor-pointer">
-                <div className="shadow-sm w-40 md:w-80 py-2 border rounded-xl gradient-box text-sz16 md:text-sz24 font-bold flex flex-col items-start">
+                <div className="shadow-sm w-40 md:w-80 py-2 border rounded-xl gradient-box text-sz16 md:text-sz18 font-bold flex flex-col items-start">
                   <div>Overview</div>
                 </div>
               </div>
-              <div className="text-sz16 md:text-sz22">
-                The nature and scope of this project is enormous. It will
-                require a team of dedicated and highly committed individuals to
-                keep things running. For the purposes of promoting
-                accountability and enhancing commitments, the following roles
-                are created. Dedicated project champions willing to stake time
-                and put in the sweat to get the project running on a daily
-                basis.
+              <div className="text-sz16 md:text-sz18">
+                {mainProData.dao.contributor_overview}
               </div>
               <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="flex flex-col space-y-10">
                   <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
                     <div className="bg-gray px-6 py-4 rounded-t-xl">
-                      <div className="pl-4 text-blue text-sz20 md:text-sz22 font-bold font-pilat text-center">
+                      <div className="pl-4 text-blue text-sz18 md:text-sz18 font-bold font-pilat text-center">
                         Administration's Responsibilities
                       </div>
                     </div>
@@ -935,7 +1226,7 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                       {responsibilities.map((item) => (
                         <div className="w-full py-1 border-b border-gray flex flex-row items-center space-x-4">
                           <Circle></Circle>
-                          <div className="font-Manrope text-sz16 md:text-sz20">
+                          <div className="font-Manrope text-sz16 md:text-sz18">
                             {item}
                           </div>
                         </div>
@@ -944,21 +1235,13 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                   </div>
                   <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
                     <div className="bg-gray px-6 py-4 rounded-t-xl">
-                      <div className="pl-4 text-blue text-sz20 md:text-sz22 font-bold font-pilat text-center">
+                      <div className="pl-4 text-blue text-sz18 md:text-sz18 font-bold font-pilat text-center">
                         Who can apply for the ambassador role ?
                       </div>
                     </div>
                     <div className="p-6 flex flex-col items-start font-Manrope font-light space-y-4">
                       <div className="p-2 rounded-md bg-gray text-sz16 md:text-sz18">
-                        Anyone can apply to become an ambassador, so long as
-                        they can positively contribute to the project and share
-                        the same values / principles. White Hat DAO will be
-                        accepting applications from all content niches and
-                        industries.s will be responsible for designing,
-                        implementing, and creating smart contracts and
-                        integration them in the platform. And maintain the
-                        protocol with up to date blockchain technology in the
-                        market.
+                        {mainProData.dao.contributor_ambassador}
                       </div>
                     </div>
                   </div>
@@ -967,21 +1250,18 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                 <div className="flex flex-col space-y-10 justify-between">
                   <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
                     <div className="bg-gray px-6 py-4 rounded-t-xl">
-                      <div className="pl-4 text-blue text-sz20 md:text-sz22 font-bold font-pilat text-center">
+                      <div className="pl-4 text-blue text-sz18 md:text-sz18 font-bold font-pilat text-center">
                         Developers Responsibilities
                       </div>
                     </div>
                     <div className="p-6 flex flex-col items-start font-Manrope font-light space-y-4">
-                      <div className="p-2 rounded-md bg-gray text-sz16 md:text-sz20">
-                        Devs will be responsible for designing, implementing,
-                        and creating smart contracts and integration them in the
-                        platform. And maintain the protocol with up to date
-                        blockchain technology in the market.
+                      <div className="p-2 rounded-md bg-gray text-sz16 md:text-sz18">
+                        {mainProData.dao.contributor_developer}
                       </div>
                       {dev_responsibilities.map((item) => (
                         <div className="w-full py-1 border-b border-gray flex flex-row items-center space-x-4">
                           <Circle></Circle>
-                          <div className="font-Manrope text-sz16 md:text-sz20">
+                          <div className="font-Manrope text-sz16 md:text-sz18">
                             {item}
                           </div>
                         </div>
@@ -990,7 +1270,7 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                   </div>
                   <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
                     <div className="bg-gray px-6 py-4 rounded-t-xl">
-                      <div className="pl-4 text-blue text-sz20 md:text-sz22 font-bold font-pilat text-center">
+                      <div className="pl-4 text-blue text-sz18 md:text-sz18 font-bold font-pilat text-center">
                         Community Ambassadors
                       </div>
                     </div>
@@ -998,7 +1278,7 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                       {ambassadors.map((item) => (
                         <div className="w-full py-1 border-b border-gray flex flex-row items-center space-x-4">
                           <Circle></Circle>
-                          <div className="font-Manrope text-sz16 md:text-sz20">
+                          <div className="font-Manrope text-sz16 md:text-sz18">
                             {item}
                           </div>
                         </div>
@@ -1011,17 +1291,81 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
           </div>
           <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl">
-              <div className="pl-4 text-pink text-sz20 md:text-sz30 font-bold font-pilat text-center">
-                A message from White Hat DAO
+              <div className="pl-4 text-pink text-sz18 md:text-sz20 font-bold font-pilat text-center flex flex-row items-center">
+                <div className="w-full">{mainProData.dao.message_title}</div>
+                {/* <div
+                  className="flex flex-row items-center font-light cursor-pointer space-x-2"
+                  onClick={() => setShowMessageModal(true)}
+                >
+                  <img src={edit} alt="edit"></img>
+                  <div className="text-blue text-sz18 font-Manrope">Edit</div>
+                </div> */}
+                {showMessageModal ? (
+                  <>
+                    <div className="justify-center items-center flex fixed inset-0 z-50 outline-none focus:outline-none">
+                      <div className="relative my-6 w-5/6 md:w-2/3 lg:w-3/5 xl:w-2/5 rounded-xl shadow-xl font-Manrope">
+                        {/*content*/}
+                        <div className="border-0 rounded-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                          {/*header*/}
+                          <div className="flex flex-row bg-gray items-center px-8 py-4 space-x-8 rounded-t-lg">
+                            <div
+                              className="flex flex-row items-center cursor-pointer gap-2"
+                              onClick={handleSaveMessageModal}
+                            >
+                              <img src={save} alt="save"></img>
+                              <div className="text-sz18 text-pink">Save</div>
+                            </div>
+                            <div
+                              className="flex flex-row items-center cursor-pointer gap-2"
+                              onClick={handleDiscardMessageModal}
+                            >
+                              <img src={discard} alt="discard"></img>
+                              <div className="text-sz18 text-blue">Discard</div>
+                            </div>
+                          </div>
+                          {/*body*/}
+                          <div
+                            className="text-left text-black bg-lightgray relative px-8 py-2 rounded-b-xl flex flex-col space-y-3 overflow-y-scroll"
+                          >
+                            <div className="flex flex-col space-y-2">
+                              <div className="text-sz18 text-blue">
+                                Edit Title
+                              </div>
+                              <input
+                                type="text"
+                                id="website-admin"
+                                value={messageTitle}
+                                onChange={(e) => setMessageTitle(e.target.value)}
+                                className="shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="WHITE HAT DAO"
+                              />
+                            </div>
+                            <div className="flex flex-col space-y-2">
+                              <div className="text-sz18 text-blue">
+                                Edit Text
+                              </div>
+                              <textarea
+                                rows={8}
+                                value={messageText}
+                                onChange={(e) => setMessageText(e.target.value)}
+                                className="shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sz16 border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="White Hat DAO is a decentralized autonomous organization. Governed by a clear set of rules and executes actions automatically. Thus, effectively disregarding intermediaries. White Hat DAO controlled by Governance token holders. It does not have any employees.  Any individuals, DAO members or development teams can propose any proposals draft via discord or community forum. Once submitted in Snapshot, the token holders will vote on whether to approve or reject these proposal."
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+                  </>
+                ) : null}
               </div>
             </div>
-            <div className="p-6 flex flex-col items-start font-Manrope font-light text-sz16 md:text-sz22 space-y-4">
-              Devs will be responsible for designing, implementing, and creating
-              smart contracts and integration them in the platform. And maintain
-              the protocol with up to date blockchain technology in the market.
-            </div>
+            <div className="p-6 flex flex-col items-start font-Manrope font-light text-sz16 md:text-sz18 space-y-4">{mainProData.dao.message_text}</div>
           </div>
         </div>
+      ) : (
+        <div className="h-screen"></div>
       )}
     </>
   );

@@ -6,12 +6,12 @@ import line from "../../assets/images/blogpost/line.png"
 
 const Activity = () => {
     return (
-        <div className='my-20'>
+        <div className='my-20 mx-4'>
             <div className='p-5 border shadow-xl rounded-xl border-blue font-Manrope mb-14'>
                 <div className='flex items-start mb-10'>
                     <img src={avatar} alt="avatar" className='mr-5' />
                     <div>
-                        <div className='mb-2 font-bold leading-8 text-sz24'>NF Thinker</div>
+                        <div className='mb-2 font-bold leading-8 text-sz18'>NF Thinker</div>
                         <div className='mb-3 font-medium leading-6 text-sz18 text-pink'>www.nfthinker.com</div>
                         <div className='leading-5 text-sz16'>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<br></br>
@@ -29,7 +29,7 @@ const Activity = () => {
             </div>
 
             <div className='border p-middle font-Manrope border-blue rounded-xl'>
-                <div className='flex items-center mb-12 font-bold leading-8 gap-x-7 text-sz22'>
+                <div className='flex items-center mb-12 font-bold leading-8 gap-x-7 text-sz18'>
                     <div>Summary</div>
                     <div className='px-5 py-1 rounded bg-darkwhite'>Activity</div>
                     <div>Notifications</div>
@@ -38,7 +38,7 @@ const Activity = () => {
 
                 <div className='flex items-start gap-x-16 mb-11 font-Manrope'> 
                     <div className='w-1/4 p-5 rounded bg-gray'>
-                        <div className='w-full px-4 py-3 font-semibold leading-6 rounded bg-lightgray text-blue text-sz24'>All</div>
+                        <div className='w-full px-4 py-3 font-semibold leading-6 rounded bg-lightgray text-blue text-sz18'>All</div>
                         <div className='pt-5 space-y-5 leading-6 text-sz16 px-middle'>
                             <div>Topics</div>
                             <div>Replies</div>

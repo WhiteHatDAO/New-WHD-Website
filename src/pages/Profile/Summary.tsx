@@ -6,12 +6,12 @@ import dot from "../../assets/images/blogpost/dot.png"
 
 const Profile = () => {
     return (
-        <div className='my-20'>
+        <div className='my-20 mx-4'>
             <div className='p-5 border shadow-xl rounded-xl border-blue font-Manrope mb-14'>
                 <div className='flex items-start mb-10'>
                     <img src={avatar} alt="avatar" className='mr-5' />
                     <div>
-                        <div className='mb-2 font-bold leading-8 text-sz24'>NF Thinker</div>
+                        <div className='mb-2 font-bold leading-8 text-sz18'>NF Thinker</div>
                         <div className='mb-3 font-medium leading-6 text-sz18 text-pink'>www.nfthinker.com</div>
                         <div className='leading-5 text-sz16'>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<br></br>
@@ -29,11 +29,11 @@ const Profile = () => {
             </div>
 
             <div className='border p-middle font-Manrope border-blue rounded-xl'>
-                <div className='flex items-center mb-6 font-bold leading-8 text-sz22'>
+                <div className='flex items-center mb-6 font-bold leading-8 text-sz18'>
                     <div className='px-5 py-1 mr-12 rounded bg-darkwhite'>Summary</div>
                     <div>Activity</div>
                 </div>
-                <div className='flex items-center mb-4 font-bold leading-8 text-sz22'>Stats</div>
+                <div className='flex items-center mb-4 font-bold leading-8 text-sz18'>Stats</div>
                 <div className='flex px-5 py-2 mb-8 font-medium bg-gray text-ligthgrey'>
                     <div className='flex items-center mr-8'><span className='mr-1 text-lightblack'> 23</span> days visited</div>
                     <div className='flex items-center mr-8'><span className='mr-1 text-lightblack'> 2h</span> read time</div>
@@ -46,7 +46,7 @@ const Profile = () => {
                 </div>
                 <div className='flex items-start mb-11 gap-x-12'>
                     <div className='w-1/2 p-5 rounded bg-gray'>
-                        <div className='flex items-center mb-4 font-bold leading-8 text-sz22'>TOP REPLIES</div>
+                        <div className='flex items-center mb-4 font-bold leading-8 text-sz18'>TOP REPLIES</div>
                         <div className='p-3 mb-4 font-medium leading-5 rounded bg-darkwhite text-sz18'>
                             <div className='text-blue'>(GENERAL) WhiteHatDAO Governance structure...</div>
                             <div className='flex items-center text-ligthgrey'>
@@ -85,7 +85,7 @@ const Profile = () => {
                         </div>
                     </div>
                     <div className='w-1/2 p-5 rounded bg-gray'>
-                        <div className='flex items-center mb-4 font-bold leading-8 text-sz22'>TOP TOPICS</div>
+                        <div className='flex items-center mb-4 font-bold leading-8 text-sz18'>TOP TOPICS</div>
                         <div className='p-3 mb-4 font-medium leading-5 rounded bg-darkwhite text-sz18'>
                             <div className='text-blue'>(GENERAL) WhiteHatDAO Governance structure...</div>
                             <div className='flex items-center text-ligthgrey'>
@@ -106,9 +106,9 @@ const Profile = () => {
                         </div>
                     </div>
                 </div>
-                <div className='flex items-start leading-7 mb-11 text-sz20 gap-x-12'>
+                <div className='flex items-start leading-7 mb-11 text-sz18 gap-x-12'>
                     <div className='w-1/2 p-5 rounded bg-gray'>
-                        <div className='flex items-center mb-4 font-bold leading-8 text-sz22'>TOP LINKS</div>
+                        <div className='flex items-center mb-4 font-bold leading-8 text-sz18'>TOP LINKS</div>
                         <div className='p-3 mb-4 font-medium leading-5 rounded bg-darkwhite text-sz18'>
                             <div className='mb-1 text-blue'>(GENERAL) WhiteHatDAO Governance structure...</div>
                             <div className='flex items-center leading-5 text-sz14 text-ligthgrey'>
@@ -117,7 +117,7 @@ const Profile = () => {
                         </div>
                     </div>
                     <div className='w-1/2 p-5 rounded bg-gray'>
-                        <div className='flex items-center mb-4 font-bold leading-8 text-sz22'>MOST REPLIED TO</div>
+                        <div className='flex items-center mb-4 font-bold leading-8 text-sz18'>MOST REPLIED TO</div>
                         <div className='flex p-3 mb-4 font-medium leading-5 rounded bg-darkwhite text-sz18'>
                             <img src={swol} alt="avatar" className='mr-3' />
                             <div className='flex flex-col'>
@@ -127,9 +127,9 @@ const Profile = () => {
                         </div>
                     </div>
                 </div>
-                <div className='flex items-start leading-7 text-sz20 gap-x-12'>
+                <div className='flex items-start leading-7 text-sz18 gap-x-12'>
                     <div className='w-1/2 p-5 rounded bg-gray'>
-                        <div className='flex items-center mb-4 font-bold leading-8 text-sz22'>MOST LIKED BY</div>
+                        <div className='flex items-center mb-4 font-bold leading-8 text-sz18'>MOST LIKED BY</div>
                         <div className='flex p-3 mb-4 font-medium leading-5 rounded bg-darkwhite text-sz18'>
                             <img src={swol} alt="avatar" className='mr-3' />
                             <div className='flex flex-col'>
@@ -153,7 +153,7 @@ const Profile = () => {
                         </div>
                     </div>
                     <div className='w-1/2 p-5 rounded bg-gray'>
-                        <div className='flex items-center mb-4 font-bold leading-8 text-sz22'>MOST LIKED</div>
+                        <div className='flex items-center mb-4 font-bold leading-8 text-sz18'>MOST LIKED</div>
                         <div className='flex p-3 mb-4 font-medium leading-5 rounded bg-darkwhite text-sz18'>
                             <img src={swol} alt="avatar" className='mr-3' />
                             <div className='flex flex-col'>

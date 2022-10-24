@@ -623,7 +623,7 @@ const SafetyRatings = ({
                       </div>
                       <div className="text-sz18 flex flex-row items-end justify-between">
                         <div className="w-2/3">{project?.description}</div>
-                        <img onClick={() => handleDeleteProject(index)} className="w-8 h-8" src={deleteImage} alt="delete"></img>
+                        {/* <img onClick={() => handleDeleteProject(index)} className="w-8 h-8" src={deleteImage} alt="delete"></img> */}
                       </div>
                     </div>
                   </div>

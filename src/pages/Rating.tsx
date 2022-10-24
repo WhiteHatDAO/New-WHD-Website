@@ -1922,7 +1922,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                                       percent: numInCircle,
                                     }}
                                     strokeWidth={28}
-                                    type={1}
+                                    type={2}
                                   ></CircleProgressBar>
                                 </div>
                               </div>
@@ -2013,7 +2013,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                               percent: project?.safety_score?project?.safety_score:0,
                             }}
                             strokeWidth={28}
-                            type={1}
+                            type={2}
                           ></CircleProgressBar>
                         )}
                     </div>

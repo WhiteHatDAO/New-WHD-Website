@@ -14,7 +14,7 @@ const CircleProgressBar = ({
   const viewBox = `0 0 ${sqSize} ${sqSize}`;
   const radius = (sqSize - strokeWidth) / 2;
   const dashArray = radius * Math.PI * 2;
-  const dashOffset = dashArray - (dashArray * data.percent) / 100;
+  const dashOffset = dashArray - (dashArray * (data.percent?data.percent:0)) / 100;
 
   return (
     <svg width={sqSize} height={sqSize} viewBox={viewBox}>
@@ -46,38 +46,62 @@ const CircleProgressBar = ({
           dy=".3em"
           textAnchor="middle"
         >
-          {`${data.percent}%`}
+          {`${(data.percent?data.percent:0)}%`}
         </text>
       ) : (
-        <>
-          <text
-            className="font-Manrope text-sz12"
-            x="50%"
-            y="32%"
-            dy=".3em"
-            textAnchor="middle"
-          >
-            {data.subtext}
-          </text>
-          <text
-            className="font-Manrope text-sz40 font-bold"
-            x="50%"
-            y="50%"
-            dy=".3em"
-            textAnchor="middle"
-          >
-            {data.text}
-          </text>
-          <text
-            className="font-Manrope text-sz12"
-            x="50%"
-            y="65%"
-            dy=".3em"
-            textAnchor="middle"
-          >
-            {`${data.percent}%`}
-          </text>
-        </>
+          type !== 2 ? (
+            <>
+              <text
+                className="font-Manrope text-sz12"
+                x="50%"
+                y="32%"
+                dy=".3em"
+                textAnchor="middle"
+              >
+                {data.subtext}
+              </text>
+              <text
+                className="font-Manrope text-sz40 font-bold"
+                x="50%"
+                y="50%"
+                dy=".3em"
+                textAnchor="middle"
+              >
+                {data.text}
+              </text>
+              <text
+                className="font-Manrope text-sz12"
+                x="50%"
+                y="65%"
+                dy=".3em"
+                textAnchor="middle"
+              >
+                {`${(data.percent?data.percent:0)}%`}
+              </text>
+            </>
+          ) : (
+            <>              
+              <text
+                className="font-Manrope text-sz40 font-bold"
+                x="50%"
+                y="50%"
+                dy=".3em"
+                textAnchor="middle"
+              >
+                {data.text}
+              </text>
+              <text
+                className="font-Manrope text-sz12"
+                x="50%"
+                y="65%"
+                dy=".3em"
+                textAnchor="middle"
+              >
+                {data.subtext}
+              </text>
+            </>
+          )
+        
         // <div className="flex flex-col justify-center space-y-2">
         //   <div className="font-Manrope text-sz40">{`${percentage}%`}</div>
         //   <div className="font-Manrope text-sz12">Safety Rating</div>

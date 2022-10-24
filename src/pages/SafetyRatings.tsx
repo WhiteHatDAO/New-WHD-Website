@@ -12,7 +12,7 @@ import save from "../assets/images/modal/save.png";
 import discard from "../assets/images/modal/discard.png";
 // import edit from "../assets/images/edit.png";
 import addItem from "../assets/images/addItem.png";
-import deleteImage from "../assets/images/remove.png";
+// import deleteImage from "../assets/images/remove.png";
 
 import axios from "axios";
 import { BACKEND_SERVER } from "../global/global";
@@ -169,18 +169,6 @@ const SafetyRatings = ({
       setFilteredProjects(projects);
     }
   };
-
-  const handleDeleteProject = async(index: number) => {
-    try {
-      const res = await axios.delete(BACKEND_SERVER + `/api/project/:id/${auditProjects[index]._id}`);
-      if (res.status === 200) {
-        let c = count + 1;
-        handleCount(c);
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  }
 
   return (
     <>

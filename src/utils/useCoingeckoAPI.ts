@@ -68,6 +68,8 @@ export const useCoingeckoAPI = () => {
         .catch((err) => { console.log(err) })
   }, [])
 
+  console.log('tokenData', tokenData)
+
   return {
     handleGetTokenData,
     handleGetTokenPriceHistory,

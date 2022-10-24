@@ -523,58 +523,54 @@ const SafetyRatings = ({
                         </div>
                         <div className="flex flex-row items-center space-x-4">
                           {project?.socials?.twitter && (
-                            <div className="rounded-full shadow-inner">
+                            <a href={`${project?.socials?.twitter}`} target="_blank" rel="noreferrer" className="rounded-full shadow-inner cursor-point">
                               <img
                                 className="w-12 p-3"
                                 src={twitter}
                                 alt="twitter"
                               ></img>
-                            </div>
+                            </a>
                           )}
                           {project?.socials?.github && (
-                            <div className="rounded-full shadow-inner">
+                            <a href={project?.socials?.github} target="_blank" rel="noreferrer" className="rounded-full shadow-inner cursor-point">
                               <img
                                 className="w-12 p-3"
                                 src={github}
                                 alt="github"
                               ></img>
-                            </div>
+                            </a>
                           )}
                           {project?.socials?.discord && (
-                            <div className="rounded-full shadow-inner">
+                            <a href={project?.socials?.discord} target="_blank" rel="noreferrer" className="rounded-full shadow-inner cursor-point">
                               <img
                                 className="w-12 p-3"
                                 src={discord}
                                 alt="discord"
                               ></img>
-                            </div>
+                            </a>
                           )}
                           {project?.socials?.medium && (
-                            <div className="rounded-full shadow-inner">
+                            <a href={project?.socials?.medium} target="_blank" rel="noreferrer"  className="rounded-full shadow-inner cursor-point">
                               <img
                                 className="w-12 p-3"
                                 src={medium}
                                 alt="medium"
                               ></img>
-                            </div>
+                            </a>
                           )}
                           {project?.socials?.web && (
-                            <div className="rounded-full shadow-inner">
-                              <img
-                                className="w-12 p-3"
-                                src={global}
-                                alt="web"
-                              ></img>
-                            </div>
+                            <a href={project?.socials?.web} target="_blank" rel="noreferrer"  className="rounded-full shadow-inner cursor-point">
+                              <img className="w-12 p-3" src={global} alt="web"></img>
+                            </a>
                           )}
                           {project?.socials?.telegram && (
-                            <div className="rounded-full shadow-inner">
+                            <a href={project?.socials?.telegram} target="_blank" rel="noreferrer" className="rounded-full shadow-inner cursor-point">
                               <img
                                 className="w-12 p-3"
                                 src={telegram}
                                 alt="telegram"
                               ></img>
-                            </div>
+                            </a>
                           )}
                           <CircleProgressBar
                             sqSize={42}

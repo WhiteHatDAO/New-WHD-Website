@@ -323,7 +323,7 @@ const Home = ({
       setServiceContractLink(mainProData.home.service_contract_link);
       setNetworks(mainProData.home.networks);
       setExchange(mainProData.home.exchange);
-      handleGetTokenData(mainProData.home.token_api);
+      handleGetTokenData(mainProData.home.token_name);
     }
   }, [auditProjects, mainProData, handleGetTokenData]);
 
@@ -549,6 +549,8 @@ const Home = ({
     }
     return text;
   };
+
+  console.log(auditProjects, mainProData, tokenData)
 
   return (
     <>

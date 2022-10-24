@@ -1,4 +1,4 @@
-import avatar from "../../assets/images/profile/avatar.png";
+import avatar from "../../assets/images/profile/blank.png";
 import pen from "../../assets/images/profile/pen.png";
 import info from "../../assets/images/profile/info.png";
 import up from "../../assets/images/profile/up.png";
@@ -714,7 +714,7 @@ const Settings = () => {
       <div className="my-20 mx-4">
         <div className="p-5 border shadow-xl rounded-xl border-blue font-Manrope mb-14">
           <div className="flex items-start mb-10">
-            <img src={avatar} alt="avatar" className="mr-5" />
+            <img src={uploadPic?uploadPic:avatar} alt="avatar" className="mr-5 h-32 w-32" />
             <div>
               <div className="mb-2 font-bold leading-8 text-sz18">
                 {prof?.username}

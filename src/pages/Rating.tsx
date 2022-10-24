@@ -1731,54 +1731,54 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                 <div className="w-full flex flex-row items-end justify-end">
                   <div className="flex flex-row items-center space-x-4">
                     {project?.socials?.twitter && (
-                      <div className="rounded-full shadow-inner">
+                      <a href={`${project?.socials?.twitter}`} target="_blank" rel="noreferrer" className="rounded-full shadow-inner cursor-point">
                         <img
                           className="w-12 p-3"
                           src={twitter}
                           alt="twitter"
                         ></img>
-                      </div>
+                      </a>
                     )}
                     {project?.socials?.github && (
-                      <div className="rounded-full shadow-inner">
+                      <a href={project?.socials?.github} target="_blank" rel="noreferrer" className="rounded-full shadow-inner cursor-point">
                         <img
                           className="w-12 p-3"
                           src={github}
                           alt="github"
                         ></img>
-                      </div>
+                      </a>
                     )}
                     {project?.socials?.discord && (
-                      <div className="rounded-full shadow-inner">
+                      <a href={project?.socials?.discord} target="_blank" rel="noreferrer" className="rounded-full shadow-inner cursor-point">
                         <img
                           className="w-12 p-3"
                           src={discord}
                           alt="discord"
                         ></img>
-                      </div>
+                      </a>
                     )}
                     {project?.socials?.medium && (
-                      <div className="rounded-full shadow-inner">
+                      <a href={project?.socials?.medium} target="_blank" rel="noreferrer"  className="rounded-full shadow-inner cursor-point">
                         <img
                           className="w-12 p-3"
                           src={medium}
                           alt="medium"
                         ></img>
-                      </div>
+                      </a>
                     )}
                     {project?.socials?.web && (
-                      <div className="rounded-full shadow-inner">
+                      <a href={project?.socials?.web} target="_blank" rel="noreferrer"  className="rounded-full shadow-inner cursor-point">
                         <img className="w-12 p-3" src={global} alt="web"></img>
-                      </div>
+                      </a>
                     )}
                     {project?.socials?.telegram && (
-                      <div className="rounded-full shadow-inner">
+                      <a href={project?.socials?.telegram} target="_blank" rel="noreferrer" className="rounded-full shadow-inner cursor-point">
                         <img
                           className="w-12 p-3"
                           src={telegram}
                           alt="telegram"
                         ></img>
-                      </div>
+                      </a>
                     )}
                   </div>
                 </div>
@@ -2006,7 +2006,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                           <CircleProgressBar
                             sqSize={180}
                             data={{
-                              subtext: project.circle_subtext,
+                              // subtext: project.circle_subtext,
                               text: project.circle_text,
                               percent: project?.safety_score,
                             }}

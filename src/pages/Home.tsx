@@ -554,7 +554,7 @@ const Home = ({
 
   return (
     <>
-      {auditProjects && mainProData && tokenData ? (
+      {auditProjects && mainProData ? (
         <div className="p-4 flex flex-col">
           <div className="grid grid-cols-12 gap-12">
             <div className="col-span-12 xl:col-span-7 flex flex-col gap-12">
@@ -954,7 +954,7 @@ const Home = ({
                   <div className="font-light grid grid-cols-2">
                     <div className="flex flex-col gap-2">
                       <div className="text-darkgray text-sz16">Token Price</div>
-                      <div className="text-sz18">${tokenData.price}</div>
+                      <div className="text-sz18">${tokenData?.price?tokenData?.price:0}</div>
                       <div className="flex flex-row items-center text-red text-sz16 space-x-1">
                         <svg
                           width="18"
@@ -965,14 +965,14 @@ const Home = ({
                         >
                           <path d="M0 0L9 9L18 0H0Z" fill="#A22E2E" />
                         </svg>
-                        <div>{tokenData.price_change}%</div>
+                        <div>{tokenData?.price_change?tokenData?.price_change:0}%</div>
                       </div>
                     </div>
                     <div className="flex flex-col gap-2">
                       <div className="text-darkgray text-sz16">Market cap</div>
                       <div className="text-sz18">
-                        {FormatBigNumber(tokenData.market_cap)
-                          ? `$${FormatBigNumber(tokenData.market_cap)}`
+                        {FormatBigNumber(tokenData?.market_cap)
+                          ? `$${FormatBigNumber(tokenData?.market_cap)}`
                           : "NAN"}
                       </div>
                       <div className="flex flex-row items-center text-red text-sz16 space-x-1">
@@ -985,22 +985,22 @@ const Home = ({
                         >
                           <path d="M0 0L9 9L18 0H0Z" fill="#A22E2E" />
                         </svg>
-                        <div>{tokenData.market_cap_change}%</div>
+                        <div>{tokenData?.market_cap_change?tokenData?.market_cap_change:0}%</div>
                       </div>
                     </div>
                   </div>
                   <div className="flex flex-col space-y-1">
                     <GradientBox
                       percentage={
-                        ((tokenData.price - tokenData.lowPrice_24h) /
+                        tokenData?((tokenData.price - tokenData.lowPrice_24h) /
                           (tokenData.highPrice_24h - tokenData.lowPrice_24h)) *
-                        100
+                        100:0
                       }
                     ></GradientBox>
                     <div className="text-sz16 font-light flex flex-row items-center justify-between">
-                      <div>${tokenData.lowPrice_24h}</div>
+                      <div>${tokenData?.lowPrice_24h?tokenData?.lowPrice_24h:0}</div>
                       <div>24H Range</div>
-                      <div>${tokenData.highPrice_24h}</div>
+                      <div>${tokenData?.highPrice_24h?tokenData?.highPrice_24h:0}</div>
                     </div>
                   </div>
                   <div className="pb-4 border-b border-darkgray flex flex-col space-y-4">
@@ -1021,27 +1021,27 @@ const Home = ({
                         </svg>
                       </div>
                       <div className="font-bold">
-                        {FormatBigNumber(tokenData.circulating_supply)
-                          ? FormatBigNumber(tokenData.circulating_supply)
+                        {FormatBigNumber(tokenData?.circulating_supply)
+                          ? FormatBigNumber(tokenData?.circulating_supply)
                           : "NAN"}
                       </div>
                     </div>
                     <div className="text-sz18 font-light flex flex-row items-center justify-between">
                       <div className="text-darkgray">Total Supply</div>
                       <div className="font-bold">
-                        {FormatBigNumber(tokenData.total_supply)
-                          ? FormatBigNumber(tokenData.total_supply)
+                        {FormatBigNumber(tokenData?.total_supply)
+                          ? FormatBigNumber(tokenData?.total_supply)
                           : "NAN"}
                       </div>
                     </div>
                     <div className="text-sz18 font-light flex flex-row items-center justify-between">
                       <div className="text-darkgray">All time high</div>
-                      <div className="font-bold">${tokenData.ath}</div>
+                      <div className="font-bold">${tokenData?.ath?tokenData?.ath:0}</div>
                     </div>
                     <div className="text-sz18 font-light flex flex-row items-center justify-between">
                       <div className="text-darkgray">All time low</div>
                       <div className="font-bold">
-                        ${FormatSmallNumber(tokenData.atl)}
+                        ${FormatSmallNumber(tokenData?.atl?tokenData?.atl:0)}
                       </div>
                     </div>
                   </div>

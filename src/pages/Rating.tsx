@@ -2000,15 +2000,17 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                 <div className="p-4 bg-gray rounded-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-8">
                   <div className="flex flex-col items-center">
                     <div className="rounded-full shadow-xl">
-                      {project.circle_subtext &&
-                        project.circle_text &&
-                        project?.safety_score && (
+                      {
+                        // project.circle_subtext &&
+                        // project.circle_text &&
+                        // project?.safety_score && 
+                        (
                           <CircleProgressBar
                             sqSize={180}
                             data={{
-                              // subtext: project.circle_subtext,
-                              text: project.circle_text,
-                              percent: project?.safety_score,
+                              subtext: project.circle_subtext?project.circle_subtext:'',
+                              text: project.circle_text?project.circle_text:'',
+                              percent: project?.safety_score?project?.safety_score:0,
                             }}
                             strokeWidth={28}
                             type={1}

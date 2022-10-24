@@ -1080,12 +1080,12 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                 <div>-{mainProData.dao.core_fair_compensation}</div>
               </div>
 
-              {/* <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
+              <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
                 <div className="px-2 py-1 text-sz14 md:text-sz18 rounded-full shadow-inner font-bold">
                   Integrity
                 </div>
-                <div>-{mainProData.core_integrity}</div>
-              </div> */}
+                <div>-{mainProData.dao.core_integrity}</div>
+              </div>
 
               <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
                 <div className="px-2 py-1 text-sz14 md:text-sz18 rounded-full shadow-inner font-bold">

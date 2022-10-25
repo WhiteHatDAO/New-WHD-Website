@@ -51,35 +51,37 @@ const Navbar = ({ showMenu, handleShowMenu }: navProps) => {
         });
       } catch (e) {}
     },
-    [appState, setAppState]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
   );
 
   const disconnect = useCallback(
     async function () {
-      await web3Modal.clearCachedProvider();
+      await web3Modal.clearCachedProvider();      
       if (provider?.disconnect && typeof provider.disconnect === "function") {
         await provider.disconnect();
       }
-
       setAppState({
         provider: null,
         web3Provider: null,
         address: "",
-      });
+      });      
     },
     [provider, setAppState]
   );
-
+  
   if (address === undefined) {
     disconnect();
   }
 
   // Auto connect to the cached provider
   useEffect(() => {
+    console.log('here')
     if (web3Modal.cachedProvider) {
       connect();
     }
-  }, [connect]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleProfile = () => {
     handleShowMenu(false);

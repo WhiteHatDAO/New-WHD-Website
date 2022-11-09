@@ -651,7 +651,7 @@ const Home = ({
                     <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
                   </>
                 ) : null}
-                <div className="pt-2 gradient-text text-sz28 sm:text-sz20 md:text-sz40 xl:text-sz60 font-black">
+                <div className="pt-2 gradient-text text-sz20 sm:text-sz40 md:text-4xl xl:text-5xl font-black">
                   {mainProData.home.title}
                 </div>
                 <div className="font-Manrope text-sz16 md:text-sz18 font-light">

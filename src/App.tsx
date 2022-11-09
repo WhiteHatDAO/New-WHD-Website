@@ -71,7 +71,7 @@ const App = () => {
 
   return (
     <div className="background">
-      <div className="px-8 lg:px-14 container flex flex-col mx-auto">
+      <div className="px-2 sm:px-8 lg:px-24 container flex flex-col mx-auto">
         <Navbar showMenu={showMenu} handleShowMenu={handleShowMenu}></Navbar>
         <Routes>
           <Route

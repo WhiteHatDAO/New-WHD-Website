@@ -175,10 +175,10 @@ const SafetyRatings = ({
       {auditProjects && mainProData ? (
         <div className="mx-4 flex flex-col">
           <div className="my-10 p-8 rounded-xl border border-blue shadow-xl flex flex-col space-y-6 text-center font-Manrope font-light">
-            <div className="font-pilat text-sz20 text-blue flex flex-row items-start">
+            <div className="font-pilat text-sz18 text-blue flex flex-row items-start">
               <div className="w-full font-bold">Safety Ratings</div>
               {/* <div
-                className="text-sz18 font-Manrope flex flex-row items-center space-x-2 cursor-pointer"
+                className="text-sz16 font-Manrope flex flex-row items-center space-x-2 cursor-pointer"
                 onClick={() => setShowModal(true)}
               >
                 <img src={edit} alt="edit"></img>
@@ -197,30 +197,30 @@ const SafetyRatings = ({
                             onClick={handleSaveModal}
                           >
                             <img src={save} alt="save"></img>
-                            <div className="text-sz18 text-pink">Save</div>
+                            <div className="text-sz16 text-pink">Save</div>
                           </div>
                           <div
                             className="flex flex-row items-center cursor-pointer gap-2"
                             onClick={handleDiscardModal}
                           >
                             <img src={discard} alt="discard"></img>
-                            <div className="text-sz18 text-blue">Discard</div>
+                            <div className="text-sz16 text-blue">Discard</div>
                           </div>
                         </div>
                         {/*body*/}
-                        <div className="text-black text-sz18 text-left bg-lightgray relative p-8 rounded-b-xl flex flex-col space-y-3">
+                        <div className="text-black text-sz16 text-left bg-lightgray relative p-8 rounded-b-xl flex flex-col space-y-3">
                           <div className="flex flex-col space-y-2">
                             <div className="text-blue">Safety Ratings</div>
                             <textarea
                               rows={5}
                               value={safetyRatings}
                               onChange={(e) => setSafetyRatings(e.target.value)}
-                              className="text-sz14 shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              className="text-sz12 shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                               placeholder="This page shows the latest security & safety rating assessments published by White Hat DAO. These ratings are the sole and independent work product of the WHD. Scores are subject to change at any time without notice. The ratings and other WHD work product are not endorsed by any asset development team or foundation, any regulator, or any other third parties."
                             />
                           </div>
                           <div className="flex flex-col space-y-2">
-                            <div className="text-sz18 text-blue">
+                            <div className="text-sz16 text-blue">
                               Edit Button 1
                             </div>
                             <input
@@ -228,12 +228,12 @@ const SafetyRatings = ({
                               id="website-admin"
                               value={ratingBtn1}
                               onChange={(e) => setRatingBtn1(e.target.value)}
-                              className="shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sz16 border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              className="shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sz14 border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                               placeholder="Apply For Smart Contract Audit"
                             />
                           </div>
                           <div className="flex flex-col space-y-2">
-                            <div className="text-sz18 text-blue">
+                            <div className="text-sz16 text-blue">
                               Edit Button 1 Link
                             </div>
                             <input
@@ -243,12 +243,12 @@ const SafetyRatings = ({
                               onChange={(e) =>
                                 setRatingBtn1Link(e.target.value)
                               }
-                              className="shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sz16 border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              className="shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sz14 border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                               placeholder="https://example.com"
                             />
                           </div>
                           <div className="flex flex-col space-y-2">
-                            <div className="text-sz18 text-blue">
+                            <div className="text-sz16 text-blue">
                               Edit Button 2
                             </div>
                             <input
@@ -256,12 +256,12 @@ const SafetyRatings = ({
                               id="website-admin"
                               value={ratingBtn2}
                               onChange={(e) => setRatingBtn2(e.target.value)}
-                              className="shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sz16 border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              className="shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sz14 border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                               placeholder="Apply For Safety Rating"
                             />
                           </div>
                           <div className="flex flex-col space-y-2">
-                            <div className="text-sz18 text-blue">
+                            <div className="text-sz16 text-blue">
                               Edit Button 2 Link
                             </div>
                             <input
@@ -271,7 +271,7 @@ const SafetyRatings = ({
                               onChange={(e) =>
                                 setRatingBtn2Link(e.target.value)
                               }
-                              className="shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sz16 border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              className="shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sz14 border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                               placeholder="https://example.com"
                             />
                           </div>
@@ -283,13 +283,13 @@ const SafetyRatings = ({
                 </>
               ) : null}
             </div>
-            <div className="text-sz18">{mainProData.rating.safety_ratings}</div>
+            <div className="text-sz16">{mainProData.rating.safety_ratings}</div>
             <div className="flex flex-col md:flex-row items-center justify-center gap-8">
               <a
                 className="cursor-pointer w-full md:w-1/3 rounded-lg shadow-xl"
                 href={mainProData.rating.rating_button_first_link}
               >
-                <div className="px-4 py-2 text-sz18 text-blue font-Manrope font-semibold flex flex-row space-x-2 items-center justify-center">
+                <div className="px-4 py-2 text-sz16 text-blue font-Manrope font-semibold flex flex-row space-x-2 items-center justify-center">
                   <div className="w-full">
                     {mainProData.rating.rating_buttion_first}
                   </div>
@@ -300,7 +300,7 @@ const SafetyRatings = ({
                 className="cursor-pointer  w-full md:w-1/3 rounded-lg shadow-xl"
                 href={mainProData.rating.rating_button_second_link}
               >
-                <div className="px-4 py-2 text-sz18 text-blue font-Manrope font-semibold flex flex-row space-x-2 items-center justify-center">
+                <div className="px-4 py-2 text-sz16 text-blue font-Manrope font-semibold flex flex-row space-x-2 items-center justify-center">
                   <div className="w-full">
                     {mainProData.rating.rating_button_second}
                   </div>
@@ -309,13 +309,13 @@ const SafetyRatings = ({
               </a>
             </div>
           </div>
-          <div className="flex flex-col items-end">
+          <div className="flex flex-col items-end invisible">
             <div
               onClick={() => createNewProject()}
               className="cursor-pointer font-Manrope border rounded-lg border-blue shadow-sm px-4 py-1 flex flex-row items-center space-x-2"
             >
               <img src={addItem} alt="addItem"></img>
-              <div className="text-blue text-sz18">Add New Projects</div>
+              <div className="text-blue text-sz16">Add New Projects</div>
             </div>
           </div>
           <div className="my-8 p-4 md:p-10 bg-lightgray rounded-xl shadow-inner-xl flex flex-col space-y-8">
@@ -324,7 +324,7 @@ const SafetyRatings = ({
                 <select
                   id="role"
                   onChange={handleChangeNetwork}
-                  className="w-full h-12 shadow-sm bg-transparent box-border-blue text-sz18 rounded-lg block p-2.5 ring-blue"
+                  className="w-full h-12 shadow-sm bg-transparent box-border-blue text-sz16 rounded-lg block p-2.5 ring-blue"
                 >
                   <option value="choose" selected>
                     Choose a network
@@ -345,7 +345,7 @@ const SafetyRatings = ({
                 <select
                   id="category"
                   onChange={handleChangeCategory}
-                  className="box-border-blue w-full h-12 shadow-sm bg-transparent text-sz18 rounded-lg block p-2.5"
+                  className="box-border-blue w-full h-12 shadow-sm bg-transparent text-sz16 rounded-lg block p-2.5"
                 >
                   <option value="choose" selected>
                     Choose a category
@@ -385,7 +385,7 @@ const SafetyRatings = ({
                       ></CircleProgressBar>
                     </div>
                     <div onClick={() => navigate(`/safety-ratings/rating/${index}`)} className="flex flex-row items-start space-x-2">
-                      <div className="font-pilat font-bold text-sz18">
+                      <div className="font-pilat font-bold text-sz16">
                         {project.name}
                       </div>
                       {project.verified && (
@@ -473,7 +473,7 @@ const SafetyRatings = ({
                         </div>
                       )}
                     </div>
-                    <div onClick={() => navigate(`/safety-ratings/rating/${index}`)} className="text-sz16">{project?.description}</div>
+                    <div onClick={() => navigate(`/safety-ratings/rating/${index}`)} className="text-sz14">{project?.description}</div>
                     <div onClick={() => navigate(`/safety-ratings/rating/${index}`)} className="flex flex-row items-end justify-between">
                       <div className="flex flex-col items-start gap-4">
                         <div className="text-black">Audited by:</div>
@@ -494,7 +494,7 @@ const SafetyRatings = ({
                   </div>
                   <div className="cursor-pointer shadow-xl hidden border border-blue rounded-xl px-8 py-4 md:flex flex-row items-center gap-4">
                     <img
-                      className="rounded-full"
+                      className="rounded-full w-44"
                       onClick={() => navigate(`/safety-ratings/rating/${index}`)}
                       src={project?.logo}
                       alt="idol"
@@ -502,7 +502,7 @@ const SafetyRatings = ({
                     <div className="w-full font-Manrope flex flex-col space-y-4">
                       <div onClick={() => navigate(`/safety-ratings/rating/${index}`)} className="flex flex-row items-center justify-between">
                         <div className="flex flex-row items-start space-x-2">
-                          <div className="font-pilat font-bold text-sz20">
+                          <div className="font-pilat font-bold text-sz18">
                             {project.name}
                           </div>
                           {project.verified && (
@@ -568,7 +568,7 @@ const SafetyRatings = ({
                           ></CircleProgressBar>
                         </div>
                       </div>
-                      <div onClick={() => navigate(`/safety-ratings/rating/${index}`)} className="font-Manrope text-sz12 font-light flex flex-row items-center justify-between">
+                      <div onClick={() => navigate(`/safety-ratings/rating/${index}`)} className="font-Manrope text-sz10 font-light flex flex-row items-center justify-between">
                         <div className="flex flex-row items-center space-x-4">
                           {project?.tags?.map((tag: any) => (
                             <div
@@ -609,7 +609,7 @@ const SafetyRatings = ({
                           ))}
                         </div>
                       </div>
-                      <div className="text-sz18 flex flex-row items-end justify-between">
+                      <div className="text-sz16 flex flex-row items-end justify-between">
                         <div className="w-2/3">{project?.description}</div>
                         {/* <img onClick={() => handleDeleteProject(index)} className="w-8 h-8" src={deleteImage} alt="delete"></img> */}
                       </div>

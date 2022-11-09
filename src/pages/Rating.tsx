@@ -58,7 +58,7 @@ import avalanche from "../assets/images/select/avalanche.png";
 import fantom from "../assets/images/select/fantom.png";
 import klaytn from "../assets/images/select/klaytn.png";
 import aurora from "../assets/images/select/aurora.png";
-import zksink from "../assets/images/select/zkSink.png";
+import zksync from "../assets/images/select/zkSync.png";
 
 interface ratingProps {
   auditProjects: any[];
@@ -178,8 +178,8 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
       image: aurora,
     },
     {
-      name: "zkSink",
-      image: zksink,
+      name: "zkSync",
+      image: zksync,
     },
   ];
 
@@ -1462,12 +1462,12 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
               <div className="w-full flex flex-row items-center justify-between">
                 <div className="flex flex-row items-center space-x-2">
                   <img
-                    className="w-12 rounded-full"
+                    className="w-9 rounded-full"
                     src={project.logo}
                     alt="idol"
                   ></img>
                   <div className="flex flex-row items-start space-x-1">
-                    <div className="font-pilat font-bold text-sz18 md:text-sz20">
+                    <div className="font-pilat font-bold text-sz16 md:text-sz18">
                       {project?.name}
                     </div>
                     {project?.verified && (
@@ -1477,7 +1477,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                 </div>
                 {/* <div
                   onClick={() => setShowHeaderModal(true)}
-                  className="text-sz18 text-blue font-Manrope flex flex-row items-center space-x-2 cursor-pointer"
+                  className="text-sz14 text-blue font-Manrope flex flex-row items-center space-x-2 cursor-pointer"
                 >
                   <img src={edit} alt="edit"></img>
                   <div>Edit</div>
@@ -1495,23 +1495,23 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                               onClick={handleSaveHeaderModal}
                             >
                               <img src={save} alt="save"></img>
-                              <div className="text-sz18 text-pink">Save</div>
+                              <div className="text-sz16 text-pink">Save</div>
                             </div>
                             <div
                               className="flex flex-row items-center cursor-pointer gap-2"
                               onClick={handleDiscardHeaderModal}
                             >
                               <img src={discard} alt="discard"></img>
-                              <div className="text-sz18 text-blue">Discard</div>
+                              <div className="text-sz14 text-blue">Discard</div>
                             </div>
                           </div>
                           {/*body*/}
                           <div
-                            className="text-sz18 text-left bg-lightgray relative p-8 rounded-b-xl flex flex-col space-y-3 overflow-y-auto"
+                            className="text-sz16 text-left bg-lightgray relative p-8 rounded-b-xl flex flex-col space-y-3 overflow-y-auto"
                             style={{ height: "700px" }}
                           >
                             <div className="flex flex-col space-y-2">
-                              <div className="text-sz18 text-blue">
+                              <div className="text-sz14 text-blue">
                                 Project name
                               </div>
                               <input
@@ -1531,7 +1531,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                                   className="h-10 w-28 py-1 rounded-lg shadow-sm border border-blue flex flex-row items-center justify-center"
                                 >
                                   <img src={upload} alt="upload"></img>
-                                  <div className="text-sz18">Upload</div>
+                                  <div className="text-sz16">Upload</div>
                                   <input
                                     id="dropzone-file"
                                     className="hidden"
@@ -1554,7 +1554,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                               </div>
                             </div>
                             <div className="flex flex-col space-y-2">
-                              <div className="text-sz18 text-blue">
+                              <div className="text-sz14 text-blue">
                                 Add Project tags
                               </div>
                               {projectTags.map((tag: any, index: number) => (
@@ -1588,19 +1588,19 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                             </div>
                             <div
                               onClick={handleAddProjectTag}
-                              className="cursor-pointer text-sz18 text-blue flex flex-row items-center space-x-2"
+                              className="cursor-pointer text-sz14 text-blue flex flex-row items-center space-x-2"
                             >
                               <img src={addItem} alt="addItem"></img>
                               <div>Add Tag</div>
                             </div>
                             <div className="flex flex-col space-y-2">
-                              <div className="text-sz18 text-blue">
+                              <div className="text-sz14 text-blue">
                                 Edit Social Links
                               </div>
                               <div className="flex flex-row items-center space-x-4">
                                 <div className="w-40 border border-blue rounded-lg shadow-sm px-4 py-2 flex flex-row items-center justify-center space-x-2">
                                   <img src={twitter} alt="twitter"></img>
-                                  <div className="text-sz18">Twitter</div>
+                                  <div className="text-sz16">Twitter</div>
                                 </div>
                                 <input
                                   type="text"
@@ -1616,7 +1616,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                               <div className="flex flex-row items-center space-x-4">
                                 <div className="w-40 border border-blue rounded-lg shadow-sm px-4 py-2 flex flex-row items-center justify-center space-x-2">
                                   <img src={github} alt="github"></img>
-                                  <div className="text-sz18">Github</div>
+                                  <div className="text-sz16">Github</div>
                                 </div>
                                 <input
                                   type="text"
@@ -1632,7 +1632,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                               <div className="flex flex-row items-center space-x-4">
                                 <div className="w-40 border border-blue rounded-lg shadow-sm px-4 py-2 flex flex-row items-center justify-center space-x-2">
                                   <img src={discord} alt="discord"></img>
-                                  <div className="text-sz18">Discord</div>
+                                  <div className="text-sz16">Discord</div>
                                 </div>
                                 <input
                                   type="text"
@@ -1648,7 +1648,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                               <div className="flex flex-row items-center space-x-4">
                                 <div className="w-40 border border-blue rounded-lg shadow-sm px-4 py-2 flex flex-row items-center justify-center space-x-2">
                                   <img src={medium} alt="medium"></img>
-                                  <div className="text-sz18">Medium</div>
+                                  <div className="text-sz16">Medium</div>
                                 </div>
                                 <input
                                   type="text"
@@ -1664,7 +1664,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                               <div className="flex flex-row items-center space-x-4">
                                 <div className="w-40 border border-blue rounded-lg shadow-sm px-4 py-2 flex flex-row items-center justify-center space-x-2">
                                   <img src={global} alt="global"></img>
-                                  <div className="text-sz18">Website</div>
+                                  <div className="text-sz16">Website</div>
                                 </div>
                                 <input
                                   type="text"
@@ -1680,7 +1680,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                               <div className="flex flex-row items-center space-x-4">
                                 <div className="w-40 border border-blue rounded-lg shadow-sm px-4 py-2 flex flex-row items-center justify-center space-x-2">
                                   <img src={telegram} alt="telegram"></img>
-                                  <div className="text-sz18">Telegram</div>
+                                  <div className="text-sz16">Telegram</div>
                                 </div>
                                 <input
                                   type="text"
@@ -1702,7 +1702,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                   </>
                 ) : null}
               </div>
-              <div className="font-Manrope text-sz12 font-light flex flex-row items-center justify-between">
+              <div className="font-Manrope text-sz10 font-light flex flex-row items-center justify-between">
                 <div className="w-full flex flex-row flex-wrap items-center gap-4">
                   {project?.tags?.map((tag: any) => (
                     <div
@@ -1733,7 +1733,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                     {project?.socials?.twitter && (
                       <a href={`${project?.socials?.twitter}`} target="_blank" rel="noreferrer" className="rounded-full shadow-inner cursor-point">
                         <img
-                          className="w-12 p-3"
+                          className="w-10 p-2"
                           src={twitter}
                           alt="twitter"
                         ></img>
@@ -1742,7 +1742,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                     {project?.socials?.github && (
                       <a href={project?.socials?.github} target="_blank" rel="noreferrer" className="rounded-full shadow-inner cursor-point">
                         <img
-                          className="w-12 p-3"
+                          className="w-10 p-2"
                           src={github}
                           alt="github"
                         ></img>
@@ -1751,7 +1751,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                     {project?.socials?.discord && (
                       <a href={project?.socials?.discord} target="_blank" rel="noreferrer" className="rounded-full shadow-inner cursor-point">
                         <img
-                          className="w-12 p-3"
+                          className="w-10 p-2"
                           src={discord}
                           alt="discord"
                         ></img>
@@ -1760,7 +1760,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                     {project?.socials?.medium && (
                       <a href={project?.socials?.medium} target="_blank" rel="noreferrer"  className="rounded-full shadow-inner cursor-point">
                         <img
-                          className="w-12 p-3"
+                          className="w-10 p-2"
                           src={medium}
                           alt="medium"
                         ></img>
@@ -1768,13 +1768,13 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                     )}
                     {project?.socials?.web && (
                       <a href={project?.socials?.web} target="_blank" rel="noreferrer"  className="rounded-full shadow-inner cursor-point">
-                        <img className="w-12 p-3" src={global} alt="web"></img>
+                        <img className="w-10 p-2" src={global} alt="web"></img>
                       </a>
                     )}
                     {project?.socials?.telegram && (
                       <a href={project?.socials?.telegram} target="_blank" rel="noreferrer" className="rounded-full shadow-inner cursor-point">
                         <img
-                          className="w-12 p-3"
+                          className="w-10 p-2"
                           src={telegram}
                           alt="telegram"
                         ></img>
@@ -1788,9 +1788,9 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
           <div className="my-10 flex flex-col md:flex-row items-start gap-4 md:gap-8">
             <div className="shadow-xl rounded-xl w-full md:w-2/3 font-Manrope font-light ">
               <div className="p-8 flex flex-col justify-center gap-4 ">
-                <div className="text-sz18 text-blue flex flex-col items-end justify-end">
+                <div className="text-sz14 text-blue flex flex-col items-end justify-end">
                   {/* <div
-                    className="text-sz18 font-Manrope flex flex-row items-center space-x-2 cursor-pointer"
+                    className="text-sz16 font-Manrope flex flex-row items-center space-x-2 cursor-pointer"
                     onClick={() => setShowFirstModal(true)}
                   >
                     <img src={edit} alt="edit"></img>
@@ -1809,21 +1809,21 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                                 onClick={handleSaveFirstModal}
                               >
                                 <img src={save} alt="save"></img>
-                                <div className="text-sz18 text-pink">Save</div>
+                                <div className="text-sz16 text-pink">Save</div>
                               </div>
                               <div
                                 className="flex flex-row items-center cursor-pointer gap-2"
                                 onClick={handleDiscardFirstModal}
                               >
                                 <img src={discard} alt="discard"></img>
-                                <div className="text-sz18 text-blue">
+                                <div className="text-sz14 text-blue">
                                   Discard
                                 </div>
                               </div>
                             </div>
                             {/*body*/}
                             <div
-                              className="text-sz18 text-left bg-lightgray relative p-8 rounded-b-xl flex flex-col space-y-3 overflow-y-auto"
+                              className="text-sz16 text-left bg-lightgray relative p-8 rounded-b-xl flex flex-col space-y-3 overflow-y-auto"
                               style={{ height: "700px" }}
                             >
                               <div className="flex flex-col space-y-2">
@@ -1839,7 +1839,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                                 />
                               </div>
                               <div className="flex flex-col space-y-2">
-                                <div className="text-sz18 text-blue">
+                                <div className="text-sz14 text-blue">
                                   Network
                                 </div>
                                 <input
@@ -1852,7 +1852,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                                 />
                               </div>
                               <div className="flex flex-col space-y-2">
-                                <div className="text-sz18 text-blue">
+                                <div className="text-sz14 text-blue">
                                   Language Used
                                 </div>
                                 <input
@@ -1865,7 +1865,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                                 />
                               </div>
                               <div className="flex flex-col space-y-2">
-                                <div className="text-sz18 text-blue">
+                                <div className="text-sz14 text-blue">
                                   Source Code
                                 </div>
                                 <input
@@ -1878,7 +1878,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                                 />
                               </div>
                               <div className="flex flex-col space-y-2">
-                                <div className="text-sz18 text-blue">
+                                <div className="text-sz14 text-blue">
                                   Edit Token Contract Address
                                 </div>
                                 {address?.map((addr: any, index: number) => (
@@ -1906,7 +1906,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                               </div>
                               <div
                                 onClick={handleAddContractAddress}
-                                className="cursor-pointer text-sz18 text-blue flex flex-row items-center space-x-2"
+                                className="cursor-pointer text-sz14 text-blue flex flex-row items-center space-x-2"
                               >
                                 <img src={addItem} alt="addItem"></img>
                                 <div>Add Contract Address</div>
@@ -1927,7 +1927,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                                 </div>
                               </div>
                               <div className="flex flex-col space-y-2">
-                                <div className="text-sz18 text-blue">
+                                <div className="text-sz14 text-blue">
                                   Numbers in the Circle
                                 </div>
                                 <input
@@ -1942,7 +1942,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                                 />
                               </div>
                               <div className="flex flex-col space-y-2">
-                                <div className="text-sz18 text-blue">
+                                <div className="text-sz14 text-blue">
                                   Text in the Circle
                                 </div>
                                 <input
@@ -1957,7 +1957,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                                 />
                               </div>
                               <div className="flex flex-col space-y-2">
-                                <div className="text-sz18 text-blue">
+                                <div className="text-sz14 text-blue">
                                   Subtext in the Circle
                                 </div>
                                 <input
@@ -1972,7 +1972,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                                 />
                               </div>
                               <div className="flex flex-col space-y-2">
-                                <div className="text-sz18 text-blue">
+                                <div className="text-sz14 text-blue">
                                   Bottom Link
                                 </div>
                                 <input
@@ -1994,7 +1994,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                     </>
                   ) : null}
                 </div>
-                <div className="text-sz16 md:text-sz18">
+                <div className="text-sz16 md:text-sz16">
                   {project?.description}
                 </div>
                 <div className="p-4 bg-gray rounded-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-8">
@@ -2021,14 +2021,14 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                   {project?.platform && project?.language && (
                     <div className="font-Manrope font-light flex flex-col gap-4 md:gap-8">
                       <div className="flex flex-col">
-                        <div className="text-darkgray text-sz16">Networks</div>
-                        <div className="text-sz18">{project?.platform}</div>
+                        <div className="text-darkgray text-sz14">Networks</div>
+                        <div className="text-sz14">{project?.platform}</div>
                       </div>
                       <div className="flex flex-col">
-                        <div className="text-darkgray text-sz16">
+                        <div className="text-darkgray text-sz14">
                           Language used
                         </div>
-                        <div className="text-sz18">{project?.language}</div>
+                        <div className="text-sz14">{project?.language}</div>
                       </div>
                     </div>
                   )}
@@ -2036,11 +2036,11 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                   {project?.codebase && project.contract_addr && (
                     <div className="font-Manrope font-light flex flex-col gap-4 md:gap-8">
                       <div className="flex flex-col">
-                        <div className="text-darkgray text-sz16">
+                        <div className="text-darkgray text-sz14">
                           Source Code
                         </div>
                         <div className="flex flex-row items-center space-x-2">
-                          <div className="text-blue text-sz18">
+                          <div className="text-blue text-sz16">
                             {project?.codebase}
                           </div>
                           <a href={"https://" + project?.codebase}>
@@ -2064,7 +2064,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                         </div>
                       </div>
                       <div className="space-y-2 flex flex-col">
-                        <div className="text-darkgray text-sz16">
+                        <div className="text-darkgray text-sz14">
                           Token Contract Address
                         </div>
                         <ContractAddressBox
@@ -2080,7 +2080,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                   onClick={() => navigate("/safety-ratings")}
                   className="cursor-pointer flex flex-row items-center justify-center"
                 >
-                  <div className="text-sz16 text-white pr-2">
+                  <div className="text-sz14 text-white pr-2">
                     REQUEST FOR SAFETY RATING
                   </div>
                   <svg
@@ -2105,7 +2105,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
             <div className="w-full md:w-1/3 shadow-xl rounded-xl font-Manrope font-light flex flex-col gap-4">
               <div className="p-8 flex flex-col gap-4">
                 {/* <div
-                  className="cursor-pointer text-sz18 text-blue flex flex-row items-center justify-end space-x-2"
+                  className="cursor-pointer text-sz14 text-blue flex flex-row items-center justify-end space-x-2"
                   onClick={() => setShowTokenModal(true)}
                 >
                   <img src={edit} alt="edit"></img>
@@ -2124,23 +2124,23 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                               onClick={handleSaveTokenModal}
                             >
                               <img src={save} alt="save"></img>
-                              <div className="text-sz18 text-pink">Save</div>
+                              <div className="text-sz16 text-pink">Save</div>
                             </div>
                             <div
                               className="flex flex-row items-center cursor-pointer gap-2"
                               onClick={handleDiscardTokenModal}
                             >
                               <img src={discard} alt="discard"></img>
-                              <div className="text-sz18 text-blue">Discard</div>
+                              <div className="text-sz14 text-blue">Discard</div>
                             </div>
                           </div>
                           {/*body*/}
                           <div
-                            className="text-sz18 text-left bg-lightgray relative p-8 rounded-b-xl flex flex-col space-y-3 overflow-y-auto"
+                            className="text-sz16 text-left bg-lightgray relative p-8 rounded-b-xl flex flex-col space-y-3 overflow-y-auto"
                             style={{ height: "700px" }}
                           >
                             <div className="flex flex-col space-y-2">
-                              <div className="text-sz18 text-blue">
+                              <div className="text-sz14 text-blue">
                                 Edit Token name
                               </div>
                               <input
@@ -2153,7 +2153,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                               />
                             </div>
                             <div className="flex flex-col space-y-2">
-                              <div className="text-sz18 text-blue">
+                              <div className="text-sz14 text-blue">
                                 Edit Token API
                               </div>
                               <input
@@ -2165,7 +2165,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                                 placeholder="dhijfhbekjfb3ejkbfkj4bfhjl34bfjkn2kjdbnji23kn"
                               />
                             </div>
-                            <div className="text-sz18 flex flex-col space-y-2">
+                            <div className="text-sz16 flex flex-col space-y-2">
                               <div className="text-blue">Audited By</div>
                               <div className="flex flex-row flex-wrap items-center gap-2">
                                 {auditedby.map((net: any, index: number) => (
@@ -2196,7 +2196,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                                 />
                                 <div
                                   onClick={handleAddAuditedby}
-                                  className="cursor-pointer text-sz18 text-blue flex flex-row items-center space-x-2"
+                                  className="cursor-pointer text-sz14 text-blue flex flex-row items-center space-x-2"
                                 >
                                   <img src={addItem} alt="addItem"></img>
                                   <div>Add Audited by</div>
@@ -2204,7 +2204,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                               </div>
                             </div>
                             <div className="flex flex-col space-y-2">
-                              <div className="text-sz18 text-blue">
+                              <div className="text-sz14 text-blue">
                                 Edit Token Smart Contract Audits
                               </div>
                               {contractAudits.map(
@@ -2222,7 +2222,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                                         className="h-10 w-28 py-1 rounded-lg shadow-sm border border-blue flex flex-row items-center justify-center"
                                       >
                                         <img src={upload} alt="upload"></img>
-                                        <div className="text-sz18">Upload</div>
+                                        <div className="text-sz16">Upload</div>
                                         <input
                                           id={`dropzone-file${index}`}
                                           className="hidden"
@@ -2268,13 +2268,13 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                             </div>
                             <div
                               onClick={addNewContractAudit}
-                              className="cursor-pointer text-sz18 text-blue flex flex-row items-center space-x-2"
+                              className="cursor-pointer text-sz14 text-blue flex flex-row items-center space-x-2"
                             >
                               <img src={addItem} alt="addItem"></img>
                               <div>Add Audits</div>
                             </div>
                             <div className="flex flex-col space-y-2">
-                              <div className="text-sz18 text-blue">
+                              <div className="text-sz14 text-blue">
                                 Edit Platform Audits
                               </div>
                               {platformAudits.map(
@@ -2289,7 +2289,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                                         className="h-10 w-28 py-1 rounded-lg shadow-sm border border-blue flex flex-row items-center justify-center"
                                       >
                                         <img src={upload} alt="upload"></img>
-                                        <div className="text-sz18">Upload</div>
+                                        <div className="text-sz16">Upload</div>
                                         <input
                                           id={`dropzone-file${index}`}
                                           className="hidden"
@@ -2335,13 +2335,13 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                             </div>
                             <div
                               onClick={addNewPlatformAudit}
-                              className="cursor-pointer text-sz18 text-blue flex flex-row items-center space-x-2"
+                              className="cursor-pointer text-sz14 text-blue flex flex-row items-center space-x-2"
                             >
                               <img src={addItem} alt="addItem"></img>
                               <div>Add Platform Audit</div>
                             </div>
                             <div className="flex flex-col space-y-2">
-                              <div className="text-sz18 text-blue">
+                              <div className="text-sz14 text-blue">
                                 Edit Bug Bounty
                               </div>
                               {bugBountyAudits.map(
@@ -2356,7 +2356,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                                         className="h-10 w-28 py-1 rounded-lg shadow-sm border border-blue flex flex-row items-center justify-center"
                                       >
                                         <img src={upload} alt="upload"></img>
-                                        <div className="text-sz18">Upload</div>
+                                        <div className="text-sz16">Upload</div>
                                         <input
                                           id={`dropzone-file${index}`}
                                           className="hidden"
@@ -2402,13 +2402,13 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                             </div>
                             <div
                               onClick={addNewBugBounty}
-                              className="cursor-pointer text-sz18 text-blue flex flex-row items-center space-x-2"
+                              className="cursor-pointer text-sz14 text-blue flex flex-row items-center space-x-2"
                             >
                               <img src={addItem} alt="addItem"></img>
                               <div>Add Bug Bounty</div>
                             </div>
                             <div className="flex flex-col space-y-2">
-                              <div className="text-sz18 text-blue">
+                              <div className="text-sz14 text-blue">
                                 Edit Insurance
                               </div>
                               <div className="flex flex-row items-center space-x-4">
@@ -2419,7 +2419,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                                     className="h-10 w-28 py-1 rounded-lg shadow-sm border border-blue flex flex-row items-center justify-center"
                                   >
                                     <img src={upload} alt="upload"></img>
-                                    <div className="text-sz18">Upload</div>
+                                    <div className="text-sz16">Upload</div>
                                     <input
                                       id="dropzone-file"
                                       className="hidden"
@@ -2468,14 +2468,14 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                 {project?.name && project?.safety_score && (
                   <div className="grid grid-cols-2">
                     <div className="flex flex-col space-y-2">
-                      <div className="text-sz16 text-darkgray">Project</div>
-                      <div className="text-sz18">{project?.name}</div>
+                      <div className="text-sz14 text-darkgray">Project</div>
+                      <div className="text-sz16">{project?.name}</div>
                     </div>
                     <div className="flex flex-col space-y-2">
-                      <div className="text-sz16 text-darkgray">
+                      <div className="text-sz14 text-darkgray">
                         WHD Security Score
                       </div>
-                      <div className="text-sz18">
+                      <div className="text-sz16">
                         <span className="text-green">
                           {project?.safety_score}
                         </span>
@@ -2488,8 +2488,8 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                 {tokenData && (
                   <div className="grid grid-cols-2">
                     <div className="flex flex-col space-y-2">
-                      <div className="text-sz16 text-darkgray">Token Price</div>
-                      <div className="text-sz18">${tokenData?.price}</div>
+                      <div className="text-sz14 text-darkgray">Token Price</div>
+                      <div className="text-sz16">${tokenData?.price}</div>
                       <div className="flex flex-row items-center">
                         <svg
                           width="25"
@@ -2509,8 +2509,8 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                       </div>
                     </div>
                     <div className="flex flex-col space-y-2">
-                      <div className="text-sz16 text-darkgray">Market cap</div>
-                      <div className="text-sz18">
+                      <div className="text-sz14 text-darkgray">Market cap</div>
+                      <div className="text-sz16">
                         ${FormatBigNumber(tokenData?.market_cap)}
                       </div>
                       <div className="flex flex-row items-center">
@@ -2534,22 +2534,25 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                   </div>
                 )}
 
-                {project?.contract_audits &&
-                  project?.platform_audits &&
-                  project?.bug_bounty &&
-                  project?.insurance && (
+                { 
+                  (
+                  (project?.contract_audits && project?.contract_audits.length > 0) ||
+                  (project?.platform_audits && project?.platform_audits.length > 0)  ||
+                  (project?.bug_bounty && project?.bug_bounty.length > 0) ||
+                  project?.insurance) &&
+                  (
                     <div className="flex flex-col space-y-4">
-                      <div className="font-pilat font-bold text-sz18 pb-3 text-blue border-b border-darkgray">
+                      <div className="font-pilat font-bold text-sz14 pb-3 text-blue border-b border-darkgray">
                         Audit Details
                       </div>
                       <div className="flex flex-col space-y-4">
-                        <div className="flex flex-col space-y-2">
-                          <div className="text-darkgray text-sz16">
+                        {project?.contract_audits && (<div className="flex flex-col space-y-2">
+                          <div className="text-darkgray text-sz14">
                             Token Smart Contract Audits:
                           </div>
                           <div className="grid grid-cols-2 gap-4">
-                            {project?.contract_audits.map((audit: any) => (
-                              <a href={audit.link}>
+                            {project?.contract_audits.map((audit: any, index: number) => (
+                              <a href={audit.link} key={`ca_${index}`}>
                                 <div className="p-2 text-blue text-sz16 rounded-lg shadow-sm flex flex-row items-center justify-between">
                                   <img src={auditImage} alt="audit"></img>
                                   <div>{audit.name}</div>
@@ -2562,14 +2565,14 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                               </a>
                             ))}
                           </div>
-                        </div>
-                        <div className="flex flex-col space-y-2">
-                          <div className="text-darkgray text-sz16">
+                        </div>)}
+                        {project?.platform_audits && (project?.platform_audits.length > 0) && (<div className="flex flex-col space-y-2">
+                          <div className="text-darkgray text-sz164">
                             Platform Audits:
                           </div>
                           <div className="grid grid-cols-2 gap-4">
-                            {project?.platform_audits.map((audit: any) => (
-                              <a href={audit.link}>
+                            {project?.platform_audits.map((audit: any, index: number) => (
+                              <a href={audit.link} key={`pa_${index}`}>
                                 <div className="p-2 text-blue text-sz16 rounded-lg shadow-sm flex flex-row items-center justify-between">
                                   <img src={auditImage} alt="audit"></img>
                                   <div>{audit.name}</div>
@@ -2582,15 +2585,15 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                               </a>
                             ))}
                           </div>
-                        </div>
+                        </div>)}
                         <div className="grid grid-cols-2 gap-4">
-                          <div className="flex flex-col space-y-2">
-                            <div className="text-darkgray text-sz16">
+                          { project?.bug_bounty && (project?.bug_bounty.length > 0) && (<div className="flex flex-col space-y-2">
+                            <div className="text-darkgray text-sz14">
                               Bug Bounty:
                             </div>
                             <div className="flex flex-col space-y-4">
-                              {project?.bug_bounty.map((audit: any) => (
-                                <a href={audit.link}>
+                              {project?.bug_bounty.map((audit: any, index: number) => (
+                                <a href={audit.link} key={`bb_${index}`}>
                                   <div className="p-2 text-blue text-sz16 rounded-lg shadow-sm flex flex-row items-center justify-between">
                                     <img src={auditImage} alt="audit"></img>
                                     <div>{audit.name}</div>
@@ -2603,14 +2606,14 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                                 </a>
                               ))}
                             </div>
-                          </div>
-                          <div className="flex flex-col space-y-2">
-                            <div className="text-darkgray text-sz16">
+                          </div>)}
+                          { project?.insurance && project?.insurance?.name && (<div className="flex flex-col space-y-2">
+                            <div className="text-darkgray text-sz14">
                               Insurance:
                             </div>
                             <div className="flex flex-col space-y-4">
                               <a href={project?.insurance?.link}>
-                                <div className="p-2 text-blue text-sz16 rounded-lg shadow-sm flex flex-row items-center justify-between">
+                                <div className="p-2 text-blue text-sz14 rounded-lg shadow-sm flex flex-row items-center justify-between">
                                   <img src={auditImage} alt="audit"></img>
                                   <div>{project?.insurance?.name}</div>
                                   <img
@@ -2621,7 +2624,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                                 </div>
                               </a>
                             </div>
-                          </div>
+                          </div>)}
                         </div>
                       </div>
                     </div>
@@ -2631,11 +2634,11 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
           </div>
           <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
-              <div className="w-full pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat text-center">
+              <div className="w-full pl-4 text-blue text-sz16 md:text-sz18 font-bold font-pilat text-center">
                 Token Distribution / Tokenomics
               </div>
               {/* <div
-                className="text-sz18 text-blue font-Manrope flex flex-row items-center space-x-2 cursor-pointer"
+                className="text-sz14 text-blue font-Manrope flex flex-row items-center space-x-2 cursor-pointer"
                 onClick={() => setShowDistributionModal(true)}
               >
                 <img src={edit} alt="edit"></img>
@@ -2654,23 +2657,23 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                             onClick={handleSaveDistributionModal}
                           >
                             <img src={save} alt="save"></img>
-                            <div className="text-sz18 text-pink">Save</div>
+                            <div className="text-sz16 text-pink">Save</div>
                           </div>
                           <div
                             className="flex flex-row items-center cursor-pointer gap-2"
                             onClick={handleDiscardDistributionModal}
                           >
                             <img src={discard} alt="discard"></img>
-                            <div className="text-sz18 text-blue">Discard</div>
+                            <div className="text-sz14 text-blue">Discard</div>
                           </div>
                         </div>
                         {/*body*/}
                         <div
-                          className="text-sz18 text-left bg-lightgray relative p-8 rounded-b-xl flex flex-col space-y-3 overflow-y-auto"
+                          className="text-sz16 text-left bg-lightgray relative p-8 rounded-b-xl flex flex-col space-y-3 overflow-y-auto"
                           style={{ height: "700px" }}
                         >
                           {/* <div className="flex flex-col space-y-2">
-                            <div className="text-sz18 text-blue">
+                            <div className="text-sz14 text-blue">
                               Edit H1 Text
                             </div>
                             <input
@@ -2683,7 +2686,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                             />
                           </div> */}
                           <div className="flex flex-col space-y-2">
-                            <div className="text-sz18 text-blue">
+                            <div className="text-sz14 text-blue">
                               Edit Multisig Address
                             </div>
                             {multisigAddress?.map(
@@ -2715,14 +2718,14 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                           </div>
                           <div
                             onClick={addMultisigAddress}
-                            className="cursor-pointer text-sz18 text-blue flex flex-row items-center space-x-2"
+                            className="cursor-pointer text-sz14 text-blue flex flex-row items-center space-x-2"
                           >
                             <img src={addItem} alt="addItem"></img>
                             <div>Add New Address</div>
                           </div>
 
                           {/* <div className="flex flex-col space-y-2">
-                            <div className="text-sz18 text-blue">
+                            <div className="text-sz14 text-blue">
                               Edit Multisig Address
                             </div>
                             {multisigAddress?.map(
@@ -2753,7 +2756,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                             )}
                             <div
                               onClick={addMultisigAddress}
-                              className="cursor-pointer text-sz18 text-blue flex flex-row items-center space-x-2"
+                              className="cursor-pointer text-sz14 text-blue flex flex-row items-center space-x-2"
                             >
                               <img src={addItem} alt="addItem"></img>
                               <div>Add New Address</div>
@@ -2800,7 +2803,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                           ))}
                           <div
                             onClick={addNewDistribution}
-                            className="cursor-pointer text-sz18 text-blue flex flex-row items-center space-x-2"
+                            className="cursor-pointer text-sz14 text-blue flex flex-row items-center space-x-2"
                           >
                             <img src={addItem} alt="addItem"></img>
                             <div>Add New Item</div>
@@ -2819,10 +2822,10 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                   <div className="relative flex flex-col items-center">
                     <Doughnut type={true} data={project.distribution_list} />
                     <div className="font-Manrope text-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col">
-                      <div className="text-sz18 font-bold">
+                      <div className="text-sz16 font-bold">
                         {FormatBigNumber(tokenData?.total_supply)}
                       </div>
-                      <div className="text-sz12">TOTAL SUPPLY</div>
+                      <div className="text-sz10">TOTAL SUPPLY</div>
                     </div>
                   </div>
                   <img
@@ -2830,7 +2833,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                     src={line}
                     alt="line"
                   ></img>
-                  <div className="px-2 text-sz18 font-Manrope font-light flex flex-col gap-8">
+                  <div className="px-2 text-sz16 font-Manrope font-light flex flex-col gap-8">
                     {project.distribution_list.map(
                       (data: any, index: number) => (
                         <>
@@ -2910,7 +2913,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                     src={line}
                     alt="line"
                   ></img>
-                  <div className="px-2 text-sz18 font-Manrope font-light flex flex-col gap-8">
+                  <div className="px-2 text-sz16 font-Manrope font-light flex flex-col gap-8">
                     {project.distribution_list.map(
                       (data: any, index: number) => (
                         <>
@@ -2993,15 +2996,15 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                     src={line}
                     alt="line"
                   ></img>
-                  <div className="px-2 text-sz18 font-Manrope font-light flex flex-col gap-8">
+                  <div className="px-2 text-sz14 font-Manrope font-light flex flex-col gap-8">
                     <div className="text-center rounded-full shadow-sm text-green p-2">
                       Max Supply - {FormatBigNumber(tokenData?.max_supply)}
                     </div>
-                    <div className="rounded-full shadow-sm text-green p-2">
+                    <div className="text-center rounded-full shadow-sm text-green p-2">
                       Total Supply - {FormatBigNumber(tokenData?.total_supply)}
                     </div>
                     <div className="space-y-2 flex flex-col">
-                      <div className="text-darkgray text-sz16">
+                      <div className="text-darkgray text-sz14">
                         Project Treasury multisig address
                       </div>
                       <ContractAddressBox
@@ -3016,11 +3019,11 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
 
           <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
-              <div className="w-full pl-4 text-blue text-sz20 font-bold font-pilat text-center">
+              <div className="w-full pl-4 text-blue text-sz18 font-bold font-pilat text-center">
                 Code Security Assessment
               </div>
               {/* <div
-                className="text-sz18 text-blue font-Manrope flex flex-row items-center space-x-2 cursor-pointer"
+                className="text-sz14 text-blue font-Manrope flex flex-row items-center space-x-2 cursor-pointer"
                 onClick={() => setShowSecurityModal(true)}
               >
                 <img src={edit} alt="edit"></img>
@@ -3039,23 +3042,23 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                             onClick={handleSaveSecurityModal}
                           >
                             <img src={save} alt="save"></img>
-                            <div className="text-sz18 text-pink">Save</div>
+                            <div className="text-sz16 text-pink">Save</div>
                           </div>
                           <div
                             className="flex flex-row items-center cursor-pointer gap-2"
                             onClick={handleDiscardSecurityModal}
                           >
                             <img src={discard} alt="discard"></img>
-                            <div className="text-sz18 text-blue">Discard</div>
+                            <div className="text-sz14 text-blue">Discard</div>
                           </div>
                         </div>
                         {/*body*/}
                         <div
-                          className="text-sz18 text-left bg-lightgray relative p-8 rounded-b-xl flex flex-col space-y-3 overflow-y-auto"
+                          className="text-sz16 text-left bg-lightgray relative p-8 rounded-b-xl flex flex-col space-y-3 overflow-y-auto"
                           style={{ height: "600px" }}
                         >
                           {/* <div className="flex flex-col space-y-2">
-                            <div className="text-sz18 text-blue">
+                            <div className="text-sz14 text-blue">
                               Edit H1 Text
                             </div>
                             <input
@@ -3150,7 +3153,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                           ))}
                           <div
                             onClick={addNewSecurity}
-                            className="cursor-pointer text-sz18 text-blue flex flex-row items-center space-x-2"
+                            className="cursor-pointer text-sz14 text-blue flex flex-row items-center space-x-2"
                           >
                             <img src={addItem} alt="addItem"></img>
                             <div>Add New Item</div>
@@ -3169,16 +3172,16 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                 <div className="relative flex flex-col items-center">
                   <Doughnut type={false} data={project.security_list} />
                   <div className="font-Manrope text-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col">
-                    <div className="text-sz18 font-bold">
+                    <div className="text-sz16 font-bold">
                       {securityTotalNumber}
                     </div>
-                    <div className="text-sz12">Total Findings</div>
+                    <div className="text-sz10">Total Findings</div>
                   </div>
                 </div>
                 <div className="w-full flex flex-col ml-8 px-8 border-none md:border-l border-darkgray gap-4">
                   {project.security_list.map((security: any) => (
                     <div className="w-full grid grid-cols-4 items-start">
-                      <div className="col-span-1 font-Manrope font-light text-sz18 flex flex-row items-center space-x-4">
+                      <div className="col-span-1 font-Manrope font-light text-sz16 flex flex-row items-center space-x-4">
                         <div
                           className={
                             security.color === "Critical"
@@ -3233,7 +3236,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                         <div className="hidden md:flex col-span-1 flex-col">
                           <div className="flex flex-row items-center space-x-1">
                             <img src={check_t} alt="check"></img>
-                            <div className="text-sz12">All Resolved!</div>
+                            <div className="text-sz10">All Resolved!</div>
                           </div>
                           <div className="h-1 w-full rounded-full bg-green"></div>
                         </div>
@@ -3241,7 +3244,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                         <div className="hidden md:flex col-span-1 flex-col">
                           <div className="flex flex-row items-center space-x-1">
                             <img src={check_f} alt="check"></img>
-                            <div className="text-sz12">0 Resolved</div>
+                            <div className="text-sz10">0 Resolved</div>
                           </div>
                           <div
                             className="h-1 w-full rounded-full"
@@ -3258,11 +3261,11 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
 
           <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
-              <div className="w-full pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat text-center">
+              <div className="w-full pl-4 text-blue text-sz16 md:text-sz18 font-bold font-pilat text-center">
                 Audited Files
               </div>
               {/* <div
-                className="text-sz18 text-blue font-Manrope flex flex-row items-center space-x-2 cursor-pointer"
+                className="text-sz14 text-blue font-Manrope flex flex-row items-center space-x-2 cursor-pointer"
                 onClick={() => setShowAuditedModal(true)}
               >
                 <img src={edit} alt="edit"></img>
@@ -3281,20 +3284,20 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                             onClick={handleSaveAuditedModal}
                           >
                             <img src={save} alt="save"></img>
-                            <div className="text-sz18 text-pink">Save</div>
+                            <div className="text-sz16 text-pink">Save</div>
                           </div>
                           <div
                             className="flex flex-row items-center cursor-pointer gap-2"
                             onClick={handleDiscardAuditedModal}
                           >
                             <img src={discard} alt="discard"></img>
-                            <div className="text-sz18 text-blue">Discard</div>
+                            <div className="text-sz14 text-blue">Discard</div>
                           </div>
                         </div>
                         {/*body*/}
-                        <div className="text-sz18 text-left bg-lightgray relative p-8 rounded-b-xl flex flex-col space-y-3">
+                        <div className="text-sz16 text-left bg-lightgray relative p-8 rounded-b-xl flex flex-col space-y-3">
                           {/* <div className="flex flex-col space-y-2">
-                            <div className="text-sz18 text-blue">
+                            <div className="text-sz14 text-blue">
                               Edit H1 Text
                             </div>
                             <input
@@ -3310,7 +3313,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                           </div> */}
                           <div className="grid grid-cols-3 gap-4">
                             <div className="flex flex-col space-y-2">
-                              <div className="text-sz18 text-blue">
+                              <div className="text-sz14 text-blue">
                                 Source Code
                               </div>
                               {auditFilesList.map(
@@ -3329,7 +3332,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                               )}
                             </div>
                             <div className="flex flex-col space-y-2">
-                              <div className="text-sz18 text-blue">Acknow</div>
+                              <div className="text-sz14 text-blue">Acknow</div>
                               {auditFilesList.map(
                                 (audit: any, index: number) => (
                                   <input
@@ -3346,7 +3349,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                               )}
                             </div>
                             <div className="flex flex-col space-y-2">
-                              <div className="text-sz18 text-blue">SHA-256</div>
+                              <div className="text-sz14 text-blue">SHA-256</div>
                               {auditFilesList.map(
                                 (audit: any, index: number) => (
                                   <input
@@ -3365,9 +3368,9 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                           </div>
                           <div
                             onClick={addNewAuditFile}
-                            className="cursor-pointer text-sz18 text-blue flex flex-row items-center space-x-2"
+                            className="cursor-pointer text-sz14 text-blue flex flex-row items-center space-x-2"
                           >
-                            <img src={addItem} alt="addItem"></img>
+                            {/* <img src={addItem} alt="addItem"></img> */}
                             <div>Add New Item</div>
                           </div>
                         </div>
@@ -3380,44 +3383,44 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
             </div>
 
             {project.audited_files_list.length !== 0 && (
-              <div className="p-8 font-Manrope font-light flex flex-col space-y-6">
-                <div className="px-4 py-2 shadow-inner rounded-md text-blue text-sz18 md:text-sz18 flex flex-row items-center space-x-2">
-                  <img src={info} alt="info"></img>
-                  <div>
-                    This details only available for projets Audited by WHD
-                  </div>
-                </div>
-                <div className="bg-gray rounded-xl p-4 grid grid-cols-3 text-center text-sz16 md:text-sz18 font-bold overflow-auto">
-                  <div className="flex flex-col space-y-4">
-                    <div className="text-blue">Source Code</div>
-                    {project.audited_files_list.map((item: any) => (
-                      <div>{item.source}</div>
-                    ))}
-                  </div>
-                  <div className="flex flex-col space-y-4">
-                    <div className="text-blue">Acknowledgement</div>
-                    {project.audited_files_list.map((item: any) => (
-                      <div className="text-green">{item.acknowledgement}</div>
-                    ))}
-                  </div>
-                  <div className="flex flex-col items-center space-y-3">
-                    <div className="text-blue">SHA-256</div>
-                    {project.audited_files_list.map((item: any) => (
-                      <ShaComponent sha={item.sha}></ShaComponent>
-                    ))}
-                  </div>
+              <div className="p-2 sm:p-8 font-Manrope font-light flex flex-col space-y-6">
+              <div className="px-2 sm:px-4 py-2 shadow-inner rounded-md text-blue text-sz18 md:text-sz18 flex flex-row items-center space-x-2">
+                <img src={info} alt="info"></img>
+                <div>
+                  This details only available for projets Audited by WHD
                 </div>
               </div>
+              <div className="bg-gray rounded-xl p-4 flex sm:grid grid-cols-3 text-start sm:text-center text-sz16 md:text-sz18 font-bold overflow-auto">
+                <div className="flex flex-col space-y-4">
+                  <div className="text-blue">Source Code</div>
+                  {project.audited_files_list.map((item: any) => (
+                    <div>{item.source}</div>
+                  ))}
+                </div>
+                <div className="flex flex-col space-y-4 text-right sm:text-center">
+                  <div className="text-blue">Acknowledgement</div>
+                  {project.audited_files_list.map((item: any) => (
+                    <div className="text-green">{item.acknowledgement}</div>
+                  ))}
+                </div>
+                <div className="hidden sm:flex flex-col items-center space-y-4">
+                  <div className="text-blue">SHA-256</div>
+                  {project.audited_files_list.map((item: any) => (
+                    <ShaComponent sha={item.sha}></ShaComponent>
+                  ))}
+                </div>
+              </div>
+            </div>
             )}
           </div>
 
           <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
-              <div className="w-full pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat text-center">
+              <div className="w-full pl-4 text-blue text-sz16 md:text-sz18 font-bold font-pilat text-center">
                 Methodology
               </div>
               {/* <div
-                className="text-sz18 text-blue font-Manrope flex flex-row items-center space-x-2 cursor-pointer"
+                className="text-sz14 text-blue font-Manrope flex flex-row items-center space-x-2 cursor-pointer"
                 onClick={() => setShowMethodologyModal(true)}
               >
                 <img src={edit} alt="edit"></img>
@@ -3436,20 +3439,20 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                             onClick={handleSaveMethoModal}
                           >
                             <img src={save} alt="save"></img>
-                            <div className="text-sz18 text-pink">Save</div>
+                            <div className="text-sz16 text-pink">Save</div>
                           </div>
                           <div
                             className="flex flex-row items-center cursor-pointer gap-2"
                             onClick={handleDiscardMethoModal}
                           >
                             <img src={discard} alt="discard"></img>
-                            <div className="text-sz18 text-blue">Discard</div>
+                            <div className="text-sz14 text-blue">Discard</div>
                           </div>
                         </div>
                         {/*body*/}
-                        <div className="text-sz18 text-left bg-lightgray relative p-8 rounded-b-xl flex flex-col space-y-3">
+                        <div className="text-sz16 text-left bg-lightgray relative p-8 rounded-b-xl flex flex-col space-y-3">
                           {/* <div className="flex flex-col space-y-2">
-                            <div className="text-sz18 text-blue">
+                            <div className="text-sz14 text-blue">
                               Edit H1 Text
                             </div>
                             <input
@@ -3462,7 +3465,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                             />
                           </div> */}
                           <div className="flex flex-col space-y-2">
-                            <div className="text-sz18 text-blue">Edit Tags</div>
+                            <div className="text-sz14 text-blue">Edit Tags</div>
                             <div className="grid grid-cols-3 gap-4">
                               <div className="flex flex-col space-y-2">
                                 {methoTags.map((tag: string, index: number) => (
@@ -3522,7 +3525,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                           </div>
                           <div
                             onClick={addNewMetho}
-                            className="cursor-pointer text-sz18 text-blue flex flex-row items-center space-x-2"
+                            className="cursor-pointer text-sz14 text-blue flex flex-row items-center space-x-2"
                           >
                             <img src={addItem} alt="addItem"></img>
                             <div>Add New Item</div>
@@ -3538,11 +3541,11 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
 
             {project.methodology_tags.length !== 0 && (
               <div className="p-8 font-Manrope font-light flex flex-col space-y-6">
-                <div className="px-4 py-2 shadow-inner rounded-md text-blue text-sz16 md:text-sz18 flex flex-row items-center space-x-2">
+                <div className="px-4 py-2 shadow-inner rounded-md text-blue text-sz16 md:text-sz16 flex flex-row items-center space-x-2">
                   <img src={info} alt="info"></img>
                   <div>Feature only available for projects audited by WHD</div>
                 </div>
-                <div className="bg-gray rounded-xl p-4 flex flex-col md:flex-row justify-between text-sz18 text-green gap-4">
+                <div className="bg-gray rounded-xl p-4 flex flex-col md:flex-row justify-between text-sz16 text-green gap-4">
                   <div className="flex flex-col gap-4">
                     {project.methodology_tags.map(
                       (item: string, index: number) => (
@@ -3595,11 +3598,11 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
 
           <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
-              <div className="w-full pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat text-center">
+              <div className="w-full pl-4 text-blue text-sz16 md:text-sz18 font-bold font-pilat text-center">
                 Price Data
               </div>
               {/* <div
-                className="text-blue text-sz18 font-Manrope flex flex-row items-center space-x-2 cursor-pointer"
+                className="text-blue text-sz16 font-Manrope flex flex-row items-center space-x-2 cursor-pointer"
                 onClick={() => setShowSecondModal(true)}
               >
                 <img src={edit} alt="edit"></img>
@@ -3618,20 +3621,20 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                             onClick={handleSaveSecondModal}
                           >
                             <img src={save} alt="save"></img>
-                            <div className="text-sz18 text-pink">Save</div>
+                            <div className="text-sz16 text-pink">Save</div>
                           </div>
                           <div
                             className="flex flex-row items-center cursor-pointer gap-2"
                             onClick={handleDiscardSecondModal}
                           >
                             <img src={discard} alt="discard"></img>
-                            <div className="text-sz18 text-blue">Discard</div>
+                            <div className="text-sz14 text-blue">Discard</div>
                           </div>
                         </div>
                         {/*body*/}
-                        <div className="text-sz18 text-left bg-lightgray relative p-8 rounded-b-xl flex flex-col space-y-3">
+                        <div className="text-sz16 text-left bg-lightgray relative p-8 rounded-b-xl flex flex-col space-y-3">
                           {/* <div className="flex flex-col space-y-2">
-                            <div className="text-sz18 text-blue">
+                            <div className="text-sz14 text-blue">
                               Edit H1 Text
                             </div>
                             <input
@@ -3644,7 +3647,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                             />
                           </div> */}
                           <div className="flex flex-col space-y-2">
-                            <div className="text-sz18 text-blue">
+                            <div className="text-sz14 text-blue">
                               Edit Token name
                             </div>
                             <input
@@ -3657,7 +3660,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                             />
                           </div>
                           <div className="flex flex-col space-y-2">
-                            <div className="text-sz18 text-blue">
+                            <div className="text-sz14 text-blue">
                               Edit Token API Data
                             </div>
                             <input
@@ -3724,7 +3727,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                   </div>
                 </div>
 
-                <div className="font-Manrope text-sz16 md:text-sz18 grid grid-cols-2 md:grid-cols-3 gap-8 justify-between">
+                <div className="font-Manrope text-sz16 md:text-sz16 grid grid-cols-2 md:grid-cols-3 gap-8 justify-between">
                   <div className="pt-4 md:pt-0 flex flex-col gap-4">
                     <div className="border-none md:border-b border-darkgray pb-0 md:pb-4 flex flex-col md:flex-row justify-between">
                       <div className=" flex flex-row items-center space-x-2">
@@ -3933,10 +3936,10 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
 
           <div className="my-0 md:my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="px-6 py-4 rounded-t-xl">
-              <div className="pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat text-center flex flex-row items-center">
+              <div className="pl-4 text-blue text-sz16 md:text-sz18 font-bold font-pilat text-center flex flex-row items-center">
                 <div className="w-full">Exchanges</div>
                 {/* <div
-                  className="text-blue text-sz18 font-Manrope flex flex-row items-center space-x-2 cursor-pointer"
+                  className="text-blue text-sz16 font-Manrope flex flex-row items-center space-x-2 cursor-pointer"
                   onClick={() => setShowMarketModal(true)}
                 >
                   <img src={edit} alt="edit"></img>
@@ -3957,24 +3960,24 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                           onClick={handleSaveMarketModal}
                         >
                           <img src={save} alt="save"></img>
-                          <div className="text-sz18 text-pink">Save</div>
+                          <div className="text-sz16 text-pink">Save</div>
                         </div>
                         <div
                           className="flex flex-row items-center cursor-pointer gap-2"
                           onClick={handleDiscardMarketModal}
                         >
                           <img src={discard} alt="discard"></img>
-                          <div className="text-sz18 text-blue">Discard</div>
+                          <div className="text-sz14 text-blue">Discard</div>
                         </div>
                       </div>
                       {/*body*/}
                       <div
-                        className="text-sz18 text-left bg-lightgray relative p-8 rounded-b-xl flex flex-col space-y-3 overflow-y-auto"
+                        className="text-sz16 text-left bg-lightgray relative p-8 rounded-b-xl flex flex-col space-y-3 overflow-y-auto"
                         style={{ height: "700px" }}
                       >
                         {marketData.map((market: any, index: number) => (
                           <>
-                            <div className="text-blue text-sz18">
+                            <div className="text-blue text-sz16">
                               Exchange{index + 1}
                             </div>
                             <div className="border border-blue rounded-xl p-4 flex flex-col space-y-2">
@@ -3990,7 +3993,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                                   className="h-10 w-28 py-1 rounded-lg shadow-sm border border-blue flex flex-row items-center justify-center"
                                 >
                                   <img src={upload} alt="upload"></img>
-                                  <div className="text-sz18">Upload</div>
+                                  <div className="text-sz16">Upload</div>
                                   <input
                                     id={`dropzone-file${index}`}
                                     className="hidden"
@@ -4003,7 +4006,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                                 </label>
                               </div>
                               <div className="flex flex-col space-y-2">
-                                <div className="text-sz18 text-blue">
+                                <div className="text-sz14 text-blue">
                                   Exchange
                                 </div>
                                 <input
@@ -4018,7 +4021,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                                 />
                               </div>
                               <div className="flex flex-col space-y-2">
-                                <div className="text-sz18 text-blue">Pairs</div>
+                                <div className="text-sz14 text-blue">Pairs</div>
                                 <input
                                   type="text"
                                   id="website-admin"
@@ -4031,7 +4034,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                                 />
                               </div>
                               <div className="flex flex-col space-y-2">
-                                <div className="text-sz18 text-blue">
+                                <div className="text-sz14 text-blue">
                                   Pair Link
                                 </div>
                                 <input
@@ -4050,7 +4053,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                         ))}
                         <div
                           onClick={handleAddMarket}
-                          className="cursor-pointer text-sz18 text-blue flex flex-row items-center space-x-2"
+                          className="cursor-pointer text-sz14 text-blue flex flex-row items-center space-x-2"
                         >
                           <img src={addItem} alt="addItem"></img>
                           <div>Add Market</div>
@@ -4062,79 +4065,87 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                 <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
               </>
             ) : null}
-            <div className="font-Manrope py-4 px-10 flex flex-row gap-4">
-              <div className="w-full flex flex-col space-y-2 pr-8 border-r">
-                {project?.market_data?.map((exch: any, index: number) => (
-                  <>
-                    {index % 2 === 0 && (
-                      <a
-                        href={exch.pairlink}
-                        key={index}
-                        className="pb-4 border-b border-blue border-darkgray flex flex-row items-center justify-between"
-                      >
-                        <div className="py-1 px-4 rounded-lg border border-blue flex flex-row items-center space-x-2">
-                          <img
-                            className="w-8 h-8"
-                            src={getNetworkImage(exch.network)}
-                            alt="network"
-                          ></img>
-                          <div>{exch.network}</div>
-                        </div>
-                        <div className="flex flex-row items-center space-x-2">
-                          <img src={exch.logo} alt="icon1"></img>
-                          <div>{exch.name}</div>
-                        </div>
-                        <div className="text-blue">{exch.pair}</div>
-                        <div className="rounded-full font-light text-sz16 px-4 py-1 shadow-inner">
-                          <span className="text-green">Buy</span> /{" "}
-                          <span className="text-pink">Sell</span>
-                        </div>
-                      </a>
-                    )}
-                  </>
-                ))}
-              </div>
-              <div className="pl-4 w-full flex flex-col space-y-2">
-                {project?.market_data?.map((exch: any, index: number) => (
-                  <>
-                    {index % 2 === 1 && (
-                      <a
-                        href={exch.pairlink}
-                        key={index}
-                        className="pb-4 border-b border-blue border-darkgray flex flex-row items-center justify-between"
-                      >
-                        <div className="py-1 px-4 rounded-lg border border-blue flex flex-row items-center space-x-2">
-                          <img
-                            className="w-8 h-8"
-                            src={getNetworkImage(exch.network)}
-                            alt="network"
-                          ></img>
-                          <div>{exch.network}</div>
-                        </div>
-                        <div className="flex flex-row items-center space-x-2">
-                          <img src={exch.logo} alt="icon1"></img>
-                          <div>{exch.name}</div>
-                        </div>
-                        <div className="text-blue">{exch.pair}</div>
-                        <div className="rounded-full font-light text-sz16 px-4 py-1 shadow-inner">
-                          <span className="text-green">Buy</span> /{" "}
-                          <span className="text-pink">Sell</span>
-                        </div>
-                      </a>
-                    )}
-                  </>
-                ))}
-              </div>
-            </div>
+            <div className="font-Manrope py-4 px-2 sm:px-10 grid grid-cols-1 sm:grid-cols-2 gap-4">
+							<div className="w-full flex flex-col flex-wrap space-y-2 sm:pr-8 sm:border-r">
+								{project?.market_data?.map((exch: any, index: number) => (
+									<>
+										{index % 2 === 0 && (
+											<a
+												href={exch.pairlink}
+												key={index}
+												className="pb-4 border-b border-blue border-darkgray flex flex-row items-center justify-between"
+											>
+												<div className="py-1 px-4 rounded-lg border border-blue sm:flex flex-row items-center space-x-2 hidden">
+													<img
+														className="w-8 h-8 cursor-pointer"
+														src={getNetworkImage(exch.network)}
+														alt="network"
+													></img>
+													<div>{exch.network}</div>
+												</div>
+												<div className="flex flex-row items-center space-x-2">
+													<img
+														src={exch.logo}
+														alt="icon"
+														className="w-8 h-8 rounded-full"
+													></img>
+													<div>{exch.name}</div>
+												</div>
+												<div className="text-blue">{exch.pair}</div>
+												<div className="rounded-full font-light text-sz16 px-4 py-1 shadow-inner hidden sm:block">
+													<span className="text-green">Buy</span> /{' '}
+													<span className="text-pink">Sell</span>
+												</div>
+											</a>
+										)}
+									</>
+								))}
+							</div>
+							<div className="pl-0 sm:pl-4 w-full flex flex-col space-y-2">
+								{project?.market_data?.map((exch: any, index: number) => (
+									<>
+										{index % 2 === 1 && (
+											<a
+												href={exch.pairlink}
+												key={index}
+												className="pb-4 border-b border-blue border-darkgray flex flex-row items-center justify-between"
+											>
+												<div className="py-1 px-4 rounded-lg border border-blue hidden sm:flex flex-row items-center space-x-2">
+													<img
+														className="w-8 h-8 cursor-pointer"
+														src={getNetworkImage(exch.network)}
+														alt="network"
+													></img>
+													<div>{exch.network}</div>
+												</div>
+												<div className="flex flex-row items-center space-x-2">
+													<img
+														src={exch.logo}
+														alt="icon"
+														className="w-8 h-8 rounded-full"
+													></img>
+													<div>{exch.name}</div>
+												</div>
+												<div className="text-blue">{exch.pair}</div>
+												<div className="rounded-full font-light text-sz16 px-4 py-1 shadow-inner hidden sm:block">
+													<span className="text-green">Buy</span> /{' '}
+													<span className="text-pink">Sell</span>
+												</div>
+											</a>
+										)}
+									</>
+								))}
+							</div>
+						</div>
           </div>
 
           <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
-              <div className="w-full pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat text-center">
+              <div className="w-full pl-4 text-blue text-sz16 md:text-sz18 font-bold font-pilat text-center">
                 Project Team Members & Developers
               </div>
               {/* <div
-                className="text-blue text-sz18 font-Manrope flex flex-row items-center space-x-2 cursor-pointer"
+                className="text-blue text-sz16 font-Manrope flex flex-row items-center space-x-2 cursor-pointer"
                 onClick={() => setShowTeamModal(true)}
               >
                 <img src={edit} alt="edit"></img>
@@ -4153,23 +4164,23 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                             onClick={handleSaveTeamModal}
                           >
                             <img src={save} alt="save"></img>
-                            <div className="text-sz18 text-pink">Save</div>
+                            <div className="text-sz16 text-pink">Save</div>
                           </div>
                           <div
                             className="flex flex-row items-center cursor-pointer gap-2"
                             onClick={handleDiscardTeamModal}
                           >
                             <img src={discard} alt="discard"></img>
-                            <div className="text-sz18 text-blue">Discard</div>
+                            <div className="text-sz14 text-blue">Discard</div>
                           </div>
                         </div>
                         {/*body*/}
                         <div
-                          className="text-sz18 text-left bg-lightgray relative p-8 rounded-b-xl flex flex-col space-y-3 overflow-y-auto"
+                          className="text-sz16 text-left bg-lightgray relative p-8 rounded-b-xl flex flex-col space-y-3 overflow-y-auto"
                           style={{ height: "700px" }}
                         >
                           {/* <div className="flex flex-col space-y-2">
-                            <div className="text-sz18 text-blue">
+                            <div className="text-sz14 text-blue">
                               Edit H1 Text
                             </div>
                             <input
@@ -4182,7 +4193,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                             />
                           </div> */}
                           {/* <div className="flex flex-col space-y-2">
-                            <div className="text-sz18 text-blue">Note</div>
+                            <div className="text-sz14 text-blue">Note</div>
                             <textarea
                               rows={4}
                               value={memberNote}
@@ -4192,12 +4203,12 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                             />
                           </div> */}
                           <div className="flex flex-col space-y-2">
-                            <div className="text-sz18 text-blue">
+                            <div className="text-sz14 text-blue">
                               Edit Team Member
                             </div>
                             {memberList.map((member: any, index: number) => (
                               <div className="w-full flex flex-col space-y-2">
-                                <div className="text-sz18 text-blue">
+                                <div className="text-sz14 text-blue">
                                   Team Member {index + 1}
                                 </div>
                                 <div className="flex flex-row items-start space-x-4">
@@ -4206,7 +4217,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                                     className="h-10 w-36 py-1 rounded-lg shadow-sm border border-blue flex flex-row items-center justify-center"
                                   >
                                     <img src={upload} alt="upload"></img>
-                                    <div className="text-sz18">Upload Pic</div>
+                                    <div className="text-sz16">Upload Pic</div>
                                     <input
                                       id={`dropzone-file${index}`}
                                       className="hidden"
@@ -4280,7 +4291,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                                   <div className="grid grid-cols-3 space-x-2">
                                     <div className="flex flex-row items-center justify-end space-x-2">
                                       <img src={twit} alt="twitter"></img>
-                                      <div className="text-sz16 text-blue">
+                                      <div className="text-sz14 text-blue">
                                         Twitter
                                       </div>
                                     </div>
@@ -4298,7 +4309,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                                   <div className="grid grid-cols-3 space-x-2">
                                     <div className="flex flex-row items-center justify-end space-x-2">
                                       <img src={linkedin} alt="Linkedin"></img>
-                                      <div className="text-sz16 text-blue">
+                                      <div className="text-sz14 text-blue">
                                         Linkedin
                                       </div>
                                     </div>
@@ -4316,7 +4327,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                                   <div className="grid grid-cols-3 space-x-2">
                                     <div className="flex flex-row items-center justify-end space-x-2">
                                       <img src={mail} alt="mail"></img>
-                                      <div className="text-sz16 text-blue">
+                                      <div className="text-sz14 text-blue">
                                         Mail
                                       </div>
                                     </div>
@@ -4336,7 +4347,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                             ))}
                             <div
                               onClick={addNewTeamMember}
-                              className="cursor-pointer text-sz18 text-blue flex flex-row items-center space-x-2"
+                              className="cursor-pointer text-sz14 text-blue flex flex-row items-center space-x-2"
                             >
                               <img src={addItem} alt="addItem"></img>
                               <div>Add New Member</div>
@@ -4354,11 +4365,11 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
               <div className="rounded-md shadow-inner flex flex-col p-6">
                 <div className="border-b border-blue pb-3 flex flex-row space-x-2">
                   <img src={info} alt="info"></img>
-                  <div className="text-sz18 md:text-sz18 font-blue text-blue">
+                  <div className="text-sz16 md:text-sz16 font-blue text-blue">
                     Note!
                   </div>
                 </div>
-                <div className="text-blue text-sz16 md:text-sz18">
+                <div className="text-blue text-sz16 md:text-sz16">
                   Please be advised that verified check mark only applies to
                   members who are doxed or verified their identity for public
                   view. WHD reserves the right to verify individuals privately
@@ -4378,13 +4389,13 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                         alt="member1"
                       ></img>
                     </div>
-                    <div className="flex flex-row items-center space-x-2 text-sz18">
+                    <div className="flex flex-row items-center space-x-2 text-sz16">
                       <div>{member?.name}</div>
                       {member?.verified && (
                         <img src={verify} alt="verify"></img>
                       )}
                     </div>
-                    <div className="text-sz18 text-darkgray">
+                    <div className="text-sz14 text-darkgray">
                       {member?.role}
                     </div>
                     <div className="flex flex-row items-center space-x-8">
@@ -4477,11 +4488,11 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
           </div>
           <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
-              <div className="w-full pl-4 text-pink text-sz18 md:text-sz20 font-bold font-pilat text-center">
+              <div className="w-full pl-4 text-pink text-sz16 md:text-sz18 font-bold font-pilat text-center">
                 Disclaimer
               </div>
               {/* <div
-                className="text-blue text-sz18 font-Manrope flex flex-row items-center space-x-2 cursor-pointer"
+                className="text-blue text-sz16 font-Manrope flex flex-row items-center space-x-2 cursor-pointer"
                 onClick={() => setShowForthModal(true)}
               >
                 <img src={edit} alt="edit"></img>
@@ -4500,20 +4511,20 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                             onClick={handleSaveForthModal}
                           >
                             <img src={save} alt="save"></img>
-                            <div className="text-sz18 text-pink">Save</div>
+                            <div className="text-sz16 text-pink">Save</div>
                           </div>
                           <div
                             className="flex flex-row items-center cursor-pointer gap-2"
                             onClick={handleDiscardForthModal}
                           >
                             <img src={discard} alt="discard"></img>
-                            <div className="text-sz18 text-blue">Discard</div>
+                            <div className="text-sz14 text-blue">Discard</div>
                           </div>
                         </div>
                         {/*body*/}
-                        <div className="text-sz18 text-left bg-lightgray relative p-8 rounded-b-xl flex flex-col space-y-3">
+                        <div className="text-sz16 text-left bg-lightgray relative p-8 rounded-b-xl flex flex-col space-y-3">
                           {/* <div className="flex flex-col space-y-2">
-                            <div className="text-sz18 text-blue">
+                            <div className="text-sz14 text-blue">
                               Edit H1 Text
                             </div>
                             <input
@@ -4526,7 +4537,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                             />
                           </div> */}
                           <div className="flex flex-col space-y-2">
-                            <div className="text-sz18 text-blue">Text</div>
+                            <div className="text-sz14 text-blue">Text</div>
                             <textarea
                               rows={4}
                               value={disclaimerText}
@@ -4545,7 +4556,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                 </>
               ) : null}
             </div>
-            <div className="p-8 text-sz16 md:text-sz18 font-Manrope font-light">
+            <div className="p-8 text-sz16 md:text-sz16 font-Manrope font-light">
               {project.disclaimer_text}
             </div>
           </div>

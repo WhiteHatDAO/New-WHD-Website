@@ -12,7 +12,7 @@ import avalanche from "../assets/images/select/avalanche.png";
 import fantom from "../assets/images/select/fantom.png";
 import klaytn from "../assets/images/select/klaytn.png";
 import aurora from "../assets/images/select/aurora.png";
-import zksink from "../assets/images/select/zkSink.png";
+import zksync from "../assets/images/select/zkSync.png";
 import ContractItem from "./ContractItem";
 
 interface boxInterface {
@@ -83,13 +83,13 @@ const ContractAddressBox = ({ data }: boxInterface) => {
               <img className="w-6 h-6" src={klaytn} alt="klaytn"></img>
             ) : network.network === "aurora" ? (
               <img className="w-6 h-6" src={aurora} alt="aurora"></img>
-            ) : network.network === "zkSink" ? (
-              <img className="w-6 h-6" src={zksink} alt="zkSink"></img>
+            ) : network.network === "zkSync" ? (
+              <img className="w-6 h-6" src={zksync} alt="zkSync"></img>
             ) : (
               ""
             )}
             {data && (
-              <div className="text-blue text-sz18">
+              <div className="text-blue text-sz16">
                 {getSubAddress(network.address as string)}
               </div>
             )}

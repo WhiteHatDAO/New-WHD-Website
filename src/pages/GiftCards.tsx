@@ -67,7 +67,7 @@ const GiftCards = () => {
     <div className="mx-4 my-10 font-Manrope flex flex-col space-y-8">
       <div className="rounded-xl shadow-xl flex flex-col items-center lg:flex-row justify-between">
         <div className="p-4 lg:p-8 flex flex-col space-y-4 lg:space-y-8">
-          <div className="text-red">
+          <div className="font-pilat text-sz20 w-full text-red">
             Coming Soon
           </div>
           <div className="text-sz16 lg:text-sz18">

@@ -67,3 +67,12 @@ export const FormatDate = (data: any) => {
     );
   }
 };
+
+export const getSubHash = (str: string) => {
+  if(str.length < 24) return str;
+  return `${str.substring(0, 12)}...${str.substring(
+    str.length - 12,
+    str.length
+  )}`;
+};
+

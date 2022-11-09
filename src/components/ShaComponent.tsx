@@ -1,7 +1,7 @@
 import copy from "../assets/images/copy_black.svg";
 import check from "../assets/images/rating/check.png";
 import { useState, useEffect } from "react";
-
+import { getSubHash } from "../utils/utils";
 interface shaProps {
   sha: string;
 }
@@ -24,7 +24,7 @@ const ShaComponent = ({ sha }: shaProps) => {
 
   return (
     <div className="flex flex-row items-center space-x-2">
-      <div>{sha}</div>
+      <div>{getSubHash(sha)}</div>
       {copyStatus ? (
         <img className="w-4" src={check} alt="check"></img>
       ) : (

@@ -9,7 +9,7 @@ import avalanche from "../assets/images/select/avalanche.png";
 import fantom from "../assets/images/select/fantom.png";
 import klaytn from "../assets/images/select/klaytn.png";
 import aurora from "../assets/images/select/aurora.png";
-import zksink from "../assets/images/select/zkSink.png";
+import zksync from "../assets/images/select/zkSync.png";
 
 const networks = [
   {
@@ -53,8 +53,8 @@ const networks = [
     image: aurora,
   },
   {
-    name: "zkSink",
-    image: zksink,
+    name: "zkSync",
+    image: zksync,
   },
 ];
 

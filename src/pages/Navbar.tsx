@@ -137,7 +137,7 @@ const Navbar = ({ showMenu, handleShowMenu }: navProps) => {
 
   const handleConnect = () => {
     if (appState.web3Provider) {
-      handleShowMenu(true);
+      handleShowMenu(!showMenu);
     } else {
       connect();
       handleShowMenu(false);
@@ -161,7 +161,7 @@ const Navbar = ({ showMenu, handleShowMenu }: navProps) => {
     if(profileState !== undefined) {
       if(!profileState) {
         if(location.pathname !== "/profile/settings") {
-          navigate("/profile/settings");
+          // navigate("/profile/settings");
         }
       }
     }
@@ -170,9 +170,9 @@ const Navbar = ({ showMenu, handleShowMenu }: navProps) => {
   return (
     <div className="relative">
       <div className="font-pilat p-4 flex flex-row items-center">
-        <div className="text-sz16 font-pilat font-medium w-full flex flex-row items-center justify-between">
-          <img onClick={() => navigate("/")} src={logo} alt="logo" className="w-16 h-16"></img>
-          <div className="mx-8 w-full hidden xl:flex flex-row items-center space-x-12">
+        <div className="text-sz14 font-pilat font-medium w-full flex flex-row items-center justify-between">
+          <img onClick={() => navigate("/")} src={logo} alt="logo" className="w-14 h-14"></img>
+          <div className="mx-6 w-full hidden xl:flex flex-row items-center space-x-10">
             <div
               onClick={() => navigate("/")}
               className={location.pathname === "/" ? "cursor-pointer text-pink" : "cursor-pointer text-black"}
@@ -223,9 +223,10 @@ const Navbar = ({ showMenu, handleShowMenu }: navProps) => {
             </div>
           </div>
           <div className="flex flex-row items-center space-x-4">
-            <div className="w-64 relative z-10 cursor-pointer">
+            <div className="w-60 relative cursor-pointer">
               <div
-                className="shadow-sm text-2xl px-8 py-2 border rounded-xl gradient-box text-sz18"
+                // className="shadow-sm text-2xl px-6 py-2 border rounded-xl gradient-box text-sz16"
+                className="shadow-sm text-2xl px-6 py-2 border flex items-center justify-center rounded-xl gradient-box text-sz16"
                 onClick={handleConnect}
               >
                 {appState.web3Provider && address
@@ -273,12 +274,12 @@ const Navbar = ({ showMenu, handleShowMenu }: navProps) => {
       </div>
       {open && (
         <div className="absolute top-0 w-full h-screen z-20">
-          <div className="m-8 p-4 rounded-xl flex flex-col shadow-xl bg-lightgray h-screen">
+          <div className="m-7 p-4 rounded-xl flex flex-col shadow-xl bg-lightgray h-screen">
             <div className="flex flex-row items-center justify-between">
               <img className="w-12" src={logo} alt="logo"></img>
               <img onClick={() => setOpen(false)} src={close} alt="close"></img>
             </div>
-            <div className="pt-8 font-pilat text-sz16 flex flex-col items-center justify-center gap-6">
+            <div className="pt-7 font-pilat text-sz14 flex flex-col items-center justify-center gap-5">
               <a href="/">
                 <div>HOME</div>
               </a>
@@ -298,7 +299,7 @@ const Navbar = ({ showMenu, handleShowMenu }: navProps) => {
                 <div>BLOGPOSTS</div>
               </a>
               <div className="z-10 cursor-pointer">
-                <div className="shadow-sm text-2xl px-8 py-2 border rounded-xl gradient-box text-sz18">
+                <div className="shadow-sm text-2xl px-8 py-2 border rounded-xl gradient-box text-sz16">
                   CONNECT
                 </div>
               </div>

@@ -11,7 +11,7 @@ import avalanche from "../assets/images/select/avalanche.png";
 import fantom from "../assets/images/select/fantom.png";
 import klaytn from "../assets/images/select/klaytn.png";
 import aurora from "../assets/images/select/aurora.png";
-import zksink from "../assets/images/select/zkSink.png";
+import zksync from "../assets/images/select/zkSync.png";
 
 import { getSubAddress } from "../utils/utils"
 
@@ -70,8 +70,8 @@ const MemberContract = ({ address }: memberProps) => {
           <img className="w-6 h-6" src={klaytn} alt="klaytn"></img>
         ) : address.network === "aurora" ? (
           <img className="w-6 h-6" src={aurora} alt="aurora"></img>
-        ) : address.network === "zkSink" ? (
-          <img className="w-6 h-6" src={zksink} alt="zksink"></img>
+        ) : address.network === "zkSync" ? (
+          <img className="w-6 h-6" src={zksync} alt="zksync"></img>
         ) : (
           ""
         )}

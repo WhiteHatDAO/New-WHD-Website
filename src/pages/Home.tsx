@@ -2,14 +2,14 @@ import alertImage from "../assets/images/alert.svg";
 import groupSlideImage from "../assets/images/group_slide.svg";
 import CircleProgressBar from "../components/CircleProgressBar";
 import searchImage from "../assets/images/search.svg";
-import auditWHD from "../assets/images/auditWHD.svg";
-import auditExt from "../assets/images/auditExt.svg";
+// import auditWHD from "../assets/images/auditWHD.svg";
+// import auditExt from "../assets/images/auditExt.svg";
 import prevImage from "../assets/images/prev.svg";
 import nextImage from "../assets/images/next.svg";
 import servImage1 from "../assets/images/service1.png";
 import servImage2 from "../assets/images/service2.png";
 import servImage3 from "../assets/images/service3.png";
-
+import auditFileLink from "../assets/images/audit/files_icon.png";
 import logo from "../assets/images/logo.svg";
 import GradientBox from "../components/GradientBar";
 import ContractAddressBox from "../components/ContractAddressBox";
@@ -29,7 +29,7 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 import {
   FormatYMD,
-  FormatNumber,
+  // FormatNumber,
   FormatSmallNumber,
   FormatDate,
 } from "../utils/utils";
@@ -62,7 +62,7 @@ const Home = ({
   const [showTokenDetailModal, setShowTokenDetailModal] = useState(false);
   const [showTopBrandsModal, setShowTopBrandsModal] = useState(false);
   const [showServiceModal, setShowServiceModal] = useState<boolean>(false);
-  const { handleGetTokenData, tokenData } = useCoingeckoAPI();
+  const { handleGetTokenData, fetchTokensData, tokenData } = useCoingeckoAPI();
   const [searchText, setSearchText] = useState<string>("");
   const [filteredProjects, setFilteredProjects] = useState<any[]>([]);
   const [topics, setTopics] = useState<any[]>([]);
@@ -142,7 +142,8 @@ const Home = ({
   const [serviceContractLink, setServiceContractLink] = useState<string>();
   const [networks, setNetworks] = useState<string[]>([]);
   const [exchange, setExchange] = useState<any[]>([]);
-
+  const [tokensData, setTokensData] = useState<any[]>([]);
+  
   const handleAddTokenAddress = () => {
     let tAddress = [];
     for (let i = 0; i < tokenAddress.length; i++) {
@@ -324,8 +325,21 @@ const Home = ({
       setNetworks(mainProData.home.networks);
       setExchange(mainProData.home.exchange);
       handleGetTokenData(mainProData.home.token_name);
+      
     }
   }, [auditProjects, mainProData, handleGetTokenData]);
+
+  useEffect(() => {
+    if(auditProjects) {
+      console.log(auditProjects, 'once?')
+      let tokens: string[] = [];
+      auditProjects.forEach(auditProject => {
+        tokens.push(auditProject.token)
+      });
+      fetchTokensData(tokens).then(d => setTokensData(d))
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [auditProjects])
 
   const handleSaveFirstModal = async () => {
     try {
@@ -1187,7 +1201,7 @@ const Home = ({
                       <td className="px-6 py-3">{project.name}</td>
                       <td className="px-6 py-3">
                         <div className="flex flex-row items-center justify-center">
-                          {project.audited_by.map((item: any) =>
+                          {/* {project.audited_by.map((item: any) =>
                             item === "WHD" ? (
                               <img src={auditWHD} alt="WHD"></img>
                             ) : (
@@ -1195,7 +1209,8 @@ const Home = ({
                                 <img src={auditExt} alt="EXT"></img>
                               )
                             )
-                          )}
+                          )} */}
+                          <img src={auditFileLink} alt="Link" className="cursor-pointer"></img>
                         </div>
                       </td>
                       <td className="px-6 py-3">
@@ -1209,12 +1224,26 @@ const Home = ({
                         </div>
                       </td>
                       <td className="px-6 py-3">
-                        {project.price === -1 ? "N/A" : project.price}
+                        {
+                          tokensData ? (
+                            (tokensData[index]?.price)
+                          ) : (
+                            "N/A"
+                          )
+                        }
+                        {/* {project.price === -1 ? "N/A" : project.price} */}
                       </td>
                       <td className="px-6 py-3">
-                        {project.market === "-1"
+                      {
+                          tokensData ? (
+                            ((tokensData[index]?.market_cap === 0) ? "N/A" : (tokensData[index]?.market_cap) )
+                          ) : (
+                            "N/A"
+                          )
+                        }
+                        {/* {project.market === "-1"
                           ? "N/A"
-                          : FormatNumber(project.market)}
+                          : FormatNumber(project.market)} */}
                       </td>
                       <td className="px-6 py-3">
                         {FormatYMD(project.createdAt)}

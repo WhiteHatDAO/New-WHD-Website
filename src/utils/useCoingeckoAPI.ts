@@ -68,11 +68,36 @@ export const useCoingeckoAPI = () => {
         .catch((err) => { console.log(err) })
   }, [])
 
-  console.log('tokenData', tokenData)
+  const fetchTokensData = async(tokens: string[]) => {
+    let promises: any[] = [];
+    let result: any[] = [];  
+  
+    tokens.forEach(token => {
+      promises.push(
+        fetch(`https://api.coingecko.com/api/v3/coins/${token}?tickers=false&community_data=false&developer_data=false`,
+        {
+          mode: "cors",
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "*",
+            "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+        }
+      })
+      .then((response) => response.json())
+      .then((res) => { return res; })
+      );
+    });
+    const _result = await Promise.all(promises);
+    _result.forEach(d => {
+      result = [...result, {price: d.market_data.current_price.usd, market_cap: d.market_data.market_cap.usd}];
+    });
+    return result
+  }
 
   return {
     handleGetTokenData,
     handleGetTokenPriceHistory,
+    fetchTokensData,
     tokenData,
     tokenPriceHistory
   };

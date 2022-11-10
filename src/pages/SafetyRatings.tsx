@@ -392,7 +392,7 @@ const SafetyRatings = ({
                         <img className="" src={verify} alt="verify"></img>
                       )}
                     </div>
-                    <div className="flex flex-row items-center gap-4">
+                    <div className="flex flex-row items-center gap-2 sm:gap-4 flex-wrap">
                       {project?.tags?.map((tag: any, index: number) => (
                         <div
                           className={
@@ -417,7 +417,7 @@ const SafetyRatings = ({
                         </div>
                       ))}
                     </div>
-                    <div className="flex flex-row items-center gap-4 flex-wrap">
+                    <div className="flex flex-row items-center gap-4 flex-wrap justify-center sm:justify-start">
                       {project?.socials?.twitter && (
                         <div className="rounded-full shadow-inner">
                           <img
@@ -568,8 +568,8 @@ const SafetyRatings = ({
                           ></CircleProgressBar>
                         </div>
                       </div>
-                      <div onClick={() => navigate(`/safety-ratings/rating/${index}`)} className="font-Manrope text-sz10 font-light flex flex-row items-center justify-between">
-                        <div className="flex flex-row items-center space-x-4">
+                      <div onClick={() => navigate(`/safety-ratings/rating/${index}`)} className="font-Manrope text-sz10 font-light flex flex-row items-center justify-between flex-wrap gap-y-4">
+                        <div className="flex flex-row items-center justify-start gap-x-4 gap-y-4 flex-wrap">
                           {project?.tags?.map((tag: any) => (
                             <div
                               className={

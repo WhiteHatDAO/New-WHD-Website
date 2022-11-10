@@ -235,7 +235,7 @@ const Navbar = ({ showMenu, handleShowMenu }: navProps) => {
               </div>
               {showMenu && (
                 <div
-                  className="w-80 absolute rounded-lg border bg-lightgray text-sz16 text-blue border-blue shadow-xl"
+                  className="w-80 absolute rounded-lg border z-10 bg-lightgray text-sz16 text-blue border-blue shadow-xl"
                   style={{ top: "70px", right: "0px" }}
                 >
                   <div className="flex flex-col p-4 gap-4">

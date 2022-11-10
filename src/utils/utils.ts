@@ -1,8 +1,17 @@
 export const FormatYMD = (date: string) => {
   const data = new Date(date);
-  return String(
-    [data.getDate(), data.getMonth(), data.getFullYear()].join("-")
-  );
+  const yyyy = data.getFullYear();
+  let mm = (data.getMonth() + 1).toString(); // Months start at 0!
+  let dd = data.getDate().toString();
+
+  if (Number(dd) < 10) dd = '0' + dd.toString();
+  if (Number(mm) < 10) mm = '0' + mm.toString();
+
+  const formatteddate = dd + '-' + mm + '-' + yyyy;
+  return formatteddate;
+  // return String(
+  //   [data.getMonth(), data.getDate(), data.getFullYear()].join("-")
+  // );
 };
 
 export const FormatNumber = (number: string) => {

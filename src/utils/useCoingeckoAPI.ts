@@ -8,15 +8,15 @@ export const useCoingeckoAPI = () => {
     if(!token || token === undefined) return;
     fetch(
       `https://api.coingecko.com/api/v3/coins/${token}?tickers=false&community_data=false&developer_data=false`,
-      {
-        mode: "cors",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "*",
-          "Access-Control-Allow-Headers":
-            "Origin, X-Requested-With, Content-Type, Accept",
-        },
-      }
+      // {
+      //   mode: "cors",
+      //   headers: {
+      //     "Access-Control-Allow-Origin": "*",
+      //     "Access-Control-Allow-Methods": "*",
+      //     "Access-Control-Allow-Headers":
+      //       "Origin, X-Requested-With, Content-Type, Accept",
+      //   },
+      // }
     )
       .then((response) => response.json())
       .then((data) => {

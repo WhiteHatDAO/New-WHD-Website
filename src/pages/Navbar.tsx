@@ -4,7 +4,7 @@ import close from "../assets/images/close.svg";
 import { useState } from "react";
 import { useAppContext } from "../context/appContext";
 import { web3Modal } from "../utils/web3Modal";
-import { useCallback, useEffect } from "react";
+import { useMemo, useCallback, useEffect } from "react";
 import { providers } from "ethers";
 import profile from "../assets/images/header/profile.png";
 import setting from "../assets/images/header/setting.png";
@@ -22,6 +22,8 @@ const Navbar = ({ showMenu, handleShowMenu }: navProps) => {
   const [open, setOpen] = useState(false);
   const [appState, setAppState] = useAppContext();
   const [profileState, setProfileState] = useState<boolean | undefined>(undefined)
+  const [title, setTitle] = useState("Governance");
+  const [link, setLink] = useState("");
   const { provider, address } = appState;
 
   const navigate = useNavigate();
@@ -75,8 +77,18 @@ const Navbar = ({ showMenu, handleShowMenu }: navProps) => {
   }
 
   // Auto connect to the cached provider
-  useEffect(() => {
+  useMemo(async() => {
     console.log('here')
+    const res = await axios.get(BACKEND_SERVER + "/api/governance");
+    if (res.status === 200) {
+      if (res.data.data.length > 0) {
+        setTitle(res.data.data[0].title);
+        setLink(res.data.data[0].link);
+      } else {
+        setTitle("Governance");
+        setLink("");
+      }
+    }
     if (web3Modal.cachedProvider) {
       connect();
     }
@@ -205,21 +217,21 @@ const Navbar = ({ showMenu, handleShowMenu }: navProps) => {
             >
               AUDIT
             </div>
-            <div
+            {/* <div
               onClick={() => navigate("/gift-cards")}
               className={
                 location.pathname === "/gift-cards" ? "cursor-pointer text-pink" : "cursor-pointer text-black"
               }
             >
               GIFT CARDS
-            </div>
+            </div> */}
             <div
-              onClick={() => navigate("/blogpost")}
+              onClick={() => document.location.href = link}
               className={
                 location.pathname === "/blogpost" ? "cursor-pointer text-pink" : "cursor-pointer text-black"
               }
             >
-              BLOGPOSTS
+              {title}
             </div>
           </div>
           <div className="flex flex-row items-center space-x-4">
@@ -292,11 +304,11 @@ const Navbar = ({ showMenu, handleShowMenu }: navProps) => {
               <a href="/audit">
                 <div>AUDIT</div>
               </a>
-              <a href="/gift-cards">
+              {/* <a href="/gift-cards">
                 <div>GIFT CARDS</div>
-              </a>
-              <a href="/blogpost">
-                <div>BLOGPOSTS</div>
+              </a> */}
+              <a href={link}>
+                <div>{title}</div>
               </a>
               <div className="z-10 cursor-pointer">
                 <div className="shadow-sm text-2xl px-8 py-2 border rounded-xl gradient-box text-sz16">

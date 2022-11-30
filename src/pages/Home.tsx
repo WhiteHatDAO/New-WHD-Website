@@ -1,5 +1,4 @@
 import alertImage from "../assets/images/alert.svg";
-import groupSlideImage from "../assets/images/group_slide.svg";
 import CircleProgressBar from "../components/CircleProgressBar";
 import searchImage from "../assets/images/search.svg";
 // import auditWHD from "../assets/images/auditWHD.svg";
@@ -143,6 +142,8 @@ const Home = ({
   const [networks, setNetworks] = useState<string[]>([]);
   const [exchange, setExchange] = useState<any[]>([]);
   const [tokensData, setTokensData] = useState<any[]>([]);
+	const [curAnnPage, setCurAnnPage] = useState(0);
+	const [news, setNews] = useState<Array<any>>([]);
   
   const handleAddTokenAddress = () => {
     let tAddress = [];
@@ -286,25 +287,31 @@ const Home = ({
   };
 
   const getAnnounces = async () => {
-    try {
-      const params = new URLSearchParams([
-        ["category", "WHD Announcements & Updates"],
-      ]);
-      const res = await axios.get(
-        BACKEND_SERVER + "/api/topics/latest_topics",
-        { params }
-      );
-      if (res.status === 200) {
-        setAnnounces(res.data.data);
-      }
-    } catch (e) {
-      console.error(e);
-    }
+		try {
+			const res = await axios.get(BACKEND_SERVER + '/api/announcements');
+			console.log("res,data", res.data)
+			if (res.status === 200) {
+				setAnnounces(res.data.data);
+			}
+		} catch (e) {
+			console.error(e);
+		}
   };
+
+  const getNews = async () => {
+		try {
+		  const { data } = await axios.get("https://www.coindesk.com/pf/api/v3/content/fetch/websked-collections?query=%7B%22content_alias%22%3A%22opinion%22%2C%22format%22%3A%22opinion%22%2C%22from%22%3A0%2C%22size%22%3A12%7D&d=221&_website=coindesk")
+		  setNews(data)
+		} catch(e) {
+		  console.log(e)
+		}
+	}
 
   useEffect(() => {
     getTopics();
     getAnnounces();
+    getNews();
+		setInterval(() => getNews(), 1800000) 
   }, []);
 
   useEffect(() => {
@@ -334,7 +341,7 @@ const Home = ({
       console.log(auditProjects, 'once?')
       let tokens: string[] = [];
       auditProjects.forEach(auditProject => {
-        tokens.push(auditProject.token)
+				if(auditProject.token) tokens.push(auditProject.token)
       });
       fetchTokensData(tokens).then(d => setTokensData(d))
     }
@@ -564,8 +571,6 @@ const Home = ({
     return text;
   };
 
-  console.log(auditProjects, mainProData, tokenData)
-
   return (
     <>
       {auditProjects && mainProData ? (
@@ -693,38 +698,39 @@ const Home = ({
                   </div>
                 </div>
                 <div className="py-6 px-6 font-Manrope flex flex-col space-y-6 rounded-xl">
-                  {announces.map((topic: any, index: number) => (
-                    <>
-                      {index < 4 && (
-                        <div className="px-4 py-2 bg-gray rounded-xl flex flex-col">
-                          <div className="text-sz14 md:text-sz18 flex flex-row items-center justify-between">
-                            <div className="font-bold">
-                              Blog created; {topic.title}
-                            </div>
-                            <div className="text-sz16 text-darkgray font-light">
-                              {FormatDate(topic.createdAt)}
-                            </div>
-                          </div>
-                          <div className="text-sz14 md:text-sz18 flex flex-row items-center justify-between">
-                            <div className="flex flex-row items-center">
-                              {getTextFromTopic(topic)}
-                            </div>
-                            <div className="flex flex-row items-center space-x-2">
-                              {topic.tags.map((tag: string) => (
-                                <div className="rounded-full shadow-inner px-4 py-2 text-red text-sz12">
-                                  {tag}
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                    </>
-                  ))}
+                  {announces.filter((x, index) => index>=curAnnPage*5 && index<(curAnnPage+1)*5).map((topic: any, index: number) => (
+										<div key={index} className="px-4 py-2 bg-gray rounded-xl flex flex-col">
+											<div className="text-sz14 md:text-sz18 block sm:flex flex-row items-center justify-between">
+												<div className="w-full sm:w-max font-bold">
+													{topic.title}
+												</div>
+												<div className="text-sz16 text-darkgray font-light hidden sm:block">
+													{FormatDate(topic.createdAt)}
+												</div>
+											</div>
+											<div className="text-sz14 md:text-sz18 flex flex-row items-center justify-between mt-2 sm:mt-0">
+												<div className="hidden sm:flex flex-row items-center">
+													{getTextFromTopic(topic)}
+												</div>
+												<div className="flex flex-row items-center space-x-2">
+													{topic.tags.map((tag: string, i:number) => (
+														<div key={i} className="rounded-full shadow-inner px-4 py-2 text-red text-sz12">
+															{tag}
+														</div>
+													))}
+												</div>
+												<div className="text-sz16 text-darkgray font-light block sm:hidden">
+													{FormatDate(topic.createdAt)}
+												</div>
+											</div>
+										</div>
+									))}
 
-                  <div className="pt-3 flex flex-col items-center justify-center">
-                    <img src={groupSlideImage} alt="group slide"></img>
-                  </div>
+									<div className="pt-3 flex flex-wrap items-center justify-center gap-2">
+										{Array(Math.ceil(announces.length / 5)).fill("").map((x, i) =>
+											<button key={i} className={`w-8 h-3 border-none outline-none rounded-xl bg-blue ${ curAnnPage !== i && "opacity-50"}`} onClick={() => setCurAnnPage(i)}></button>
+										)}
+									</div>
                 </div>
               </div>
             </div>
@@ -812,7 +818,7 @@ const Home = ({
                               </div>
                               {tokenAddress?.map(
                                 (token: any, index: number) => (
-                                  <div className="flex flex-row items-center space-x-4">
+                                  <div key={index} className="flex flex-row items-center space-x-4">
                                     <SelectNetwork
                                       index={index}
                                       value={token}
@@ -875,7 +881,7 @@ const Home = ({
                               </div>
                             </div>
                             {exchange.map((exch: any, index: number) => (
-                              <div className="p-4 rounded-xl border border-blue flex flex-row items-center space-x-8">
+                              <div key={index} className="p-4 rounded-xl border border-blue flex flex-row items-center space-x-8">
                                 <div className="flex flex-col space-y-2">
                                   <label
                                     htmlFor={`dropzone-file${index}`}
@@ -1191,6 +1197,7 @@ const Home = ({
                 <tbody>
                   {filteredProjects?.map((project, index) => (
                     <tr
+                      key={index}
                       onClick={() => navigate(`/safety-ratings/rating/${index}`)}
                       className={
                         filteredProjects?.length === index + 1
@@ -1226,20 +1233,16 @@ const Home = ({
                       <td className="px-6 py-3">
                         {
                           tokensData ? (
-                            (tokensData[index]?.price)
-                          ) : (
-                            "N/A"
-                          )
+                            (tokensData[index]?.price !== undefined && "$ ") + tokensData[index]?.price
+                          ) : "N/A"
                         }
                         {/* {project.price === -1 ? "N/A" : project.price} */}
                       </td>
                       <td className="px-6 py-3">
                       {
                           tokensData ? (
-                            ((tokensData[index]?.market_cap === 0) ? "N/A" : (tokensData[index]?.market_cap) )
-                          ) : (
-                            "N/A"
-                          )
+												    ((tokensData[index]?.market_cap === 0) ? "N/A" : (tokensData[index]?.market_cap !== undefined && "$ ") + tokensData[index]?.market_cap )
+                          ) : "N/A"
                         }
                         {/* {project.market === "-1"
                           ? "N/A"
@@ -1466,7 +1469,7 @@ const Home = ({
                               Edit Brands and logo
                             </div>
                             {brands.map((brand: any, index: number) => (
-                              <div className="flex flex-row items-center space-x-4">
+                              <div key={index} className="flex flex-row items-center space-x-4">
                                 <div className="flex flex-col space-y-2">
                                   <div className="text-sz14">Upload logo</div>
                                   <label
@@ -1527,20 +1530,22 @@ const Home = ({
               ) : null}
             </div>
             <div className="py-6 px-4 font-Manrope flex flex-row flex-wrap items-center justify-center space-x-8 rounded-xl">
-              {mainProData.home.brands.map((brand: any) => (
-                <img src={brand.link} alt={brand.name}></img>
+              {mainProData.home.brands.map((brand: any, i: number) => (
+                <a key={i} href={brand.link} target="_blank" rel="noreferrer" className="flex justify-center items-center rounded-full bg-white w-20 h-20 overflow-hidden">
+                  <img src={brand.link} alt={brand.name}></img>
+                </a>
               ))}
             </div>
           </div>
 
           <div className="my-8 w-full flex flex-col">
             <div className="text-center font-pilat text-sz20 font-semibold">
-              Blogposts
+              Web3 News
             </div>
             <div className="mt-8 font-Manrope">
               {topics.length > 0 && (
                 <BlogSlick
-                  topics={topics}
+                  news={news}
                   handleGotoTopic={handleGotoTopic}
                 ></BlogSlick>
               )}

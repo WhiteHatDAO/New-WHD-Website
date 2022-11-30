@@ -85,3 +85,23 @@
 .box-border-blue {
   border: 1px solid #346DA1;
 }
+
+.slick-dots >li{
+  width: 2rem !important;
+  height: 0.75rem !important;
+  background: #346DA1;
+  border-radius: 0.75rem;
+  opacity: .5;
+}
+
+.slick-dots >li >button {
+  width: 100% !important;
+}
+
+.slick-dots >li >button:before{
+  display: none;
+}
+
+.slick-dots .slick-active {
+  opacity: 1;
+}

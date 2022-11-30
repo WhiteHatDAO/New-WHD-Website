@@ -427,9 +427,9 @@ const Audit = ({
                       <path
                         d="M3.16667 1H14V11.8333M14 1L1 14L14 1Z"
                         stroke="#CC2D8F"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                     </svg>
                   </div>
@@ -625,8 +625,8 @@ const Audit = ({
                 className="text-sz16 md:text-sz18 p-6 rounded-md shadow-inner flex flex-col space-y-4"
               >
                 <ul className="pl-8 list-outside list-disc space-y-4">
-                  {mainProData.audit.terms_text.map((text: string) => (
-                    <li className="text-blue">
+                  {mainProData.audit.terms_text.map((text: string, i: number) => (
+                    <li key={i} className="text-blue">
                       <div className="text-black">{text}</div>
                     </li>
                   ))}
@@ -723,11 +723,11 @@ const Audit = ({
             </div>
             <div className="text-black font-Manrope font-light flex flex-row flex-wrap items-center gap-4">
               <select
-                id="role"
+                id="role" defaultValue="choose"
                 onChange={handleChangeNetwork}
                 className="w-72 h-12 box-border-blue bg-transparent border border-blue text-sz18 rounded-lg block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               >
-                <option value="choose" selected>
+                <option value="choose">
                   Choose a network
                 </option>
                 <option value="ETH">ETH</option>
@@ -744,11 +744,11 @@ const Audit = ({
                 <option value="zkSync">zkSync</option>
               </select>
               <select
-                id="category"
+                id="category" defaultValue="choose"
                 onChange={handleChangeCategory}
                 className="w-72 h-12 box-border-blue bg-transparent text-sz18 rounded-lg block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               >
-                <option value="choose" selected>
+                <option value="choose">
                   Choose a category
                 </option>
                 <option value="Defi">Defi</option>
@@ -799,6 +799,7 @@ const Audit = ({
                 <tbody>
                   {filteredProjects?.map((project, index) => (
                     <tr
+                      key={index}
                       onClick={() => navigate(`/safety-ratings/rating/${index}`)}
                       className={
                         filteredProjects?.length === index + 1
@@ -831,12 +832,12 @@ const Audit = ({
                         </div>
                       </td>
                       <td className="px-6 py-3">
-                        {project.price === -1 ? "N/A" : project.price}
+                        {(project.price === -1 || project.price === undefined) ? "N/A" : "$ "+project.price}
                       </td>
                       <td className="px-6 py-3">
-                        {project.market === "-1"
+                        {(project.market === "-1" || project.market === undefined)
                           ? "N/A"
-                          : FormatNumber(project.market)}
+                          : "$ "+FormatNumber(project.market)}
                       </td>
                       <td className="px-6 py-3">
                         {FormatYMD(project.createdAt)}

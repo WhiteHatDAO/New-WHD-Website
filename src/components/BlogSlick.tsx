@@ -55,25 +55,27 @@ export default class ReactSlick extends Component<IProps> {
       <div className="relative roadmap_container">
         <Slider {...settings}>
           {this.props?.news.map((item: any, index: number) => (
-            <div key={index} className="flex flex-col justify-center">
-              <div className="my-8 mr-4 ml-4 shadow-sm flex flex-col border rounded-b-xl border-none overflow-hidden">
-                <img className="rounded-t-xl h-60 blur" src={item.author.image.desktop.src} alt="post1"></img>
-                <div className="p-4 flex flex-col space-y-4">
-                  <div className="text-black text-sz18 font-bold">
-                    {item.title}
-                  </div>
-                  <div className="flex flex-row flex-wrap items-center gap-x-2">
-                    <div className="w-1 h-4 bg-major"></div>
-                    <a href={"https://coindesk.com/" + item.url}>www.coindesk.com</a>
-                    <div className="font-light text-sz14 text-darkgray">
-                      {getPast(item.date).days > 0 && getPast(item.date).days + "d "}
-                      {getPast(item.date).hours > 0 && getPast(item.date).hours + "h "}
-                      {getPast(item.date).minutes > 0 && getPast(item.date).minutes + "m "}
+            <a href={"https://coindesk.com/" + item.url}>
+              <div key={index} className="flex flex-col justify-center cursor-pointer">
+                <div className="my-8 mr-4 ml-4 shadow-sm flex flex-col border rounded-b-xl border-none overflow-hidden">
+                  <img className="rounded-t-xl h-60 blur" src={item.author.image.desktop.src} alt="post1"></img>
+                  <div className="p-4 flex flex-col space-y-4">
+                    <div className="text-black text-sz18 font-bold overflow-hidden" style={{height: 150}}>
+                      {item.title}
+                    </div>
+                    <div className="flex flex-row flex-wrap items-center gap-x-2">
+                      <div className="w-1 h-4 bg-major"></div>
+                      <a>www.coindesk.com</a>
+                      <div className="font-light text-sz14 text-darkgray">
+                        {getPast(item.date).days > 0 && getPast(item.date).days + "d "}
+                        {getPast(item.date).hours > 0 && getPast(item.date).hours + "h "}
+                        {getPast(item.date).minutes > 0 && getPast(item.date).minutes + "m "}
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </a>
           ))}
         </Slider>
       </div>

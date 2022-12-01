@@ -67,6 +67,7 @@ const Home = ({
   const [topics, setTopics] = useState<any[]>([]);
   const [announces, setAnnounces] = useState<any[]>([]);
   const [currentNet, setCurrentNet] = useState<string>("");
+	const [page, setPage] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -75,6 +76,9 @@ const Home = ({
       setFilteredProjects(projects);
     }
   }, [auditProjects, searchText]);
+
+  const prev = () => (page > 0) && setPage(x=>x-=1)
+	const next = () => (page < Math.ceil(filteredProjects.length / 10) - 1) && setPage(x=>x+=1)
 
   const handleSearchItem = () => {
     if (auditProjects.length === 0) return;
@@ -1257,27 +1261,17 @@ const Home = ({
               </table>
             </div>
             <div className="font-Manrope text-sz15 w-full flex flex-row items-center justify-center space-x-4">
-              <div className="shadow-sm w-12 h-12 flex flex-row items-center justify-center">
-                <img src={prevImage} alt="prev"></img>
-              </div>
-              <div className="shadow-sm w-12 h-12 flex flex-row items-center justify-center">
-                1
-              </div>
-              <div className="shadow-sm w-12 h-12 flex flex-row items-center justify-center">
-                2
-              </div>
-              <div className="shadow-sm w-12 h-12 flex flex-row items-center justify-center">
-                3
-              </div>
-              <div className="shadow-sm w-12 h-12 flex flex-row items-center justify-center">
-                ...
-              </div>
-              <div className="shadow-sm w-12 h-12 flex flex-row items-center justify-center">
-                500
-              </div>
-              <div className="shadow-sm w-12 h-12 flex flex-row items-center justify-center">
-                <img src={nextImage} alt="next"></img>
-              </div>
+            <div className="shadow-sm w-12 h-12 flex flex-row items-center justify-center" onClick={prev}>
+								<img src={prevImage} alt="prev"></img>
+							</div>
+							{Array(Math.ceil(filteredProjects.length / 10)).fill("").map((x, i) =>
+								<div className={(page === i ? "shadow-sm " : "") + "w-12 h-12 flex flex-row items-center justify-center"} onClick={() => setPage(i)}>
+									{i+1}
+								</div>
+							)}
+							<div className="shadow-sm w-12 h-12 flex flex-row items-center justify-center" onClick={next}>
+								<img src={nextImage} alt="next"></img>
+							</div>
             </div>
           </div>
           <div className="my-8 w-full flex flex-col">

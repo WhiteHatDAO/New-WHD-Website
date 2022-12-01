@@ -65,7 +65,7 @@ export default class ReactSlick extends Component<IProps> {
                     </div>
                     <div className="flex flex-row flex-wrap items-center gap-x-2">
                       <div className="w-1 h-4 bg-major"></div>
-                      <a>www.coindesk.com</a>
+                      <span>www.coindesk.com</span>
                       <div className="font-light text-sz14 text-darkgray">
                         {getPast(item.date).days > 0 && getPast(item.date).days + "d "}
                         {getPast(item.date).hours > 0 && getPast(item.date).hours + "h "}

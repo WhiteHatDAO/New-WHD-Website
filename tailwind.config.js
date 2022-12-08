@@ -17,6 +17,26 @@ module.exports = {
       padding: {
         border: '1px',
         middle: '30px'
+      },
+      lineHeight: {
+        'ht16.39': '16.39px',
+        'ht18.49': '18.49px',
+        'ht19.12': '19.12px',
+        'ht20': '20px',
+        'ht21.86': '21.86px',
+        'ht24.66': '24.66px',
+        'ht25': '25px',
+        'ht25.7': '25.7px',
+        'ht27.06': '27.06px',
+        'ht27.62': '27.62px',
+        'ht28.27': '28.27px',
+        'ht30': '30px',
+        'ht36': '36px',
+      },
+      zIndex: {
+        '2': '2',
+        '3': '3',
+        '4': '4',
       }
     },
     colors: {
@@ -25,6 +45,7 @@ module.exports = {
       gray: "#DDDEE8",
       darkgray: "#727272",
       darkblue: "#4D6380",
+      darkpurple: "#595F8C",
       white: "#ffffff",
       red: "#A70505",
       green: "#059235",
@@ -62,6 +83,7 @@ module.exports = {
       'sz20': '20px',
       'sz22': '22px',
       'sz24': '24px',
+      'sz28': '28px',
       'sz30': '30px',
       'sz40': '40px',
       'sz48': '48px',

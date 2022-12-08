@@ -173,9 +173,9 @@ const SafetyRatings = ({
   return (
     <>
       {auditProjects && mainProData ? (
-        <div className="mx-4 flex flex-col">
-          <div className="my-10 p-8 rounded-xl border border-blue shadow-xl flex flex-col space-y-6 text-center font-Manrope font-light">
-            <div className="font-pilat text-sz18 text-blue flex flex-row items-start">
+        <div className="mx-2 sm:mx-4 flex flex-col">
+          <div className="mt-10 mb-[60px] md:my-10 px-[10px] pt-5 pb-7 md:p-4 sm:p-8 rounded-xl border border-blue shadow-xl flex flex-col space-y-5 md:space-y-6 text-center font-Manrope font-light">
+            <div className="font-pilat text-sz20 leading-ht30 md:leading-auto text-blue flex flex-row items-start">
               <div className="w-full font-bold">Safety Ratings</div>
               {/* <div
                 className="text-sz16 font-Manrope flex flex-row items-center space-x-2 cursor-pointer"
@@ -283,13 +283,13 @@ const SafetyRatings = ({
                 </>
               ) : null}
             </div>
-            <div className="text-sz16">{mainProData.rating.safety_ratings}</div>
-            <div className="flex flex-col md:flex-row items-center justify-center gap-8">
+            <div className="text-sz16 font-Manrope font-medium leading-ht27.06 md:leading-auto text-grey">{mainProData.rating.safety_ratings}</div>
+            <div className="mt-[10px] md:mt-0 px-[13px] flex flex-col md:flex-row items-center justify-center gap-[30px] md:gap-8">
               <a
-                className="cursor-pointer w-full md:w-1/3 rounded-lg shadow-xl"
+                className="cursor-pointer w-full md:w-1/3 rounded-lg shadow-sm"
                 href={mainProData.rating.rating_button_first_link}
               >
-                <div className="px-4 py-2 text-sz16 text-blue font-Manrope font-semibold flex flex-row space-x-2 items-center justify-center">
+                <div className="px-4 py-[10px] text-sz16 text-blue font-Manrope font-bold md:font-semibold flex flex-row space-x-2 items-center justify-center">
                   <div className="w-full">
                     {mainProData.rating.rating_buttion_first}
                   </div>
@@ -297,10 +297,10 @@ const SafetyRatings = ({
                 </div>
               </a>
               <a
-                className="cursor-pointer  w-full md:w-1/3 rounded-lg shadow-xl"
+                className="cursor-pointer w-full md:w-1/3 rounded-lg shadow-sm"
                 href={mainProData.rating.rating_button_second_link}
               >
-                <div className="px-4 py-2 text-sz16 text-blue font-Manrope font-semibold flex flex-row space-x-2 items-center justify-center">
+                <div className="px-4 py-[10px] text-sz16 text-blue font-Manrope font-bold md:font-semibold flex flex-row space-x-2 items-center justify-center">
                   <div className="w-full">
                     {mainProData.rating.rating_button_second}
                   </div>
@@ -315,18 +315,18 @@ const SafetyRatings = ({
               className="cursor-pointer font-Manrope border rounded-lg border-blue shadow-sm px-4 py-1 flex flex-row items-center space-x-2"
             >
               <img src={addItem} alt="addItem"></img>
-              <div className="text-blue text-sz16">Add New Projects</div>
+              <div className="text-blue text-sz18">Add New Projects</div>
             </div>
           </div>
-          <div className="my-8 p-4 md:p-10 bg-lightgray rounded-xl shadow-inner-xl flex flex-col space-y-8">
+          <div className="mx-[9px] md:mx-0 mt-8 mb-10 md:mb-8 p-4 md:p-10 bg-lightgray rounded-xl shadow-inner-xl flex flex-col space-y-8">
             <div className="text-black font-Manrope font-light flex flex-col md:flex-row items-center gap-4">
               <div className="w-full flex flex-row items-center gap-4">
                 <select
-                  id="role"
+									id="role" defaultValue="choose"
                   onChange={handleChangeNetwork}
-                  className="w-full h-12 shadow-sm bg-transparent box-border-blue text-sz16 rounded-lg block p-2.5 ring-blue"
+									className="w-full h-auto shadow-sm bg-transparent box-border-blue text-sz18 leading-ht24.66 md:leading-auto rounded-lg block p-3 md:p-2.5 ring-blue text-grey"
                 >
-                  <option value="choose" selected>
+                  <option value="choose">
                     Choose a network
                   </option>
                   <option value="ETH">ETH</option>
@@ -343,11 +343,11 @@ const SafetyRatings = ({
                   <option value="zkSync">zkSync</option>
                 </select>
                 <select
-                  id="category"
+									id="category" defaultValue="choose"
                   onChange={handleChangeCategory}
-                  className="box-border-blue w-full h-12 shadow-sm bg-transparent text-sz16 rounded-lg block p-2.5"
+									className="box-border-blue w-full h-auto shadow-sm bg-transparent text-sz18 leading-ht24.66 md:leading-auto rounded-lg block p-3 md:p-2.5 text-grey"
                 >
-                  <option value="choose" selected>
+                  <option value="choose">
                     Choose a category
                   </option>
                   <option value="Defi">Defi</option>
@@ -361,15 +361,15 @@ const SafetyRatings = ({
                   id="website-admin"
                   value={searchText}
                   onChange={handleSearchItem}
-                  className="rounded-lg shadow-inner rounded-r-lg bg-lightgray border border-darkgray focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="rounded-lg shadow-inner rounded-r-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Search Projects"
                 />
               </div>
             </div>
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-[30px] md:gap-8">
               {filteredProjects?.map((project, index) => (
-                <>
-                  <div className="cursor-pointer shadow-sm border-blue font-Manrope font-light rounded-lg p-4 flex md:hidden flex-col gap-4">
+                <div key={index}>
+                  <div className="cursor-pointer shadow-xl border border-blue font-Manrope font-light rounded-lg p-4 flex md:hidden flex-col gap-4">
                     <div className="flex flex-row items-start justify-between">
                       <img
                         className="rounded-full"
@@ -384,8 +384,13 @@ const SafetyRatings = ({
                         type={0}
                       ></CircleProgressBar>
                     </div>
-                    <div onClick={() => navigate(`/safety-ratings/rating/${index}`)} className="flex flex-row items-start space-x-2">
-                      <div className="font-pilat font-bold text-sz16">
+                    <div
+                      onClick={() =>
+                        navigate(`/safety-ratings/rating/${index}`)
+                      }
+                      className="flex flex-row items-start space-x-2"
+                    >
+                      <div className="font-pilat font-bold text-sz20 md:text-sz18 leading-ht30 md:leading-auto text-grey">
                         {project.name}
                       </div>
                       {project.verified && (
@@ -395,33 +400,34 @@ const SafetyRatings = ({
                     <div className="flex flex-row items-center gap-2 sm:gap-4 flex-wrap">
                       {project?.tags?.map((tag: any, index: number) => (
                         <div
+													key={index}
                           className={
                             tag.color === "Yellow"
-                              ? "px-4 py-1 shadow-sm rounded-full bg-pure_yellow text-white"
-                              : tag.color === "Purple"
-                              ? "px-4 py-1 shadow-sm rounded-full bg-pure_purple text-white"
-                              : tag.color === "Green"
-                              ? "px-4 py-1 shadow-sm rounded-full bg-pure_green text-white"
-                              : tag.color === "Blue"
-                              ? "px-4 py-1 shadow-sm rounded-full bg-pure_blue text-white"
-                              : tag.color === "Red"
-                              ? "px-4 py-1 shadow-sm rounded-full bg-pure_red text-white"
-                              : tag.color === "Cyan"
-                              ? "px-4 py-1 shadow-sm rounded-full bg-pure_cyan text-white"
-                              : tag.color === "Pink"
-                              ? "px-4 py-1 shadow-sm rounded-full bg-pink text-white"
-                              : "px-4 py-1 shadow-sm rounded-full bg-pure_orange text-white"
+                              ? 'px-4 py-1 shadow-sm rounded-full bg-pure_yellow text-white font-medium text-sz14 leading-ht 19.12 md:leading-auto'
+                              : tag.color === 'Purple'
+                              ? 'px-4 py-1 shadow-sm rounded-full bg-pure_purple text-white font-medium text-sz14 leading-ht 19.12 md:leading-auto'
+                              : tag.color === 'Green'
+                              ? 'px-4 py-1 shadow-sm rounded-full bg-pure_green text-white font-medium text-sz14 leading-ht 19.12 md:leading-auto'
+                              : tag.color === 'Blue'
+                              ? 'px-4 py-1 shadow-sm rounded-full bg-pure_blue text-white font-medium text-sz14 leading-ht 19.12 md:leading-auto'
+                              : tag.color === 'Red'
+                              ? 'px-4 py-1 shadow-sm rounded-full bg-pure_red text-white font-medium text-sz14 leading-ht 19.12 md:leading-auto'
+                              : tag.color === 'Cyan'
+                              ? 'px-4 py-1 shadow-sm rounded-full bg-pure_cyan text-white font-medium text-sz14 leading-ht 19.12 md:leading-auto'
+                              : tag.color === 'Pink'
+                              ? 'px-4 py-1 shadow-sm rounded-full bg-pink text-white font-medium text-sz14 leading-ht 19.12 md:leading-auto'
+                              : 'px-4 py-1 shadow-sm rounded-full bg-pure_orange text-white font-medium text-sz14 leading-ht 19.12 md:leading-auto'
                           }
                         >
                           {tag.name}
                         </div>
                       ))}
                     </div>
-                    <div className="flex flex-row items-center gap-4 flex-wrap justify-center sm:justify-start">
+                    <div className="flex flex-row items-center gap-3 md:gap-4 flex-wrap justify-center sm:justify-start">
                       {project?.socials?.twitter && (
                         <div className="rounded-full shadow-inner">
                           <img
-                            className="w-12 p-3"
+                            className="w-8 p-2 md:w-12 md:p-3"
                             src={twitter}
                             alt="twitter"
                           ></img>
@@ -430,7 +436,7 @@ const SafetyRatings = ({
                       {project?.socials?.github && (
                         <div className="rounded-full shadow-inner">
                           <img
-                            className="w-12 p-3"
+                            className="w-8 p-2 md:w-12 md:p-3"
                             src={github}
                             alt="github"
                           ></img>
@@ -439,7 +445,7 @@ const SafetyRatings = ({
                       {project?.socials?.discord && (
                         <div className="rounded-full shadow-inner">
                           <img
-                            className="w-12 p-3"
+                            className="w-8 p-2 md:w-12 md:p-3"
                             src={discord}
                             alt="discord"
                           ></img>
@@ -448,7 +454,7 @@ const SafetyRatings = ({
                       {project?.socials?.medium && (
                         <div className="rounded-full shadow-inner">
                           <img
-                            className="w-12 p-3"
+                            className="w-8 p-2 md:w-12 md:p-3"
                             src={medium}
                             alt="medium"
                           ></img>
@@ -457,7 +463,7 @@ const SafetyRatings = ({
                       {project?.socials?.web && (
                         <div className="rounded-full shadow-inner">
                           <img
-                            className="w-12 p-3"
+                            className="w-8 p-2 md:w-12 md:p-3"
                             src={global}
                             alt="web"
                           ></img>
@@ -466,43 +472,63 @@ const SafetyRatings = ({
                       {project?.socials?.telegram && (
                         <div className="rounded-full shadow-inner">
                           <img
-                            className="w-12 p-3"
+                            className="w-8 p-2 md:w-12 md:p-3"
                             src={telegram}
                             alt="telegram"
                           ></img>
                         </div>
                       )}
                     </div>
-                    <div onClick={() => navigate(`/safety-ratings/rating/${index}`)} className="text-sz14">{project?.description}</div>
-                    <div onClick={() => navigate(`/safety-ratings/rating/${index}`)} className="flex flex-row items-end justify-between">
-                      <div className="flex flex-col items-start gap-4">
-                        <div className="text-black">Audited by:</div>
-                        {project?.audited_by?.map((audit: any) => (
+                    <div 
+                      onClick={() =>
+                        navigate(`/safety-ratings/rating/${index}`)
+                      }
+                      className="text-sz12 md:text-sz16 leading-ht18.49 md:leading-auto font-Manrope font-medium text-grey"
+                    >
+                      {project?.description}
+                    </div>
+                    <div 
+                      onClick={() =>
+                        navigate(`/safety-ratings/rating/${index}`)
+                      }
+                      className="mt-6 md:mt-0 flex flex-row items-end justify-between"
+                    >
+                      <div className="flex flex-col items-start gap-[5px]">
+                        <div className="mb-[5px] md:mb-0 font-Manrope font-medium text-sz12 leading-ht16.39 md:leading-auto text-grey md:text-black">Audited by:</div>
+												{project?.audited_by?.map((audit: any, i:number) => (
                           <div
+														key={i}
                             className={
                               audit === "WHD"
-                                ? "px-4 py-1 rounded-full shadow-inner text-pink"
-                                : "px-4 py-1 rounded-full shadow-inner text-blue"
+                                ? 'px-4 py-1 rounded-full shadow-inner text-pink font-Manrope font-medium text-sz12 leading-ht16.39 md:leading-auto'
+                                : 'px-4 py-1 rounded-full shadow-inner text-blue font-Manrope font-medium text-sz12 leading-ht16.39 md:leading-auto'
                             }
                           >
                             {audit}
                           </div>
                         ))}
                       </div>
-                      <img src={goImage} alt="go"></img>
+											<img src={goImage} width="24" height="24" alt="go"></img>
                     </div>
                   </div>
                   <div className="cursor-pointer shadow-xl hidden border border-blue rounded-xl px-8 py-4 md:flex flex-row items-center gap-4">
                     <img
-                      className="rounded-full w-44"
-                      onClick={() => navigate(`/safety-ratings/rating/${index}`)}
+                      className="rounded-full"
+                      onClick={() => 
+                        navigate(`/safety-ratings/rating/${index}`)
+                      }
                       src={project?.logo}
                       alt="idol"
                     ></img>
                     <div className="w-full font-Manrope flex flex-col space-y-4">
-                      <div onClick={() => navigate(`/safety-ratings/rating/${index}`)} className="flex flex-row items-center justify-between">
+                      <div
+                        onClick={() =>
+                          navigate(`/safety-ratings/rating/${index}`)
+                        }
+                        className="flex flex-row items-center justify-between"
+                      >
                         <div className="flex flex-row items-start space-x-2">
-                          <div className="font-pilat font-bold text-sz18">
+                          <div className="font-pilat font-bold text-sz20">
                             {project.name}
                           </div>
                           {project.verified && (
@@ -513,7 +539,7 @@ const SafetyRatings = ({
                           {project?.socials?.twitter && (
                             <a href={`${project?.socials?.twitter}`} target="_blank" rel="noreferrer" className="rounded-full shadow-inner cursor-point">
                               <img
-                                className="w-12 p-3"
+                                className="w-8 p-2 md:w-12 md:p-3"
                                 src={twitter}
                                 alt="twitter"
                               ></img>
@@ -522,7 +548,7 @@ const SafetyRatings = ({
                           {project?.socials?.github && (
                             <a href={project?.socials?.github} target="_blank" rel="noreferrer" className="rounded-full shadow-inner cursor-point">
                               <img
-                                className="w-12 p-3"
+                                className="w-8 p-2 md:w-12 md:p-3"
                                 src={github}
                                 alt="github"
                               ></img>
@@ -531,7 +557,7 @@ const SafetyRatings = ({
                           {project?.socials?.discord && (
                             <a href={project?.socials?.discord} target="_blank" rel="noreferrer" className="rounded-full shadow-inner cursor-point">
                               <img
-                                className="w-12 p-3"
+                                className="w-8 p-2 md:w-12 md:p-3"
                                 src={discord}
                                 alt="discord"
                               ></img>
@@ -540,7 +566,7 @@ const SafetyRatings = ({
                           {project?.socials?.medium && (
                             <a href={project?.socials?.medium} target="_blank" rel="noreferrer"  className="rounded-full shadow-inner cursor-point">
                               <img
-                                className="w-12 p-3"
+                                className="w-8 p-2 md:w-12 md:p-3"
                                 src={medium}
                                 alt="medium"
                               ></img>
@@ -548,13 +574,13 @@ const SafetyRatings = ({
                           )}
                           {project?.socials?.web && (
                             <a href={project?.socials?.web} target="_blank" rel="noreferrer"  className="rounded-full shadow-inner cursor-point">
-                              <img className="w-12 p-3" src={global} alt="web"></img>
+                              <img className="w-8 p-2 md:w-12 md:p-3" src={global} alt="web"></img>
                             </a>
                           )}
                           {project?.socials?.telegram && (
                             <a href={project?.socials?.telegram} target="_blank" rel="noreferrer" className="rounded-full shadow-inner cursor-point">
                               <img
-                                className="w-12 p-3"
+                                className="w-8 p-2 md:w-12 md:p-3"
                                 src={telegram}
                                 alt="telegram"
                               ></img>
@@ -568,10 +594,16 @@ const SafetyRatings = ({
                           ></CircleProgressBar>
                         </div>
                       </div>
-                      <div onClick={() => navigate(`/safety-ratings/rating/${index}`)} className="font-Manrope text-sz10 font-light flex flex-row items-center justify-between flex-wrap gap-y-4">
+                      <div
+                        onClick={() =>
+                          navigate(`/safety-ratings/rating/${index}`)
+                        }
+												className="mt-6 md:mt-0 font-Manrope text-sz12 font-light flex flex-row items-center justify-between flex-wrap gap-y-4"
+                      >
                         <div className="flex flex-row items-center justify-start gap-x-4 gap-y-4 flex-wrap">
-                          {project?.tags?.map((tag: any) => (
+													{project?.tags?.map((tag: any, i:number) => (
                             <div
+															key={i}
                               className={
                                 tag.color === "Yellow"
                                   ? "px-4 py-1 shadow-sm rounded-full bg-pure_yellow text-white"
@@ -596,8 +628,9 @@ const SafetyRatings = ({
                         </div>
                         <div className="flex flex-row items-center space-x-4">
                           <div className="text-black">Audited by:</div>
-                          {project?.audited_by?.map((audit: any) => (
+													{project?.audited_by?.map((audit: any, i:number) => (
                             <div
+															key={i}
                               className={
                                 audit === "WHD"
                                   ? "px-4 py-1 rounded-full shadow-inner text-pink"
@@ -615,7 +648,7 @@ const SafetyRatings = ({
                       </div>
                     </div>
                   </div>
-                </>
+                </div>
               ))}
             </div>
           </div>

@@ -78,7 +78,6 @@ const Navbar = ({ showMenu, handleShowMenu }: navProps) => {
 
   // Auto connect to the cached provider
   useMemo(async() => {
-    console.log('here')
     const res = await axios.get(BACKEND_SERVER + "/api/governance");
     if (res.status === 200) {
       if (res.data.data.length > 0) {
@@ -234,16 +233,23 @@ const Navbar = ({ showMenu, handleShowMenu }: navProps) => {
               {title}
             </div>
           </div>
-          <div className="flex flex-row items-center space-x-4">
-            <div className="w-60 relative cursor-pointer">
+          <div className="flex flex-row items-center space-x-7 md:space-x-4">
+            <div className="md:w-60 relative cursor-pointer z-2">
               <div
                 // className="shadow-sm text-2xl px-6 py-2 border rounded-xl gradient-box text-sz16"
                 className="shadow-sm text-2xl px-6 py-2 border flex items-center justify-center rounded-xl gradient-box text-sz16"
                 onClick={handleConnect}
               >
-                {appState.web3Provider && address
-                  ? getSubAddress(address as string)
-                  : "Connect Wallet"}
+                <span className="block md:hidden">
+                  {appState.web3Provider && address
+                    ? getSubAddress(address as string)
+                    : "CONNECT"}
+                </span>
+                <span className="hidden md:block">
+                  {appState.web3Provider && address
+                    ? getSubAddress(address as string)
+                    : "Connect Wallet"}
+                </span>
               </div>
               {showMenu && (
                 <div
@@ -277,7 +283,7 @@ const Navbar = ({ showMenu, handleShowMenu }: navProps) => {
             </div>
             <img
               onClick={() => setOpen(true)}
-              className="block xl:hidden"
+              className="block xl:hidden cursor-pointer"
               src={hamburger}
               alt="hamburger"
             ></img>
@@ -285,35 +291,35 @@ const Navbar = ({ showMenu, handleShowMenu }: navProps) => {
         </div>
       </div>
       {open && (
-        <div className="absolute top-0 w-full h-screen z-20">
-          <div className="m-7 p-4 rounded-xl flex flex-col shadow-xl bg-lightgray h-screen">
-            <div className="flex flex-row items-center justify-between">
-              <img className="w-12" src={logo} alt="logo"></img>
-              <img onClick={() => setOpen(false)} src={close} alt="close"></img>
-            </div>
-            <div className="pt-7 font-pilat text-sz14 flex flex-col items-center justify-center gap-5">
-              <a href="/">
-                <div>HOME</div>
-              </a>
-              <a href="/dao">
-                <div>DAO</div>
-              </a>
-              <a href="/safety-ratings">
-                <div>SAFETY - RATINGS</div>
-              </a>
-              <a href="/audit">
-                <div>AUDIT</div>
-              </a>
-              {/* <a href="/gift-cards">
-                <div>GIFT CARDS</div>
-              </a> */}
-              <a href={link}>
-                <div>{title}</div>
-              </a>
-              <div className="z-10 cursor-pointer">
-                <div className="shadow-sm text-2xl px-8 py-2 border rounded-xl gradient-box text-sz16">
-                  CONNECT
-                </div>
+        <div className="fixed top-[19px] bottom-[19px] left-[15px] right-[15px] z-3 w-[calc(100% - 30px)] h-[calc(100% - 38px)] p-4 rounded-xl flex flex-col shadow-xl bg-lightgray">
+          <div className="flex flex-row items-center justify-between">
+            <img className="w-12" src={logo} alt="logo"></img>
+            <img className="cursor-pointer" onClick={() => setOpen(false)} src={close} alt="close"></img>
+          </div>
+          <div className="pt-7 font-pilat text-sz14 flex flex-col items-center justify-center gap-10">
+            <a href="/">
+              <div>HOME</div>
+            </a>
+            <a href="/dao">
+              <div>DAO</div>
+            </a>
+            <a href="/safety-ratings">
+              <div>SAFETY - RATINGS</div>
+            </a>
+            <a href="/audit">
+              <div>AUDIT</div>
+            </a>
+            {/* <a href="/gift-cards">
+              <div>GIFT CARDS</div>
+            </a> */}
+            <a href={link}>
+              <div>{title}</div>
+            </a>
+            <div className="z-2 cursor-pointer" onClick={appState.web3Provider && address ? handleDisconnect : handleConnect}>
+              <div className="shadow-sm text-2xl px-8 py-2 border rounded-xl gradient-box text-sz16 leading-ht30 font-semibold">
+                {appState.web3Provider && address
+                  ? getSubAddress(address as string)
+                  : "CONNECT"}
               </div>
             </div>
           </div>

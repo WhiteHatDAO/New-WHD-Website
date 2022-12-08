@@ -460,10 +460,10 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
   return (
     <>
       {mainProData ? (
-        <div className="px-4 md:px-0 py-10 flex flex-col">
+        <div className="px-[7px] md:px-0 py-10 flex flex-col">
           <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
-              <div className="w-full pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat text-center">
+              <div className="w-full md:pl-4 text-blue text-sz20 leading-ht30 md:leading-auto font-bold font-pilat text-center">
                 {mainProData.dao.governance}
               </div>
               {/* <div
@@ -635,16 +635,16 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                 </>
               ) : null}
             </div>
-            <div className="p-8 flex flex-col font-Manrope font-light space-y-4">
+            <div className="px-[10px] py-5 md:p-8 flex flex-col font-Manrope font-light space-y-[10px] md:space-y-4">
               <div className="rounded-md shadow-sm w-56 px-8 py-2 text-center font-pilat font-bold text-pink text-sz16 md:text-sz18">
                 Summary
               </div>
-              <div className="text-sz16 md:text-sz18">
+              <div className="text-sz16 md:text-sz18 font-medium leading-ht24.66 md:leading-auto text-grey">
                 {mainProData.dao.summary}
               </div>
-              <div className="p-6 rounded-md shadow-inner flex flex-row items-start md:items-center space-x-4">
+              <div className="px-4 pt-3 pb-[38px] md:p-6 rounded-md shadow-inner flex flex-row items-start md:items-center space-x-4">
                 <img src={info} alt="info"></img>
-                <div className="text-sz16 md:text-sz18 text-blue">
+                <div className="text-sz16 md:text-sz18 font-medium leading-ht25 md:leading-auto text-blue">
                   {mainProData.dao.governance_text}
                 </div>
               </div>
@@ -652,26 +652,26 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                 <div className="font-pilat font-bold text-sz18 md:text-sz18 text-pink text-center">
                   Key Governance Design Choices
                 </div>
-                <div className="my-8 shadow-xl rounded-lg relative overflow-x-auto flex flex-col text-sz14 md:text-sz18 font-Manrope font-bold text-center">
+                <div className="my-8 shadow-xl rounded-lg border border-blue relative overflow-x-auto flex flex-col text-sz14 md:text-sz18 font-Manrope font-bold text-center">
                   <div className="py-4 bg-gray text-blue grid grid-cols-2">
                     <div>Component or Feature</div>
                     <div>Phase 1 Design</div>
                   </div>
                   {mainProData.dao.component_feature.map(
                     (component: any, index: number) => (
-                      <div className="border-b border-gray bg-lightgray font-normal grid grid-cols-2">
-                        <div className="border-r border-gray py-2">
+                      <div key={index} className={`border-b border-${index !== mainProData.dao.component_feature.length - 1 ? "blue" : "gray"} bg-lightgray font-normal grid grid-cols-2 text-grey`}>
+                        <div className="flex justify-center items-center border-r border-blue py-[14px] md:py-2">
                           {component}
                         </div>
-                        <div className="py-2">
+                        <div className="flex justify-center items-center py-2">
                           {mainProData.dao.phase_design[index]}
                         </div>
                       </div>
                     )
                   )}
                 </div>
-                <a href={mainProData.dao.snapshot_link} className="pt-2 md:pt-8 z-10 cursor-pointer">
-                  <div className="shadow-sm text-2xl w-2/3 py-4 border rounded-xl gradient-box text-sz16 md:text-sz18 font-bold flex flex-col items-center">
+                <a href={mainProData.dao.snapshot_link} className="pt-[14px] md:pt-8 z-2 cursor-pointer">
+                  <div className="shadow-sm text-2xl w-full md:w-2/3 py-[10px] md:py-4 border bg-lightblack rounded-xl gradient-box text-sz16 md:text-sz18 leading-ht25 md:leading-auto font-semibold md:font-bold flex flex-col items-center">
                     Join our Snapshot Space
                   </div>
                 </a>
@@ -680,12 +680,12 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
           </div>
           <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl">
-              <div className="pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat text-center">
+              <div className="md:pl-4 text-blue text-sz20 leading-ht30 md:leading-auto font-semibold md:font-bold font-pilat text-center">
                 Governance Policy & Constitution
               </div>
             </div>
-            <div className="p-8 flex flex-col font-Manrope font-light space-y-4">
-              <div className="text-sz16 md:text-sz18">
+            <div className="px-[10px] py-5 md:p-8 flex flex-col font-Manrope font-light space-y-4">
+              <div className="text-sz16 md:text-sz18 leading-ht24.66 md:leading-auto font-medium text-grey">
                 White Hat DAO is a decentralized autonomous organization.
                 Governed by a clear set of rules and executes actions
                 automatically. Thus, effectively disregarding intermediaries.
@@ -704,7 +704,7 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
           </div>
           <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
-              <div className="w-full pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat text-center">
+              <div className="w-full md:pl-4 text-blue text-sz20 leading-ht30 md:leading-auto font-semibold md:font-bold font-pilat text-center">
                 {mainProData.dao.strategy_title}
               </div>
               {/* <div
@@ -841,29 +841,29 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                 </>
               ) : null}
             </div>
-            <div className="p-8 flex flex-col items-start font-Manrope font-light space-y-4">
-              <div className="z-10 cursor-pointer">
-                <div className="shadow-sm w-80 py-2 border rounded-xl gradient-box text-sz16 md:text-sz18 font-bold flex flex-col items-start">
-                  <div className="text-blue">
+            <div className="px-[10px] pt-[30px] pb-5 md:p-8 flex flex-col items-start font-Manrope font-light gap-y-5 md:gap-y-4">
+              <div className="z-2 cursor-pointer">
+                <div className="w-auto px-5 md:px-0 md:w-full shadow-sm py-2 border rounded-xl gradient-box text-sz16 md:text-sz18 font-bold flex flex-col items-start">
+                  <div className="font-pilat text-blue">
                     {mainProData.dao.strategy_first_button}
                   </div>
                 </div>
               </div>
-              <div className="text-sz16 md:text-sz18">
+              <div className="text-sz16 font-medium leading-ht24.66 md:leading-auto md:text-sz18 text-grey">
                 {mainProData.dao.strategy_first_button_text}
               </div>
 
-              <div className="z-10 cursor-pointer">
-                <div className="shadow-sm w-80 py-2 border rounded-xl gradient-box text-sz16 md:text-sz18 font-bold flex flex-col items-start">
-                  <div className="text-blue">
+              <div className="z-2 cursor-pointer mt-[10px]">
+                <div className="w-auto px-5 md:px-0 md:w-full shadow-sm py-2 border rounded-xl gradient-box text-sz16 md:text-sz18 font-bold flex flex-col items-start">
+                  <div className="font-pilat text-blue">
                     {mainProData.dao.strategy_second_button}
                   </div>
                 </div>
               </div>
-              <div className="text-sz16 md:text-sz18">
+              <div className="text-sz16 font-medium leading-ht24.66 md:leading-auto md:text-sz18 text-grey">
                 {mainProData.dao.strategy_second_button_text}
               </div>
-              <div className="text-sz16 md:text-sz18">
+              <div className="text-sz16 md:text-sz18 text-grey font-medium leading-ht28.27 md:leading-auto">
                 <span className="font-semibold">Snapshot Strategy</span> = 1 Gov
                 Token = 1 Vote Weight <br />
                 <span className="font-semibold">Proposal Threshold</span> = 5%
@@ -876,21 +876,21 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                 = ( 30% of total token supply ) to pass any proposal.
               </div>
 
-              <div className="w-full p-6 rounded-md shadow-inner flex flex-row items-start md:items-center space-x-4">
+              <div className="w-full p-4 md:p-6 rounded-md shadow-inner flex flex-row items-start md:items-center space-x-4">
                 <img src={info} alt="info"></img>
-                <div className="text-sz16 md:text-sz18 text-blue">
+                <div className="text-sz16 md:text-sz18 font-medium leading-ht24.66 md:leading-auto text-blue">
                   {mainProData.dao.strategy_text_first}
                 </div>
               </div>
 
-              <div className="w-full p-6 rounded-md shadow-inner flex flex-row items-start md:items-center space-x-4">
+              <div className="w-full p-4 md:p-6 rounded-md shadow-inner flex flex-row items-start md:items-center space-x-4">
                 <img src={info} alt="info"></img>
-                <div className="text-sz16 md:text-sz18 text-blue">
+                <div className="text-sz16 md:text-sz18 font-medium leading-ht24.66 md:leading-auto text-blue">
                   {mainProData.dao.strategy_text_second}
                 </div>
               </div>
 
-              <div className="text-sz16 md:text-sz18">
+              <div className="text-sz16 md:text-sz18 font-medium text-grey">
                 The above settings can be changed via community discussion and
                 snapshot voting in accordance with the already existing rules
                 and regulation.
@@ -899,7 +899,7 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
           </div>
           <div className="mt-8 bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
-              <div className="w-full pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat text-center">
+              <div className="w-full md:pl-4 text-blue text-sz20 leading-ht30 md:leading-auto font-bold font-pilat text-center">
                 {mainProData.dao.core_text}
               </div>
               {/* <div
@@ -1051,60 +1051,60 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                 </>
               ) : null}
             </div>
-            <div className="p-8 flex flex-col font-Manrope space-y-4 text-sz16 md:text-sz18 font-light">
+            <div className="px-[10px] pt-[15px] pb-5 md:p-8 flex flex-col font-Manrope space-y-4 text-sz16 md:text-sz18 font-light">
               <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
-                <div className="px-2 py-1 text-sz14 md:text-sz18 rounded-full shadow-inner font-bold">
+                <div className="px-2 py-[6px] md:py-1 text-sz14 md:text-sz18 rounded-full shadow-inner font-medium">
                   Promoting Safety & Security
                 </div>
-                <div>-{mainProData.dao.core_safety_security}</div>
+                <div className="font-medium text-sz16 leading-ht24.66 text-grey">-{mainProData.dao.core_safety_security}</div>
               </div>
 
               <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
-                <div className="px-2 py-1 text-sz14 md:text-sz18 rounded-full shadow-inner font-bold">
+                <div className="px-2 py-[6px] md:py-1 text-sz14 md:text-sz18 rounded-full shadow-inner font-medium">
                   Transparency
                 </div>
-                <div>-{mainProData.dao.core_transparency}</div>
+                <div className="font-medium text-sz16 leading-ht24.66 text-grey">-{mainProData.dao.core_transparency}</div>
               </div>
 
               <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
-                <div className="px-2 py-1 text-sz14 md:text-sz18 rounded-full shadow-inner font-bold">
+                <div className="px-2 py-[6px] md:py-1 text-sz14 md:text-sz18 rounded-full shadow-inner font-medium">
                   Self-Sovereignty
                 </div>
-                <div>-{mainProData.dao.core_self_sovereignty}</div>
+                <div className="font-medium text-sz16 leading-ht24.66 text-grey">-{mainProData.dao.core_self_sovereignty}</div>
               </div>
 
               <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
-                <div className="px-2 py-1 text-sz14 md:text-sz18 rounded-full shadow-inner font-bold">
+                <div className="px-2 py-[6px] md:py-1 text-sz14 md:text-sz18 rounded-full shadow-inner font-medium">
                   Fair Compensation
                 </div>
-                <div>-{mainProData.dao.core_fair_compensation}</div>
+                <div className="font-medium text-sz16 leading-ht24.66 text-grey">-{mainProData.dao.core_fair_compensation}</div>
               </div>
 
               <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
-                <div className="px-2 py-1 text-sz14 md:text-sz18 rounded-full shadow-inner font-bold">
+                <div className="px-2 py-[6px] md:py-1 text-sz14 md:text-sz18 rounded-full shadow-inner font-medium">
                   Integrity
                 </div>
-                <div>-{mainProData.dao.core_integrity}</div>
+                <div className="font-medium text-sz16 leading-ht24.66 text-grey">-{mainProData.dao.core_integrity}</div>
               </div>
 
               <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
-                <div className="px-2 py-1 text-sz14 md:text-sz18 rounded-full shadow-inner font-bold">
+                <div className="px-2 py-[6px] md:py-1 text-sz14 md:text-sz18 rounded-full shadow-inner font-medium">
                   Honesty
                 </div>
-                <div>-{mainProData.dao.core_honesty}</div>
+                <div className="font-medium text-sz16 leading-ht24.66 text-grey">-{mainProData.dao.core_honesty}</div>
               </div>
 
               <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
-                <div className="px-2 py-1 text-sz14 md:text-sz18 rounded-full shadow-inner font-bold">
+                <div className="px-2 py-[6px] md:py-1 text-sz14 md:text-sz18 rounded-full shadow-inner font-medium">
                   Curiosity
                 </div>
-                <div>-{mainProData.dao.core_curiosity}</div>
+                <div className="font-medium text-sz16 leading-ht24.66 text-grey">-{mainProData.dao.core_curiosity}</div>
               </div>
             </div>
           </div>
           <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl">
-              <div className="pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat text-center flex flex-row items-center justify-between">
+              <div className="md:pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat text-center flex flex-row items-center justify-between">
                 <div className="w-full">
                   {mainProData.dao.contributor_title}
                 </div>
@@ -1205,42 +1205,42 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                 <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
               </>
             ) : null}
-            <div className="p-4 md:p-8 flex flex-col items-start font-Manrope font-light space-y-4">
-              <div className="z-10 cursor-pointer">
+            <div className="px-[10px] py-5 md:p-8 flex flex-col items-start font-Manrope font-light space-y-4">
+              <div className="z-2 cursor-pointer">
                 <div className="shadow-sm w-40 md:w-80 py-2 border rounded-xl gradient-box text-sz16 md:text-sz18 font-bold flex flex-col items-start">
-                  <div>Overview</div>
+                  <div className="font-pilat text-grey">Overview</div>
                 </div>
               </div>
-              <div className="text-sz16 md:text-sz18">
+              <div className="text-sz16 md:text-sz18 leading-ht24.66 md:leading-auto text-grey font-medium">
                 {mainProData.dao.contributor_overview}
               </div>
               <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="flex flex-col space-y-10">
-                  <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
+                  <div className="mt-[14px] mb-5 md:my-10 bg-lightgray rounded-xl shadow-sm flex flex-col">
                     <div className="bg-gray px-6 py-4 rounded-t-xl">
-                      <div className="pl-4 text-blue text-sz18 md:text-sz18 font-bold font-pilat text-center">
+                      <div className="md:pl-4 text-blue text-sz20 leading-ht25.7 md:leading-auto font-semibold md:font-bold font-pilat text-center">
                         Administration's Responsibilities
                       </div>
                     </div>
                     <div className="p-4 md:p-6 flex flex-col items-start font-Manrope font-light gap-4">
-                      {responsibilities.map((item) => (
-                        <div className="w-full py-1 border-b border-gray flex flex-row items-center space-x-4">
+                      {responsibilities.map((item: any, i:number) => (
+                        <div key={i} className="w-full py-1 border-b border-gray flex flex-row items-center space-x-4">
                           <Circle></Circle>
-                          <div className="font-Manrope text-sz16 md:text-sz18">
+                          <div className="font-Manrope text-sz12 md:text-sz18 font-medium text-grey">
                             {item}
                           </div>
                         </div>
                       ))}
                     </div>
                   </div>
-                  <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
+                  <div className="my-5 md:my-10 bg-lightgray rounded-xl shadow-sm flex flex-col">
                     <div className="bg-gray px-6 py-4 rounded-t-xl">
-                      <div className="pl-4 text-blue text-sz18 md:text-sz18 font-bold font-pilat text-center">
+                      <div className="md:pl-4 text-blue text-sz20 leading-ht25.7 md:leading-auto font-semibold md:font-bold font-pilat text-center">
                         Who can apply for the ambassador role ?
                       </div>
                     </div>
-                    <div className="p-6 flex flex-col items-start font-Manrope font-light space-y-4">
-                      <div className="p-2 rounded-md bg-gray text-sz16 md:text-sz18">
+                    <div className="px-[10px] pt-5 pb-[15px] md:p-6 flex flex-col items-start font-Manrope font-light space-y-4">
+                      <div className="p-2 rounded-md bg-gray text-sz16 leading-ht24.66 md:text-sz18 md:leading-auto font-medium text-grey">
                         {mainProData.dao.contributor_ambassador}
                       </div>
                     </div>
@@ -1248,20 +1248,20 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                 </div>
 
                 <div className="flex flex-col space-y-10 justify-between">
-                  <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
+                  <div className="my-5 md:my-10 bg-lightgray rounded-xl shadow-sm flex flex-col">
                     <div className="bg-gray px-6 py-4 rounded-t-xl">
-                      <div className="pl-4 text-blue text-sz18 md:text-sz18 font-bold font-pilat text-center">
+                      <div className="md:pl-4 text-blue text-sz20 leading-ht25.7 md:leading-auto font-semibold md:font-bold font-pilat text-center">
                         Developers Responsibilities
                       </div>
                     </div>
-                    <div className="p-6 flex flex-col items-start font-Manrope font-light space-y-4">
-                      <div className="p-2 rounded-md bg-gray text-sz16 md:text-sz18">
+                    <div className="px-[10px] py-[15px] md:p-6 flex flex-col items-start font-Manrope font-light text-grey space-y-4">
+                      <div className="p-2 rounded-md bg-gray text-sz12 leading-ht18.49 md:text-sz18 md:leading-auto font-medium text-grey">
                         {mainProData.dao.contributor_developer}
                       </div>
-                      {dev_responsibilities.map((item) => (
-                        <div className="w-full py-1 border-b border-gray flex flex-row items-center space-x-4">
+                      {dev_responsibilities.map((item: any, i:number) => (
+                        <div key={i} className="w-full py-1 border-b border-gray flex flex-row items-center space-x-4">
                           <Circle></Circle>
-                          <div className="font-Manrope text-sz16 md:text-sz18">
+                          <div className="font-Manrope text-sz12 md:text-sz18 font-medium text-grey">
                             {item}
                           </div>
                         </div>
@@ -1270,15 +1270,15 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                   </div>
                   <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
                     <div className="bg-gray px-6 py-4 rounded-t-xl">
-                      <div className="pl-4 text-blue text-sz18 md:text-sz18 font-bold font-pilat text-center">
+                      <div className="md:pl-4 text-blue text-sz20 leading-ht25.7 md:leading-auto font-bold font-pilat text-center">
                         Community Ambassadors
                       </div>
                     </div>
-                    <div className="p-6 flex flex-col items-start font-Manrope font-light space-y-4">
-                      {ambassadors.map((item) => (
-                        <div className="w-full py-1 border-b border-gray flex flex-row items-center space-x-4">
+                    <div className="px-[10px] py-[15px] md:p-6 flex flex-col items-start font-Manrope font-light text-grey space-y-4">
+                      {ambassadors.map((item: any, i:number) => (
+                        <div key={i} className="w-full py-1 border-b border-gray flex flex-row items-center space-x-4">
                           <Circle></Circle>
-                          <div className="font-Manrope text-sz16 md:text-sz18">
+                          <div className="font-Manrope text-sz12 md:text-sz18 font-medium text-grey">
                             {item}
                           </div>
                         </div>
@@ -1291,7 +1291,7 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
           </div>
           <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl">
-              <div className="pl-4 text-pink text-sz18 md:text-sz20 font-bold font-pilat text-center flex flex-row items-center">
+              <div className="md:pl-4 text-pink text-sz20 leading-ht30 md:leading-auto font-bold font-pilat text-center flex flex-row items-center">
                 <div className="w-full">{mainProData.dao.message_title}</div>
                 {/* <div
                   className="flex flex-row items-center font-light cursor-pointer space-x-2"
@@ -1361,7 +1361,7 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                 ) : null}
               </div>
             </div>
-            <div className="p-6 flex flex-col items-start font-Manrope font-light text-sz16 md:text-sz18 space-y-4">{mainProData.dao.message_text}</div>
+            <div className="px-[10px] pt-[30px] pb-5 md:p-6 flex flex-col items-start font-Manrope font-medium md:font-light text-sz16 leading-ht27.6 md:leading-auto md:text-sz18 space-y-4 text-grey">{mainProData.dao.message_text}</div>
           </div>
         </div>
       ) : (

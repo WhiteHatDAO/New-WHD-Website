@@ -1,5 +1,15 @@
+#WEB3_CONNECT_MODAL_ID >div {
+  z-index: 3;
+}
+
 .gradient-text {
   background: -webkit-linear-gradient(#cc2d8f, #346da1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-text-vertical {
+  background: -webkit-linear-gradient(0deg, #cc2d8f, #346da1);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

@@ -6,6 +6,7 @@ export const useCoingeckoAPI = () => {
 
   const handleGetTokenData = useCallback(async (token: string) => {
     if(!token || token === undefined) return;
+    console.log(token)
     fetch(
       `https://api.coingecko.com/api/v3/coins/${token}?tickers=false&community_data=false&developer_data=false`,
       // {
@@ -20,7 +21,6 @@ export const useCoingeckoAPI = () => {
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log("coingecko_data", data);
         setTokenData({
           price: data.market_data.current_price.usd,
           price_change: data.market_data.price_change_percentage_24h,
@@ -44,6 +44,7 @@ export const useCoingeckoAPI = () => {
   }, []);
 
   const handleGetTokenPriceHistory = useCallback(async(token: string, timeRange: string) => {
+    if(!token || token === undefined) return;
     fetch(`https://api.coingecko.com/api/v3/coins/${token}/market_chart?vs_currency=usd&days=${timeRange}`, {
         mode: 'cors',
         headers: {

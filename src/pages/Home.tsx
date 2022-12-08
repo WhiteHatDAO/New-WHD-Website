@@ -1,4 +1,5 @@
 import alertImage from "../assets/images/alert.svg";
+import line from "../assets/images/blogpost/line.png";
 import CircleProgressBar from "../components/CircleProgressBar";
 import searchImage from "../assets/images/search.svg";
 // import auditWHD from "../assets/images/auditWHD.svg";
@@ -37,6 +38,7 @@ import { useState, useEffect } from "react";
 
 import { useNavigate } from "react-router-dom";
 
+import SlateEditor from "../components/SlateEditor/Editor";
 import { useCoingeckoAPI } from "../utils/useCoingeckoAPI";
 import { FormatBigNumber } from "../utils/utils";
 import SelectNetwork from "../components/SelectNetwork";
@@ -60,11 +62,12 @@ const Home = ({
   const [showModal, setShowModal] = useState(false);
   const [showTokenDetailModal, setShowTokenDetailModal] = useState(false);
   const [showTopBrandsModal, setShowTopBrandsModal] = useState(false);
+	const [showAnnounceDetailModal, setShowAnnounceDetailModal] = useState(false);
   const [showServiceModal, setShowServiceModal] = useState<boolean>(false);
   const { handleGetTokenData, fetchTokensData, tokenData } = useCoingeckoAPI();
   const [searchText, setSearchText] = useState<string>("");
   const [filteredProjects, setFilteredProjects] = useState<any[]>([]);
-  const [topics, setTopics] = useState<any[]>([]);
+	const [, setTopics] = useState<any[]>([]);
   const [announces, setAnnounces] = useState<any[]>([]);
   const [currentNet, setCurrentNet] = useState<string>("");
 	const [page, setPage] = useState(0);
@@ -77,8 +80,10 @@ const Home = ({
     }
   }, [auditProjects, searchText]);
 
-  const prev = () => (page > 0) && setPage(x=>x-=1)
+	const prev = () => (page > 0) && setPage(x=>x-=1)
+	const prevAnn = () => (curAnnPage > 0) && setCurAnnPage(x=>x-=1)
 	const next = () => (page < Math.ceil(filteredProjects.length / 10) - 1) && setPage(x=>x+=1)
+	const nextAnn = () => (curAnnPage < Math.ceil(announces.length / 4) - 1) && setCurAnnPage(x=>x+=1)
 
   const handleSearchItem = () => {
     if (auditProjects.length === 0) return;
@@ -147,6 +152,7 @@ const Home = ({
   const [exchange, setExchange] = useState<any[]>([]);
   const [tokensData, setTokensData] = useState<any[]>([]);
 	const [curAnnPage, setCurAnnPage] = useState(0);
+	const [curAnn, setCurAnn] = useState<any>();
 	const [news, setNews] = useState<Array<any>>([]);
   
   const handleAddTokenAddress = () => {
@@ -293,7 +299,6 @@ const Home = ({
   const getAnnounces = async () => {
 		try {
 			const res = await axios.get(BACKEND_SERVER + '/api/announcements');
-			console.log("res,data", res.data)
 			if (res.status === 200) {
 				setAnnounces(res.data.data);
 			}
@@ -304,18 +309,18 @@ const Home = ({
 
   const getNews = async () => {
 		try {
-		  const { data } = await axios.get("https://www.coindesk.com/pf/api/v3/content/fetch/websked-collections?query=%7B%22content_alias%22%3A%22opinion%22%2C%22format%22%3A%22opinion%22%2C%22from%22%3A0%2C%22size%22%3A12%7D&d=221&_website=coindesk")
-		  setNews(data)
+			const { data } = await axios.get("https://www.coindesk.com/pf/api/v3/content/fetch/most-viewed?query=%7B%22language%22%3A%22en%22%2C%22size%22%3A12%7D&d=230&_website=coindesk")
+			setNews(data);
 		} catch(e) {
 		  console.log(e)
 		}
 	}
-
+	
   useEffect(() => {
     getTopics();
     getAnnounces();
     getNews();
-		setInterval(() => getNews(), 1800000) 
+    setInterval(() => getNews(), 1800000)
   }, []);
 
   useEffect(() => {
@@ -335,21 +340,20 @@ const Home = ({
       setServiceContractLink(mainProData.home.service_contract_link);
       setNetworks(mainProData.home.networks);
       setExchange(mainProData.home.exchange);
-      handleGetTokenData(mainProData.home.token_name);
-      
+      handleGetTokenData(mainProData.home.token_api);
     }
   }, [auditProjects, mainProData, handleGetTokenData]);
 
   useEffect(() => {
     if(auditProjects) {
-      console.log(auditProjects, 'once?')
+      // console.log(auditProjects, 'once?')
       let tokens: string[] = [];
       auditProjects.forEach(auditProject => {
 				if(auditProject.token) tokens.push(auditProject.token)
       });
       fetchTokensData(tokens).then(d => setTokensData(d))
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auditProjects])
 
   const handleSaveFirstModal = async () => {
@@ -575,13 +579,19 @@ const Home = ({
     return text;
   };
 
+  const handleViewAnnouncement = (ann: any) => {
+		console.log(ann)
+		setCurAnn(ann)
+		setShowAnnounceDetailModal(true);
+	}
+
   return (
     <>
       {auditProjects && mainProData ? (
-        <div className="p-4 flex flex-col">
-          <div className="grid grid-cols-12 gap-12">
-            <div className="col-span-12 xl:col-span-7 flex flex-col gap-12">
-              <div className="relative bg-lightgray rounded-xl shadow-xl px-4 pt-4 pb-6 flex flex-col">
+				<div className="px-[7px] py-2 md:p-2 sm:p-4 flex flex-col">
+					<div className="grid grid-cols-12 gap-y-12 sm:gap-12">
+						<div className="col-span-12 xl:col-span-7 flex flex-col gap-[30px] md:gap-12">
+							<div className="relative bg-lightgray rounded-xl shadow-xl px-[10px] py-5 md:px-4 md:pt-4 md:pb-6 flex flex-col">
                 {/* <div
                   className="absolute top-4 right-4 flex flex-col items-end justify-end cursor-pointer"
                   onClick={() => setShowModal(true)}
@@ -674,16 +684,16 @@ const Home = ({
                     <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
                   </>
                 ) : null}
-                <div className="pt-2 gradient-text text-sz20 sm:text-sz40 md:text-4xl xl:text-5xl font-black">
+                <div className="md:pt-2 gradient-text-vertical md:gradient-text text-sz28 text-sz28 md:text-sz40 lg:text-sz40 font-black leading-ht36 md:leading-auto">
                   {mainProData.home.title}
                 </div>
-                <div className="font-Manrope text-sz16 md:text-sz18 font-light">
+                <div className="font-Manrope text-sz16 md:text-sz18 leading-ht21.86 md:leading-auto font-normal md:font-light mt-4 md:mt-0">
                   {mainProData.home.title_text}
                 </div>
-                <div className="mt-4 cursor-pointer">
+                <div className="mt-4 cursor-pointer z-2">
                   <a
                     href={mainProData.home.title_button_link}
-                    className="shadow-sm text-2xl px-4 py-2 border rounded-xl border-pink text-sz16 flex flex-col items-center"
+                    className="shadow-sm text-2xl px-4 py-2 border rounded-xl gradient-box text-sz16 flex flex-col items-center font-Manrope"
                   >
                     <div className="hidden md:block text-blue">
                       {mainProData.home.title_button}
@@ -695,46 +705,109 @@ const Home = ({
                 </div>
               </div>
               <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
-                <div className="bg-gray p-6 rounded-t-xl flex flex-row items-center">
-                  <img src={alertImage} alt="alert"></img>
-                  <div className="pl-4 text-blue text-sz16 md:text-sz18 font-bold font-pilat">
-                    Announcements & Updates
-                  </div>
+								<div className="bg-gray px-[15px] py-[10px] md:py-6 md:px-6 rounded-t-xl flex flex-col space-y-3 md:flex-row md:space-y-0 justify-between items-center">
+									<div className="flex items-center">
+                    <img src={alertImage} alt="alert" className="w-[24px] h-[24px] md:h-auto md:w-auto"></img>
+                    <div className="pl-[10px] md:pl-4 text-blue text-sz16 md:text-sz18 font-bold font-pilat">
+                      Announcements & Updates
+                    </div>
+									</div>
                 </div>
-                <div className="py-6 px-6 font-Manrope flex flex-col space-y-6 rounded-xl">
-                  {announces.filter((x, index) => index>=curAnnPage*5 && index<(curAnnPage+1)*5).map((topic: any, index: number) => (
-										<div key={index} className="px-4 py-2 bg-gray rounded-xl flex flex-col">
-											<div className="text-sz14 md:text-sz18 block sm:flex flex-row items-center justify-between">
-												<div className="w-full sm:w-max font-bold">
-													{topic.title}
-												</div>
-												<div className="text-sz16 text-darkgray font-light hidden sm:block">
-													{FormatDate(topic.createdAt)}
-												</div>
+                {showAnnounceDetailModal ? (
+                  <>
+                    <div className="justify-center items-center flex fixed inset-0 z-50 outline-none focus:outline-none">
+                      <div className="relative my-6 w-5/6 md:w-2/3 rounded-xl shadow-sm md:shadow-xl font-Manrope">
+                        {/*content*/}
+                          <div className="border shadow-xl p-middle rounded-xl bg-lightgray border-blue max-h-[90vh] overflow-auto">
+                            <div className="mb-5 font-medium leading-6 text-blue font-Manrope text-sz16">
+                              <span>Announcement</span>
+                            </div>
+                            <div>
+                              <img src={line} alt="line" className="w-full mb-5" />
+                              <div className="flex flex-col items-start justify-between mb-5 font-normal text-sz16 font-Manrope md:flex-row md:items-center">
+                                {curAnn.title}
+                              </div>
+                              <div className="flex items-center flex-wrap gap-2 font-medium leading-6 text-sz16 text-blue font-Manrope">
+                                {curAnn.tags.map((tag: any, index: number) => (
+                                  <div key={index}
+                                    className={
+                                    index % 3 === 0
+                                      ? "flex items-center px-3 py-1 rounded-3xl bg-blue text-white"
+                                      : index % 3 === 1
+                                      ? "flex items-center px-3 py-1 rounded-3xl bg-pink text-white"
+                                      : "flex items-center px-3 py-1 rounded-3xl bg-purple text-white"
+                                    }
+                                  >
+                                    {tag}
+                                  </div>
+                                ))}
+                              </div>
+                              <div className="my-6 border rounded-lg border-blue">
+                                <SlateEditor
+                                  readOnly={true}
+                                  text={curAnn.topic}
+                                  handleChangeText={() => console.log()}
+                                ></SlateEditor>
+                              </div>
+                              <div className="flex items-center flex-col md:flex-row justify-end">
+                                <div
+                                  onClick={() => setShowAnnounceDetailModal(false)}
+                                  className="cursor-pointer font-semibold leading-8 text-pink text-sz18 font-Manrope"
+                                >
+                                  Cancel
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                    <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+                  </>
+                ) : null}
+                <div className="px-[15px] py-[10px] md:py-6 md:px-6 font-Manrope flex flex-col space-y-6 rounded-xl">
+                  {announces.filter((x, index) => index>=curAnnPage*4 && index<(curAnnPage+1)*4).map((topic: any, index: number) => (
+                    <div key={index} className="p-[6px] md:px-4 md:py-2 bg-gray rounded-xl flex flex-col cursor-pointer" onClick={() => handleViewAnnouncement(topic)}>
+                      <div className="text-sz14 md:text-sz18 block sm:flex flex-row items-center justify-between">
+                        <div className="w-full sm:w-max font-bold">
+                          {topic.title}
+                        </div>
+                        <div className="text-sz16 text-darkgray font-light hidden sm:block">
+                          {FormatDate(topic.createdAt)}
+                        </div>
+                      </div>
+                      <div className="text-sz14 md:text-sz18 flex flex-row items-center justify-between mt-2 sm:mt-0">
+                        <div className="hidden sm:flex flex-row items-center">
+                          {getTextFromTopic(topic)}
+                        </div>
+                        <div className="flex flex-row items-center space-x-2">
+                          {topic.tags.map((tag: string, i:number) => (
+                            <div key={i} className="rounded-full shadow-inner px-4 h-[27px] flex items-center md:blockmd:h-auto md:py-2 text-red text-sz12">
+                              {tag}
+                            </div>
+                          ))}
+                        </div>
+                        <div className="text-sz16 text-darkgray font-light block sm:hidden">
+                          {FormatDate(topic.createdAt)}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+
+                  <div className="pb-[14px] flex flex-wrap items-center justify-center gap-2">
+                    <div className="font-Manrope text-sz15 w-full flex flex-row items-center justify-center space-x-4">
+											<div className="cursor-pointer shadow-sm w-12 h-12 flex flex-row items-center justify-center" onClick={prevAnn}>
+												<img src={prevImage} alt="prev"></img>
 											</div>
-											<div className="text-sz14 md:text-sz18 flex flex-row items-center justify-between mt-2 sm:mt-0">
-												<div className="hidden sm:flex flex-row items-center">
-													{getTextFromTopic(topic)}
+											{Array(Math.ceil(announces.length / 4)).fill("").map((x, i) =>
+												<div key={i} className={(curAnnPage === i ? "shadow-sm " : "") + "w-12 h-12 flex flex-row items-center justify-center cursor-pointer"} onClick={() => setCurAnnPage(i)}>
+													{i+1}
 												</div>
-												<div className="flex flex-row items-center space-x-2">
-													{topic.tags.map((tag: string, i:number) => (
-														<div key={i} className="rounded-full shadow-inner px-4 py-2 text-red text-sz12">
-															{tag}
-														</div>
-													))}
-												</div>
-												<div className="text-sz16 text-darkgray font-light block sm:hidden">
-													{FormatDate(topic.createdAt)}
-												</div>
+											)}
+											<div className="cursor-pointer shadow-sm w-12 h-12 flex flex-row items-center justify-center" onClick={nextAnn}>
+												<img src={nextImage} alt="next"></img>
 											</div>
 										</div>
-									))}
-
-									<div className="pt-3 flex flex-wrap items-center justify-center gap-2">
-										{Array(Math.ceil(announces.length / 5)).fill("").map((x, i) =>
-											<button key={i} className={`w-8 h-3 border-none outline-none rounded-xl bg-blue ${ curAnnPage !== i && "opacity-50"}`} onClick={() => setCurAnnPage(i)}></button>
-										)}
-									</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -967,7 +1040,7 @@ const Home = ({
                   {mainProData.home.token}
                 </div>
               </div>
-              <div className="p-6 font-Manrope">
+              <div className="p-2 sm:p-6 font-Manrope">
                 <div className="p-4 h-full bg-gray rounded-lg flex flex-col space-y-4 justify-between">
                   <div className="flex flex-row items-center space-x-2">
                     <img className="w-10" src={logo} alt="logo"></img>
@@ -1119,14 +1192,14 @@ const Home = ({
               </div>
             </div>
           </div>
-          <div className="py-10 flex flex-col">
+          <div className="pt-[50px] md:pb-10 md:py-10 flex flex-col">
             <div className="text-black font-Manrope font-light flex flex-row items-center flex-wrap gap-4">
               <select
-                id="role"
+                id="role" defaultValue="choose"
                 onChange={handleChangeNetwork}
                 className="w-72 box-border-blue h-12 shadow-sm bg-transparent text-sz18 rounded-lg block p-2.5"
               >
-                <option value="choose" selected>
+                <option value="choose">
                   Choose a network
                 </option>
                 <option value="ETH">ETH</option>
@@ -1143,11 +1216,11 @@ const Home = ({
                 <option value="zkSync">zkSync</option>
               </select>
               <select
-                id="category"
+                id="category" defaultValue="choose"
                 onChange={handleChangeCategory}
                 className="w-72 box-border-blue h-12 shadow-sm bg-transparent text-sz18 rounded-lg block p-2.5"
               >
-                <option value="choose" selected>
+                <option value="choose">
                   Choose a category
                 </option>
                 <option value="Defi">Defi</option>
@@ -1160,7 +1233,7 @@ const Home = ({
               <div className="w-full flex">
                 <div
                   onClick={handleSearchItem}
-                  className="inline-flex items-center px-3 text-sm text-gray-900 bg-blue rounded-l-md border border-r-0 border-gray"
+                  className="inline-flex items-center px-3 text-sm text-gray-900 bg-blue rounded-l-md border border-r-0 border-blue"
                 >
                   <img src={searchImage} alt="search"></img>
                 </div>
@@ -1169,7 +1242,7 @@ const Home = ({
                   id="website-admin"
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
-                  className="rounded-none shadow-inner rounded-r-lg bg-lightgray border border-darkgray focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="rounded-none shadow-inner rounded-r-lg bg-lightgray border border-blue md:border-darkgray focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Input Search name"
                 />
               </div>
@@ -1199,17 +1272,19 @@ const Home = ({
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredProjects?.map((project, index) => (
+									{filteredProjects?.filter((x, index) => index>=page*10 && index<(page+1)*10).map((project, index) => (
                     <tr
                       key={index}
-                      onClick={() => navigate(`/safety-ratings/rating/${index}`)}
+                      onClick={() => 
+                        navigate(`/safety-ratings/rating/${index}`)
+                      }
                       className={
                         filteredProjects?.length === index + 1
                           ? "bg-lightgray border-none"
                           : "bg-lightgray border-b border-blue"
                       }
                     >
-                      <td className="px-6 py-3">{project.name}</td>
+                      <td className="px-6 py-3 cursor-pointer md:text-blue">{project.name}</td>
                       <td className="px-6 py-3">
                         <div className="flex flex-row items-center justify-center">
                           {/* {project.audited_by.map((item: any) =>
@@ -1236,7 +1311,7 @@ const Home = ({
                       </td>
                       <td className="px-6 py-3">
                         {
-                          tokensData ? (
+													(tokensData && tokensData[index]) ? (
                             (tokensData[index]?.price !== undefined && "$ ") + tokensData[index]?.price
                           ) : "N/A"
                         }
@@ -1244,7 +1319,7 @@ const Home = ({
                       </td>
                       <td className="px-6 py-3">
                       {
-                          tokensData ? (
+												  (tokensData && tokensData[index]) ? (
 												    ((tokensData[index]?.market_cap === 0) ? "N/A" : (tokensData[index]?.market_cap !== undefined && "$ ") + tokensData[index]?.market_cap )
                           ) : "N/A"
                         }
@@ -1261,21 +1336,21 @@ const Home = ({
               </table>
             </div>
             <div className="font-Manrope text-sz15 w-full flex flex-row items-center justify-center space-x-4">
-            <div className="shadow-sm w-12 h-12 flex flex-row items-center justify-center" onClick={prev}>
+              <div className="cursor-pointer shadow-sm w-12 h-12 flex flex-row items-center justify-center" onClick={prev}>
 								<img src={prevImage} alt="prev"></img>
 							</div>
 							{Array(Math.ceil(filteredProjects.length / 10)).fill("").map((x, i) =>
-								<div className={(page === i ? "shadow-sm " : "") + "w-12 h-12 flex flex-row items-center justify-center"} onClick={() => setPage(i)}>
+								<div key={i} className={(page === i ? "shadow-sm " : "") + "w-12 h-12 flex flex-row items-center justify-center cursor-pointer"} onClick={() => setPage(i)}>
 									{i+1}
 								</div>
 							)}
-							<div className="shadow-sm w-12 h-12 flex flex-row items-center justify-center" onClick={next}>
+							<div className="cursor-pointer shadow-sm w-12 h-12 flex flex-row items-center justify-center" onClick={next}>
 								<img src={nextImage} alt="next"></img>
 							</div>
             </div>
           </div>
-          <div className="my-8 w-full flex flex-col">
-            <div className="text-center font-pilat text-sz18 md:text-sz20 font-semibold flex flex-row items-center">
+          <div className="mt-[60px] md:mt-8 mb-8 w-full flex flex-col">
+            <div className="text-center font-pilat text-sz20 font-semibold flex flex-row items-center leading-ht25.7 md:leading-auto">
               <div className="w-full">SERVICES</div>
               {/* <div
                 onClick={() => setShowServiceModal(true)}
@@ -1358,58 +1433,58 @@ const Home = ({
                 <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
               </>
             ) : null}
-            <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-12 text-center">
-              <div className="p-4 bg-gray border border-blue rounded-xl shadow-xl flex flex-col items-center justify-between space-y-2">
+            <div className="mt-[50px] md:mt-8 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-[50px] md:gap-12 text-center">
+              <div className="px-5 pt-5 pb-[25.18px] md:p-4 bg-gray border border-blue rounded-xl shadow-xl flex flex-col items-center justify-between space-y-5 md:space-y-2">
                 <img className="w-full" src={servImage1} alt="service1"></img>
-                <div className="font-pilat font-bold text-blue text-sz18">
+                <div className="font-pilat font-bold text-blue text-sz22 leading-[28.27px] md:leading-auto">
                   SAFETY RATING
                 </div>
-                <div className="font-Manrope font-light text-sz16">
+                <div className="font-Manrope font-medium md:font-light text-grey text-sz16 leading-ht25 md:leading-auto">
                   After review of your product, we provide a broad security
                   score to allow consumers to make informed decisions about your
                   product.
                 </div>
-                <a href={serviceRatingLink} className="z-10 cursor-pointer">
-                  <div className="shadow-sm text-2xl px-8 py-2 border rounded-xl gradient-box text-sz18">
-                    APPLY
+                <a href={serviceRatingLink} className="z-2 cursor-pointer">
+                  <div className="shadow-sm text-2xl px-8 py-2 border rounded-xl gradient-box font-Manrope font-bold text-sz22 md:text-sz18">
+                    Apply
                   </div>
                 </a>
               </div>
-              <div className="p-4 bg-gray border border-blue rounded-xl shadow-xl flex flex-col items-center justify-between space-y-2">
+              <div className="px-5 pt-5 pb-[25.18px] md:p-4 bg-gray border border-blue rounded-xl shadow-xl flex flex-col items-center justify-between space-y-5 md:space-y-2">
                 <img className="w-full" src={servImage2} alt="service2"></img>
-                <div className="font-pilat font-bold text-blue text-sz18">
+                <div className="font-pilat font-bold text-blue text-sz22 leading-[28.27px] md:leading-auto">
                   WEB3 SERVICES
                 </div>
-                <div className="font-Manrope font-light text-sz16">
+                <div className="font-Manrope font-medium md:font-light text-grey text-sz16 leading-ht25 md:leading-auto">
                   Smart Contract creation ( all standards ), Web3 platform
                   creation, Websites creation, Platform integration,
                   Decentralized App creation.
                 </div>
-                <a href={serviceWeb3Link} className="z-10 cursor-pointer">
-                  <div className="shadow-sm text-2xl px-8 py-2 border rounded-xl gradient-box text-sz18">
+                <a href={serviceWeb3Link} className="z-2 cursor-pointer">
+                  <div className="shadow-sm text-2xl px-8 py-2 border rounded-xl gradient-box font-Manrope font-bold text-sz22 md:text-sz18">
                     Inquire Here
                   </div>
                 </a>
               </div>
-              <div className="p-4 bg-gray border border-blue rounded-xl shadow-xl flex flex-col items-center justify-between space-y-2">
+              <div className="px-5 pt-5 pb-[25.18px] md:p-4 bg-gray border border-blue rounded-xl shadow-xl flex flex-col items-center justify-between space-y-5 md:space-y-2">
                 <img className="w-full" src={servImage3} alt="service3"></img>
-                <div className="font-pilat font-bold text-blue text-sz18">
+                <div className="font-pilat font-bold text-blue text-sz22 leading-[28.27px] md:leading-auto">
                   SMART CONTRACT SECURITY AUDIT
                 </div>
-                <div className="font-Manrope font-light text-sz16">
+                <div className="font-Manrope font-medium md:font-light text-grey text-sz16 leading-ht25 md:leading-auto">
                   We provide smart contract audit services for succinct reports
                   on your team’s security risks and optimization oportunties.
                 </div>
-                <a href={serviceContractLink} className="z-10 cursor-pointer">
-                  <div className="shadow-sm text-2xl px-8 py-2 border rounded-xl gradient-box text-sz18">
+                <a href={serviceContractLink} className="z-2 cursor-pointer">
+                  <div className="shadow-sm text-2xl px-8 py-2 border rounded-xl gradient-box font-Manrope font-bold text-sz22 md:text-sz18">
                     Get Quote
                   </div>
                 </a>
               </div>
             </div>
           </div>
-          <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
-            <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
+          <div className="mt-[68px] mb-10 md:my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
+            <div className="bg-gray py-[13px] md:px-6 md:py-4 rounded-t-xl flex flex-row items-start">
               <div className="w-full pl-4 text-blue text-sz20 font-bold font-pilat text-center">
                 {mainProData.home.brands_title}
               </div>
@@ -1525,19 +1600,19 @@ const Home = ({
             </div>
             <div className="py-6 px-4 font-Manrope flex flex-row flex-wrap items-center justify-center space-x-8 rounded-xl">
               {mainProData.home.brands.map((brand: any, i: number) => (
-                <a key={i} href={brand.link} target="_blank" rel="noreferrer" className="flex justify-center items-center rounded-full bg-white w-20 h-20 overflow-hidden">
+                <a key={i} href={brand.link} target="_blank" rel="noreferrer" className="flex justify-center items-center rounded-full bg-white w-20 h-20 overflow-hidden cursor-pointer">
                   <img src={brand.link} alt={brand.name}></img>
                 </a>
               ))}
             </div>
           </div>
 
-          <div className="my-8 w-full flex flex-col">
+          <div className="mt-[60px] mb-8 md:my-8 w-full flex flex-col">
             <div className="text-center font-pilat text-sz20 font-semibold">
               Web3 News
             </div>
             <div className="mt-8 font-Manrope">
-              {topics.length > 0 && (
+              {news.length > 0 && (
                 <BlogSlick
                   news={news}
                   handleGotoTopic={handleGotoTopic}

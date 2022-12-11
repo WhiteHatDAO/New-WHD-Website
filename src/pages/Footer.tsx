@@ -2,10 +2,8 @@ import whitehatdao from "../assets/images/whitehatdao.png";
 import twitter from "../assets/images/footer/twitter.svg";
 import github from "../assets/images/footer/github.svg";
 import discord from "../assets/images/footer/discord.svg";
-import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
-  const navigate = useNavigate();
 
   return (
     <div className="px-[7px] md:px-0">
@@ -27,18 +25,15 @@ const Footer = () => {
           <div className="font-Manrope text-sz16 lg:text-sz18 font-light text-pink">hello@whitehatdao.com</div>
         </div>
         <div className="mt-10 md:mt-8 lg:pt-0 flex flex-row items-center space-x-[33px] md:space-x-4">
-          <div className="flex justify-center items-center rounded-full shadow-sm cursor-pointer w-[66px] h-[66px] md:w-auto md:h-auto">
+          <a className="flex justify-center items-center rounded-full shadow-sm cursor-pointer w-[66px] h-[66px] md:w-auto md:h-auto" href="https://twitter.com/White_Hat_DAO" target="_blank" rel="noreferrer">
             <img className="w-[33px] h-[26px] md:w-14 md:h-auto md:p-2" src={twitter} alt="twitter"></img>
-          </div>
-          <div
-            onClick={() => navigate("/blogpost")}
-            className="flex justify-center items-center rounded-full shadow-sm cursor-pointer w-[66px] h-[66px] md:w-auto md:h-auto"
-          >
+          </a>
+          <a className="flex justify-center items-center rounded-full shadow-sm cursor-pointer w-[66px] h-[66px] md:w-auto md:h-auto" href="https://github.com/WhiteHatDAO" target="_blank" rel="noreferrer">
             <img className="w-[35px] h-[33px] md:w-14 md:h-auto md:p-2" src={github} alt="github"></img>
-          </div>
-          <div className="flex justify-center items-center rounded-full shadow-sm cursor-pointer w-[66px] h-[66px] md:w-auto md:h-auto">
+          </a>
+          <a className="flex justify-center items-center rounded-full shadow-sm cursor-pointer w-[66px] h-[66px] md:w-auto md:h-auto" href="https://discord.gg/G5NvT2AyWA" target="_blank" rel="noreferrer">
             <img className="w-[34px] h-[26px] md:w-14 md:h-auto md:p-2" src={discord} alt="discord"></img>
-          </div>
+          </a>
         </div>
       </div>
     </div>

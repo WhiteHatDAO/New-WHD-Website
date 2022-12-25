@@ -513,7 +513,8 @@ const SafetyRatings = ({
                   </div>
                   <div className="cursor-pointer shadow-xl hidden border border-blue rounded-xl px-8 py-4 md:flex flex-row items-center gap-4">
                     <img
-                      className="rounded-full"
+											className="rounded-full self-start"
+                      width="100" height="100"
                       onClick={() => 
                         navigate(`/safety-ratings/rating/${index}`)
                       }
@@ -644,7 +645,9 @@ const SafetyRatings = ({
                       </div>
                       <div className="text-sz16 flex flex-row items-end justify-between">
                         <div className="w-2/3">{project?.description}</div>
-                        {/* <img onClick={() => handleDeleteProject(index)} className="w-8 h-8" src={deleteImage} alt="delete"></img> */}
+                        <div className="cursor-pointer font-Manrope border rounded-lg border-blue shadow-sm px-4 py-1 flex flex-row items-center space-x-2" onClick={() => navigate(`/safety-ratings/rating/${index}`)}>
+                          <div className="text-blue text-sz18">Read More</div>
+                        </div>
                       </div>
                     </div>
                   </div>

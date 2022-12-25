@@ -21,7 +21,6 @@ const Footer = () => {
         <div className="pt-[25px] md:pt-8 flex flex-col space-y-[11px] md:space-y-4">
           <div className="font-Manrope text-sz16 lg:text-sz18 font-bold text-grey">Contact Us</div>
           <div className="font-Manrope text-sz16 lg:text-sz18 font-light text-pink">www.whitehatdao.com</div>
-          <div className="font-Manrope text-sz16 lg:text-sz18 font-light text-pink">whitehatdao.eth</div>
           <div className="font-Manrope text-sz16 lg:text-sz18 font-light text-pink">hello@whitehatdao.com</div>
         </div>
         <div className="mt-10 md:mt-8 lg:pt-0 flex flex-row items-center space-x-[33px] md:space-x-4">

@@ -55,21 +55,21 @@ export default class ReactSlick extends Component<IProps> {
       <div className="relative roadmap_container">
         <Slider {...settings}>
           {this.props?.news.map((item: any, index: number) => (
-            <a key={index} href={item.link}>
+            <a key={index} href={item.url}>
               <div className="flex flex-col justify-center cursor-pointer">
                 <div className="my-8 mr-4 ml-4 shadow-sm flex flex-col border rounded-b-xl border-none overflow-hidden">
-                  <img className="rounded-t-xl h-60 object-cover" src={item.image_url} alt="post1"></img>
+                  <img className="rounded-t-xl h-60 object-cover" src={item.banner_image} alt="post1"></img>
                   <div className="p-4 flex flex-col space-y-4">
-                    <div className="text-black text-sz18 font-bold overflow-hidden" style={{height: 150}}>
-                      {item.title}
+                    <div className="text-black text-sz14 font-bold overflow-hidden" style={{height: 150}}>
+                      {item.title.length>50 ? item.title.slice(0, 100)+" ..." : item.title}
                     </div>
                     <div className="flex flex-row flex-wrap items-center gap-x-2">
                       <div className="w-1 h-4 bg-major"></div>
-                      <span>www.coindesk.com</span>
+                      <span className="text-sz14">{item.source_domain}</span><br/>
                       <div className="font-light text-sz14 text-darkgray">
-                        {getPast(item.pub_date).days > 0 && getPast(item.pub_date).days + "d "}
-                        {getPast(item.pub_date).hours > 0 && getPast(item.pub_date).hours + "h "}
-                        {getPast(item.pub_date).minutes > 0 && getPast(item.pub_date).minutes + "m "}
+                        {getPast(item.time_published).days > 0 && getPast(item.time_published).days + "d "}
+                        {getPast(item.time_published).hours > 0 && getPast(item.time_published).hours + "h "}
+                        {getPast(item.time_published).minutes > 0 && getPast(item.time_published).minutes + "m "}
                       </div>
                     </div>
                   </div>

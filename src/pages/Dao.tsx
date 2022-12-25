@@ -843,7 +843,7 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
             </div>
             <div className="px-[10px] pt-[30px] pb-5 md:p-8 flex flex-col items-start font-Manrope font-light gap-y-5 md:gap-y-4">
               <div className="z-2 cursor-pointer">
-                <div className="w-auto px-5 md:px-0 md:w-full shadow-sm py-2 border rounded-xl gradient-box text-sz16 md:text-sz18 font-bold flex flex-col items-start">
+                <div className="w-auto px-5 md:w-full shadow-sm py-2 border rounded-xl gradient-box text-sz16 md:text-sz18 font-bold flex flex-col items-start">
                   <div className="font-pilat text-blue">
                     {mainProData.dao.strategy_first_button}
                   </div>
@@ -854,7 +854,7 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
               </div>
 
               <div className="z-2 cursor-pointer mt-[10px]">
-                <div className="w-auto px-5 md:px-0 md:w-full shadow-sm py-2 border rounded-xl gradient-box text-sz16 md:text-sz18 font-bold flex flex-col items-start">
+                <div className="w-auto px-5 md:w-full shadow-sm py-2 border rounded-xl gradient-box text-sz16 md:text-sz18 font-bold flex flex-col items-start">
                   <div className="font-pilat text-blue">
                     {mainProData.dao.strategy_second_button}
                   </div>

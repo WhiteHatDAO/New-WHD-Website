@@ -1,3 +1,4 @@
+import auditFileLink from "../assets/images/audit/files_icon.png";
 import info from "../assets/images/dao/info.svg";
 import audit from "../assets/images/audit/audit.png";
 
@@ -10,8 +11,8 @@ import step5 from "../assets/images/audit/step5.svg";
 import arrow from "../assets/images/audit/arrow.svg";
 
 import searchImage from "../assets/images/search.svg";
-import auditWHD from "../assets/images/auditWHD.svg";
-import auditExt from "../assets/images/auditExt.svg";
+// import auditWHD from "../assets/images/auditWHD.svg";
+// import auditExt from "../assets/images/auditExt.svg";
 import addItem from "../assets/images/addItem.png";
 
 import CircleProgressBar from "../components/CircleProgressBar";
@@ -780,6 +781,7 @@ const Audit = ({
               <table className="w-full font-Manrope font-light text-sm text-center text-black">
                 <thead className="bg-gray text-blue uppercase border-b border-blue">
                   <tr>
+                    <th scope="col" className="px-6 py-4"></th>
                     <th scope="col" className="px-6 py-4">
                       Name
                     </th>
@@ -811,18 +813,22 @@ const Audit = ({
                           : "bg-lightgray border-b border-blue"
                       }
                     >
+                      <td className="px-6 py-3">
+                        <img className="rounded-full" width="32" height="32" src={project.logo} alt="" />
+                      </td>
                       <td className="px-6 py-3">{project.name}</td>
                       <td className="px-6 py-3">
                         <div className="flex flex-row items-center justify-center">
-                          {project.audited_by.map((item: any) =>
-                            item === "WHD" ? (
-                              <img src={auditWHD} alt="WHD"></img>
-                            ) : (
-                              item === "EXTERNAL" && (
-                                <img src={auditExt} alt="EXT"></img>
+                            {/* {project.audited_by.map((item: any) =>
+                              item === "WHD" ? (
+                                <img src={auditWHD} alt="WHD"></img>
+                              ) : (
+                                item === "EXTERNAL" && (
+                                  <img src={auditExt} alt="EXT"></img>
+                                )
                               )
-                            )
-                          )}
+                            )} */}
+                          <img src={auditFileLink} alt="Link" className="cursor-pointer"></img>
                         </div>
                       </td>
                       <td className="px-6 py-3">

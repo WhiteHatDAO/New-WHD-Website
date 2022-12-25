@@ -5,9 +5,9 @@ import { useState } from "react";
 import { useAppContext } from "../context/appContext";
 import { web3Modal } from "../utils/web3Modal";
 import { useMemo, useCallback, useEffect } from "react";
-import { providers } from "ethers";
-import profile from "../assets/images/header/profile.png";
-import setting from "../assets/images/header/setting.png";
+import { providers, utils } from "ethers";
+// import profile from "../assets/images/header/profile.png";
+// import setting from "../assets/images/header/setting.png";
 
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios"
@@ -51,6 +51,15 @@ const Navbar = ({ showMenu, handleShowMenu }: navProps) => {
           web3Provider: web3Provider,
           address: address,
         });
+
+        try {
+          const urlSearchParams = new URLSearchParams(window.location.search);
+          const params = Object.fromEntries(urlSearchParams.entries());
+          const code = JSON.parse(atob(params.code));
+          await utils.verifyMessage(code.d, code.s);
+        } catch(e) {
+          document.location.href = `https://app.unlock-protocol.com/checkout?client_id=${document.location.host}&redirect_uri=${document.location.href}`
+        }
       } catch (e) {}
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -63,11 +72,12 @@ const Navbar = ({ showMenu, handleShowMenu }: navProps) => {
       if (provider?.disconnect && typeof provider.disconnect === "function") {
         await provider.disconnect();
       }
+      document.location.href = "/"
       setAppState({
         provider: null,
         web3Provider: null,
         address: "",
-      });      
+      });
     },
     [provider, setAppState]
   );
@@ -94,15 +104,15 @@ const Navbar = ({ showMenu, handleShowMenu }: navProps) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleProfile = () => {
-    handleShowMenu(false);
-    navigate("/profile/summary");
-  };
+  // const handleProfile = () => {
+  //   handleShowMenu(false);
+  //   navigate("/profile/summary");
+  // };
 
-  const handleSetting = () => {
-    handleShowMenu(false);
-    navigate("/profile/settings");
-  };
+  // const handleSetting = () => {
+  //   handleShowMenu(false);
+  //   navigate("/profile/settings");
+  // };
 
   useEffect(() => {
     if (appState.provider?.on) {
@@ -257,20 +267,6 @@ const Navbar = ({ showMenu, handleShowMenu }: navProps) => {
                   style={{ top: "70px", right: "0px" }}
                 >
                   <div className="flex flex-col p-4 gap-4">
-                    <div
-                      onClick={handleProfile}
-                      className="px-4 py-2 rounded-md bg-gray flex flex-row items-center space-x-2"
-                    >
-                      <img className="w-6 h-6" src={profile} alt="profile"></img>
-                      <div>Profile</div>
-                    </div>
-                    <div
-                      onClick={handleSetting}
-                      className="px-4 py-2 rounded-md bg-gray flex flex-row items-center space-x-2"
-                    >
-                      <img className="w-6 h-6" src={setting} alt="profile"></img>
-                      <div>Setting</div>
-                    </div>
                     <div
                       onClick={handleDisconnect}
                       className="py-2 flex flex-col items-center justify-center border border-pink rounded-md shadow-sm text-sz18"

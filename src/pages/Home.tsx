@@ -309,8 +309,15 @@ const Home = ({
 
   const getNews = async () => {
 		try {
-			const { data } = await axios.get("https://www.coindesk.com/pf/api/v3/content/fetch/most-viewed?query=%7B%22language%22%3A%22en%22%2C%22size%22%3A12%7D&d=230&_website=coindesk")
-			setNews(data);
+			const { data } = await axios.get("https://www.alphavantage.co/query?function=NEWS_SENTIMENT&apikey=H551BG1YKN2630WH&limit=200&topics=blockchain")
+			setNews(data.feed.filter((x: any) => 
+        x.source_domain === "watcher.guru" ||
+        x.source_domain === "bitcoinmagazine.com" ||
+        x.source_domain === "www.coingecko.com" ||
+        x.source_domain === "cointelegraph.com" ||
+        x.url.includes("medium.com/@xuanling11") ||
+        x.url.includes("decrypt.co/news")
+			).sort((a: any, b: any) => 0.5 - Math.random()).slice(0, 12));
 		} catch(e) {
 		  console.log(e)
 		}
@@ -687,7 +694,7 @@ const Home = ({
                 <div className="md:pt-2 gradient-text-vertical md:gradient-text text-sz28 text-sz28 md:text-sz40 lg:text-sz40 font-black leading-ht36 md:leading-auto">
                   {mainProData.home.title}
                 </div>
-                <div className="font-Manrope text-sz16 md:text-sz18 leading-ht21.86 md:leading-auto font-normal md:font-light mt-4 md:mt-0">
+                <div className="font-Manrope text-sz16 md:text-sz18 leading-ht21.86 md:leading-auto font-normal md:font-light mt-4">
                   {mainProData.home.title_text}
                 </div>
                 <div className="mt-4 cursor-pointer z-2">
@@ -775,9 +782,9 @@ const Home = ({
                           {FormatDate(topic.createdAt)}
                         </div>
                       </div>
-                      <div className="text-sz14 md:text-sz18 flex flex-row items-center justify-between mt-2 sm:mt-0">
-                        <div className="hidden sm:flex flex-row items-center">
-                          {getTextFromTopic(topic)}
+                      <div className="text-sz14 md:text-sz18 flex flex-col md:flex-row items-center justify-between mt-2 sm:mt-0 space-y-3">
+                        <div className="sm:flex flex-row items-center self-start w-64 md:w-80 md:self-auto">
+                          <div className="text-grey truncate max-w-full">{getTextFromTopic(topic.topic)}</div>
                         </div>
                         <div className="flex flex-row items-center space-x-2">
                           {topic.tags.map((tag: string, i:number) => (
@@ -1173,7 +1180,7 @@ const Home = ({
                         <a
                           href={exch.pairlink}
                           key={index}
-                          className="pb-4 border-b border-darkgray flex flex-row items-center justify-between"
+                          className="pb-4 border-b border-darkgray flex flex-row items-center justify-between flex-wrap gap-3"
                         >
                           <div className="flex flex-row items-center space-x-2">
                             <img src={exch.logo} alt="icon1"></img>
@@ -1251,6 +1258,7 @@ const Home = ({
               <table className="w-full font-Manrope font-light text-sm text-center text-black">
                 <thead className="bg-gray text-blue uppercase border-b border-blue">
                   <tr>
+                    <th scope="col" className="px-6 py-4"></th>
                     <th scope="col" className="px-6 py-4">
                       Name
                     </th>
@@ -1284,6 +1292,9 @@ const Home = ({
                           : "bg-lightgray border-b border-blue"
                       }
                     >
+                      <td className="px-6 py-3">
+                        <img className="rounded-full" width="32" height="32" src={project.logo} alt="" />
+                      </td>
                       <td className="px-6 py-3 cursor-pointer md:text-blue">{project.name}</td>
                       <td className="px-6 py-3">
                         <div className="flex flex-row items-center justify-center">

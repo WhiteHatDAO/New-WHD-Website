@@ -1,5 +1,15 @@
+#WEB3_CONNECT_MODAL_ID >div {
+  z-index: 3;
+}
+
 .gradient-text {
   background: -webkit-linear-gradient(#cc2d8f, #346da1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-text-vertical {
+  background: -webkit-linear-gradient(0deg, #cc2d8f, #346da1);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -84,4 +94,28 @@
 
 .box-border-blue {
   border: 1px solid #346DA1;
+}
+
+.slick-dots >li{
+  width: 2rem !important;
+  height: 0.75rem !important;
+  background: #346DA1;
+  border-radius: 0.75rem;
+  opacity: .5;
+}
+
+.slick-dots >li >button {
+  width: 100% !important;
+}
+
+.slick-dots >li >button:before{
+  display: none;
+}
+
+.slick-dots .slick-active {
+  opacity: 1;
+}
+
+.donutchart {
+  filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .2));
 }

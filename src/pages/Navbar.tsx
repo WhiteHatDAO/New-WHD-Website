@@ -4,10 +4,10 @@ import close from "../assets/images/close.svg";
 import { useState } from "react";
 import { useAppContext } from "../context/appContext";
 import { web3Modal } from "../utils/web3Modal";
-import { useCallback, useEffect } from "react";
-import { providers } from "ethers";
-import profile from "../assets/images/header/profile.png";
-import setting from "../assets/images/header/setting.png";
+import { useMemo, useCallback, useEffect } from "react";
+import { providers, utils } from "ethers";
+// import profile from "../assets/images/header/profile.png";
+// import setting from "../assets/images/header/setting.png";
 
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios"
@@ -22,6 +22,8 @@ const Navbar = ({ showMenu, handleShowMenu }: navProps) => {
   const [open, setOpen] = useState(false);
   const [appState, setAppState] = useAppContext();
   const [profileState, setProfileState] = useState<boolean | undefined>(undefined)
+  const [title, setTitle] = useState("Governance");
+  const [link, setLink] = useState("");
   const { provider, address } = appState;
 
   const navigate = useNavigate();
@@ -49,6 +51,15 @@ const Navbar = ({ showMenu, handleShowMenu }: navProps) => {
           web3Provider: web3Provider,
           address: address,
         });
+
+        try {
+          const urlSearchParams = new URLSearchParams(window.location.search);
+          const params = Object.fromEntries(urlSearchParams.entries());
+          const code = JSON.parse(atob(params.code));
+          await utils.verifyMessage(code.d, code.s);
+        } catch(e) {
+          document.location.href = `https://app.unlock-protocol.com/checkout?client_id=${document.location.host}&redirect_uri=${document.location.href}`
+        }
       } catch (e) {}
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -61,11 +72,12 @@ const Navbar = ({ showMenu, handleShowMenu }: navProps) => {
       if (provider?.disconnect && typeof provider.disconnect === "function") {
         await provider.disconnect();
       }
+      document.location.href = "/"
       setAppState({
         provider: null,
         web3Provider: null,
         address: "",
-      });      
+      });
     },
     [provider, setAppState]
   );
@@ -75,23 +87,32 @@ const Navbar = ({ showMenu, handleShowMenu }: navProps) => {
   }
 
   // Auto connect to the cached provider
-  useEffect(() => {
-    console.log('here')
+  useMemo(async() => {
+    const res = await axios.get(BACKEND_SERVER + "/api/governance");
+    if (res.status === 200) {
+      if (res.data.data.length > 0) {
+        setTitle(res.data.data[0].title);
+        setLink(res.data.data[0].link);
+      } else {
+        setTitle("Governance");
+        setLink("");
+      }
+    }
     if (web3Modal.cachedProvider) {
       connect();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleProfile = () => {
-    handleShowMenu(false);
-    navigate("/profile/summary");
-  };
+  // const handleProfile = () => {
+  //   handleShowMenu(false);
+  //   navigate("/profile/summary");
+  // };
 
-  const handleSetting = () => {
-    handleShowMenu(false);
-    navigate("/profile/settings");
-  };
+  // const handleSetting = () => {
+  //   handleShowMenu(false);
+  //   navigate("/profile/settings");
+  // };
 
   useEffect(() => {
     if (appState.provider?.on) {
@@ -205,33 +226,40 @@ const Navbar = ({ showMenu, handleShowMenu }: navProps) => {
             >
               AUDIT
             </div>
-            <div
+            {/* <div
               onClick={() => navigate("/gift-cards")}
               className={
                 location.pathname === "/gift-cards" ? "cursor-pointer text-pink" : "cursor-pointer text-black"
               }
             >
               GIFT CARDS
-            </div>
+            </div> */}
             <div
-              onClick={() => navigate("/blogpost")}
+              onClick={() => document.location.href = link}
               className={
                 location.pathname === "/blogpost" ? "cursor-pointer text-pink" : "cursor-pointer text-black"
               }
             >
-              BLOGPOSTS
+              {title}
             </div>
           </div>
-          <div className="flex flex-row items-center space-x-4">
-            <div className="w-60 relative cursor-pointer">
+          <div className="flex flex-row items-center space-x-7 md:space-x-4">
+            <div className="md:w-60 relative cursor-pointer z-2">
               <div
                 // className="shadow-sm text-2xl px-6 py-2 border rounded-xl gradient-box text-sz16"
                 className="shadow-sm text-2xl px-6 py-2 border flex items-center justify-center rounded-xl gradient-box text-sz16"
                 onClick={handleConnect}
               >
-                {appState.web3Provider && address
-                  ? getSubAddress(address as string)
-                  : "Connect Wallet"}
+                <span className="block md:hidden">
+                  {appState.web3Provider && address
+                    ? getSubAddress(address as string)
+                    : "CONNECT"}
+                </span>
+                <span className="hidden md:block">
+                  {appState.web3Provider && address
+                    ? getSubAddress(address as string)
+                    : "Connect Wallet"}
+                </span>
               </div>
               {showMenu && (
                 <div
@@ -239,20 +267,6 @@ const Navbar = ({ showMenu, handleShowMenu }: navProps) => {
                   style={{ top: "70px", right: "0px" }}
                 >
                   <div className="flex flex-col p-4 gap-4">
-                    <div
-                      onClick={handleProfile}
-                      className="px-4 py-2 rounded-md bg-gray flex flex-row items-center space-x-2"
-                    >
-                      <img className="w-6 h-6" src={profile} alt="profile"></img>
-                      <div>Profile</div>
-                    </div>
-                    <div
-                      onClick={handleSetting}
-                      className="px-4 py-2 rounded-md bg-gray flex flex-row items-center space-x-2"
-                    >
-                      <img className="w-6 h-6" src={setting} alt="profile"></img>
-                      <div>Setting</div>
-                    </div>
                     <div
                       onClick={handleDisconnect}
                       className="py-2 flex flex-col items-center justify-center border border-pink rounded-md shadow-sm text-sz18"
@@ -265,7 +279,7 @@ const Navbar = ({ showMenu, handleShowMenu }: navProps) => {
             </div>
             <img
               onClick={() => setOpen(true)}
-              className="block xl:hidden"
+              className="block xl:hidden cursor-pointer"
               src={hamburger}
               alt="hamburger"
             ></img>
@@ -273,35 +287,35 @@ const Navbar = ({ showMenu, handleShowMenu }: navProps) => {
         </div>
       </div>
       {open && (
-        <div className="absolute top-0 w-full h-screen z-20">
-          <div className="m-7 p-4 rounded-xl flex flex-col shadow-xl bg-lightgray h-screen">
-            <div className="flex flex-row items-center justify-between">
-              <img className="w-12" src={logo} alt="logo"></img>
-              <img onClick={() => setOpen(false)} src={close} alt="close"></img>
-            </div>
-            <div className="pt-7 font-pilat text-sz14 flex flex-col items-center justify-center gap-5">
-              <a href="/">
-                <div>HOME</div>
-              </a>
-              <a href="/dao">
-                <div>DAO</div>
-              </a>
-              <a href="/safety-ratings">
-                <div>SAFETY - RATINGS</div>
-              </a>
-              <a href="/audit">
-                <div>AUDIT</div>
-              </a>
-              <a href="/gift-cards">
-                <div>GIFT CARDS</div>
-              </a>
-              <a href="/blogpost">
-                <div>BLOGPOSTS</div>
-              </a>
-              <div className="z-10 cursor-pointer">
-                <div className="shadow-sm text-2xl px-8 py-2 border rounded-xl gradient-box text-sz16">
-                  CONNECT
-                </div>
+        <div className="fixed top-[19px] bottom-[19px] left-[15px] right-[15px] z-3 w-[calc(100% - 30px)] h-[calc(100% - 38px)] p-4 rounded-xl flex flex-col shadow-xl bg-lightgray">
+          <div className="flex flex-row items-center justify-between">
+            <img className="w-12" src={logo} alt="logo"></img>
+            <img className="cursor-pointer" onClick={() => setOpen(false)} src={close} alt="close"></img>
+          </div>
+          <div className="pt-7 font-pilat text-sz14 flex flex-col items-center justify-center gap-10">
+            <a href="/">
+              <div>HOME</div>
+            </a>
+            <a href="/dao">
+              <div>DAO</div>
+            </a>
+            <a href="/safety-ratings">
+              <div>SAFETY - RATINGS</div>
+            </a>
+            <a href="/audit">
+              <div>AUDIT</div>
+            </a>
+            {/* <a href="/gift-cards">
+              <div>GIFT CARDS</div>
+            </a> */}
+            <a href={link}>
+              <div>{title}</div>
+            </a>
+            <div className="z-2 cursor-pointer" onClick={appState.web3Provider && address ? handleDisconnect : handleConnect}>
+              <div className="shadow-sm text-2xl px-8 py-2 border rounded-xl gradient-box text-sz16 leading-ht30 font-semibold">
+                {appState.web3Provider && address
+                  ? getSubAddress(address as string)
+                  : "CONNECT"}
               </div>
             </div>
           </div>

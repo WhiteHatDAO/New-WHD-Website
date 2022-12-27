@@ -79,8 +79,8 @@ const Doughnut = ({ type, data }: chart) => {
     <>
       {type ? (
         <DonutChart
-          width={300}
-          height={300}
+          width={200}
+          height={200}
           strokeColor={reactDonutChartStrokeColor}
           data={doughnutData}
           colors={colors}

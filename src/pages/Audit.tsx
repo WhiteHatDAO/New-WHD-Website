@@ -1,3 +1,4 @@
+import auditFileLink from "../assets/images/audit/files_icon.png";
 import info from "../assets/images/dao/info.svg";
 import audit from "../assets/images/audit/audit.png";
 
@@ -10,8 +11,8 @@ import step5 from "../assets/images/audit/step5.svg";
 import arrow from "../assets/images/audit/arrow.svg";
 
 import searchImage from "../assets/images/search.svg";
-import auditWHD from "../assets/images/auditWHD.svg";
-import auditExt from "../assets/images/auditExt.svg";
+// import auditWHD from "../assets/images/auditWHD.svg";
+// import auditExt from "../assets/images/auditExt.svg";
 import addItem from "../assets/images/addItem.png";
 
 import CircleProgressBar from "../components/CircleProgressBar";
@@ -61,6 +62,7 @@ const Audit = ({
 
   const [searchText, setSearchText] = useState<string>("");
   const [filteredProjects, setFilteredProjects] = useState<any[]>([]);
+	const [page, setPage] = useState(0);
 
   useEffect(() => {
     if (auditProjects && searchText.length === 0) {
@@ -68,6 +70,9 @@ const Audit = ({
       setFilteredProjects(projects);
     }
   }, [auditProjects, searchText.length]);
+
+  const prev = () => (page > 0) && setPage(x=>x-=1)
+	const next = () => (page < Math.ceil(filteredProjects.length / 10) - 1) && setPage(x=>x+=1)
 
   const handleSearchItem = () => {
     if (auditProjects.length === 0) return;
@@ -177,7 +182,7 @@ const Audit = ({
           diligence_auditing_text: mainProData.audit.diligence_auditing_text,
           diligence_auditing_note: mainProData.audit.diligence_auditing_note,
           diligence_auditing_button:
-            mainProData.audit.diligence_auditing_button,
+          mainProData.audit.diligence_auditing_button,
           diligence_auditing_button_link:
             mainProData.audit.diligence_auditing_button_link,
           terms: terms,
@@ -279,10 +284,10 @@ const Audit = ({
   return (
     <>
       {auditProjects && mainProData ? (
-        <div className="mx-4 my-10 flex flex-col space-y-8">
+        <div className="mx-[7px] md:mx-4 my-10 flex flex-col space-y-[60px] md:space-y-5">
           <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
-              <div className="w-full pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat text-center">
+              <div className="w-full md:pl-4 text-blue text-sz16 md:text-sz20 leading-ht20 md:leading-auto font-bold font-pilat text-center">
                 {mainProData.audit.diligence_auditing}
               </div>
               {/* <div
@@ -394,24 +399,24 @@ const Audit = ({
                 </>
               ) : null}
             </div>
-            <div className="p-8 flex flex-col font-Manrope font-light space-y-4">
-              <div className="text-sz16 md:text-sz18">
+            <div className="px-[15px] py-5 md:p-8 flex flex-col font-Manrope font-light space-y-5 md:space-y-4">
+              <div className="text-sz16 md:text-sz18 leading-ht24.66 md:leading-auto font-medium text-grey">
                 {mainProData.audit.diligence_auditing_text}
               </div>
-              <div className="flex flex-col md:flex-row items-start gap-4 md:gap-8">
-                <div className="flex flex-col space-y-8">
-                  <div className="p-6 shadow-inner text-blue font-Manrope flex flex-col space-y-4">
-                    <div className="w-full pb-4 border-b border-blue flex flex-row items-center space-x-2 text-sz18 md:text-sz18">
+              <div className="flex flex-col md:flex-row items-start gap-[30px] md:gap-8">
+                <div className="flex flex-col space-y-5 md:space-y-8">
+                  <div className="p-[15px] pb-[73px] md:p-6 shadow-inner rounded-md text-blue font-Manrope flex flex-col space-y-5 md:space-y-4">
+                    <div className="w-full pb-[10px] md:pb-4 border-b border-blue flex flex-row items-center space-x-2 text-sz18">
                       <img src={info} alt="info"></img>
                       <div>Note!</div>
                     </div>
-                    <div className="text-sz16 md:text-sz18">
+                    <div className="text-sz12 md:text-sz18 leading-ht18.49 md:leading-auto font-medium">
                       {mainProData.audit.diligence_auditing_note}
                     </div>
                   </div>
-                  <div className="w-full md:w-2/3 rounded-md shadow-sm p-4 border border-blue text-pink text-sz16 md:text-sz18 flex flex-row items-center justify-center">
+                  <div className="w-full md:w-2/3 rounded-md shadow-sm p-[10px] md:p-4 border border-blue text-pink text-sz16 md:text-sz18 flex flex-row items-center justify-center space-x-2 md:space-x-0">
                     <div>
-                      <a
+                      <a className="font-Manrope font-bold md:font-small text-sz16 leading-ht25 md:leading-auto"
                         href={mainProData.audit.diligence_auditing_button_link}
                       >
                         {mainProData.audit.diligence_auditing_button}
@@ -427,9 +432,9 @@ const Audit = ({
                       <path
                         d="M3.16667 1H14V11.8333M14 1L1 14L14 1Z"
                         stroke="#CC2D8F"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                     </svg>
                   </div>
@@ -438,34 +443,34 @@ const Audit = ({
               </div>
             </div>
           </div>
-          <div className="font-Manrope flex flex-col text-center space-y-8">
-            <div className="font-pilat text-sz18 md:text-sz20">
+          <div className="font-Manrope flex flex-col text-center space-y-10 md:space-y-8">
+            <div className="font-pilat font-semibold text-sz20 leading-ht25.7">
               Our Services Includes
             </div>
-            <div className="font-light grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="p-4 shadow-xl rounded-md flex flex-col text-center">
-                <div className="font-pilat text-sz18 md:text-sz18 text-blue">
+            <div className="font-light grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
+              <div className="py-4 md:p-4 shadow-xl border border-blue rounded-md flex flex-col text-center space-y-5 md:space-y-0">
+                <div className="font-bold md:font-small font-pilat text-sz20 md:text-sz18 leading-ht30 text-blue">
                   Identify Errors & Risks
                 </div>
-                <div className="text-sz16">
+                <div className="text-sz12 font-medium leading-ht18.49 text-grey">
                   Have your code reviewed by W-HAT team of seasoned security
                   experts.
                 </div>
               </div>
-              <div className="p-4 shadow-xl rounded-md flex flex-col text-center">
-                <div className="font-pilat text-sz18 md:text-sz18 text-blue">
+              <div className="py-4 md:p-4 shadow-xl border border-blue rounded-md flex flex-col text-center space-y-5 md:space-y-0">
+                <div className="font-bold md:font-small font-pilat text-sz20 md:text-sz18 leading-ht30 text-blue">
                   Remediate Vulnerabilities
                 </div>
-                <div className="text-sz16">
+                <div className="text-sz12 font-medium leading-ht18.49 text-grey">
                   Receive reporting and recommendations on how to remediate
                   vulnerabilities.
                 </div>
               </div>
-              <div className="p-4 shadow-xl rounded-md flex flex-col text-center">
-                <div className="font-pilat text-sz18 md:text-sz18 text-blue">
+              <div className="py-4 md:p-4 shadow-xl border border-blue rounded-md flex flex-col text-center space-y-5 md:space-y-0">
+                <div className="font-bold md:font-small font-pilat text-sz20 md:text-sz18 leading-ht30 text-blue">
                   Verify Your Contracts
                 </div>
-                <div className="text-sz16">
+                <div className="text-sz12 font-medium leading-ht18.49 text-grey">
                   Prove the correctness of your contract code with highly
                   scalable Formal Verification techniques.
                 </div>
@@ -474,42 +479,42 @@ const Audit = ({
           </div>
           <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl">
-              <div className="pl-4 text-blue text-sz16 md:text-sz20 font-bold font-pilat text-center">
+              <div className="md:pl-4 text-blue text-sz16 md:text-sz20 leading-ht20 font-bold font-pilat text-center">
                 Audit Process
               </div>
             </div>
-            <div className="p-8 flex flex-col font-Manrope font-light space-y-4">
+            <div className="py-8 md:p-8 flex flex-col font-Manrope font-light space-y-[30px] md:space-y-4">
               <div className="flex flex-col md:flex-row items-center md:items-start justify-center md:justify-between">
-                <div className="w-40 text-center flex flex-col items-center space-y-2">
-                  <div className="w-32 h-32 rounded-3xl shadow-inner flex flex-col items-center justify-center">
+                <div className="md:w-40 text-center flex flex-col items-center space-y-[10px] md:space-y-2">
+                  <div className="w-32 h-32 rounded-[40px] shadow-inner flex flex-col items-center justify-center">
                     <img src={step1} alt="step1"></img>
                   </div>
-                  <div className="text-pink text-sz16">Step 1</div>
-                  <div className="text-sz18">Share Source Code</div>
+                  <div className="text-pink text-sz16 leading-ht20 font-medium">Step 1</div>
+                  <div className="text-sz24 md:text-sz18 font-semibold leading-ht30 md:leading-auto text-grey">Share Source Code</div>
                 </div>
                 <img
                   className="mb-8 md:mb-0 mt-8 md:mt-14 transform rotate-90 md:rotate-0"
                   src={arrow}
                   alt="arrow"
                 ></img>
-                <div className="w-40 text-center flex flex-col items-center space-y-2">
-                  <div className="w-32 h-32 rounded-3xl shadow-inner flex flex-col items-center justify-center">
+                <div className="md:w-40 text-center flex flex-col items-center space-y-[10px] md:space-y-2">
+                  <div className="w-32 h-32 rounded-[40px] shadow-inner flex flex-col items-center justify-center">
                     <img src={step2} alt="step2"></img>
                   </div>
-                  <div className="text-pink text-sz16">Step 2</div>
-                  <div className="text-sz18">Review & Quote</div>
+                  <div className="text-pink text-sz16 leading-ht20 font-medium">Step 2</div>
+                  <div className="text-sz24 md:text-sz18 font-semibold leading-ht30 md:leading-auto text-grey">Review & Quote</div>
                 </div>
                 <img
                   className="mb-8 md:mb-0 mt-8 md:mt-14 transform rotate-90 md:rotate-0"
                   src={arrow}
                   alt="arrow"
                 ></img>
-                <div className="w-40 text-center flex flex-col items-center space-y-2">
-                  <div className="w-32 h-32 rounded-3xl shadow-inner flex flex-col items-center justify-center">
+                <div className="md:w-40 text-center flex flex-col items-center space-y-[10px] md:space-y-2">
+                  <div className="w-32 h-32 rounded-[40px] shadow-inner flex flex-col items-center justify-center">
                     <img src={step3} alt="step3"></img>
                   </div>
-                  <div className="text-pink text-sz16">Step 3</div>
-                  <div className="text-sz18">
+                  <div className="text-pink text-sz16 leading-ht20 font-medium">Step 3</div>
+                  <div className="text-sz24 md:text-sz18 font-semibold leading-ht30 md:leading-auto text-grey">
                     Begin Vulnerability Inspection
                   </div>
                 </div>
@@ -518,31 +523,31 @@ const Audit = ({
                   src={arrow}
                   alt="arrow"
                 ></img>
-                <div className="w-40 text-center flex flex-col items-center space-y-2">
-                  <div className="w-32 h-32 rounded-3xl shadow-inner flex flex-col items-center justify-center">
+                <div className="md:w-40 text-center flex flex-col items-center space-y-[10px] md:space-y-2">
+                  <div className="w-32 h-32 rounded-[40px] shadow-inner flex flex-col items-center justify-center">
                     <img src={step4} alt="step4"></img>
                   </div>
-                  <div className="text-pink text-sz16">Step 4</div>
-                  <div className="text-sz18">Suggest Remediations</div>
+                  <div className="text-pink text-sz16 leading-ht20 font-medium">Step 4</div>
+                  <div className="text-sz24 md:text-sz18 font-semibold leading-ht30 md:leading-auto text-grey">Suggest Remediations</div>
                 </div>
                 <img
                   className="mb-8 md:mb-0 mt-8 md:mt-14 transform rotate-90 md:rotate-0"
                   src={arrow}
                   alt="arrow"
                 ></img>
-                <div className="w-40 text-center flex flex-col items-center space-y-2">
-                  <div className="w-32 h-32 rounded-3xl shadow-inner flex flex-col items-center justify-center">
+                <div className="md:w-40 text-center flex flex-col items-center space-y-[10px] md:space-y-2">
+                  <div className="w-32 h-32 rounded-[40px] shadow-inner flex flex-col items-center justify-center">
                     <img src={step5} alt="step5"></img>
                   </div>
-                  <div className="text-pink text-sz16">Step 5</div>
-                  <div className="text-sz18">Deliver Report</div>
+                  <div className="text-pink text-sz16 leading-ht20 font-medium">Step 5</div>
+                  <div className="text-sz24 md:text-sz18 font-semibold leading-ht30 md:leading-auto text-grey">Deliver Report</div>
                 </div>
               </div>
             </div>
           </div>
           <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
-              <div className="w-full pl-4 text-blue text-sz16 md:text-sz20 font-bold font-pilat text-center">
+              <div className="w-full md:pl-4 text-blue text-sz16 md:text-sz20 leading-ht20 font-bold font-pilat text-center">
                 {mainProData.audit.terms}
               </div>
               {/* <div
@@ -620,13 +625,13 @@ const Audit = ({
                 </>
               ) : null}
             </div>
-            <div className="p-8 flex flex-col font-Manrope font-light space-y-4">
+            <div className="px-[15px] pt-5 pb-[112px] md:p-8 flex flex-col font-Manrope font-light space-y-4">
               <div
                 className="text-sz16 md:text-sz18 p-6 rounded-md shadow-inner flex flex-col space-y-4"
               >
                 <ul className="pl-8 list-outside list-disc space-y-4">
-                  {mainProData.audit.terms_text.map((text: string) => (
-                    <li className="text-blue">
+                  {mainProData.audit.terms_text.map((text: string, i: number) => (
+                    <li key={i} className="text-blue">
                       <div className="text-black">{text}</div>
                     </li>
                   ))}
@@ -704,11 +709,11 @@ const Audit = ({
                 </>
               ) : null}
             </div>
-            <div className="p-8 flex flex-col font-Manrope font-light space-y-4">
-              <div className="text-sz16 md:text-sz18">
+            <div className="px-[15px] pt-5 pb-[112px] md:p-8 flex flex-col font-Manrope font-light space-y-[80px] md:space-y-4">
+              <div className="text-sz12 md:text-sz18 font-medium leading-ht18.49 md:leading-auto text-grey">
                 {mainProData.audit.audit_report_text}
               </div>
-              <div className="text-sz16 md:text-sz18">
+              <div className="text-sz12 md:text-sz18 font-medium leading-ht18.49 md:leading-auto text-grey">
                 With every successful audit, we’ll provide you with a listing on
                 the W-HAT Safety rating leaderboard that is shared publicly with
                 the entire crypto community. The Leaderboard contains the
@@ -717,17 +722,17 @@ const Audit = ({
               </div>
             </div>
           </div>
-          <div className="py-10 flex flex-col space-y-8 s">
+          <div className="pt-[10px] md:py-10 flex flex-col space-y-8">
             <div className="font-pilat text-sz18 md:text-sz20 text-center">
               Audit Leaderboard
             </div>
             <div className="text-black font-Manrope font-light flex flex-row flex-wrap items-center gap-4">
               <select
-                id="role"
+                id="role" defaultValue="choose"
                 onChange={handleChangeNetwork}
                 className="w-72 h-12 box-border-blue bg-transparent border border-blue text-sz18 rounded-lg block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               >
-                <option value="choose" selected>
+                <option value="choose">
                   Choose a network
                 </option>
                 <option value="ETH">ETH</option>
@@ -744,11 +749,11 @@ const Audit = ({
                 <option value="zkSync">zkSync</option>
               </select>
               <select
-                id="category"
+                id="category" defaultValue="choose"
                 onChange={handleChangeCategory}
                 className="w-72 h-12 box-border-blue bg-transparent text-sz18 rounded-lg block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               >
-                <option value="choose" selected>
+                <option value="choose">
                   Choose a category
                 </option>
                 <option value="Defi">Defi</option>
@@ -758,7 +763,7 @@ const Audit = ({
               <div className="w-full flex">
                 <div
                   onClick={handleSearchItem}
-                  className="inline-flex items-center px-3 text-sm text-gray-900 bg-blue rounded-l-md border border-r-0 border-gray"
+                  className="inline-flex items-center px-3 text-sm text-gray-900 bg-blue rounded-l-md border border-r-0 border-blue md:border-gray"
                 >
                   <img src={searchImage} alt="search"></img>
                 </div>
@@ -767,15 +772,16 @@ const Audit = ({
                   id="website-admin"
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
-                  className="rounded-none shadow-inner rounded-r-lg bg-lightgray border border-darkgray focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="rounded-none shadow-inner rounded-r-lg bg-lightgray border border-blue md:border-darkgray focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Input Search name"
                 />
               </div>
             </div>
-            <div className="my-8 shadow-xl relative overflow-x-auto rounded-lg">
+            <div className="mt-10 mb-[30px] md:my-8 shadow-xl relative overflow-x-auto rounded-lg">
               <table className="w-full font-Manrope font-light text-sm text-center text-black">
                 <thead className="bg-gray text-blue uppercase border-b border-blue">
                   <tr>
+                    <th scope="col" className="px-6 py-4"></th>
                     <th scope="col" className="px-6 py-4">
                       Name
                     </th>
@@ -797,8 +803,9 @@ const Audit = ({
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredProjects?.map((project, index) => (
+									{filteredProjects?.filter((x, index) => index>=page*10 && index<(page+1)*10).map((project, index) => (
                     <tr
+                      key={index}
                       onClick={() => navigate(`/safety-ratings/rating/${index}`)}
                       className={
                         filteredProjects?.length === index + 1
@@ -806,18 +813,22 @@ const Audit = ({
                           : "bg-lightgray border-b border-blue"
                       }
                     >
+                      <td className="px-6 py-3">
+                        <img className="rounded-full" width="32" height="32" src={project.logo} alt="" />
+                      </td>
                       <td className="px-6 py-3">{project.name}</td>
                       <td className="px-6 py-3">
                         <div className="flex flex-row items-center justify-center">
-                          {project.audited_by.map((item: any) =>
-                            item === "WHD" ? (
-                              <img src={auditWHD} alt="WHD"></img>
-                            ) : (
-                              item === "EXTERNAL" && (
-                                <img src={auditExt} alt="EXT"></img>
+                            {/* {project.audited_by.map((item: any) =>
+                              item === "WHD" ? (
+                                <img src={auditWHD} alt="WHD"></img>
+                              ) : (
+                                item === "EXTERNAL" && (
+                                  <img src={auditExt} alt="EXT"></img>
+                                )
                               )
-                            )
-                          )}
+                            )} */}
+                          <img src={auditFileLink} alt="Link" className="cursor-pointer"></img>
                         </div>
                       </td>
                       <td className="px-6 py-3">
@@ -831,12 +842,12 @@ const Audit = ({
                         </div>
                       </td>
                       <td className="px-6 py-3">
-                        {project.price === -1 ? "N/A" : project.price}
+                        {(project.price === -1 || project.price === undefined) ? "N/A" : "$ "+project.price}
                       </td>
                       <td className="px-6 py-3">
-                        {project.market === "-1"
+                        {(project.market === "-1" || project.market === undefined)
                           ? "N/A"
-                          : FormatNumber(project.market)}
+                          : "$ "+FormatNumber(project.market)}
                       </td>
                       <td className="px-6 py-3">
                         {FormatYMD(project.createdAt)}
@@ -847,25 +858,15 @@ const Audit = ({
               </table>
             </div>
             <div className="font-Manrope text-sz15 w-full flex flex-row items-center justify-center space-x-4">
-              <div className="shadow-sm w-12 h-12 flex flex-row items-center justify-center">
+              <div className="shadow-sm w-12 h-12 flex flex-row items-center justify-center" onClick={prev}>
                 <img src={prevImage} alt="prev"></img>
               </div>
-              <div className="shadow-sm w-12 h-12 flex flex-row items-center justify-center">
-                1
-              </div>
-              <div className="shadow-sm w-12 h-12 flex flex-row items-center justify-center">
-                2
-              </div>
-              <div className="shadow-sm w-12 h-12 flex flex-row items-center justify-center">
-                3
-              </div>
-              <div className="shadow-sm w-12 h-12 flex flex-row items-center justify-center">
-                ...
-              </div>
-              <div className="shadow-sm w-12 h-12 flex flex-row items-center justify-center">
-                500
-              </div>
-              <div className="shadow-sm w-12 h-12 flex flex-row items-center justify-center">
+							{Array(Math.ceil(filteredProjects.length / 10)).fill("").map((x, i) =>
+								<div key={i} className={(page === i ? "shadow-sm " : "") + "w-12 h-12 flex flex-row items-center justify-center cursor-pointer"} onClick={() => setPage(i)}>
+									{i+1}
+								</div>
+							)}
+              <div className="shadow-sm w-12 h-12 flex flex-row items-center justify-center" onClick={next}>
                 <img src={nextImage} alt="next"></img>
               </div>
             </div>

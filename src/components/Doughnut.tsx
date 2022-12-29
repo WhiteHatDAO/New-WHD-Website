@@ -17,17 +17,73 @@ const Doughnut = ({ type, data }: chart) => {
 
   useEffect(() => {
     let tempList = [];
-    let tColors = [];
+    let tColors: any = [];
     let col;
     if (type) {
       for (let i = 0; i < data.length; i++) {
+        switch(data[i].color) {
+          case "Critical": {
+            col = '#A12E2E'
+            break;
+          }
+          case "Major": {
+            col = '#E28A59'
+            break;
+          }
+          case "Medium": {
+            col = '#E1AA4C'
+            break;
+          }
+          case "Minor": {
+            col = '#A9B3BD'
+            break;
+          }
+          case "Informational": {
+            col = '#4D6381'
+            break;
+          }
+          case "Purple": {
+            col = '#9F42CC'
+            break;
+          }
+          case "Green": {
+            col = '#0CA85D'
+            break;
+          }
+          case "Orange": {
+            col = '#FF7500'
+            break;
+          }
+          case "Skyblue": {
+            col = '#2B87E3'
+            break;
+          }
+          case "Pink": {
+            col = '#CC2D8F'
+            break;
+          }
+          case "Lightred": {
+            col = 'rgba(179, 15, 61, 1)'
+            break;
+          }
+          case "Magenta": {
+            col = 'rgba(173, 50, 122, 1)'
+            break;
+          }
+          case "Daisy": {
+            col = 'rgba(71, 28, 135, 1)'
+            break;
+          }
+        }
+
+        tColors.push(col)
+
         let item = {
           label: data[i].tag,
           value: data[i].percent,
-          color: data[i].color,
+          color: col,
         };
 
-        tColors.push(data[i].color)
         tempList.push(item);
       }
     } else {
@@ -53,6 +109,38 @@ const Doughnut = ({ type, data }: chart) => {
           }
           case "Informational": {
             col = '#4D6381'
+            break;
+          }
+          case "Purple": {
+            col = '#9F42CC'
+            break;
+          }
+          case "Green": {
+            col = '#0CA85D'
+            break;
+          }
+          case "Orange": {
+            col = '#FF7500'
+            break;
+          }
+          case "Skyblue": {
+            col = '#2B87E3'
+            break;
+          }
+          case "Pink": {
+            col = '#CC2D8F'
+            break;
+          }
+          case "Lightred": {
+            col = 'rgba(179, 15, 61, 1)'
+            break;
+          }
+          case "Magenta": {
+            col = 'rgba(173, 50, 122, 1)'
+            break;
+          }
+          case "Daisy": {
+            col = 'rgba(71, 28, 135, 1)'
             break;
           }
         }

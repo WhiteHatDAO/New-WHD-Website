@@ -72,7 +72,6 @@ const Navbar = ({ showMenu, handleShowMenu }: navProps) => {
       if (provider?.disconnect && typeof provider.disconnect === "function") {
         await provider.disconnect();
       }
-      document.location.href = "/"
       setAppState({
         provider: null,
         web3Provider: null,

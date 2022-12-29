@@ -1293,7 +1293,7 @@ const Home = ({
                       }
                     >
                       <td className="px-6 py-3">
-                        <img className="rounded-full" width="32" height="32" src={project.logo} alt="" />
+                        <img className="rounded-full w-8 h-8" src={project.logo} alt="" />
                       </td>
                       <td className="px-6 py-3 cursor-pointer md:text-blue">{project.name}</td>
                       <td className="px-6 py-3">
@@ -1612,7 +1612,7 @@ const Home = ({
             <div className="py-6 px-4 font-Manrope flex flex-row flex-wrap items-center justify-center space-x-8 rounded-xl">
               {mainProData.home.brands.map((brand: any, i: number) => (
                 <a key={i} href={brand.link} target="_blank" rel="noreferrer" className="flex justify-center items-center rounded-full bg-white w-20 h-20 overflow-hidden cursor-pointer">
-                  <img src={brand.link} alt={brand.name}></img>
+                  <img src={brand.logolink} alt={brand.name}></img>
                 </a>
               ))}
             </div>

@@ -1167,7 +1167,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
 
   const addNewDistribution = () => {
     let tDistribution = [...distributionList];
-    tDistribution.push({ color: "Yellow", percent: 0, tag: "" });
+    tDistribution.push({ color: "Purple", percent: 0, tag: "" });
     setDistributionList(tDistribution);
   };
 
@@ -1705,25 +1705,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
               <div className="font-Manrope text-sz10 font-light flex flex-row items-center justify-between">
                 <div className="w-full flex flex-row flex-wrap items-center gap-4">
                   {project?.tags?.map((tag: any) => (
-                    <div
-                      className={
-                        tag.color === "Yellow"
-                          ? "px-4 py-1 shadow-sm rounded-full bg-pure_yellow text-white"
-                          : tag.color === "Purple"
-                          ? "px-4 py-1 shadow-sm rounded-full bg-pure_purple text-white"
-                          : tag.color === "Green"
-                          ? "px-4 py-1 shadow-sm rounded-full bg-pure_green text-white"
-                          : tag.color === "Blue"
-                          ? "px-4 py-1 shadow-sm rounded-full bg-pure_blue text-white"
-                          : tag.color === "Red"
-                          ? "px-4 py-1 shadow-sm rounded-full bg-pure_red text-white"
-                          : tag.color === "Cyan"
-                          ? "px-4 py-1 shadow-sm rounded-full bg-pure_cyan text-white"
-                          : tag.color === "Pink"
-                          ? "px-4 py-1 shadow-sm rounded-full bg-pure_pink text-white"
-                          : "px-4 py-1 shadow-sm rounded-full bg-pure_orange text-white"
-                      }
-                    >
+										<div className='px-4 py-1 rounded-full shadow-inner cursor-pointer font-Manrope text-sz14 leading-ht19.12 font-medium text-lightblack'>
                       {tag.name}
                     </div>
                   ))}
@@ -1785,8 +1767,8 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
               </div>
             </div>
           </div>
-          <div className="my-10 flex flex-col md:flex-row items-start gap-4 md:gap-8">
-            <div className="shadow-xl rounded-xl w-full md:w-2/3 font-Manrope font-light ">
+          <div className="my-10 flex flex-col xl:flex-row items-start gap-4 md:gap-8">
+            <div className="shadow-xl rounded-xl w-full xl:w-2/3 font-Manrope font-light ">
               <div className="p-8 flex flex-col justify-center gap-4 ">
                 <div className="text-sz14 text-blue flex flex-col items-end justify-end">
                   {/* <div
@@ -1998,7 +1980,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                   {project?.description}
                 </div>
                 <div className="p-4 bg-gray rounded-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-8">
-                  <div className="flex flex-col items-center">
+                  <div className="flex flex-col items-center self-center md:self-auto">
                     <div className="rounded-full shadow-xl">
                       {
                         // project.circle_subtext &&
@@ -2102,7 +2084,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                 </div>
               </div>
             </div>
-            <div className="w-full md:w-1/3 shadow-xl rounded-xl font-Manrope font-light flex flex-col gap-4">
+            <div className="w-full xl:w-1/3 shadow-xl rounded-xl font-Manrope font-light flex flex-col gap-4">
               <div className="p-8 flex flex-col gap-4">
                 {/* <div
                   className="cursor-pointer text-sz14 text-blue flex flex-row items-center justify-end space-x-2"
@@ -2550,7 +2532,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                           <div className="text-darkgray text-sz14">
                             Token Smart Contract Audits:
                           </div>
-                          <div className="grid grid-cols-2 gap-4">
+                          <div className="flex flex-wrap gap-4">
                             {project?.contract_audits.map((audit: any, index: number) => (
                               <a href={audit.link} key={`ca_${index}`}>
                                 <div className="p-2 text-blue text-sz16 rounded-lg shadow-sm flex flex-row items-center justify-between">
@@ -2769,7 +2751,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                                 <SelectBox
                                   type={false}
                                   index={index}
-                                  color={item ? item.color : "Yellow"}
+                                  color={item ? item.color : "Purple"}
                                   handleColor={handleDistributionColor}
                                 ></SelectBox>
                               </div>
@@ -2818,7 +2800,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
             </div>
             <div className="p-8 font-Manrope font-light">
               {project.distribution_list && (
-                <div className="w-full rounded-xl p-4 bg-gray flex flex-col md:flex-row items-start md:items-center gap-8">
+                <div className="w-full rounded-xl p-4 bg-gray flex flex-col xl:flex-row items-center gap-8">
                   <div className="relative flex flex-col items-center">
                     <Doughnut type={true} data={project.distribution_list} />
                     <div className="font-Manrope text-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col">
@@ -2829,7 +2811,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                     </div>
                   </div>
                   <img
-                    className="hidden lg:block h-full"
+                    className="hidden xl:block h-full"
                     src={line}
                     alt="line"
                   ></img>
@@ -2842,40 +2824,44 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                               <div className="px-2 py-1 rounded-full shadow-inner flex flex-row items-center space-x-2">
                                 <div
                                   className={
-                                    data.color === "Yellow"
-                                      ? "w-4 h-4 rounded-md bg-pure_yellow"
-                                      : data.color === "Purple"
-                                      ? "w-4 h-4 rounded-md bg-pure_purple"
-                                      : data.color === "Green"
-                                      ? "w-4 h-4 rounded-md bg-pure_green"
-                                      : data.color === "Blue"
-                                      ? "w-4 h-4 rounded-md bg-pure_blue"
-                                      : data.color === "Red"
-                                      ? "w-4 h-4 rounded-md bg-pure_red"
-                                      : data.color === "Cyan"
-                                      ? "w-4 h-4 rounded-md bg-pure_cyan"
-                                      : data.color === "Pink"
-                                      ? "w-4 h-4 rounded-md bg-pink"
-                                      : "w-4 h-4 rounded-md bg-pure_orange"
+																		data.color === 'Purple'
+																		? 'w-4 h-4 rounded-md bg-pure_purple'
+																		: data.color === 'Green'
+																		? 'w-4 h-4 rounded-md bg-pure_green'
+																		: data.color === 'Orange'
+																		? 'w-4 h-4 rounded-md bg-pure_orange'
+																		: data.color === 'Skyblue'
+																		? 'w-4 h-4 rounded-md bg-pure_blue'
+																		: data.color === 'Pink'
+																		? 'w-4 h-4 rounded-md bg-pink'
+																		: data.color === 'Lightred'
+																		? 'w-4 h-4 rounded-md bg-lightred'
+																		: data.color === 'Magenta'
+																		? 'w-4 h-4 rounded-md bg-magenta'
+																		: data.color === 'Daisy'
+																		? 'w-4 h-4 rounded-md bg-daisy'
+																		: 'w-4 h-4 rounded-md bg-transparent'
                                   }
                                 ></div>
                                 <div
                                   className={
-                                    data.color === "Yellow"
-                                      ? "text-pure_yellow"
-                                      : data.color === "Purple"
-                                      ? "text-pure_purple"
-                                      : data.color === "Green"
-                                      ? "text-pure_green"
-                                      : data.color === "Blue"
-                                      ? "text-pure_blue"
-                                      : data.color === "Red"
-                                      ? "text-pure_red"
-                                      : data.color === "Cyan"
-                                      ? "text-pure_cyan"
-                                      : data.color === "Pink"
-                                      ? "text-pink"
-                                      : "text-pure_orange"
+                                    data.color === 'Purple'
+																		? 'text-pure_purple'
+																		: data.color === 'Green'
+																		? 'text-pure_green'
+																		: data.color === 'Orange'
+																		? 'text-pure_orange'
+																		: data.color === 'Skyblue'
+																		? 'text-pure_blue'
+																		: data.color === 'Pink'
+																		? 'text-pink'
+																		: data.color === 'Lightred'
+																		? 'text-lightred'
+																		: data.color === 'Magenta'
+																		? 'text-magenta'
+																		: data.color === 'Daisy'
+																		? 'text-daisy'
+																		: 'text-transparent'
                                   }
                                 >
                                   {data.percent}%
@@ -2883,21 +2869,23 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                               </div>
                               <div
                                 className={
-                                  data.color === "Yellow"
-                                    ? "p-1 text-white rounded-md text-sz14 flex flex-col justify-center bg-pure_yellow"
-                                    : data.color === "Purple"
-                                    ? "p-1 text-white rounded-md text-sz14 flex flex-col justify-center bg-pure_purple"
-                                    : data.color === "Green"
-                                    ? "p-1 text-white rounded-md text-sz14 flex flex-col justify-center bg-pure_green"
-                                    : data.color === "Blue"
-                                    ? "p-1 text-white rounded-md text-sz14 flex flex-col justify-center bg-pure_blue"
-                                    : data.color === "Red"
-                                    ? "p-1 text-white rounded-md text-sz14 flex flex-col justify-center bg-pure_red"
-                                    : data.color === "Cyan"
-                                    ? "p-1 text-white rounded-md text-sz14 flex flex-col justify-center bg-pure_cyan"
-                                    : data.color === "Pink"
-                                    ? "p-1 text-white rounded-md text-sz14 flex flex-col justify-center bg-pink"
-                                    : "p-1 text-white rounded-md text-sz14 flex flex-col justify-center bg-pure_orange"
+                                  data.color === 'Purple'
+																	? 'p-1 text-white rounded-md text-sz14 flex flex-col justify-center bg-pure_purple'
+																	: data.color === 'Green'
+																	? 'p-1 text-white rounded-md text-sz14 flex flex-col justify-center bg-pure_green'
+																	: data.color === 'Orange'
+																	? 'p-1 text-white rounded-md text-sz14 flex flex-col justify-center bg-pure_orange'
+																	: data.color === 'Skyblue'
+																	? 'p-1 text-white rounded-md text-sz14 flex flex-col justify-center bg-pure_blue'
+																	: data.color === 'Pink'
+																	? 'p-1 text-white rounded-md text-sz14 flex flex-col justify-center bg-pink'
+																	: data.color === 'Lightred'
+																	? 'p-1 text-white rounded-md text-sz14 flex flex-col justify-center bg-lightred'
+																	: data.color === 'Magenta'
+																	? 'p-1 text-white rounded-md text-sz14 flex flex-col justify-center bg-magenta'
+																	: data.color === 'Daisy'
+																	? 'p-1 text-white rounded-md text-sz14 flex flex-col justify-center bg-daisy'
+																	: 'p-1 text-white rounded-md text-sz14 flex flex-col justify-center bg-transparent'
                                 }
                               >
                                 {data.tag}
@@ -2909,7 +2897,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                     )}
                   </div>
                   <img
-                    className="hidden md:block h-full"
+                    className="hidden xl:block h-full"
                     src={line}
                     alt="line"
                   ></img>
@@ -2922,40 +2910,44 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                               <div className="px-2 py-1 rounded-full shadow-inner flex flex-row items-center space-x-2">
                                 <div
                                   className={
-                                    data.color === "Yellow"
-                                      ? "w-4 h-4 rounded-md bg-pure_yellow"
-                                      : data.color === "Purple"
-                                      ? "w-4 h-4 rounded-md bg-pure_purple"
-                                      : data.color === "Green"
-                                      ? "w-4 h-4 rounded-md bg-pure_green"
-                                      : data.color === "Blue"
-                                      ? "w-4 h-4 rounded-md bg-pure_blue"
-                                      : data.color === "Red"
-                                      ? "w-4 h-4 rounded-md bg-pure_red"
-                                      : data.color === "Cyan"
-                                      ? "w-4 h-4 rounded-md bg-pure_cyan"
-                                      : data.color === "Pink"
-                                      ? "w-4 h-4 rounded-md bg-pink"
-                                      : "w-4 h-4 rounded-md bg-pure_orange"
+                                    data.color === 'Purple'
+																		? 'w-4 h-4 rounded-md bg-pure_purple'
+																		: data.color === 'Green'
+																		? 'w-4 h-4 rounded-md bg-pure_green'
+																		: data.color === 'Orange'
+																		? 'w-4 h-4 rounded-md bg-pure_orange'
+																		: data.color === 'Skyblue'
+																		? 'w-4 h-4 rounded-md bg-pure_blue'
+																		: data.color === 'Pink'
+																		? 'w-4 h-4 rounded-md bg-pink'
+																		: data.color === 'Lightred'
+																		? 'w-4 h-4 rounded-md bg-lightred'
+																		: data.color === 'Magenta'
+																		? 'w-4 h-4 rounded-md bg-magenta'
+																		: data.color === 'Daisy'
+																		? 'w-4 h-4 rounded-md bg-daisy'
+																		: 'w-4 h-4 rounded-md bg-transparent'
                                   }
                                 ></div>
                                 <div
                                   className={
-                                    data.color === "Yellow"
-                                      ? "text-pure_yellow"
-                                      : data.color === "Purple"
-                                      ? "text-pure_purple"
-                                      : data.color === "Green"
-                                      ? "text-pure_green"
-                                      : data.color === "Blue"
-                                      ? "text-pure_blue"
-                                      : data.color === "Red"
-                                      ? "text-pure_red"
-                                      : data.color === "Cyan"
-                                      ? "text-pure_cyan"
-                                      : data.color === "Pink"
-                                      ? "text-pink"
-                                      : "text-pure_orange"
+                                    data.color === 'Purple'
+																		? 'text-pure_purple'
+																		: data.color === 'Green'
+																		? 'text-pure_green'
+																		: data.color === 'Orange'
+																		? 'text-pure_orange'
+																		: data.color === 'Skyblue'
+																		? 'text-pure_blue'
+																		: data.color === 'Pink'
+																		? 'text-pink'
+																		: data.color === 'Lightred'
+																		? 'text-lightred'
+																		: data.color === 'Magenta'
+																		? 'text-magenta'
+																		: data.color === 'Daisy'
+																		? 'text-daisy'
+																		: 'text-transparent'
                                   }
                                 >
                                   {data.percent}%
@@ -2963,21 +2955,23 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                               </div>
                               <div
                                 className={
-                                  data.color === "Yellow"
-                                    ? "p-1 text-white rounded-md text-sz14 flex flex-col justify-center bg-pure_yellow"
-                                    : data.color === "Purple"
-                                    ? "p-1 text-white rounded-md text-sz14 flex flex-col justify-center bg-pure_purple"
-                                    : data.color === "Green"
-                                    ? "p-1 text-white rounded-md text-sz14 flex flex-col justify-center bg-pure_green"
-                                    : data.color === "Blue"
-                                    ? "p-1 text-white rounded-md text-sz14 flex flex-col justify-center bg-pure_blue"
-                                    : data.color === "Red"
-                                    ? "p-1 text-white rounded-md text-sz14 flex flex-col justify-center bg-pure_red"
-                                    : data.color === "Cyan"
-                                    ? "p-1 text-white rounded-md text-sz14 flex flex-col justify-center bg-pure_cyan"
-                                    : data.color === "Pink"
-                                    ? "p-1 text-white rounded-md text-sz14 flex flex-col justify-center bg-pink"
-                                    : "p-1 text-white rounded-md text-sz14 flex flex-col justify-center bg-pure_orange"
+                                  data.color === 'Purple'
+																	? 'p-1 text-white rounded-md text-sz14 flex flex-col justify-center bg-pure_purple'
+																	: data.color === 'Green'
+																	? 'p-1 text-white rounded-md text-sz14 flex flex-col justify-center bg-pure_green'
+																	: data.color === 'Orange'
+																	? 'p-1 text-white rounded-md text-sz14 flex flex-col justify-center bg-pure_orange'
+																	: data.color === 'Skyblue'
+																	? 'p-1 text-white rounded-md text-sz14 flex flex-col justify-center bg-pure_blue'
+																	: data.color === 'Pink'
+																	? 'p-1 text-white rounded-md text-sz14 flex flex-col justify-center bg-pink'
+																	: data.color === 'Lightred'
+																	? 'p-1 text-white rounded-md text-sz14 flex flex-col justify-center bg-lightred'
+																	: data.color === 'Magenta'
+																	? 'p-1 text-white rounded-md text-sz14 flex flex-col justify-center bg-magenta'
+																	: data.color === 'Daisy'
+																	? 'p-1 text-white rounded-md text-sz14 flex flex-col justify-center bg-daisy'
+																	: 'p-1 text-white rounded-md text-sz14 flex flex-col justify-center bg-transparent'
                                 }
                               >
                                 {data.tag}
@@ -2992,7 +2986,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                     )}
                   </div>
                   <img
-                    className="hidden md:block h-full"
+                    className="hidden xl:block h-full"
                     src={line}
                     alt="line"
                   ></img>
@@ -4073,7 +4067,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
 											<a
 												href={exch.pairlink}
 												key={index}
-												className="pb-4 border-b border-blue border-darkgray flex flex-row items-center justify-between"
+												className="pb-4 border-b border-blue border-darkgray flex flex-row items-center justify-between gap-6 flex-wrap"
 											>
 												<div className="py-1 px-4 rounded-lg border border-blue sm:flex flex-row items-center space-x-2 hidden">
 													<img
@@ -4108,7 +4102,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
 											<a
 												href={exch.pairlink}
 												key={index}
-												className="pb-4 border-b border-blue border-darkgray flex flex-row items-center justify-between"
+												className="pb-4 border-b border-blue border-darkgray flex flex-row items-center justify-between gap-6 flex-wrap"
 											>
 												<div className="py-1 px-4 rounded-lg border border-blue hidden sm:flex flex-row items-center space-x-2">
 													<img

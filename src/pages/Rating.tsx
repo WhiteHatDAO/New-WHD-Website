@@ -1705,7 +1705,25 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
               <div className="font-Manrope text-sz10 font-light flex flex-row items-center justify-between">
                 <div className="w-full flex flex-row flex-wrap items-center gap-4">
                   {project?.tags?.map((tag: any) => (
-										<div className='px-4 py-1 rounded-full shadow-inner cursor-pointer font-Manrope text-sz14 leading-ht19.12 font-medium text-lightblack'>
+										<div className={
+											tag.color === 'Purple'
+											? 'px-4 py-1 shadow-sm rounded-full bg-pure_purple text-white'
+											: tag.color === 'Green'
+											? 'px-4 py-1 shadow-sm rounded-full bg-pure_green text-white'
+											: tag.color === 'Orange'
+											? 'px-4 py-1 shadow-sm rounded-full bg-pure_orange text-white'
+											: tag.color === 'Skyblue'
+											? 'px-4 py-1 shadow-sm rounded-full bg-pure_blue text-white'
+											: tag.color === 'Pink'
+											? 'px-4 py-1 shadow-sm rounded-full bg-pink text-white'
+											: tag.color === 'Lightred'
+											? 'px-4 py-1 shadow-sm rounded-full bg-lightred text-white'
+											: tag.color === 'Magenta'
+											? 'px-4 py-1 shadow-sm rounded-full bg-magenta text-white'
+											: tag.color === 'Daisy'
+											? 'px-4 py-1 shadow-sm rounded-full bg-daisy text-white'
+											: 'px-4 py-1 shadow-sm rounded-full bg-transparent text-white'
+										}>
                       {tag.name}
                     </div>
                   ))}

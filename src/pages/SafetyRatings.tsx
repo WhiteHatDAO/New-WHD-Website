@@ -402,21 +402,23 @@ const SafetyRatings = ({
                         <div
 													key={index}
                           className={
-                            tag.color === "Yellow"
-                              ? 'px-4 py-1 shadow-sm rounded-full bg-pure_yellow text-white font-medium text-sz14 leading-ht 19.12 md:leading-auto'
-                              : tag.color === 'Purple'
-                              ? 'px-4 py-1 shadow-sm rounded-full bg-pure_purple text-white font-medium text-sz14 leading-ht 19.12 md:leading-auto'
-                              : tag.color === 'Green'
-                              ? 'px-4 py-1 shadow-sm rounded-full bg-pure_green text-white font-medium text-sz14 leading-ht 19.12 md:leading-auto'
-                              : tag.color === 'Blue'
-                              ? 'px-4 py-1 shadow-sm rounded-full bg-pure_blue text-white font-medium text-sz14 leading-ht 19.12 md:leading-auto'
-                              : tag.color === 'Red'
-                              ? 'px-4 py-1 shadow-sm rounded-full bg-pure_red text-white font-medium text-sz14 leading-ht 19.12 md:leading-auto'
-                              : tag.color === 'Cyan'
-                              ? 'px-4 py-1 shadow-sm rounded-full bg-pure_cyan text-white font-medium text-sz14 leading-ht 19.12 md:leading-auto'
-                              : tag.color === 'Pink'
-                              ? 'px-4 py-1 shadow-sm rounded-full bg-pink text-white font-medium text-sz14 leading-ht 19.12 md:leading-auto'
-                              : 'px-4 py-1 shadow-sm rounded-full bg-pure_orange text-white font-medium text-sz14 leading-ht 19.12 md:leading-auto'
+                            tag.color === 'Purple'
+                            ? 'px-4 py-1 shadow-sm rounded-full bg-pure_purple text-white font-medium text-sz14 leading-ht19.12 md:leading-auto'
+                            : tag.color === 'Green'
+                            ? 'px-4 py-1 shadow-sm rounded-full bg-pure_green text-white font-medium text-sz14 leading-ht19.12 md:leading-auto'
+                            : tag.color === 'Orange'
+                            ? 'px-4 py-1 shadow-sm rounded-full bg-pure_orange text-white font-medium text-sz14 leading-ht19.12 md:leading-auto'
+                            : tag.color === 'Skyblue'
+                            ? 'px-4 py-1 shadow-sm rounded-full bg-pure_blue text-white font-medium text-sz14 leading-ht19.12 md:leading-auto'
+                            : tag.color === 'Pink'
+                            ? 'px-4 py-1 shadow-sm rounded-full bg-pink text-white font-medium text-sz14 leading-ht19.12 md:leading-auto'
+                            : tag.color === 'Lightred'
+                            ? 'px-4 py-1 shadow-sm rounded-full bg-lightred text-white font-medium text-sz14 leading-ht19.12 md:leading-auto'
+                            : tag.color === 'Magenta'
+                            ? 'px-4 py-1 shadow-sm rounded-full bg-magenta text-white font-medium text-sz14 leading-ht19.12 md:leading-auto'
+                            : tag.color === 'Daisy'
+                            ? 'px-4 py-1 shadow-sm rounded-full bg-daisy text-white font-medium text-sz14 leading-ht19.12 md:leading-auto'
+                            : 'px-4 py-1 shadow-sm rounded-full bg-transparent text-white font-medium text-sz14 leading-ht19.12 md:leading-auto'
                           }
                         >
                           {tag.name}
@@ -606,21 +608,23 @@ const SafetyRatings = ({
                             <div
 															key={i}
                               className={
-                                tag.color === "Yellow"
-                                  ? "px-4 py-1 shadow-sm rounded-full bg-pure_yellow text-white"
-                                  : tag.color === "Purple"
-                                  ? "px-4 py-1 shadow-sm rounded-full bg-pure_purple text-white"
-                                  : tag.color === "Green"
-                                  ? "px-4 py-1 shadow-sm rounded-full bg-pure_green text-white"
-                                  : tag.color === "Blue"
-                                  ? "px-4 py-1 shadow-sm rounded-full bg-pure_blue text-white"
-                                  : tag.color === "Red"
-                                  ? "px-4 py-1 shadow-sm rounded-full bg-pure_red text-white"
-                                  : tag.color === "Cyan"
-                                  ? "px-4 py-1 shadow-sm rounded-full bg-pure_cyan text-white"
-                                  : tag.color === "Pink"
-                                  ? "px-4 py-1 shadow-sm rounded-full bg-pink text-white"
-                                  : "px-4 py-1 shadow-sm rounded-full bg-pure_orange text-white"
+                                tag.color === 'Purple'
+																	? 'px-4 py-1 shadow-sm rounded-full bg-pure_purple text-white'
+																	: tag.color === 'Green'
+																	? 'px-4 py-1 shadow-sm rounded-full bg-pure_green text-white'
+																	: tag.color === 'Orange'
+																	? 'px-4 py-1 shadow-sm rounded-full bg-pure_orange text-white'
+																	: tag.color === 'Skyblue'
+																	? 'px-4 py-1 shadow-sm rounded-full bg-pure_blue text-white'
+																	: tag.color === 'Pink'
+																	? 'px-4 py-1 shadow-sm rounded-full bg-pink text-white'
+																	: tag.color === 'Lightred'
+																	? 'px-4 py-1 shadow-sm rounded-full bg-lightred text-white'
+																	: tag.color === 'Magenta'
+																	? 'px-4 py-1 shadow-sm rounded-full bg-magenta text-white'
+																	: tag.color === 'Daisy'
+																	? 'px-4 py-1 shadow-sm rounded-full bg-daisy text-white'
+																	: 'px-4 py-1 shadow-sm rounded-full bg-transparent text-white'
                               }
                             >
                               {tag.name}

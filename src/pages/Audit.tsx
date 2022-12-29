@@ -23,12 +23,13 @@ import save from "../assets/images/modal/save.png";
 import discard from "../assets/images/modal/discard.png";
 // import edit from "../assets/images/edit.png";
 
-import { FormatYMD, FormatNumber } from "../utils/utils";
+import { FormatYMD } from "../utils/utils";
 import { useState, useEffect } from "react";
 
 import axios from "axios";
 import { BACKEND_SERVER } from "../global/global";
 import { useNavigate } from "react-router-dom";
+import { useCoingeckoAPI } from "../utils/useCoingeckoAPI";
 
 interface AuditProps {
   auditProjects: any[];
@@ -49,6 +50,7 @@ const Audit = ({
   const [showSecondModal, setShowSecondModal] = useState(false);
   const [showThirdModal, setShowThirdModal] = useState(false);
 
+	const {fetchTokensData } = useCoingeckoAPI();
   const [diligenceAuditing, setDiligenceAuditing] = useState<string>();
   const [diligenceAuditingTxt, setDiligenceAuditingTxt] = useState<string>();
   const [diligenceAuditingNote, setDiligenceAuditingNote] = useState<string>();
@@ -59,6 +61,7 @@ const Audit = ({
   const [termsText, setTermsText] = useState<string[]>([]);
   const [auditReport, setAuditReport] = useState<string>();
   const [auditReportText, setAuditReportText] = useState<string>();
+	const [tokensData, setTokensData] = useState<any[]>([]);
 
   const [searchText, setSearchText] = useState<string>("");
   const [filteredProjects, setFilteredProjects] = useState<any[]>([]);
@@ -70,6 +73,18 @@ const Audit = ({
       setFilteredProjects(projects);
     }
   }, [auditProjects, searchText.length]);
+
+  useEffect(() => {
+		if(auditProjects) {
+			// console.log(auditProjects, 'once?')
+			let tokens: string[] = [];
+			auditProjects.forEach(auditProject => {
+				if(auditProject.token) tokens.push(auditProject.token)
+			});
+			fetchTokensData(tokens).then(d => setTokensData(d))
+		}
+	  // eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [auditProjects])
 
   const prev = () => (page > 0) && setPage(x=>x-=1)
 	const next = () => (page < Math.ceil(filteredProjects.length / 10) - 1) && setPage(x=>x+=1)
@@ -814,7 +829,7 @@ const Audit = ({
                       }
                     >
                       <td className="px-6 py-3">
-                        <img className="rounded-full" width="32" height="32" src={project.logo} alt="" />
+                        <img className="rounded-full w-8 h-8" src={project.logo} alt="" />
                       </td>
                       <td className="px-6 py-3">{project.name}</td>
                       <td className="px-6 py-3">
@@ -842,12 +857,22 @@ const Audit = ({
                         </div>
                       </td>
                       <td className="px-6 py-3">
-                        {(project.price === -1 || project.price === undefined) ? "N/A" : "$ "+project.price}
+                        {
+													(tokensData && tokensData[index]) ? (
+														(tokensData[index]?.price !== undefined && "$ ") + tokensData[index]?.price
+													) : "N/A"
+												}
+                        {/* {(project.price === -1 || project.price === undefined) ? "N/A" : "$ "+project.price} */}
                       </td>
                       <td className="px-6 py-3">
-                        {(project.market === "-1" || project.market === undefined)
+                        {
+												  (tokensData && tokensData[index]) ? (
+												    ((tokensData[index]?.market_cap === 0) ? "N/A" : (tokensData[index]?.market_cap !== undefined && "$ ") + tokensData[index]?.market_cap )
+												  ) : "N/A"
+												}
+                        {/* {(project.market === "-1" || project.market === undefined)
                           ? "N/A"
-                          : "$ "+FormatNumber(project.market)}
+                          : "$ "+FormatNumber(project.market)} */}
                       </td>
                       <td className="px-6 py-3">
                         {FormatYMD(project.createdAt)}

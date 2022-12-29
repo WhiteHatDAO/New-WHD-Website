@@ -17,7 +17,7 @@ const SelectBox = ({ type, index, color, handleColor }: selectBoxProps) => {
       setSelectedColor(color);
     } else {
       if(type === false) {
-        setSelectedColor(SECURITY_COLOR.YELLOW)
+        setSelectedColor(SECURITY_COLOR.PURPLE)
       }
     }
   }, [color, type]);
@@ -39,6 +39,18 @@ const SelectBox = ({ type, index, color, handleColor }: selectBoxProps) => {
         styleSelect = "w-6 h-6 rounded-full bg-major";
         break;
       }
+      case SECURITY_COLOR.MAGENTA: {
+        styleSelect = "w-6 h-6 rounded-full bg-magenta";
+        break;
+      }
+      case SECURITY_COLOR.DAISY: {
+        styleSelect = "w-6 h-6 rounded-full bg-daisy";
+        break;
+      }
+      case SECURITY_COLOR.LIGHTRED: {
+        styleSelect = "w-6 h-6 rounded-full bg-lightred";
+        break;
+      }
       case SECURITY_COLOR.MEDIUM: {
         styleSelect = "w-6 h-6 rounded-full bg-medium";
         break;
@@ -51,10 +63,6 @@ const SelectBox = ({ type, index, color, handleColor }: selectBoxProps) => {
         styleSelect = "w-6 h-6 rounded-full bg-informational";
         break;
       }
-      case SECURITY_COLOR.YELLOW: {
-        styleSelect = "w-6 h-6 rounded-full bg-pure_yellow";
-        break;
-      }
       case SECURITY_COLOR.PURPLE: {
         styleSelect = "w-6 h-6 rounded-full bg-pure_purple";
         break;
@@ -63,16 +71,8 @@ const SelectBox = ({ type, index, color, handleColor }: selectBoxProps) => {
         styleSelect = "w-6 h-6 rounded-full bg-pure_green";
         break;
       }
-      case SECURITY_COLOR.BLUE: {
+      case SECURITY_COLOR.SKYBLUE: {
         styleSelect = "w-6 h-6 rounded-full bg-pure_blue";
-        break;
-      }
-      case SECURITY_COLOR.RED: {
-        styleSelect = "w-6 h-6 rounded-full bg-pure_red";
-        break;
-      }
-      case SECURITY_COLOR.CYAN: {
-        styleSelect = "w-6 h-6 rounded-full bg-pure_cyan";
         break;
       }
       case SECURITY_COLOR.PINK: {
@@ -182,15 +182,6 @@ const SelectBox = ({ type, index, color, handleColor }: selectBoxProps) => {
           ) : (
             <>
               <div
-                onClick={() => handleSwitchColor("Yellow")}
-                className="hover:bg-darkgray rounded-sm flex flex-row items-center px-4 py-2"
-              >
-                <div className="w-6 h-6 bg-pure_yellow rounded-full"></div>
-                <p className="focus:outline-none text-sm leading-normal ml-2 text-gray-800">
-                  Yellow
-                </p>
-              </div>
-              <div
                 onClick={() => handleSwitchColor("Purple")}
                 className="hover:bg-darkgray rounded-sm flex flex-row items-center px-4 py-2"
               >
@@ -209,30 +200,21 @@ const SelectBox = ({ type, index, color, handleColor }: selectBoxProps) => {
                 </p>
               </div>
               <div
-                onClick={() => handleSwitchColor("Blue")}
+                onClick={() => handleSwitchColor("Orange")}
+                className="hover:bg-darkgray rounded-sm flex flex-row items-center px-4 py-2"
+              >
+                <div className="w-6 h-6 bg-pure_orange rounded-full"></div>
+                <p className="focus:outline-none text-sm leading-normal ml-2 text-gray-800">
+                  Orange
+                </p>
+              </div>
+              <div
+                onClick={() => handleSwitchColor("Skyblue")}
                 className="hover:bg-darkgray rounded-sm flex flex-row items-center px-4 py-2"
               >
                 <div className="w-6 h-6 bg-pure_blue rounded-full"></div>
                 <p className="focus:outline-none text-sm leading-normal ml-2 text-gray-800">
-                  Blue
-                </p>
-              </div>
-              <div
-                onClick={() => handleSwitchColor("Red")}
-                className="hover:bg-darkgray rounded-sm flex flex-row items-center px-4 py-2"
-              >
-                <div className="w-6 h-6 bg-pure_red rounded-full"></div>
-                <p className="focus:outline-none text-sm leading-normal ml-2 text-gray-800">
-                  Red
-                </p>
-              </div>
-              <div
-                onClick={() => handleSwitchColor("Cyan")}
-                className="hover:bg-darkgray rounded-sm flex flex-row items-center px-4 py-2"
-              >
-                <div className="w-6 h-6 bg-pure_cyan rounded-full"></div>
-                <p className="focus:outline-none text-sm leading-normal ml-2 text-gray-800">
-                  Cyan
+                  Skyblue
                 </p>
               </div>
               <div
@@ -241,16 +223,34 @@ const SelectBox = ({ type, index, color, handleColor }: selectBoxProps) => {
               >
                 <div className="w-6 h-6 bg-pink rounded-full"></div>
                 <p className="focus:outline-none text-sm leading-normal ml-2 text-gray-800">
-                  Blue
+                  Pink
                 </p>
               </div>
               <div
-                onClick={() => handleSwitchColor("Orange")}
+                onClick={() => handleSwitchColor("Lightred")}
                 className="hover:bg-darkgray rounded-sm flex flex-row items-center px-4 py-2"
               >
-                <div className="w-6 h-6 bg-pure_orange rounded-full"></div>
+                <div className="w-6 h-6 bg-lightred rounded-full"></div>
                 <p className="focus:outline-none text-sm leading-normal ml-2 text-gray-800">
-                  Orange
+                  Lightred
+                </p>
+              </div>
+              <div
+                onClick={() => handleSwitchColor("Magenta")}
+                className="hover:bg-darkgray rounded-sm flex flex-row items-center px-4 py-2"
+              >
+                <div className="w-6 h-6 bg-magenta rounded-full"></div>
+                <p className="focus:outline-none text-sm leading-normal ml-2 text-gray-800">
+                Magenta
+                </p>
+              </div>
+              <div
+                onClick={() => handleSwitchColor("Daisy")}
+                className="hover:bg-darkgray rounded-sm flex flex-row items-center px-4 py-2"
+              >
+                <div className="w-6 h-6 bg-daisy rounded-full"></div>
+                <p className="focus:outline-none text-sm leading-normal ml-2 text-gray-800">
+                  Daisy
                 </p>
               </div>
             </>

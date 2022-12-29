@@ -695,11 +695,13 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                 community forum. Once submitted in Snapshot, the token holders
                 will vote on whether to approve or reject these proposal.
               </div>
-              <img
-                className="w-full h-auto"
-                src={governance_img}
-                alt="governance"
-              ></img>
+              <div className="bg-black">
+                <img
+                  className="w-full h-auto"
+                  src={governance_img}
+                  alt="governance"
+                  ></img>
+              </div>
             </div>
           </div>
           <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">

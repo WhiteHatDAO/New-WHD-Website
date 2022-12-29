@@ -1,5 +1,8 @@
 export enum SECURITY_COLOR {
     CRITICAL = "Critical",
+    DAISY = "Daisy",
+    LIGHTRED = "Lightred",
+    MAGENTA = "Magenta",
     MAJOR = "Major",
     MEDIUM = "Medium",
     MINOR = "Minor",
@@ -7,7 +10,7 @@ export enum SECURITY_COLOR {
     YELLOW = "Yellow",
     PURPLE = "Purple",
     GREEN = "Green",
-    BLUE = "Blue",
+    SKYBLUE = "Skyblue",
     RED = "Red",
     CYAN = "Cyan",
     PINK = "Pink",

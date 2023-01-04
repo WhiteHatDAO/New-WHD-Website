@@ -40,7 +40,6 @@ import useWindowDimensions from "../hooks/useWindowDimensions";
 
 import storage from "../utils/firebaseConfig";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { useNavigate } from "react-router-dom";
 import SelectBox from "../components/SelectBox";
 
 import axios from "axios";
@@ -79,8 +78,6 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
   const { height } = useWindowDimensions();
   const gridItemRef = useRef<HTMLDivElement>(null);
   const [timeRange, setTimeRange] = useState<number>(1);
-
-  const navigate = useNavigate();
 
   const [showFirstModal, setShowFirstModal] = useState(false);
   const [showSecondModal, setShowSecondModal] = useState(false);
@@ -2043,7 +2040,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                           <div className="text-blue text-sz16">
                             {project?.codebase}
                           </div>
-                          <a href={"https://" + project?.codebase}>
+                          <a href={"https://" + project?.codebase} target="_blank" rel="noreferrer">
                             <svg
                               width="20"
                               height="20"
@@ -2076,8 +2073,8 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                 </div>
               </div>
               <div className="py-4 rounded-b-xl bg-blue font-pilat flex flex-col items-center justify-center">
-                <div
-                  onClick={() => navigate("/safety-ratings")}
+                <a
+                  href="/safety-ratings" target="_blank" rel="noreferrer"
                   className="cursor-pointer flex flex-row items-center justify-center"
                 >
                   <div className="text-sz14 text-white pr-2">
@@ -2099,7 +2096,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                       fill="white"
                     />
                   </svg>
-                </div>
+                </a>
               </div>
             </div>
             <div className="w-full xl:w-1/3 shadow-xl rounded-xl font-Manrope font-light flex flex-col gap-4">
@@ -2552,10 +2549,10 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                           </div>
                           <div className="flex flex-wrap gap-4">
                             {project?.contract_audits.map((audit: any, index: number) => (
-                              <a href={audit.link} key={`ca_${index}`}>
-                                <div className="p-2 text-blue text-sz16 rounded-lg shadow-sm flex flex-row items-center justify-between">
-                                  <img src={auditImage} alt="audit"></img>
-                                  <div>{audit.name}</div>
+                              <a href={audit.link} key={`ca_${index}`} target="_blank" rel="noreferrer">
+                                <div className="w-44 p-2 text-blue text-sz16 rounded-lg shadow-sm flex flex-row items-center justify-between flex-wrap gap-x-3">
+                                  <img src={audit.logolink} className="w-8 h-8 object-cover rounded-full" alt="audit"></img>
+                                  <div className="w-20 truncate">{audit.name}</div>
                                   <img
                                     className="w-4 h-4"
                                     src={goImage}
@@ -2572,10 +2569,10 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                           </div>
                           <div className="grid grid-cols-2 gap-4">
                             {project?.platform_audits.map((audit: any, index: number) => (
-                              <a href={audit.link} key={`pa_${index}`}>
-                                <div className="p-2 text-blue text-sz16 rounded-lg shadow-sm flex flex-row items-center justify-between">
-                                  <img src={auditImage} alt="audit"></img>
-                                  <div>{audit.name}</div>
+                              <a href={audit.link} key={`pa_${index}`} target="_blank" rel="noreferrer">
+                                <div className="w-44 p-2 text-blue text-sz16 rounded-lg shadow-sm flex flex-row items-center justify-between flex-wrap gap-x-3">
+                                  <img src={audit.logolink} className="w-8 h-8 object-cover rounded-full" alt="audit"></img>
+                                  <div className="w-20 truncate">{audit.name}</div>
                                   <img
                                     className="w-4 h-4"
                                     src={goImage}
@@ -2593,10 +2590,10 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                             </div>
                             <div className="flex flex-col space-y-4">
                               {project?.bug_bounty.map((audit: any, index: number) => (
-                                <a href={audit.link} key={`bb_${index}`}>
-                                  <div className="p-2 text-blue text-sz16 rounded-lg shadow-sm flex flex-row items-center justify-between">
-                                    <img src={auditImage} alt="audit"></img>
-                                    <div>{audit.name}</div>
+                                <a href={audit.link} key={`bb_${index}`} target="_blank" rel="noreferrer">
+                                  <div className="w-44 p-2 text-blue text-sz16 rounded-lg shadow-sm flex flex-row items-center justify-between flex-wrap gap-x-3">
+                                    <img src={audit.logolink} className="w-8 h-8 object-cover rounded-full" alt="audit"></img>
+                                    <div className="w-20 truncate">{audit.name}</div>
                                     <img
                                       className="w-4 h-4"
                                       src={goImage}
@@ -2612,10 +2609,10 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                               Insurance:
                             </div>
                             <div className="flex flex-col space-y-4">
-                              <a href={project?.insurance?.link}>
-                                <div className="p-2 text-blue text-sz14 rounded-lg shadow-sm flex flex-row items-center justify-between">
-                                  <img src={auditImage} alt="audit"></img>
-                                  <div>{project?.insurance?.name}</div>
+                              <a href={project?.insurance?.link} target="_blank" rel="noreferrer">
+                                <div className="w-44 p-2 text-blue text-sz16 rounded-lg shadow-sm flex flex-row items-center justify-between flex-wrap gap-x-3">
+                                  <img src={auditImage} className="w-8 h-8" alt="audit"></img>
+                                  <div className="w-20 truncate">{project?.insurance?.name}</div>
                                   <img
                                     className="w-4 h-4"
                                     src={goImage}
@@ -2819,14 +2816,24 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
             <div className="p-8 font-Manrope font-light">
               {project.distribution_list && (
                 <div className="w-full rounded-xl p-4 bg-gray flex flex-col xl:flex-row items-center gap-8">
-                  <div className="relative flex flex-col items-center">
-                    <Doughnut type={true} data={project.distribution_list} />
-                    <div className="font-Manrope text-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col">
-                      <div className="text-sz16 font-bold">
-                        {FormatBigNumber(tokenData?.total_supply)}
+									<div className="flex flex-col items-center gap-y-4">
+                    <div className="relative flex flex-col items-center">
+                      <Doughnut type={true} data={project.distribution_list} />
+                      <div className="font-Manrope text-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col">
+                        <div className="text-sz16 font-bold">
+                          {FormatBigNumber(tokenData?.total_supply)}
+                        </div>
+                        <div className="text-sz10">TOTAL SUPPLY</div>
                       </div>
-                      <div className="text-sz10">TOTAL SUPPLY</div>
                     </div>
+                    <div className="p-2 text-blue text-sz16 rounded-lg shadow-sm flex items-center gap-x-2">
+											<span>Token Mintable</span>
+											{project.mintable ?
+												<div className="px-2 py-1 text-white rounded-md text-sz14 bg-pink">Yes</div>
+												:	
+												<div className="px-2 py-1 text-white rounded-md text-sz14 bg-pure_green">No</div>
+											}
+										</div>
                   </div>
                   <img
                     className="hidden xl:block h-full"
@@ -4083,7 +4090,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
 									<>
 										{index % 2 === 0 && (
 											<a
-												href={exch.pairlink}
+												href={exch.pairlink} target="_blank" rel="noreferrer"
 												key={index}
 												className="pb-4 border-b border-blue border-darkgray flex flex-row items-center justify-between gap-6 flex-wrap"
 											>
@@ -4412,7 +4419,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                     </div>
                     <div className="flex flex-row items-center space-x-8">
                       {member?.twitter && (
-                        <a href={member?.twitter}>
+                        <a href={member?.twitter} target="_blank" rel="noreferrer">
                           <div className="shadow-inner rounded-full flex flex-col items-center justify-center">
                             <div className="p-2">
                               <svg
@@ -4446,7 +4453,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                         </a>
                       )}
                       {member?.linkedin && (
-                        <a href={member?.linkedin}>
+                        <a href={member?.linkedin} target="_blank" rel="noreferrer">
                           <div className="shadow-inner rounded-full flex flex-col items-center justify-center">
                             <div className="p-2">
                               <svg
@@ -4468,7 +4475,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                         </a>
                       )}
                       {member?.mail && (
-                        <a href={member?.mail}>
+                        <a href={member?.mail} target="_blank" rel="noreferrer">
                           <div className="shadow-inner rounded-full flex flex-col items-center justify-center">
                             <div className="p-2">
                               <svg

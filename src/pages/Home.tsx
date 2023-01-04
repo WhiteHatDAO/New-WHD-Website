@@ -699,7 +699,7 @@ const Home = ({
                 </div>
                 <div className="mt-4 cursor-pointer z-2">
                   <a
-                    href={mainProData.home.title_button_link}
+                    href={mainProData.home.title_button_link} target="_blank" rel="noreferrer"
                     className="shadow-sm text-2xl px-4 py-2 border rounded-xl gradient-box text-sz16 flex flex-col items-center font-Manrope"
                   >
                     <div className="hidden md:block text-blue">
@@ -1178,8 +1178,9 @@ const Home = ({
                     {mainProData.home.exchange.map(
                       (exch: any, index: number) => (
                         <a
-                          href={exch.pairlink}
                           key={index}
+                          href={exch.pairlink}
+													target="_blank" rel="noreferrer"
                           className="pb-4 border-b border-darkgray flex flex-row items-center justify-between flex-wrap gap-3"
                         >
                           <div className="flex flex-row items-center space-x-2">
@@ -1455,7 +1456,7 @@ const Home = ({
                   score to allow consumers to make informed decisions about your
                   product.
                 </div>
-                <a href={serviceRatingLink} className="z-2 cursor-pointer">
+                <a href={serviceRatingLink} target="_blank" rel="noreferrer" className="z-2 cursor-pointer">
                   <div className="shadow-sm text-2xl px-8 py-2 border rounded-xl gradient-box font-Manrope font-bold text-sz22 md:text-sz18">
                     Apply
                   </div>
@@ -1471,7 +1472,7 @@ const Home = ({
                   creation, Websites creation, Platform integration,
                   Decentralized App creation.
                 </div>
-                <a href={serviceWeb3Link} className="z-2 cursor-pointer">
+                <a href={serviceWeb3Link} target="_blank" rel="noreferrer" className="z-2 cursor-pointer">
                   <div className="shadow-sm text-2xl px-8 py-2 border rounded-xl gradient-box font-Manrope font-bold text-sz22 md:text-sz18">
                     Inquire Here
                   </div>
@@ -1486,7 +1487,7 @@ const Home = ({
                   We provide smart contract audit services for succinct reports
                   on your team’s security risks and optimization oportunties.
                 </div>
-                <a href={serviceContractLink} className="z-2 cursor-pointer">
+                <a href={serviceContractLink} target="_blank" rel="noreferrer" className="z-2 cursor-pointer">
                   <div className="shadow-sm text-2xl px-8 py-2 border rounded-xl gradient-box font-Manrope font-bold text-sz22 md:text-sz18">
                     Get Quote
                   </div>

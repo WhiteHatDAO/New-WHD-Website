@@ -432,7 +432,7 @@ const Audit = ({
                   <div className="w-full md:w-2/3 rounded-md shadow-sm p-[10px] md:p-4 border border-blue text-pink text-sz16 md:text-sz18 flex flex-row items-center justify-center space-x-2 md:space-x-0">
                     <div>
                       <a className="font-Manrope font-bold md:font-small text-sz16 leading-ht25 md:leading-auto"
-                        href={mainProData.audit.diligence_auditing_button_link}
+                        href={mainProData.audit.diligence_auditing_button_link} target="_blank" rel="noreferrer"
                       >
                         {mainProData.audit.diligence_auditing_button}
                       </a>

@@ -1,3 +1,5 @@
+import nextImage from '../assets/images/next.svg';
+import prevImage from '../assets/images/prev.svg';
 import pointImage from "../assets/images/point.png";
 import verify from "../assets/images/safety/verify.svg";
 import discord from "../assets/images/footer/discord_black.svg";
@@ -19,6 +21,8 @@ import { BACKEND_SERVER } from "../global/global";
 
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
+const amountPerPage = 10;
 
 interface propsSafetyRatings {
   auditProjects: any[];
@@ -45,6 +49,7 @@ const SafetyRatings = ({
   const [filteredProjects, setFilteredProjects] = useState<any[]>([]);
   const [gotoRating, setGotoRating] = useState<boolean>(false);
   const [length, setLength] = useState<number>(0);
+	const [curProPage, setCurProPage] = useState(0);
 
   useEffect(() => {
     if (auditProjects && searchText.length === 0) {
@@ -52,6 +57,9 @@ const SafetyRatings = ({
       setFilteredProjects(projects);
     }
   }, [auditProjects, searchText.length]);
+
+	const prevPro = () => (curProPage > 0) && setCurProPage(x=>x-=1)
+	const nextPro = () => (curProPage < Math.ceil(filteredProjects.length / amountPerPage) - 1) && setCurProPage(x=>x+=1)
 
   const handleSearchItem = (e: any) => {
     setSearchText(e.target.value);
@@ -367,7 +375,7 @@ const SafetyRatings = ({
               </div>
             </div>
             <div className="flex flex-col gap-[30px] md:gap-8">
-              {filteredProjects?.map((project, index) => (
+							{filteredProjects.filter((x, index) => index>=curProPage*amountPerPage && index<(curProPage+1)*amountPerPage)?.map((project, index) => (
                 <div key={index}>
                   <div className="cursor-pointer shadow-xl border border-blue font-Manrope font-light rounded-lg p-4 flex md:hidden flex-col gap-4">
                     <div className="flex flex-row items-start justify-between">
@@ -657,6 +665,21 @@ const SafetyRatings = ({
                   </div>
                 </div>
               ))}
+							<div className="pb-[14px] flex flex-wrap items-center justify-center gap-2">
+								<div className="font-Manrope text-sz15 w-full flex flex-row items-center justify-center space-x-4">
+									<div className="cursor-pointer shadow-sm w-12 h-12 flex flex-row items-center justify-center" onClick={prevPro}>
+										<img src={prevImage} alt="prev"></img>
+									</div>
+									{Array(Math.ceil(filteredProjects.length / amountPerPage)).fill("").map((x, i) =>
+										<div key={i} className={(curProPage === i ? "shadow-sm " : "") + "w-12 h-12 flex flex-row items-center justify-center cursor-pointer"} onClick={() => setCurProPage(i)}>
+											{i+1}
+										</div>
+									)}
+									<div className="cursor-pointer shadow-sm w-12 h-12 flex flex-row items-center justify-center" onClick={nextPro}>
+										<img src={nextImage} alt="next"></img>
+									</div>
+								</div>
+							</div>
             </div>
           </div>
         </div>

@@ -670,7 +670,7 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                     )
                   )}
                 </div>
-                <a href={mainProData.dao.snapshot_link} className="pt-[14px] md:pt-8 z-2 cursor-pointer">
+                <a href={mainProData.dao.snapshot_link} target="_blank" rel="noreferrer" className="pt-[14px] md:pt-8 z-2 cursor-pointer">
                   <div className="shadow-sm text-2xl w-full md:w-2/3 py-[10px] md:py-4 border bg-lightblack rounded-xl gradient-box text-sz16 md:text-sz18 leading-ht25 md:leading-auto font-semibold md:font-bold flex flex-col items-center">
                     Join our Snapshot Space
                   </div>

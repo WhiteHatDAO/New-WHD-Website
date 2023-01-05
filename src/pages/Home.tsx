@@ -1289,8 +1289,8 @@ const Home = ({
                       }
                       className={
                         filteredProjects?.length === index + 1
-                          ? "bg-lightgray border-none"
-                          : "bg-lightgray border-b border-blue"
+                          ? "cursor-pointer bg-lightgray border-none"
+                          : "cursor-pointer bg-lightgray border-b border-blue"
                       }
                     >
                       <td className="px-6 py-3">

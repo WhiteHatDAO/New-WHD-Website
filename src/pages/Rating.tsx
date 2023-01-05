@@ -23,7 +23,6 @@ import mail from "../assets/images/rating/mail.png";
 import radio_t from "../assets/images/rating/radio_t.svg";
 import radio_f from "../assets/images/rating/radio_f.svg";
 import addtag from "../assets/images/rating/addtag.svg";
-import auditImage from "../assets/images/rating/audit.svg";
 import goImage from "../assets/images/safety/go.svg";
 import check from "../assets/images/rating/check.svg";
 import close from "../assets/images/close.png";
@@ -2550,9 +2549,9 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                           <div className="flex flex-wrap gap-4">
                             {project?.contract_audits.map((audit: any, index: number) => (
                               <a href={audit.link} key={`ca_${index}`} target="_blank" rel="noreferrer">
-                                <div className="w-44 p-2 text-blue text-sz16 rounded-lg shadow-sm flex flex-row items-center justify-between flex-wrap gap-x-3">
+                                <div className="w-40 px-2 py-1 text-blue text-sz16 rounded-lg shadow-sm flex flex-row items-center justify-between flex-wrap gap-x-3">
                                   <img src={audit.logolink} className="w-8 h-8 object-cover rounded-full" alt="audit"></img>
-                                  <div className="w-20 truncate">{audit.name}</div>
+                                  <div className="w-16 truncate">{audit.name}</div>
                                   <img
                                     className="w-4 h-4"
                                     src={goImage}
@@ -2567,12 +2566,12 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                           <div className="text-darkgray text-sz164">
                             Platform Audits:
                           </div>
-                          <div className="grid grid-cols-2 gap-4">
+                          <div className="flex flex-wrap gap-4">
                             {project?.platform_audits.map((audit: any, index: number) => (
                               <a href={audit.link} key={`pa_${index}`} target="_blank" rel="noreferrer">
-                                <div className="w-44 p-2 text-blue text-sz16 rounded-lg shadow-sm flex flex-row items-center justify-between flex-wrap gap-x-3">
+                                <div className="w-40 px-2 py-1 text-blue text-sz16 rounded-lg shadow-sm flex flex-row items-center justify-between flex-wrap gap-x-3">
                                   <img src={audit.logolink} className="w-8 h-8 object-cover rounded-full" alt="audit"></img>
-                                  <div className="w-20 truncate">{audit.name}</div>
+                                  <div className="w-16 truncate">{audit.name}</div>
                                   <img
                                     className="w-4 h-4"
                                     src={goImage}
@@ -2583,36 +2582,16 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                             ))}
                           </div>
                         </div>)}
-                        <div className="grid grid-cols-2 gap-4">
-                          { project?.bug_bounty && (project?.bug_bounty.length > 0) && (<div className="flex flex-col space-y-2">
-                            <div className="text-darkgray text-sz14">
-                              Bug Bounty:
-                            </div>
-                            <div className="flex flex-col space-y-4">
-                              {project?.bug_bounty.map((audit: any, index: number) => (
-                                <a href={audit.link} key={`bb_${index}`} target="_blank" rel="noreferrer">
-                                  <div className="w-44 p-2 text-blue text-sz16 rounded-lg shadow-sm flex flex-row items-center justify-between flex-wrap gap-x-3">
-                                    <img src={audit.logolink} className="w-8 h-8 object-cover rounded-full" alt="audit"></img>
-                                    <div className="w-20 truncate">{audit.name}</div>
-                                    <img
-                                      className="w-4 h-4"
-                                      src={goImage}
-                                      alt="go"
-                                    ></img>
-                                  </div>
-                                </a>
-                              ))}
-                            </div>
-                          </div>)}
-                          { project?.insurance && project?.insurance?.name && (<div className="flex flex-col space-y-2">
-                            <div className="text-darkgray text-sz14">
-                              Insurance:
-                            </div>
-                            <div className="flex flex-col space-y-4">
-                              <a href={project?.insurance?.link} target="_blank" rel="noreferrer">
-                                <div className="w-44 p-2 text-blue text-sz16 rounded-lg shadow-sm flex flex-row items-center justify-between flex-wrap gap-x-3">
-                                  <img src={auditImage} className="w-8 h-8" alt="audit"></img>
-                                  <div className="w-20 truncate">{project?.insurance?.name}</div>
+                        { project?.bug_bounty && (project?.bug_bounty.length > 0) && (<div className="flex flex-col space-y-2">
+                          <div className="text-darkgray text-sz14">
+                            Bug Bounty:
+                          </div>
+                          <div className="flex flex-col space-y-4">
+                            {project?.bug_bounty.map((audit: any, index: number) => (
+                              <a href={audit.link} key={`bb_${index}`} target="_blank" rel="noreferrer">
+                                <div className="w-40 px-2 py-1 text-blue text-sz16 rounded-lg shadow-sm flex flex-row items-center justify-between flex-wrap gap-x-3">
+                                  <img src={audit.logolink} className="w-8 h-8 object-cover rounded-full" alt="audit"></img>
+                                  <div className="w-16 truncate">{audit.name}</div>
                                   <img
                                     className="w-4 h-4"
                                     src={goImage}
@@ -2620,9 +2599,27 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                                   ></img>
                                 </div>
                               </a>
-                            </div>
-                          </div>)}
-                        </div>
+                            ))}
+                          </div>
+                        </div>)}
+                        { project?.insurance && project?.insurance?.name && (<div className="flex flex-col space-y-2">
+                          <div className="text-darkgray text-sz14">
+                            Insurance:
+                          </div>
+                          <div className="flex flex-col space-y-4">
+                            <a href={project?.insurance?.link} target="_blank" rel="noreferrer">
+                              <div className="w-40 px-2 py-1 text-blue text-sz16 rounded-lg shadow-sm flex flex-row items-center justify-between flex-wrap gap-x-3">
+																<img src={project?.insurance?.logolink} className="w-8 h-8 object-cover rounded-full" alt="audit"></img>
+                                <div className="w-16 truncate">{project?.insurance?.name}</div>
+                                <img
+                                  className="w-4 h-4"
+                                  src={goImage}
+                                  alt="go"
+                                ></img>
+                              </div>
+                            </a>
+                          </div>
+                        </div>)}
                       </div>
                     </div>
                   )}
@@ -3016,10 +3013,10 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                     alt="line"
                   ></img>
                   <div className="px-2 text-sz14 font-Manrope font-light flex flex-col gap-8">
-                    <div className="text-center rounded-full shadow-sm text-green p-2">
+                    <div className="text-center rounded-md shadow-sm text-green p-2">
                       Max Supply - {FormatBigNumber(tokenData?.max_supply)}
                     </div>
-                    <div className="text-center rounded-full shadow-sm text-green p-2">
+                    <div className="text-center rounded-md shadow-sm text-green p-2">
                       Total Supply - {FormatBigNumber(tokenData?.total_supply)}
                     </div>
                     <div className="space-y-2 flex flex-col">

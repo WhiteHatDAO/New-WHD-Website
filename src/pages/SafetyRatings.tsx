@@ -295,7 +295,7 @@ const SafetyRatings = ({
             <div className="mt-[10px] md:mt-0 px-[13px] flex flex-col md:flex-row items-center justify-center gap-[30px] md:gap-8">
               <a
                 className="cursor-pointer w-full md:w-1/3 rounded-lg shadow-sm"
-                href={mainProData.rating.rating_button_first_link}
+                href={mainProData.rating.rating_button_first_link} target="_blank" rel="noreferrer"
               >
                 <div className="px-4 py-[10px] text-sz16 text-blue font-Manrope font-bold md:font-semibold flex flex-row space-x-2 items-center justify-center">
                   <div className="w-full">
@@ -306,7 +306,7 @@ const SafetyRatings = ({
               </a>
               <a
                 className="cursor-pointer w-full md:w-1/3 rounded-lg shadow-sm"
-                href={mainProData.rating.rating_button_second_link}
+                href={mainProData.rating.rating_button_second_link} target="_blank" rel="noreferrer"
               >
                 <div className="px-4 py-[10px] text-sz16 text-blue font-Manrope font-bold md:font-semibold flex flex-row space-x-2 items-center justify-center">
                   <div className="w-full">

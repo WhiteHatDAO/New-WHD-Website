@@ -67,20 +67,21 @@ export default class ReactSlick extends Component<IProps> {
                   <img className="rounded-t-xl h-60 object-cover" src={item.banner_image} alt="post1"></img>
                   <div className="p-4 flex flex-col space-y-4">
                     <div className="flex justify-between items-center">
-                      <div className="font-light text-sz14">
-                        {item.authors.length > 0 ? item.authors[0] : "No author"}
-                      </div>
-                      <div className="font-light text-sz14 text-darkgray">
+                      <div className="truncate font-light text-sz14">{item.source_domain}</div>
+                      <div className="truncate font-light text-sz14 text-darkgray">
                         {datePublished(item.time_published)}
                         {/* {getPast(item.time_published).days > 0 && getPast(item.time_published).days + "d "}
                         {getPast(item.time_published).hours > 0 && getPast(item.time_published).hours + "h "}
                         {getPast(item.time_published).minutes > 0 && getPast(item.time_published).minutes + "m "}*/}
                       </div>
                     </div>
-                    <div className="text-black text-sz14 font-bold limit-threelines">
+                    <div className="text-black text-sz16 font-bold limit-oneline">
                       {item.title}
                     </div>
-                    <div className="cursor-pointer shadow-sm rounded-md px-5 py-3 flex items-center justify-center self-start">
+                    <div className="text-black text-sz14 limit-threelines">
+                      {item.summary}
+                    </div>
+                    <div className="cursor-pointer shadow-sm rounded-md px-3 py-2 flex items-center justify-center self-start">
                       Learn More
                     </div>
                   </div>

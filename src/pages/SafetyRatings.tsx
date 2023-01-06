@@ -71,7 +71,7 @@ const SafetyRatings = ({
     } else {
       let projects = [];
       for (let i = 0; i < auditProjects.length; i++) {
-        if (auditProjects[i].name.includes(text)) {
+				if (auditProjects[i].name.toLowerCase().includes(text.toLowerCase())) {
           projects.push(auditProjects[i]);
         }
       }

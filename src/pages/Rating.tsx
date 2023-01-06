@@ -2039,7 +2039,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                           <div className="text-blue text-sz16">
                             {project?.codebase}
                           </div>
-                          <a href={"https://" + project?.codebase} target="_blank" rel="noreferrer">
+                          <a href={project?.codebase} target="_blank" rel="noreferrer">
                             <svg
                               width="20"
                               height="20"
@@ -2071,11 +2071,8 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                   )}
                 </div>
               </div>
-              <div className="py-4 rounded-b-xl bg-blue font-pilat flex flex-col items-center justify-center">
-                <a
-                  href="/safety-ratings" target="_blank" rel="noreferrer"
-                  className="cursor-pointer flex flex-row items-center justify-center"
-                >
+              <a href="/safety-ratings" target="_blank" rel="noreferrer" className="py-4 rounded-b-xl bg-blue font-pilat flex flex-col items-center justify-center">
+                <div className="cursor-pointer flex flex-row items-center justify-center">
                   <div className="text-sz14 text-white pr-2">
                     REQUEST FOR SAFETY RATING
                   </div>
@@ -2095,8 +2092,8 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                       fill="white"
                     />
                   </svg>
-                </a>
-              </div>
+                </div>
+              </a>
             </div>
             <div className="w-full xl:w-1/3 shadow-xl rounded-xl font-Manrope font-light flex flex-col gap-4">
               <div className="p-8 flex flex-col gap-4">
@@ -3013,12 +3010,21 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                     alt="line"
                   ></img>
                   <div className="px-2 text-sz14 font-Manrope font-light flex flex-col gap-8">
-                    <div className="text-center rounded-md shadow-sm text-green p-2">
-                      Max Supply - {FormatBigNumber(tokenData?.max_supply)}
-                    </div>
-                    <div className="text-center rounded-md shadow-sm text-green p-2">
-                      Total Supply - {FormatBigNumber(tokenData?.total_supply)}
-                    </div>
+                    <div className="border-b border-lightgrey"></div>
+										<div className="text-center text-green">
+											Total Supply
+										</div>
+										<div className="text-center rounded-md shadow-sm text-green p-2">
+											{FormatBigNumber(tokenData?.total_supply)}
+										</div>
+										<div className="border-b border-lightgrey"></div>
+										<div className="text-center text-green">
+											Max Supply
+										</div>
+										<div className="text-center rounded-md shadow-sm text-green p-2">
+											{FormatBigNumber(tokenData?.max_supply)}
+										</div>
+										<div className="border-b border-lightgrey"></div>
                     <div className="space-y-2 flex flex-col">
                       <div className="text-darkgray text-sz14">
                         Project Treasury multisig address
@@ -4472,7 +4478,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                         </a>
                       )}
                       {member?.mail && (
-                        <a href={member?.mail} target="_blank" rel="noreferrer">
+                        <a href={"mailto:"+member?.mail} target="_blank" rel="noreferrer">
                           <div className="shadow-inner rounded-full flex flex-col items-center justify-center">
                             <div className="p-2">
                               <svg

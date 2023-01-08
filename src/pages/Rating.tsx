@@ -2626,7 +2626,7 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
           </div>
           <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
-              <div className="w-full pl-4 text-blue text-sz16 md:text-sz18 font-bold font-pilat text-center">
+              <div className="w-full md:pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat text-center">
                 Token Distribution / Tokenomics
               </div>
               {/* <div
@@ -2815,10 +2815,10 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
                     <div className="relative flex flex-col items-center">
                       <Doughnut type={true} data={project.distribution_list} />
                       <div className="font-Manrope text-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col">
-                        <div className="text-sz16 font-bold">
+                        <div className="text-sz18 font-bold">
                           {FormatBigNumber(tokenData?.total_supply)}
                         </div>
-                        <div className="text-sz10">TOTAL SUPPLY</div>
+                        <div className="text-sz12">TOTAL SUPPLY</div>
                       </div>
                     </div>
                     <div className="p-2 text-blue text-sz16 rounded-lg shadow-sm flex items-center gap-x-2">
@@ -2835,7 +2835,7 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
                     src={line}
                     alt="line"
                   ></img>
-                  <div className="px-2 text-sz16 font-Manrope font-light flex flex-col gap-8">
+                  <div className="px-2 text-sz18 font-Manrope font-light flex flex-col gap-8">
                     {project.distribution_list.map(
                       (data: any, index: number) => (
                         <>
@@ -2921,7 +2921,7 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
                     src={line}
                     alt="line"
                   ></img>
-                  <div className="px-2 text-sz16 font-Manrope font-light flex flex-col gap-8">
+                  <div className="px-2 text-sz18 font-Manrope font-light flex flex-col gap-8">
                     {project.distribution_list.map(
                       (data: any, index: number) => (
                         <>
@@ -3285,7 +3285,7 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
 
           <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
-              <div className="w-full pl-4 text-blue text-sz16 md:text-sz18 font-bold font-pilat text-center">
+              <div className="w-full md:pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat text-center">
                 Audited Files
               </div>
               {/* <div
@@ -3440,7 +3440,7 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
 
           <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
-              <div className="w-full pl-4 text-blue text-sz16 md:text-sz18 font-bold font-pilat text-center">
+              <div className="w-full md:pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat text-center">
                 Methodology
               </div>
               {/* <div
@@ -3622,7 +3622,7 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
 
           <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
-              <div className="w-full pl-4 text-blue text-sz16 md:text-sz18 font-bold font-pilat text-center">
+              <div className="w-full md:pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat text-center">
                 Price Data
               </div>
               {/* <div
@@ -4165,7 +4165,7 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
 
           <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
-              <div className="w-full pl-4 text-blue text-sz16 md:text-sz18 font-bold font-pilat text-center">
+              <div className="w-full md:pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat text-center">
                 Project Team Members & Developers
               </div>
               {/* <div

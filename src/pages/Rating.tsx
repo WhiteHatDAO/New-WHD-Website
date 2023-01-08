@@ -61,10 +61,11 @@ import zksync from "../assets/images/select/zkSync.png";
 interface ratingProps {
   auditProjects: any[];
   count: number;
+	mainProData: any;
   handleCount: (count: number) => void;
 }
 
-const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
+const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps) => {
   const { id } = useParams();
   const {
     handleGetTokenData,
@@ -2071,7 +2072,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                   )}
                 </div>
               </div>
-              <a href="/safety-ratings" target="_blank" rel="noreferrer" className="py-4 rounded-b-xl bg-blue font-pilat flex flex-col items-center justify-center">
+              <a href={mainProData.rating.rating_button_second_link} target="_blank" rel="noreferrer" className="py-4 rounded-b-xl bg-blue font-pilat flex flex-col items-center justify-center">
                 <div className="cursor-pointer flex flex-row items-center justify-center">
                   <div className="text-sz14 text-white pr-2">
                     REQUEST FOR SAFETY RATING
@@ -3009,22 +3010,23 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                     src={line}
                     alt="line"
                   ></img>
-                  <div className="px-2 text-sz18 font-Manrope font-light flex flex-col gap-5">
-										<div className="border-b border-darkgray"></div>
-										<div className="text-darkgray text-sz16">
-											Total Supply
+                  <div className="px-2 text-sz18 font-Manrope font-light flex flex-col gap-4">
+										<div className="space-y-2 flex flex-col">
+											<div className="text-center text-green text-sz16">
+												Total Supply
+											</div>
+											<div className="text-center text-sz16 rounded-md shadow-sm text-green p-2">
+												{FormatBigNumber(tokenData?.total_supply)}
+											</div>
 										</div>
-										<div className="text-center rounded-md shadow-sm text-green p-2">
-											{FormatBigNumber(tokenData?.total_supply)}
+										<div className="space-y-2 flex flex-col">
+											<div className="text-center text-green text-sz16">
+												Max Supply
+											</div>
+											<div className="text-center text-sz16 rounded-md shadow-sm text-green p-2">
+												{FormatBigNumber(tokenData?.max_supply)}
+											</div>
 										</div>
-										<div className="border-b border-darkgray"></div>
-										<div className="text-darkgray text-sz16">
-											Max Supply
-										</div>
-										<div className="text-center rounded-md shadow-sm text-green p-2">
-											{FormatBigNumber(tokenData?.max_supply)}
-										</div>
-										<div className="border-b border-darkgray"></div>
 										<div className="space-y-2 flex flex-col">
 											<div className="text-darkgray text-sz16">
 												Project Treasury multisig address

@@ -123,6 +123,7 @@ const App = () => {
             element={
               <Rating
                 auditProjects={auditProjects}
+								mainProData={mainProData}
                 count={count}
                 handleCount={handleCount}
               />

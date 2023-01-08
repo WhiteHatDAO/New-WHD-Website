@@ -3009,31 +3009,31 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                     src={line}
                     alt="line"
                   ></img>
-                  <div className="px-2 text-sz14 font-Manrope font-light flex flex-col gap-8">
-                    <div className="border-b border-lightgrey"></div>
-										<div className="text-center text-green">
+                  <div className="px-2 text-sz18 font-Manrope font-light flex flex-col gap-5">
+										<div className="border-b border-darkgray"></div>
+										<div className="text-darkgray text-sz16">
 											Total Supply
 										</div>
 										<div className="text-center rounded-md shadow-sm text-green p-2">
 											{FormatBigNumber(tokenData?.total_supply)}
 										</div>
-										<div className="border-b border-lightgrey"></div>
-										<div className="text-center text-green">
+										<div className="border-b border-darkgray"></div>
+										<div className="text-darkgray text-sz16">
 											Max Supply
 										</div>
 										<div className="text-center rounded-md shadow-sm text-green p-2">
 											{FormatBigNumber(tokenData?.max_supply)}
 										</div>
-										<div className="border-b border-lightgrey"></div>
-                    <div className="space-y-2 flex flex-col">
-                      <div className="text-darkgray text-sz14">
-                        Project Treasury multisig address
-                      </div>
-                      <ContractAddressBox
-                        data={project?.multisig_address}
-                      ></ContractAddressBox>
-                    </div>
-                  </div>
+										<div className="border-b border-darkgray"></div>
+										<div className="space-y-2 flex flex-col">
+											<div className="text-darkgray text-sz16">
+												Project Treasury multisig address
+											</div>
+											<ContractAddressBox
+												data={project?.multisig_address}
+											></ContractAddressBox>
+										</div>
+									</div>
                 </div>
               )}
             </div>

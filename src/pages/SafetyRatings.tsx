@@ -326,7 +326,7 @@ const SafetyRatings = ({
               <div className="text-blue text-sz18">Add New Projects</div>
             </div>
           </div>
-          <div className="mx-[9px] md:mx-0 mt-8 mb-10 md:mb-8 p-4 md:p-10 bg-lightgray rounded-xl shadow-inner-xl flex flex-col space-y-8">
+          <div className="mx-[9px] md:mx-0 mt-8 mb-10 md:mb-8 p-4 md:p-10 md:pb-4 bg-lightgray rounded-xl shadow-inner-xl flex flex-col space-y-8">
             <div className="text-black font-Manrope font-light flex flex-col md:flex-row items-center gap-4">
               <div className="w-full flex flex-row items-center gap-4">
                 <select

@@ -1459,7 +1459,7 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
               <div className="w-full flex flex-row items-center justify-between">
                 <div className="flex flex-row items-center space-x-2">
                   <img
-                    className="w-9 rounded-full"
+                    className="w-9 h-9 object-cover rounded-full"
                     src={project.logo}
                     alt="idol"
                   ></img>

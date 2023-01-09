@@ -523,8 +523,7 @@ const SafetyRatings = ({
                   </div>
                   <div className="cursor-pointer shadow-xl hidden border border-blue rounded-xl px-8 py-4 md:flex flex-row items-center gap-4">
                     <img
-											className="rounded-full self-start"
-                      width="100" height="100"
+											className="rounded-full self-start w-24 h-24 object-cover"
                       onClick={() => 
                         navigate(`/safety-ratings/rating/${index}`)
                       }

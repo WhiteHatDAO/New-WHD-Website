@@ -93,7 +93,7 @@ const Home = ({
     } else {
       let projects = [];
       for (let i = 0; i < auditProjects.length; i++) {
-        if (auditProjects[i].name.includes(searchText)) {
+				if (auditProjects[i].name.toLowerCase().includes(searchText.toLowerCase())) {
           projects.push(auditProjects[i]);
         }
       }

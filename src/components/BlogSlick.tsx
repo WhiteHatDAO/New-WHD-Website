@@ -63,7 +63,7 @@ export default class ReactSlick extends Component<IProps> {
           {this.props?.news.map((item: any, index: number) => (
             <a key={index} href={item.url} target="_blank" rel="noreferrer">
               <div className="flex flex-col justify-center cursor-pointer">
-                <div className="my-8 mr-4 ml-4 shadow-sm flex flex-col border rounded-b-xl border-none overflow-hidden">
+                <div className="mb-8 mr-4 ml-4 shadow-sm flex flex-col border rounded-b-xl border-none overflow-hidden">
                   <img className="rounded-t-xl h-60 object-cover" src={item.banner_image} alt="post1"></img>
                   <div className="p-4 flex flex-col space-y-4">
                     <div className="flex justify-between items-center">

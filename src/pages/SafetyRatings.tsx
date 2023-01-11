@@ -182,7 +182,7 @@ const SafetyRatings = ({
     <>
       {auditProjects && mainProData ? (
         <div className="mx-2 sm:mx-4 flex flex-col">
-          <div className="mt-10 mb-[60px] md:my-10 px-[10px] pt-5 pb-7 md:p-4 sm:p-8 rounded-xl border border-blue shadow-xl flex flex-col space-y-5 md:space-y-6 text-center font-Manrope font-light">
+          <div className="mt-10 mb-12 px-[10px] pt-5 pb-7 md:p-4 sm:p-8 rounded-xl border border-blue shadow-xl flex flex-col space-y-5 md:space-y-6 text-center font-Manrope font-light">
             <div className="font-pilat text-sz20 leading-ht30 md:leading-auto text-blue flex flex-row items-start">
               <div className="w-full font-bold">Safety Ratings</div>
               {/* <div
@@ -317,7 +317,7 @@ const SafetyRatings = ({
               </a>
             </div>
           </div>
-          <div className="flex flex-col items-end invisible">
+          <div className="flex flex-col items-end hidden">
             <div
               onClick={() => createNewProject()}
               className="cursor-pointer font-Manrope border rounded-lg border-blue shadow-sm px-4 py-1 flex flex-row items-center space-x-2"
@@ -326,7 +326,8 @@ const SafetyRatings = ({
               <div className="text-blue text-sz18">Add New Projects</div>
             </div>
           </div>
-          <div className="mx-[9px] md:mx-0 mt-8 mb-10 md:mb-8 p-4 md:p-10 md:pb-4 bg-lightgray rounded-xl shadow-inner-xl flex flex-col space-y-8">
+
+          <div className="mb-8 p-4 md:p-10 md:pb-4 bg-lightgray rounded-xl shadow-inner-xl flex flex-col space-y-8">
             <div className="text-black font-Manrope font-light flex flex-col md:flex-row items-center gap-4">
               <div className="w-full flex flex-row items-center gap-4">
                 <select

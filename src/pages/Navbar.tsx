@@ -234,7 +234,7 @@ const Navbar = ({ showMenu, handleShowMenu }: navProps) => {
               GIFT CARDS
             </div> */}
             <div
-              onClick={() => document.location.href = link}
+              onClick={() => window.open(link, "_blank")}
               className={
                 location.pathname === "/blogpost" ? "cursor-pointer text-pink" : "cursor-pointer text-black"
               }

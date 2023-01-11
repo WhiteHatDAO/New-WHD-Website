@@ -1,3 +1,4 @@
+import copy from "../assets/images/copy_black.svg";
 import verify from "../assets/images/safety/verify.svg";
 import discord from "../assets/images/footer/discord_black.svg";
 import github from "../assets/images/footer/github_black.svg";
@@ -73,6 +74,7 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
     tokenData,
     tokenPriceHistory,
   } = useCoingeckoAPI();
+	const [openEmailBox, setOpenEmailBox] = useState<any>([]);
   const [project, setProject] = useState<any>(null);
   const [boxWidth, setBoxWidth] = useState<number>(0);
   const { height } = useWindowDimensions();
@@ -1415,6 +1417,21 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
     setMemberList(tMembers);
   };
 
+  const handleCopyEmail = async (text: any) => {
+		if(!text) {
+			alert("Nothing to copy");
+			return;
+		}
+    navigator.clipboard.writeText(text);
+		setOpenEmailBox(Array(openEmailBox.length).fill(false));
+	};
+
+	const handleOpenEmailBox = (i: number) => {
+		let tmp = [...openEmailBox];
+		tmp[i] = !tmp[i];
+		setOpenEmailBox(tmp);
+	};
+
   useEffect(() => {
     const handleResize = (width?: number) => {
       setBoxWidth(width || 0);
@@ -1434,6 +1451,7 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
   useEffect(() => {
     if (id !== undefined && auditProjects.length !== 0) {
       setProject(auditProjects[parseInt(id)]);
+			setOpenEmailBox(Array(auditProjects[parseInt(id)].member.length).fill(false))
     }
   }, [id, auditProjects]);
 
@@ -1453,7 +1471,7 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
   return (
     <>
       {project ? (
-        <div className="mx-4 my-4 md:my-10 flex flex-col" ref={gridItemRef}>
+        <div className="mx-4 my-4 md:my-10 flex flex-col space-y-12" ref={gridItemRef}>
           <div className="w-full flex flex-col md:flex-row items-start md:items-end justify-between gap-4">
             <div className="w-full flex flex-col gap-4">
               <div className="w-full flex flex-row items-center justify-between">
@@ -1782,7 +1800,7 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
               </div>
             </div>
           </div>
-          <div className="my-10 flex flex-col xl:flex-row items-start gap-4 md:gap-8">
+          <div className="flex flex-col xl:flex-row items-start gap-12">
             <div className="shadow-xl rounded-xl w-full xl:w-2/3 font-Manrope font-light ">
               <div className="p-8 flex flex-col justify-center gap-4 ">
                 <div className="text-sz14 text-blue flex flex-col items-end justify-end">
@@ -3041,7 +3059,7 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
             </div>
           </div>
 
-          <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
+          <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
               <div className="w-full pl-4 text-blue text-sz18 font-bold font-pilat text-center">
                 Code Security Assessment
@@ -3283,7 +3301,7 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
             )}
           </div>
 
-          <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
+          <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
               <div className="w-full md:pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat text-center">
                 Audited Files
@@ -3438,7 +3456,7 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
             )}
           </div>
 
-          <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
+          <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
               <div className="w-full md:pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat text-center">
                 Methodology
@@ -3620,7 +3638,7 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
             )}
           </div>
 
-          <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
+          <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
               <div className="w-full md:pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat text-center">
                 Price Data
@@ -3958,7 +3976,7 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
             )}
           </div>
 
-          <div className="my-0 md:my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
+          <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="px-6 py-4 rounded-t-xl">
               <div className="pl-4 text-blue text-sz16 md:text-sz18 font-bold font-pilat text-center flex flex-row items-center">
                 <div className="w-full">Exchanges</div>
@@ -4163,7 +4181,7 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
 						</div>
           </div>
 
-          <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
+          <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
               <div className="w-full md:pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat text-center">
                 Project Team Members & Developers
@@ -4404,7 +4422,7 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
                 </div>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-between gap-8">
-                {project?.member?.map((member: any) => (
+                {project?.member?.map((member: any, index: number) => (
                   <div className="rounded-xl shadow-xl flex flex-col items-center justify-center space-y-2 p-4 text-center">
                     <div className="rounded-full shadow-inner flex flex-col items-center justify-center">
                       <img
@@ -4480,24 +4498,28 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
                         </a>
                       )}
                       {member?.mail && (
-                        <a href={"mailto:"+member?.mail} target="_blank" rel="noreferrer">
-                          <div className="shadow-inner rounded-full flex flex-col items-center justify-center">
-                            <div className="p-2">
-                              <svg
-                                width="20"
-                                height="20"
-                                viewBox="0 0 20 20"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M18.3337 4.99967C18.3337 4.08301 17.5837 3.33301 16.667 3.33301H3.33366C2.41699 3.33301 1.66699 4.08301 1.66699 4.99967V14.9997C1.66699 15.9163 2.41699 16.6663 3.33366 16.6663H16.667C17.5837 16.6663 18.3337 15.9163 18.3337 14.9997V4.99967ZM16.667 4.99967L10.0003 9.16634L3.33366 4.99967H16.667ZM16.667 14.9997H3.33366V6.66634L10.0003 10.833L16.667 6.66634V14.9997Z"
-                                  fill="#346DA1"
-                                />
-                              </svg>
-                            </div>
+                        <div className="relative shadow-inner rounded-full flex flex-col items-center justify-center">
+													{openEmailBox[index] &&
+                            <div className="absolute bottom-[calc(100%+1rem)] left-1/2 -translate-x-1/2 rounded-md shadow-sm flex justify-center bg-lightgray px-2 py-1 space-x-2 w-36">
+                              <img className="cursor-pointer" onClick={() => handleCopyEmail(member?.mail)} src={copy} alt="copy" />
+                              <span className="truncate">{member?.mail ?? "None"}</span>
+                            </div>                        
+                          }
+													<div className="cursor-pointer p-2" onClick={() => handleOpenEmailBox(index)}>
+                            <svg
+                              width="20"
+                              height="20"
+                              viewBox="0 0 20 20"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M18.3337 4.99967C18.3337 4.08301 17.5837 3.33301 16.667 3.33301H3.33366C2.41699 3.33301 1.66699 4.08301 1.66699 4.99967V14.9997C1.66699 15.9163 2.41699 16.6663 3.33366 16.6663H16.667C17.5837 16.6663 18.3337 15.9163 18.3337 14.9997V4.99967ZM16.667 4.99967L10.0003 9.16634L3.33366 4.99967H16.667ZM16.667 14.9997H3.33366V6.66634L10.0003 10.833L16.667 6.66634V14.9997Z"
+                                fill="#346DA1"
+                              />
+                            </svg>
                           </div>
-                        </a>
+                        </div>
                       )}
                     </div>
                     {member?.address && (
@@ -4510,7 +4532,7 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
               </div>
             </div>
           </div>
-          <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
+          <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
               <div className="w-full pl-4 text-pink text-sz16 md:text-sz18 font-bold font-pilat text-center">
                 Disclaimer

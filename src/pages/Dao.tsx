@@ -460,7 +460,7 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
   return (
     <>
       {mainProData ? (
-        <div className="px-[7px] md:px-0 py-10 flex flex-col">
+        <div className="px-[7px] md:px-0 py-10 flex flex-col space-y-12">
           <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
               <div className="w-full md:pl-4 text-blue text-sz20 leading-ht30 md:leading-auto font-bold font-pilat text-center">
@@ -678,7 +678,7 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
               </div>
             </div>
           </div>
-          <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
+          <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl">
               <div className="md:pl-4 text-blue text-sz20 leading-ht30 md:leading-auto font-semibold md:font-bold font-pilat text-center">
                 Governance Policy & Constitution
@@ -899,7 +899,7 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
               </div>
             </div>
           </div>
-          <div className="mt-8 bg-lightgray rounded-xl shadow-xl flex flex-col">
+          <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
               <div className="w-full md:pl-4 text-blue text-sz20 leading-ht30 md:leading-auto font-bold font-pilat text-center">
                 {mainProData.dao.core_text}
@@ -1104,7 +1104,7 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
               </div>
             </div>
           </div>
-          <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
+          <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl">
               <div className="md:pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat text-center flex flex-row items-center justify-between">
                 <div className="w-full">
@@ -1216,9 +1216,9 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
               <div className="text-sz16 md:text-sz18 leading-ht24.66 md:leading-auto text-grey font-medium">
                 {mainProData.dao.contributor_overview}
               </div>
-              <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-12">
                 <div className="flex flex-col space-y-10">
-                  <div className="mt-[14px] mb-5 md:my-10 bg-lightgray rounded-xl shadow-sm flex flex-col">
+                  <div className="mt-10 bg-lightgray rounded-xl shadow-sm flex flex-col">
                     <div className="bg-gray px-6 py-4 rounded-t-xl">
                       <div className="md:pl-4 text-blue text-sz20 leading-ht25.7 md:leading-auto font-semibold md:font-bold font-pilat text-center">
                         Administration's Responsibilities
@@ -1235,7 +1235,7 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                       ))}
                     </div>
                   </div>
-                  <div className="my-5 md:my-10 bg-lightgray rounded-xl shadow-sm flex flex-col">
+                  <div className="mt-12 bg-lightgray rounded-xl shadow-sm flex flex-col">
                     <div className="bg-gray px-6 py-4 rounded-t-xl">
                       <div className="md:pl-4 text-blue text-sz20 leading-ht25.7 md:leading-auto font-semibold md:font-bold font-pilat text-center">
                         Who can apply for the ambassador role ?
@@ -1250,7 +1250,7 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                 </div>
 
                 <div className="flex flex-col space-y-10 justify-between">
-                  <div className="my-5 md:my-10 bg-lightgray rounded-xl shadow-sm flex flex-col">
+                  <div className="mt-10 bg-lightgray rounded-xl shadow-sm flex flex-col">
                     <div className="bg-gray px-6 py-4 rounded-t-xl">
                       <div className="md:pl-4 text-blue text-sz20 leading-ht25.7 md:leading-auto font-semibold md:font-bold font-pilat text-center">
                         Developers Responsibilities
@@ -1270,7 +1270,7 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
                       ))}
                     </div>
                   </div>
-                  <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
+                  <div className="mt-12 bg-lightgray rounded-xl shadow-xl flex flex-col">
                     <div className="bg-gray px-6 py-4 rounded-t-xl">
                       <div className="md:pl-4 text-blue text-sz20 leading-ht25.7 md:leading-auto font-bold font-pilat text-center">
                         Community Ambassadors
@@ -1291,7 +1291,7 @@ const Dao = ({ mainProData, count, handleCount }: daoProps) => {
               </div>
             </div>
           </div>
-          <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
+          <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl">
               <div className="md:pl-4 text-pink text-sz20 leading-ht30 md:leading-auto font-bold font-pilat text-center flex flex-row items-center">
                 <div className="w-full">{mainProData.dao.message_title}</div>

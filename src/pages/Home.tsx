@@ -1361,7 +1361,7 @@ const Home = ({
 							</div>
             </div>
           </div>
-          <div className="mt-[60px] md:mt-8 mb-8 w-full flex flex-col">
+          <div className="mt-[60px] md:mt-8 w-full flex flex-col">
             <div className="text-center font-pilat text-sz20 font-semibold flex flex-row items-center leading-ht25.7 md:leading-auto">
               <div className="w-full">SERVICES</div>
               {/* <div
@@ -1495,7 +1495,7 @@ const Home = ({
               </div>
             </div>
           </div>
-          <div className="mt-[68px] mb-10 md:my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
+          <div className="mt-[72px] bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray py-[13px] md:px-6 md:py-4 rounded-t-xl flex flex-row items-start">
               <div className="w-full pl-4 text-blue text-sz20 font-bold font-pilat text-center">
                 {mainProData.home.brands_title}
@@ -1619,11 +1619,11 @@ const Home = ({
             </div>
           </div>
 
-          <div className="mt-[60px] mb-8 md:my-8 w-full flex flex-col">
+          <div className="mt-12 w-full flex flex-col">
             <div className="text-center font-pilat text-sz20 font-semibold">
               Web3 News
             </div>
-            <div className="mt-8 font-Manrope">
+            <div className="mt-12 font-Manrope">
               {news.length > 0 && (
                 <BlogSlick
                   news={news}

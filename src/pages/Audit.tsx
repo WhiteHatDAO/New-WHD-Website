@@ -299,7 +299,7 @@ const Audit = ({
   return (
     <>
       {auditProjects && mainProData ? (
-        <div className="mx-[7px] md:mx-4 my-10 flex flex-col space-y-[60px] md:space-y-5">
+        <div className="mx-[7px] md:mx-4 my-10 flex flex-col space-y-12">
           <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
               <div className="w-full md:pl-4 text-blue text-sz16 md:text-sz20 leading-ht20 md:leading-auto font-bold font-pilat text-center">
@@ -429,7 +429,7 @@ const Audit = ({
                       {mainProData.audit.diligence_auditing_note}
                     </div>
                   </div>
-                  <div className="w-full md:w-2/3 rounded-md shadow-sm p-[10px] md:p-4 border border-blue text-pink text-sz16 md:text-sz18 flex flex-row items-center justify-center space-x-2 md:space-x-0">
+                  <div className="px-4 py-[10px] text-sz16 text-blue font-Manrope font-bold md:font-semibold flex flex-row space-x-2 items-center justify-center cursor-pointer rounded-lg shadow-sm">
                     <div>
                       <a className="font-Manrope font-bold md:font-small text-sz16 leading-ht25 md:leading-auto"
                         href={mainProData.audit.diligence_auditing_button_link} target="_blank" rel="noreferrer"
@@ -446,7 +446,7 @@ const Audit = ({
                     >
                       <path
                         d="M3.16667 1H14V11.8333M14 1L1 14L14 1Z"
-                        stroke="#CC2D8F"
+                        stroke="#346DA1"
                         strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -501,7 +501,7 @@ const Audit = ({
             <div className="py-8 md:p-8 flex flex-col font-Manrope font-light space-y-[30px] md:space-y-4">
               <div className="flex flex-col md:flex-row items-center md:items-start justify-center md:justify-between">
                 <div className="md:w-40 text-center flex flex-col items-center space-y-[10px] md:space-y-2">
-                  <div className="w-32 h-32 rounded-[40px] shadow-inner flex flex-col items-center justify-center">
+                  <div className="w-28 h-28 rounded-[40px] shadow-inner flex flex-col items-center justify-center">
                     <img src={step1} alt="step1"></img>
                   </div>
                   <div className="text-pink text-sz16 leading-ht20 font-medium">Step 1</div>
@@ -513,7 +513,7 @@ const Audit = ({
                   alt="arrow"
                 ></img>
                 <div className="md:w-40 text-center flex flex-col items-center space-y-[10px] md:space-y-2">
-                  <div className="w-32 h-32 rounded-[40px] shadow-inner flex flex-col items-center justify-center">
+                  <div className="w-28 h-28 rounded-[40px] shadow-inner flex flex-col items-center justify-center">
                     <img src={step2} alt="step2"></img>
                   </div>
                   <div className="text-pink text-sz16 leading-ht20 font-medium">Step 2</div>
@@ -525,7 +525,7 @@ const Audit = ({
                   alt="arrow"
                 ></img>
                 <div className="md:w-40 text-center flex flex-col items-center space-y-[10px] md:space-y-2">
-                  <div className="w-32 h-32 rounded-[40px] shadow-inner flex flex-col items-center justify-center">
+                  <div className="w-28 h-28 rounded-[40px] shadow-inner flex flex-col items-center justify-center">
                     <img src={step3} alt="step3"></img>
                   </div>
                   <div className="text-pink text-sz16 leading-ht20 font-medium">Step 3</div>
@@ -539,7 +539,7 @@ const Audit = ({
                   alt="arrow"
                 ></img>
                 <div className="md:w-40 text-center flex flex-col items-center space-y-[10px] md:space-y-2">
-                  <div className="w-32 h-32 rounded-[40px] shadow-inner flex flex-col items-center justify-center">
+                  <div className="w-28 h-28 rounded-[40px] shadow-inner flex flex-col items-center justify-center">
                     <img src={step4} alt="step4"></img>
                   </div>
                   <div className="text-pink text-sz16 leading-ht20 font-medium">Step 4</div>
@@ -551,7 +551,7 @@ const Audit = ({
                   alt="arrow"
                 ></img>
                 <div className="md:w-40 text-center flex flex-col items-center space-y-[10px] md:space-y-2">
-                  <div className="w-32 h-32 rounded-[40px] shadow-inner flex flex-col items-center justify-center">
+                  <div className="w-28 h-28 rounded-[40px] shadow-inner flex flex-col items-center justify-center">
                     <img src={step5} alt="step5"></img>
                   </div>
                   <div className="text-pink text-sz16 leading-ht20 font-medium">Step 5</div>

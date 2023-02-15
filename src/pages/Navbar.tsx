@@ -52,14 +52,17 @@ const Navbar = ({ showMenu, handleShowMenu }: navProps) => {
           address: address,
         });
 
+        // if(localStorage.getItem("unlock-sign") !== "true") {
         try {
           const urlSearchParams = new URLSearchParams(window.location.search);
           const params = Object.fromEntries(urlSearchParams.entries());
           const code = JSON.parse(atob(params.code));
           await utils.verifyMessage(code.d, code.s);
+          localStorage.setItem("unlock-sign", "true")
         } catch(e) {
           document.location.href = `https://app.unlock-protocol.com/checkout?client_id=${document.location.host}&redirect_uri=${document.location.href}`
         }
+        // }
       } catch (e) {}
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -292,22 +295,14 @@ const Navbar = ({ showMenu, handleShowMenu }: navProps) => {
             <img className="cursor-pointer" onClick={() => setOpen(false)} src={close} alt="close"></img>
           </div>
           <div className="pt-7 font-pilat text-sz14 flex flex-col items-center justify-center gap-10">
-            <a href="/">
-              <div>HOME</div>
-            </a>
-            <a href="/dao">
-              <div>DAO</div>
-            </a>
-            <a href="/safety-ratings">
-              <div>SAFETY - RATINGS</div>
-            </a>
-            <a href="/audit">
-              <div>AUDIT</div>
-            </a>
+            <div className="cursor-pointer" onClick={() => { navigate("/"); setOpen(false)}}>HOME</div>
+            <div className="cursor-pointer" onClick={() => { navigate("/dao"); setOpen(false)}}>DAO</div>
+            <div className="cursor-pointer" onClick={() => { navigate("/safety-ratings"); setOpen(false)}}>SAFETY - RATINGS</div>
+            <div className="cursor-pointer" onClick={() => { navigate("/audit"); setOpen(false)}}>AUDIT</div>
             {/* <a href="/gift-cards">
               <div>GIFT CARDS</div>
             </a> */}
-            <a href={link}>
+            <a href={link} target="_blank" rel="noreferrer">
               <div>{title}</div>
             </a>
             <div className="z-2 cursor-pointer" onClick={appState.web3Provider && address ? handleDisconnect : handleConnect}>

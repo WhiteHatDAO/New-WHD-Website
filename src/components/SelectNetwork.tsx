@@ -10,6 +10,8 @@ import fantom from "../assets/images/select/fantom.png";
 import klaytn from "../assets/images/select/klaytn.png";
 import aurora from "../assets/images/select/aurora.png";
 import zksync from "../assets/images/select/zkSync.png";
+import harmony from "../assets/images/select/harmony-2.png";
+import canto from "../assets/images/select/canto.webp";
 
 const networks = [
   {
@@ -55,6 +57,14 @@ const networks = [
   {
     name: "zkSync",
     image: zksync,
+  },
+  {
+    name: "harmony",
+    image: harmony,
+  },
+  {
+    name: "canto",
+    image: canto,
   },
 ];
 

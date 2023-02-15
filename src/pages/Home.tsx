@@ -30,8 +30,8 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import {
   FormatYMD,
   // FormatNumber,
-  FormatSmallNumber,
   FormatDate,
+  commafy,
 } from "../utils/utils";
 
 import { useState, useEffect } from "react";
@@ -43,6 +43,7 @@ import { useCoingeckoAPI } from "../utils/useCoingeckoAPI";
 import { FormatBigNumber } from "../utils/utils";
 import SelectNetwork from "../components/SelectNetwork";
 import BlogSlick from "../components/BlogSlick";
+import { useAppContext } from "../context/appContext";
 
 interface homeProps {
   auditProjects: any[];
@@ -59,6 +60,8 @@ const Home = ({
   handleCount,
   handleSelectedTopic,
 }: homeProps) => {
+	const [appState, setAppState] = useAppContext()
+  const {address} = appState
   const [showModal, setShowModal] = useState(false);
   const [showTokenDetailModal, setShowTokenDetailModal] = useState(false);
   const [showTopBrandsModal, setShowTopBrandsModal] = useState(false);
@@ -1145,7 +1148,7 @@ const Home = ({
                     <div className="text-sz18 font-light flex flex-row items-center justify-between">
                       <div className="text-darkgray">All time low</div>
                       <div className="font-bold">
-                        ${FormatSmallNumber(tokenData?.atl?tokenData?.atl:0)}
+                        ${tokenData?.atl?tokenData?.atl:0}
                       </div>
                     </div>
                   </div>
@@ -1250,6 +1253,7 @@ const Home = ({
                   id="website-admin"
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && handleSearchItem()}
                   className="rounded-none shadow-inner rounded-r-lg bg-lightgray border border-blue md:border-darkgray focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Input Search name"
                 />
@@ -1281,7 +1285,7 @@ const Home = ({
                   </tr>
                 </thead>
                 <tbody>
-									{filteredProjects?.filter((x, index) => index>=page*10 && index<(page+1)*10).map((project, index) => (
+                  {filteredProjects?.sort((a, b) => (new Date(FormatYMD(b.updatedAt)) as any) - (new Date(FormatYMD(a.updatedAt)) as any)).filter((x, index) => index>=page*10 && index<(page+1)*10 && x.published === "publish").map((project, index) => (
                     <tr
                       key={index}
                       onClick={() => 
@@ -1294,7 +1298,7 @@ const Home = ({
                       }
                     >
                       <td className="px-6 py-3">
-                        <img className="rounded-full w-8 h-8" src={project.logo} alt="" />
+                        <img className="rounded-full w-8 h-8 min-w-[32px] min-h-[32px]" src={project.logo} alt="" />
                       </td>
                       <td className="px-6 py-3 cursor-pointer md:text-blue">{project.name}</td>
                       <td className="px-6 py-3">
@@ -1324,7 +1328,7 @@ const Home = ({
                       <td className="px-6 py-3">
                         {
 													(tokensData && tokensData[index]) ? (
-                            (tokensData[index]?.price !== undefined && "$ ") + tokensData[index]?.price
+                            (tokensData[index]?.price !== undefined && "$ ") + commafy(tokensData[index]?.price)
                           ) : "N/A"
                         }
                         {/* {project.price === -1 ? "N/A" : project.price} */}
@@ -1332,7 +1336,7 @@ const Home = ({
                       <td className="px-6 py-3">
                       {
 												  (tokensData && tokensData[index]) ? (
-												    ((tokensData[index]?.market_cap === 0) ? "N/A" : (tokensData[index]?.market_cap !== undefined && "$ ") + tokensData[index]?.market_cap )
+												    ((tokensData[index]?.market_cap === 0) ? "N/A" : (tokensData[index]?.market_cap !== undefined && "$ ") + commafy(tokensData[index]?.market_cap) )
                           ) : "N/A"
                         }
                         {/* {project.market === "-1"
@@ -1351,7 +1355,7 @@ const Home = ({
               <div className="cursor-pointer shadow-sm w-12 h-12 flex flex-row items-center justify-center" onClick={prev}>
 								<img src={prevImage} alt="prev"></img>
 							</div>
-							{Array(Math.ceil(filteredProjects.length / 10)).fill("").map((x, i) =>
+							{Array(Math.ceil(filteredProjects.filter(x=>x.published === "publish").length / 10)).fill("").map((x, i) =>
 								<div key={i} className={(page === i ? "shadow-sm " : "") + "w-12 h-12 flex flex-row items-center justify-center cursor-pointer"} onClick={() => setPage(i)}>
 									{i+1}
 								</div>
@@ -1456,11 +1460,11 @@ const Home = ({
                   score to allow consumers to make informed decisions about your
                   product.
                 </div>
-                <a href={serviceRatingLink} target="_blank" rel="noreferrer" className="z-2 cursor-pointer">
+                <button className="z-2 cursor-pointer" onClick={() => address ? setAppState({ ...appState, openApplyModal: true}) : alert("Connect wallet")}>
                   <div className="shadow-sm text-2xl px-8 py-2 border rounded-xl gradient-box font-Manrope font-bold text-sz22 md:text-sz18">
                     Apply
                   </div>
-                </a>
+                </button>
               </div>
               <div className="px-5 pt-5 pb-[25.18px] md:p-4 bg-gray border border-blue rounded-xl shadow-xl flex flex-col items-center justify-between space-y-5 md:space-y-2">
                 <img className="w-full" src={servImage2} alt="service2"></img>

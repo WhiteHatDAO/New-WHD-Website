@@ -14,13 +14,14 @@ import save from "../assets/images/modal/save.png";
 import discard from "../assets/images/modal/discard.png";
 // import edit from "../assets/images/edit.png";
 import addItem from "../assets/images/addItem.png";
-// import deleteImage from "../assets/images/remove.png";
 
 import axios from "axios";
 import { BACKEND_SERVER } from "../global/global";
 
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAppContext } from '../context/appContext';
+import CopyReviewBox from '../components/CopyReviewBox';
 
 const amountPerPage = 10;
 
@@ -37,23 +38,25 @@ const SafetyRatings = ({
   count,
   handleCount,
 }: propsSafetyRatings) => {
+	const [appState, setAppState] = useAppContext();
+  const { address: walletAddress} = appState
   const [showModal, setShowModal] = useState(false);
-  const navigate = useNavigate();
-
-  const [safetyRatings, setSafetyRatings] = useState<string>();
-  const [ratingBtn1, setRatingBtn1] = useState<string>();
-  const [ratingBtn2, setRatingBtn2] = useState<string>();
-  const [ratingBtn1Link, setRatingBtn1Link] = useState<string>();
-  const [ratingBtn2Link, setRatingBtn2Link] = useState<string>();
-  const [searchText, setSearchText] = useState<string>("");
-  const [filteredProjects, setFilteredProjects] = useState<any[]>([]);
-  const [gotoRating, setGotoRating] = useState<boolean>(false);
-  const [length, setLength] = useState<number>(0);
+	const navigate = useNavigate();
+	const [safetyRatings, setSafetyRatings] = useState<string>();
+	const [ratingBtn1, setRatingBtn1] = useState<string>();
+	const [ratingBtn2, setRatingBtn2] = useState<string>();
+	const [ratingBtn1Link, setRatingBtn1Link] = useState<string>();
+	const [ratingBtn2Link, setRatingBtn2Link] = useState<string>();
+	const [searchText, setSearchText] = useState<string>("");
+	const [filteredProjects, setFilteredProjects] = useState<any[]>([]);
+	const [gotoRating, setGotoRating] = useState<boolean>(false);
+	const [length, setLength] = useState<number>(0);
 	const [curProPage, setCurProPage] = useState(0);
 
   useEffect(() => {
     if (auditProjects && searchText.length === 0) {
       let projects = auditProjects;
+			console.log("projects", projects)
       setFilteredProjects(projects);
     }
   }, [auditProjects, searchText.length]);
@@ -176,9 +179,9 @@ const SafetyRatings = ({
       }
       setFilteredProjects(projects);
     }
-  };
+  	};
 
-  return (
+ 	return (
     <>
       {auditProjects && mainProData ? (
         <div className="mx-2 sm:mx-4 flex flex-col">
@@ -304,9 +307,9 @@ const SafetyRatings = ({
                   <img src={pointImage} alt="point"></img>
                 </div>
               </a>
-              <a
-                className="cursor-pointer w-full md:w-1/3 rounded-lg shadow-sm"
-                href={mainProData.rating.rating_button_second_link} target="_blank" rel="noreferrer"
+              <button
+                className="cursor-pointer w-full md:w-1/3 rounded-lg shadow-sm" onClick={() => localStorage.getItem("unlock-sign") === "true" ? (walletAddress ? setAppState({ ...appState, openApplyModal: true }): alert("Connect wallet")) : alert("Sign in with Unlock Protocol")}
+                // href={mainProData.rating.rating_button_second_link} target="_blank" rel="noreferrer"
               >
                 <div className="px-4 py-[10px] text-sz16 text-blue font-Manrope font-bold md:font-semibold flex flex-row space-x-2 items-center justify-center">
                   <div className="w-full">
@@ -314,7 +317,7 @@ const SafetyRatings = ({
                   </div>
                   <img src={pointImage} alt="point"></img>
                 </div>
-              </a>
+              </button>
             </div>
           </div>
           <div className="flex flex-col items-end hidden">
@@ -376,15 +379,15 @@ const SafetyRatings = ({
               </div>
             </div>
             <div className="flex flex-col gap-[30px] md:gap-8">
-							{filteredProjects.filter((x, index) => index>=curProPage*amountPerPage && index<(curProPage+1)*amountPerPage)?.map((project, index) => (
+							{filteredProjects.filter((x, index) => index>=curProPage*amountPerPage && index<(curProPage+1)*amountPerPage && x.published === "publish")?.map((project, index) => (
                 <div key={index}>
-                  <div className="cursor-pointer shadow-xl border border-blue font-Manrope font-light rounded-lg p-4 flex md:hidden flex-col gap-4">
+                  <div className="cursor-pointer shadow-xl border border-blue font-Manrope font-light rounded-lg p-4 flex xl:hidden flex-col gap-4">
                     <div className="flex flex-row items-start justify-between">
                       <img
                         className="rounded-full"
                         style={{ width: "100px", height: "100px" }}
                         src={project?.logo}
-                        alt="idol"
+                        alt=""
                       ></img>
                       <CircleProgressBar
                         sqSize={42}
@@ -406,6 +409,8 @@ const SafetyRatings = ({
                         <img className="" src={verify} alt="verify"></img>
                       )}
                     </div>
+                    <span className='text-sz18 leading-ht24.66 font-bold text-blue'>Reviewed by</span>
+										<CopyReviewBox reviewed={project.reviewed} />
                     <div className="flex flex-row items-center gap-2 sm:gap-4 flex-wrap">
                       {project?.tags?.map((tag: any, index: number) => (
                         <div
@@ -522,15 +527,21 @@ const SafetyRatings = ({
 											<img src={goImage} width="24" height="24" alt="go"></img>
                     </div>
                   </div>
-                  <div className="cursor-pointer shadow-xl hidden border border-blue rounded-xl px-8 py-4 md:flex flex-row items-center gap-4">
-                    <img
-											className="rounded-full self-start w-24 h-24 object-cover"
-                      onClick={() => 
-                        navigate(`/safety-ratings/rating/${index}`)
-                      }
-                      src={project?.logo}
-                      alt="idol"
-                    ></img>
+                  <div className="cursor-pointer shadow-xl hidden border border-blue rounded-xl px-8 py-4 xl:flex flex-row items-center gap-4">
+                    <div className='self-start flex flex-col items-center'>
+                      <img
+                        className="rounded-full min-w-[96px] h-24 object-cover"
+                        onClick={() => 
+                          navigate(`/safety-ratings/rating/${index}`)
+                        }
+                        src={project?.logo}
+                        alt=""
+                      ></img>
+											<span className='mt-5 text-sz15 leading-ht24.66 font-bold text-blue font-Manrope'>Reviewed by</span>
+                      <div className='mt-2'>
+												<CopyReviewBox reviewed={project.reviewed} />
+											</div>
+                    </div>
                     <div className="w-full font-Manrope flex flex-col space-y-4">
                       <div
                         onClick={() =>
@@ -670,7 +681,7 @@ const SafetyRatings = ({
 									<div className="cursor-pointer shadow-sm w-12 h-12 flex flex-row items-center justify-center" onClick={prevPro}>
 										<img src={prevImage} alt="prev"></img>
 									</div>
-									{Array(Math.ceil(filteredProjects.length / amountPerPage)).fill("").map((x, i) =>
+									{Array(Math.ceil(filteredProjects.filter(x=>x.published === "publish").length / amountPerPage)).fill("").map((x, i) =>
 										<div key={i} className={(curProPage === i ? "shadow-sm " : "") + "w-12 h-12 flex flex-row items-center justify-center cursor-pointer"} onClick={() => setCurProPage(i)}>
 											{i+1}
 										</div>

@@ -22,8 +22,12 @@ import { BACKEND_SERVER } from "./global/global";
 import GiftCards from "./pages/GiftCards";
 import Card from "./pages/Card";
 import Cart from "./pages/Cart";
+import ApplicationModal from './components/ApplicationModal';
+import { useAppContext } from "./context/appContext";
 
 const App = () => {
+	const [appState] = useAppContext()
+	const { openApplyModal } = appState
   const [count, setCount] = useState<number>(0);
   const [auditProjects, setAuditProjects] = useState<any[]>([]);
   const [mainProData, setMainProData] = useState<any>();
@@ -71,7 +75,7 @@ const App = () => {
 
   return (
     <div className="background">
-      <div className="px-2 sm:px-8 lg:px-24 container flex flex-col mx-auto">
+			<div className="px-2 sm:px-8 lg:px-24 container flex flex-col mx-auto">
         <Navbar showMenu={showMenu} handleShowMenu={handleShowMenu}></Navbar>
         <Routes>
           <Route
@@ -153,6 +157,7 @@ const App = () => {
           <Route path="/profile/settings" element={<Settings />}></Route>
         </Routes>
         <Footer></Footer>
+				{openApplyModal && <ApplicationModal />}
       </div>
     </div>
   );

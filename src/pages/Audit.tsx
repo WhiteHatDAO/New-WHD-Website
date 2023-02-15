@@ -23,7 +23,7 @@ import save from "../assets/images/modal/save.png";
 import discard from "../assets/images/modal/discard.png";
 // import edit from "../assets/images/edit.png";
 
-import { FormatYMD } from "../utils/utils";
+import { commafy, FormatYMD } from "../utils/utils";
 import { useState, useEffect } from "react";
 
 import axios from "axios";
@@ -499,7 +499,7 @@ const Audit = ({
               </div>
             </div>
             <div className="py-8 md:p-8 flex flex-col font-Manrope font-light space-y-[30px] md:space-y-4">
-              <div className="flex flex-col md:flex-row items-center md:items-start justify-center md:justify-between">
+              <div className="flex flex-col md:flex-row flex-wrap items-center md:items-start justify-center">
                 <div className="md:w-40 text-center flex flex-col items-center space-y-[10px] md:space-y-2">
                   <div className="w-28 h-28 rounded-[40px] shadow-inner flex flex-col items-center justify-center">
                     <img src={step1} alt="step1"></img>
@@ -737,7 +737,7 @@ const Audit = ({
               </div>
             </div>
           </div>
-          <div className="pt-[10px] md:py-10 flex flex-col space-y-8">
+          <div className="flex flex-col space-y-8">
             <div className="font-pilat text-sz18 md:text-sz20 text-center">
               Audit Leaderboard
             </div>
@@ -787,6 +787,7 @@ const Audit = ({
                   id="website-admin"
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && handleSearchItem()}
                   className="rounded-none shadow-inner rounded-r-lg bg-lightgray border border-blue md:border-darkgray focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Input Search name"
                 />
@@ -818,7 +819,7 @@ const Audit = ({
                   </tr>
                 </thead>
                 <tbody>
-									{filteredProjects?.filter((x, index) => index>=page*10 && index<(page+1)*10).map((project, index) => (
+                  {filteredProjects?.sort((a, b) => (new Date(FormatYMD(b.updatedAt)) as any) - (new Date(FormatYMD(a.updatedAt)) as any)).filter((x, index) => index>=page*10 && index<(page+1)*10 && x.published === "publish").map((project, index) => (
                     <tr
                       key={index}
                       onClick={() => navigate(`/safety-ratings/rating/${index}`)}
@@ -829,7 +830,7 @@ const Audit = ({
                       }
                     >
                       <td className="px-6 py-3">
-                        <img className="rounded-full w-8 h-8" src={project.logo} alt="" />
+                        <img className="rounded-full w-8 h-8 min-w-[32px] min-h-[32px]" src={project.logo} alt="" />
                       </td>
                       <td className="px-6 py-3">{project.name}</td>
                       <td className="px-6 py-3">
@@ -859,7 +860,7 @@ const Audit = ({
                       <td className="px-6 py-3">
                         {
 													(tokensData && tokensData[index]) ? (
-														(tokensData[index]?.price !== undefined && "$ ") + tokensData[index]?.price
+														(tokensData[index]?.price !== undefined && "$ ") + commafy(tokensData[index]?.price)
 													) : "N/A"
 												}
                         {/* {(project.price === -1 || project.price === undefined) ? "N/A" : "$ "+project.price} */}
@@ -867,7 +868,7 @@ const Audit = ({
                       <td className="px-6 py-3">
                         {
 												  (tokensData && tokensData[index]) ? (
-												    ((tokensData[index]?.market_cap === 0) ? "N/A" : (tokensData[index]?.market_cap !== undefined && "$ ") + tokensData[index]?.market_cap )
+												    ((tokensData[index]?.market_cap === 0) ? "N/A" : (tokensData[index]?.market_cap !== undefined && "$ ") + commafy(tokensData[index]?.market_cap ))
 												  ) : "N/A"
 												}
                         {/* {(project.market === "-1" || project.market === undefined)
@@ -886,7 +887,7 @@ const Audit = ({
               <div className="shadow-sm w-12 h-12 flex flex-row items-center justify-center" onClick={prev}>
                 <img src={prevImage} alt="prev"></img>
               </div>
-							{Array(Math.ceil(filteredProjects.length / 10)).fill("").map((x, i) =>
+							{Array(Math.ceil(filteredProjects.filter(x=>x.published === "publish").length / 10)).fill("").map((x, i) =>
 								<div key={i} className={(page === i ? "shadow-sm " : "") + "w-12 h-12 flex flex-row items-center justify-center cursor-pointer"} onClick={() => setPage(i)}>
 									{i+1}
 								</div>

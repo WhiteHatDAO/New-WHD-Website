@@ -32,11 +32,11 @@ import ContractAddressBox from "../components/ContractAddressBox";
 import SelectNetwork from "../components/SelectNetwork";
 import GradientBox from "../components/GradientBar";
 import { useParams } from "react-router-dom";
+import { Tooltip as ReactTooltip } from "react-tooltip";
+import 'react-tooltip/dist/react-tooltip.css';
 import { useState, useEffect, useRef } from "react";
 import { useCoingeckoAPI } from "../utils/useCoingeckoAPI";
-import { FormatBigNumber } from "../utils/utils";
-import PrimaryChart from "../components/PrimaryChart";
-import useWindowDimensions from "../hooks/useWindowDimensions";
+import { commafy, FormatBigNumber } from "../utils/utils";
 
 import storage from "../utils/firebaseConfig";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -58,6 +58,8 @@ import fantom from "../assets/images/select/fantom.png";
 import klaytn from "../assets/images/select/klaytn.png";
 import aurora from "../assets/images/select/aurora.png";
 import zksync from "../assets/images/select/zkSync.png";
+import { useAppContext } from '../context/appContext';
+import PriceChart from "../components/PriceChart";
 
 interface ratingProps {
   auditProjects: any[];
@@ -67,19 +69,16 @@ interface ratingProps {
 }
 
 const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps) => {
+	const [appState, setAppState] = useAppContext();
+	const {days: timeRange } = appState
   const { id } = useParams();
   const {
     handleGetTokenData,
-    handleGetTokenPriceHistory,
     tokenData,
-    tokenPriceHistory,
   } = useCoingeckoAPI();
 	const [openEmailBox, setOpenEmailBox] = useState<any>([]);
   const [project, setProject] = useState<any>(null);
-  const [boxWidth, setBoxWidth] = useState<number>(0);
-  const { height } = useWindowDimensions();
   const gridItemRef = useRef<HTMLDivElement>(null);
-  const [timeRange, setTimeRange] = useState<number>(1);
 
   const [showFirstModal, setShowFirstModal] = useState(false);
   const [showSecondModal, setShowSecondModal] = useState(false);
@@ -1433,40 +1432,18 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
 	};
 
   useEffect(() => {
-    const handleResize = (width?: number) => {
-      setBoxWidth(width || 0);
-    };
-
-    handleResize(gridItemRef.current?.clientWidth || 0);
-
-    window.addEventListener("resize", () =>
-      handleResize(gridItemRef?.current?.clientWidth || 0)
-    );
-
-    return () => {
-      window.removeEventListener("resize", () => handleResize());
-    };
-  }, [gridItemRef, tokenPriceHistory]);
-
-  useEffect(() => {
     if (id !== undefined && auditProjects.length !== 0) {
       setProject(auditProjects[parseInt(id)]);
+			setAppState({...appState, token: auditProjects[parseInt(id)].token })
 			setOpenEmailBox(Array(auditProjects[parseInt(id)].member.length).fill(false))
     }
   }, [id, auditProjects]);
 
-  useEffect(() => {
-    if (project && project?.token) {
-      handleGetTokenData(project?.token);
-      handleGetTokenPriceHistory(project?.token, `${timeRange}d`);
-    }
-  }, [project, handleGetTokenData, handleGetTokenPriceHistory, timeRange]);
-
-  useEffect(() => {
-    if (project) {
-      handleGetTokenPriceHistory(project?.token, `${timeRange}d`);
-    }
-  }, [timeRange, handleGetTokenPriceHistory, project]);
+	useEffect(() => {
+		if (project && project?.token) {
+			handleGetTokenData(project?.token);
+		}
+	}, [project, handleGetTokenData, timeRange]);
 
   return (
     <>
@@ -1479,7 +1456,7 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
                   <img
                     className="w-9 h-9 object-cover rounded-full"
                     src={project.logo}
-                    alt="idol"
+                    alt=""
                   ></img>
                   <div className="flex flex-row items-start space-x-1">
                     <div className="font-pilat font-bold text-sz16 md:text-sz18">
@@ -1717,8 +1694,8 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
                   </>
                 ) : null}
               </div>
-              <div className="font-Manrope text-sz10 font-light flex flex-row items-center justify-between">
-                <div className="w-full flex flex-row flex-wrap items-center gap-4">
+              <div className="font-Manrope text-sz10 font-light md:flex flex-row items-center justify-between">
+                <div className="w-full flex flex-row flex-wrap items-center sm:gap-4">
                   {project?.tags?.map((tag: any) => (
 										<div className={
 											tag.color === 'Purple'
@@ -1743,7 +1720,7 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
                     </div>
                   ))}
                 </div>
-                <div className="w-full flex flex-row items-end justify-end">
+                <div className="w-full flex flex-row items-end justify-center md:justify-end mt-5 md:mt-0">
                   <div className="flex flex-row items-center space-x-4">
                     {project?.socials?.twitter && (
                       <a href={`${project?.socials?.twitter}`} target="_blank" rel="noreferrer" className="rounded-full shadow-inner cursor-point">
@@ -2090,29 +2067,6 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
                   )}
                 </div>
               </div>
-              <a href={mainProData.rating.rating_button_second_link} target="_blank" rel="noreferrer" className="py-4 rounded-b-xl bg-blue font-pilat flex flex-col items-center justify-center">
-                <div className="cursor-pointer flex flex-row items-center justify-center">
-                  <div className="text-sz14 text-white pr-2">
-                    REQUEST FOR SAFETY RATING
-                  </div>
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M15.625 18.125H1.875V4.0625H9.375V2.8125H0.625V19.375H16.875V10.625H15.625V18.125Z"
-                      fill="white"
-                    />
-                    <path
-                      d="M11.875 0.625V1.875H17.2411L7.37059 11.7456L8.25441 12.6294L18.125 2.75887V8.125H19.375V0.625H11.875Z"
-                      fill="white"
-                    />
-                  </svg>
-                </div>
-              </a>
             </div>
             <div className="w-full xl:w-1/3 shadow-xl rounded-xl font-Manrope font-light flex flex-col gap-4">
               <div className="p-8 flex flex-col gap-4">
@@ -2828,7 +2782,7 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
             </div>
             <div className="p-8 font-Manrope font-light">
               {project.distribution_list && (
-                <div className="w-full rounded-xl p-4 bg-gray flex flex-col xl:flex-row items-center gap-8">
+                <div className="w-full rounded-xl p-4 bg-gray flex flex-col xl:flex-row flex-wrap items-center gap-8">
 									<div className="flex flex-col items-center gap-y-4">
                     <div className="relative flex flex-col items-center">
                       <Doughnut type={true} data={project.distribution_list} />
@@ -3723,257 +3677,220 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
               ) : null}
             </div>
             {tokenData && (
-              <div className="m-8 p-6 rounded-xl bg-gray font-Manrope font-light flex flex-col">
-                <div className="pb-4 border-b border-darkgray font-bold text-blue text-sz16">
-                  {project.token_name} Price Data
-                </div>
-                <div className="flex flex-row items-center justify-between">
-                  <div className="py-4 hidden md:flex flex-row items-center space-x-2">
-                    <div className="font-Manrope text-sz40 font-bold">
-                      ${Number(tokenData?.price)}
-                    </div>
-                    <div className="flex flex-row items-center space-x-1">
-                      <svg
-                        width="22"
-                        height="22"
-                        viewBox="0 0 22 22"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M2.63965 7.04004L10.5596 14.96L18.4796 7.04004H2.63965Z"
-                          fill="#A22E2E"
-                        />
-                      </svg>
-                      <div className="text-sz16 text-red">
-                        {tokenData?.price_change < 0
-                          ? `-${Number(tokenData?.price_change).toFixed(2)}`
-                          : Number(tokenData?.price_change).toFixed(2)}
-                        %
-                      </div>
-                    </div>
-                  </div>
-                  <div className="w-96 flex flex-col space-y-1">
-                    <GradientBox
-                      percentage={
-                        ((tokenData.price - tokenData.lowPrice_24h) /
-                          (tokenData.highPrice_24h - tokenData.lowPrice_24h)) *
-                        100
-                      }
-                    ></GradientBox>
-                    <div className="text-sz16 font-light flex flex-row items-center justify-between">
-                      <div>${tokenData.lowPrice_24h}</div>
-                      <div>24H Range</div>
-                      <div>${tokenData.highPrice_24h}</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="font-Manrope text-sz16 md:text-sz16 grid grid-cols-2 md:grid-cols-3 gap-8 justify-between">
-                  <div className="pt-4 md:pt-0 flex flex-col gap-4">
-                    <div className="border-none md:border-b border-darkgray pb-0 md:pb-4 flex flex-col md:flex-row justify-between">
-                      <div className=" flex flex-row items-center space-x-2">
-                        <div className="text-darkgray">Market cap</div>
-                        <img src={info_small} alt="info_small"></img>
-                      </div>
-                      <div>${FormatBigNumber(tokenData?.market_cap)}</div>
-                    </div>
-                    <div className="border-none md:border-b border-darkgray pb-0 md:pb-4 flex flex-col md:flex-row justify-between">
-                      <div className=" flex flex-row items-center space-x-2">
-                        <div className="text-darkgray">Circulating Supply</div>
-                        <img src={info_small} alt="info_small"></img>
-                      </div>
-                      <div>
-                        $
-                        {FormatBigNumber(
-                          parseFloat(tokenData?.circulating_supply).toFixed(0)
-                        )}
-                      </div>
-                    </div>
-                    <div className="border-none md:border-b border-darkgray pb-0 md:pb-4 flex flex-col md:flex-row justify-between">
-                      <div className=" flex flex-row items-center space-x-2">
-                        <div className="text-darkgray">Max Supply</div>
-                        <img src={info_small} alt="info_small"></img>
-                      </div>
-                      <div>{FormatBigNumber(tokenData?.max_supply)}</div>
-                    </div>
-                    <div className="flex flex-col md:flex-row justify-between">
-                      <div className="text-darkgray">All time high</div>
-                      <div>${tokenData?.ath}</div>
-                    </div>
-                  </div>
-
-                  <div className="pt-4 md:pt-0 flex flex-col gap-4">
-                    <div className="border-none md:border-b border-darkgray pb-0 md:pb-4 flex flex-col md:flex-row justify-between">
-                      <div className=" flex flex-row items-center space-x-2">
-                        <div className="text-darkgray">
-                          Market cap Dominance
-                        </div>
-                        <img src={info_small} alt="info_small"></img>
-                      </div>
-                      <div>{tokenData?.market_cap_change}%</div>
-                    </div>
-                    <div className="border-none md:border-b border-darkgray pb-0 md:pb-4 flex flex-col md:flex-row justify-between">
-                      <div className=" flex flex-row items-center space-x-2">
-                        <div className="text-darkgray">Trading Volume</div>
-                        <div className="text-sz16 bg-white rounded-sm px-1">
-                          24h
-                        </div>
-                      </div>
-                      <div>$1,451,392,754</div>
-                    </div>
-                    <div className="border-none md:border-b border-darkgray pb-0 md:pb-4 flex flex-col md:flex-row justify-between">
-                      <div className="text-darkgray">Total Supply</div>
-                      <div>{FormatBigNumber(tokenData?.total_supply)}</div>
-                    </div>
-                    <div className="flex flex-col md:flex-row justify-between">
-                      <div className="text-darkgray">All time low</div>
-                      <div>${tokenData?.atl}</div>
-                    </div>
-                  </div>
-
-                  <div className="hidden md:flex flex-col space-y-4">
-                    <div className="border-b border-darkgray pb-4 flex flex-row justify-between">
-                      <div className="text-darkgray">Volume / Market Cap</div>
-                      <div>
-                        {(
-                          (tokenData?.market_cap *
-                            tokenData?.market_cap_change) /
-                          tokenData?.total_supply
-                        ).toFixed(2)}
-                      </div>
-                    </div>
-                    <div className="border-b border-darkgray pb-4 flex flex-row justify-between">
-                      <div className="text-darkgray">24h Low / 24h High</div>
-                      <div>
-                        ${parseFloat(tokenData?.lowPrice_24h).toFixed(2)} / $
-                        {parseFloat(tokenData?.highPrice_24h).toFixed(2)}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {tokenData && (
-              <div className="mx-8 mb-8 p-6 rounded-xl bg-gray font-Manrope font-light flex flex-col">
-                <div className="pb-4 border-b border-darkgray flex flex-row items-center justify-between">
-                  <div className="text-blue text-sz16">
-                    {project?.name} Price Chart
-                  </div>
-                  <div className="flex flex-row items-center flex-wrap gap-2">
-                    <div
-                      onClick={() => setTimeRange(1)}
-                      className={
-                        timeRange === 1
-                          ? "px-3 font-bold rounded-md text-white bg-blue border border-blue shadow-sm cursor-pointer"
-                          : "px-3 font-bold rounded-md text-blue border border-blue shadow-sm cursor-pointer"
-                      }
-                    >
-                      1d
-                    </div>
-                    <div
-                      onClick={() => setTimeRange(7)}
-                      className={
-                        timeRange === 7
-                          ? "px-3 font-bold rounded-md text-white bg-blue border border-blue shadow-sm cursor-pointer"
-                          : "px-3 font-bold rounded-md text-blue border border-blue shadow-sm cursor-pointer"
-                      }
-                    >
-                      7d
-                    </div>
-                    <div
-                      onClick={() => setTimeRange(14)}
-                      className={
-                        timeRange === 14
-                          ? "px-3 font-bold rounded-md text-white bg-blue border border-blue shadow-sm cursor-pointer"
-                          : "px-3 font-bold rounded-md text-blue border border-blue shadow-sm cursor-pointer"
-                      }
-                    >
-                      14d
-                    </div>
-                    <div
-                      onClick={() => setTimeRange(30)}
-                      className={
-                        timeRange === 30
-                          ? "px-3 font-bold rounded-md text-white bg-blue border border-blue shadow-sm cursor-pointer"
-                          : "px-3 font-bold rounded-md text-blue border border-blue shadow-sm cursor-pointer"
-                      }
-                    >
-                      30d
-                    </div>
-                    <div
-                      onClick={() => setTimeRange(90)}
-                      className={
-                        timeRange === 90
-                          ? "px-3 font-bold rounded-md text-white bg-blue border border-blue shadow-sm cursor-pointer"
-                          : "px-3 font-bold rounded-md text-blue border border-blue shadow-sm cursor-pointer"
-                      }
-                    >
-                      90d
-                    </div>
-                    <div
-                      onClick={() => setTimeRange(180)}
-                      className={
-                        timeRange === 180
-                          ? "px-3 font-bold rounded-md text-white bg-blue border border-blue shadow-sm cursor-pointer"
-                          : "px-3 font-bold rounded-md text-blue border border-blue shadow-sm cursor-pointer"
-                      }
-                    >
-                      180d
-                    </div>
-                    <div
-                      onClick={() => setTimeRange(365)}
-                      className={
-                        timeRange === 365
-                          ? "px-3 font-bold rounded-md text-white bg-blue border border-blue shadow-sm cursor-pointer"
-                          : "px-3 font-bold rounded-md text-blue border border-blue shadow-sm cursor-pointer"
-                      }
-                    >
-                      365d
-                    </div>
-                  </div>
-                </div>
-                <PrimaryChart
-                  data={tokenPriceHistory ?? []}
-                  height={
-                    boxWidth >= 1024
-                      ? Math.floor(height * 0.6)
-                      : Math.floor(height * 0.4)
-                  }
-                  width={boxWidth * 0.9}
-                  margin={
-                    boxWidth >= 1280
-                      ? {
-                          top: 16,
-                          right: 0,
-                          bottom: 40,
-                          left: 48,
-                        }
-                      : boxWidth >= 1024
-                      ? {
-                          top: 16,
-                          right: 132,
-                          bottom: 40,
-                          left: 48,
-                        }
-                      : boxWidth >= 768
-                      ? {
-                          top: 16,
-                          right: 132,
-                          bottom: 40,
-                          left: 48,
-                        }
-                      : {
-                          top: 16,
-                          right: 100,
-                          bottom: 40,
-                          left: 48,
-                        }
-                  }
-                />
-              </div>
-            )}
+							<div className="flex flex-col md:flex-row p-3 gap-3 flex-wrap">
+								<div className="flex-1 p-3 rounded-xl bg-gray font-Manrope font-light flex flex-col">
+									<div className="flex flex-row justify-end items-center flex-wrap gap-2 mb-5">
+										<div
+											onClick={() => setAppState({ ...appState, days: 1})}
+											className={
+												timeRange === 1
+													? 'px-3 font-bold rounded-md text-white bg-blue border border-blue shadow-sm cursor-pointer'
+													: 'px-3 font-bold rounded-md text-blue border border-blue shadow-sm cursor-pointer'
+											}
+										>
+											1d
+										</div>
+										<div
+											onClick={() => setAppState({ ...appState, days: 7})}
+											className={
+												timeRange === 7
+													? 'px-3 font-bold rounded-md text-white bg-blue border border-blue shadow-sm cursor-pointer'
+													: 'px-3 font-bold rounded-md text-blue border border-blue shadow-sm cursor-pointer'
+											}
+										>
+											7d
+										</div>
+										<div
+											onClick={() => setAppState({ ...appState, days: 14})}
+											className={
+												timeRange === 14
+													? 'px-3 font-bold rounded-md text-white bg-blue border border-blue shadow-sm cursor-pointer'
+													: 'px-3 font-bold rounded-md text-blue border border-blue shadow-sm cursor-pointer'
+											}
+										>
+											14d
+										</div>
+										<div
+											onClick={() => setAppState({ ...appState, days: 30})}
+											className={
+												timeRange === 30
+													? 'px-3 font-bold rounded-md text-white bg-blue border border-blue shadow-sm cursor-pointer'
+													: 'px-3 font-bold rounded-md text-blue border border-blue shadow-sm cursor-pointer'
+											}
+										>
+											30d
+										</div>
+										<div
+											onClick={() => setAppState({ ...appState, days: 90})}
+											className={
+												timeRange === 90
+													? 'px-3 font-bold rounded-md text-white bg-blue border border-blue shadow-sm cursor-pointer'
+													: 'px-3 font-bold rounded-md text-blue border border-blue shadow-sm cursor-pointer'
+											}
+										>
+											90d
+										</div>
+										<div
+											onClick={() => setAppState({ ...appState, days: 180})}
+											className={
+												timeRange === 180
+													? 'px-3 font-bold rounded-md text-white bg-blue border border-blue shadow-sm cursor-pointer'
+													: 'px-3 font-bold rounded-md text-blue border border-blue shadow-sm cursor-pointer'
+											}
+										>
+											180d
+										</div>
+										<div
+											onClick={() => setAppState({ ...appState, days: 365})}
+											className={
+												timeRange === 365
+													? 'px-3 font-bold rounded-md text-white bg-blue border border-blue shadow-sm cursor-pointer'
+													: 'px-3 font-bold rounded-md text-blue border border-blue shadow-sm cursor-pointer'
+											}
+										>
+											365d
+										</div>
+									</div>
+									<div style={{ background: "rgb(13, 11, 14)"}} className='h-full xl:h-[70%]'>
+										<PriceChart />
+									</div>
+								</div>
+								<div className="rounded-xl bg-gray font-Manrope font-light flex flex-col">
+									<div className="bg-darkgray1 px-6 py-4 rounded-t-xl text-blue text-center font-medium">Key Metrics Data</div>
+									<div className="px-3 pb-3">
+										<div className="flex flex-row items-center justify-between">
+											<div className="flex flex-col space-y-3 border-b border-pure_blue w-full pb-3">
+												<GradientBox
+													percentage={
+														((tokenData.price - tokenData.lowPrice_24h) /
+															(tokenData.highPrice_24h - tokenData.lowPrice_24h)) *
+														100
+													}
+												></GradientBox>
+												<div className="text-sz16 font-light flex flex-row items-center justify-between">
+													<div>${tokenData.lowPrice_24h}</div>
+													<div>24H Range</div>
+													<div>${tokenData.highPrice_24h}</div>
+												</div>
+											</div>
+										</div>
+										<div className="font-Manrope text-sz16 md:text-sz18 flex flex-col justify-between gap-2 pt-3">
+											<div className="flex flex-col md:flex-row justify-between gap-2">
+												<div className="flex flex-row items-center space-x-2">
+													<div className="border border-blue shadow-sm rounded-full w-4 h-4" />
+													<div className="text-darkgray">{project.token_name} Price</div>
+												</div>
+												<div>${Number(tokenData?.price)}</div>
+											</div>
+											<div className="flex flex-col md:flex-row justify-between gap-2">
+												<div className="flex flex-row items-center space-x-2">
+													<div className="border border-blue shadow-sm rounded-full w-4 h-4" />
+													<div className="text-darkgray">24h Low / 24h High</div>
+												</div>
+												<div>
+													${parseFloat(tokenData?.lowPrice_24h).toFixed(2)} / $
+													{parseFloat(tokenData?.highPrice_24h).toFixed(2)}
+												</div>
+											</div>
+											<div className="flex flex-col md:flex-row justify-between gap-2">
+												<div className="flex flex-row items-center space-x-2">
+													<div className="border border-blue shadow-sm rounded-full w-4 h-4" />
+													<div className="text-darkgray">24h Trading Volume</div>
+													<img id="coin-info1" src={info_small} alt="info_small"></img>
+													<ReactTooltip
+														anchorId="coin-info1" place="bottom" className="tooltip"
+														content="A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times."
+													/>
+												</div>
+												<div>${commafy(parseFloat(tokenData?.volume_24h.toFixed(3)))}</div>
+											</div>
+											<div className="flex flex-col md:flex-row justify-between gap-2">
+												<div className="flex flex-row items-center space-x-2">
+													<div className="border border-blue shadow-sm rounded-full w-4 h-4" />
+													<div className="text-darkgray">Market Cap</div>
+													<img id="coin-info2" src={info_small} alt="info_small"></img>
+													<ReactTooltip
+														anchorId="coin-info2" place="bottom" className="tooltip"
+														content="Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)"
+													/>
+												</div>
+												<div>${FormatBigNumber(tokenData?.market_cap)}</div>
+											</div>
+											<div className="flex flex-col md:flex-row justify-between gap-2">
+												<div className="flex flex-row items-center space-x-2">
+													<div className="border border-blue shadow-sm rounded-full w-4 h-4" />
+													<div className="text-darkgray">Circulating Supply</div>
+													<img id="coin-info3" src={info_small} alt="info_small" data-tooltip="tooltip text"></img>
+													<ReactTooltip
+														anchorId="coin-info3" place="bottom" className="tooltip"
+														content="The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
+													/>
+												</div>
+												<div>{FormatBigNumber(parseFloat(tokenData?.circulating_supply).toFixed(0))}</div>
+											</div>
+											<div className="flex flex-col md:flex-row justify-between gap-2">
+												<div className="flex flex-row items-center space-x-2">
+													<div className="border border-blue shadow-sm rounded-full w-4 h-4" />
+													<div className="text-darkgray">Total Supply</div>
+													<img id="coin-info4" src={info_small} alt="info_small"></img>
+													<ReactTooltip
+														anchorId="coin-info4" place="bottom" className="tooltip"
+														content="The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market."
+													/>
+												</div>
+												<div>{FormatBigNumber(tokenData?.total_supply)}</div>
+											</div>
+											<div className="flex flex-col md:flex-row justify-between gap-2">
+												<div className="flex flex-row items-center space-x-2">
+													<div className="border border-blue shadow-sm rounded-full w-4 h-4" />
+													<div className="text-darkgray">Max Supply</div>
+													<img id="coin-info5" src={info_small} alt="info_small"></img>
+													<ReactTooltip
+														anchorId="coin-info5" place="bottom" className="tooltip"
+														content="The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market."
+													/>
+												</div>
+												<div>{FormatBigNumber(tokenData?.max_supply)}</div>
+											</div>
+											<div className="flex flex-col md:flex-row justify-between gap-2">
+												<div className="flex flex-row items-center space-x-2">
+													<div className="border border-blue shadow-sm rounded-full w-4 h-4" />
+													<div className="text-darkgray">All time high</div>
+												</div>
+												<div>${tokenData?.ath}</div>
+											</div>
+											<div className="flex flex-col md:flex-row justify-between gap-2">
+												<div className="flex flex-row items-center space-x-2">
+													<div className="border border-blue shadow-sm rounded-full w-4 h-4" />
+													<div className="text-darkgray">All time low</div>
+												</div>
+												<div>${tokenData?.atl}</div>
+											</div>
+											<div className="flex flex-col md:flex-row justify-between gap-2">
+												<div className="flex flex-row items-center space-x-2">
+													<div className="border border-blue shadow-sm rounded-full w-4 h-4" />
+													<div className="text-darkgray">Market Cap Dominance</div>
+												</div>
+												<div>{tokenData?.market_cap_change}%</div>
+											</div>
+											<div className="flex flex-col md:flex-row justify-between gap-2">
+												<div className="flex flex-row items-center space-x-2">
+													<div className="border border-blue shadow-sm rounded-full w-4 h-4" />
+													<div className="text-darkgray">Volume / Market Cap</div>
+												</div>
+												<div>
+													{(
+														(tokenData?.market_cap *
+															tokenData?.market_cap_change) /
+														tokenData?.total_supply
+													).toFixed(2)}
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						)}
           </div>
 
           <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">

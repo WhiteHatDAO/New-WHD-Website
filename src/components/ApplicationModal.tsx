@@ -15,7 +15,6 @@ import SelectNetwork from './SelectNetwork';
 import SelectBox from './SelectBox';
 import back from '../assets/images/next-button.png';
 import submit from '../assets/images/submit-button.png';
-import gitcoin from '../assets/images/gitcoin.svg';
 
 import axios from 'axios';
 import { BACKEND_SERVER, SCORER_ENDPOINT } from '../global/global';
@@ -25,7 +24,6 @@ import storage from '../utils/firebaseConfig';
 import { useAppContext } from '../context/appContext';
 
 import { useState, useMemo } from 'react';
-import { assessScore } from '../utils/utils';
 
 const ApplicationModal = () => {
 	const [appState, setAppState] = useAppContext();
@@ -37,7 +35,6 @@ const ApplicationModal = () => {
 	const [authorEmail, setAuthorEmail] = useState<string>('')
 	const [authorDiscord, setAuthorDiscord] = useState<string>('')
 	const [authorTelegram, setAuthorTelegram] = useState<string>('')
-	const [authorTimezone, setAuthorTimezone] = useState<string>('')
 	const [authorNationality, setAuthorNationality] = useState<string>('')
 	const [authorRelation, setAuthorRelation] = useState<string>('')
 	const [projectName, setProjectName] = useState<string>('');
@@ -630,39 +627,47 @@ const ApplicationModal = () => {
 			})
 		}
 		if(appStep === 8) {
-      const { data: {ip} } = await axios.get("https://api.ipify.org/?format=json");
-			const data = {
-				creator: walletAddress,
-				authorName,
-				authorEmail,
-				authorDiscord,
-				authorTelegram,
-				authorTimezone,
-				authorNationality,
-				authorRelation,
-        authorIP: ip,
-				name: projectName,
-				logo: projectImage,
-				socials: socials,
-				description: description,
-				platform: platform,
-				language: language,
-				codebase: codebase,
-				contract_addr: address,
-				contract_audits: contractAudits,
-				platform_audits: platformAudits,
-				bug_bounty: bugBountyAudits,	
-				mintable,
-				multisig_address: multisigAddress,
-				distribution_list: distributionList,
-				market_data: marketData,
-				member: memberList,
-        reviewed: "pending",
-			}
-      setAppStep(9)
-      setEnableThankyou(true)
-			await axios.post(BACKEND_SERVER + '/api/project', data);
-		}
+      setSubmitting(true)
+      try {
+        // const { data: {ip} } = await axios.get("https://api.ipify.org/?format=json");
+        const data = {
+          creator: walletAddress,
+          authorName,
+          authorEmail,
+          authorTelegram,
+          authorNationality,
+          authorDiscord,
+          authorRelation,
+          authorIP: "",
+          name: projectName,
+          logo: projectImage,
+          socials: socials,
+          description: description,
+          platform: platform,
+          language: language,
+          codebase: codebase,
+          contract_addr: address,
+          contract_audits: contractAudits,
+          platform_audits: platformAudits,
+          bug_bounty: bugBountyAudits,	
+          mintable,
+          multisig_address: multisigAddress,
+          distribution_list: distributionList,
+          market_data: marketData,
+          member: memberList,
+          reviewed: "pending",
+        }
+        const res = await axios.post(BACKEND_SERVER + '/api/project', data);
+        if(res.status === 200) {
+          setAppStep(9)
+          setEnableThankyou(true)
+        }
+      } catch (e) {
+        alert("Error while getting your IP address")
+        console.log(e)
+      }
+      setSubmitting(false)
+    }
 	}
 
   useMemo(async() => {
@@ -705,22 +710,19 @@ const ApplicationModal = () => {
                           Your Name
                         </div>
                         <div className='min-h-[46px] border border-blue rounded-lg shadow-sm px-4 py-2 font-Manrope text-blue whitespace-nowrap'>
-                          Your Email Address
-                        </div>
-                        <div className='min-h-[46px] border border-blue rounded-lg shadow-sm px-4 py-2 font-Manrope text-blue whitespace-nowrap'>
-                          Your Discord Handle
-                        </div>
-                        <div className='min-h-[46px] border border-blue rounded-lg shadow-sm px-4 py-2 font-Manrope text-blue whitespace-nowrap'>
-                          Your Discord Handle
+                          Your Email
                         </div>
                         <div className='min-h-[46px] border border-blue rounded-lg shadow-sm px-4 py-2 font-Manrope text-blue whitespace-nowrap'>
                           Your Telegram Handle
                         </div>
-                        <div className='min-h-[46px] border border-blue rounded-lg shadow-sm px-4 py-2 font-Manrope text-blue whitespace-nowrap'>
+                        {/* <div className='min-h-[46px] border border-blue rounded-lg shadow-sm px-4 py-2 font-Manrope text-blue whitespace-nowrap'>
                           Your Time Zone
-                        </div>
+                        </div> */}
                         <div className='min-h-[46px] border border-blue rounded-lg shadow-sm px-4 py-2 font-Manrope text-blue whitespace-nowrap'>
                           Your Nationality
+                        </div>
+                        <div className='min-h-[46px] border border-blue rounded-lg shadow-sm px-4 py-2 font-Manrope text-blue whitespace-nowrap'>
+                          Your Discord Handle
                         </div>
                         <div className='min-h-[46px] border border-blue rounded-lg shadow-sm px-4 py-2 font-Manrope text-blue whitespace-nowrap'>
                           Your Role in Project
@@ -738,23 +740,18 @@ const ApplicationModal = () => {
                           className="shadow-inner rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sz16 border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         />
                         <input
-                          value={authorDiscord}
-                          onChange={(e) => setAuthorDiscord(e.target.value)}
-                          className="shadow-inner rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sz16 border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        />
-                        <input
                           value={authorTelegram}
                           onChange={(e) => setAuthorTelegram(e.target.value)}
                           className="shadow-inner rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sz16 border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         />
                         <input
-                          value={authorTimezone}
-                          onChange={(e) => setAuthorTimezone(e.target.value)}
+                          value={authorNationality}
+                          onChange={(e) => setAuthorNationality(e.target.value)}
                           className="shadow-inner rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sz16 border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         />
                         <input
-                          value={authorNationality}
-                          onChange={(e) => setAuthorNationality(e.target.value)}
+                          value={authorDiscord}
+                          onChange={(e) => setAuthorDiscord(e.target.value)}
                           className="shadow-inner rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sz16 border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         />
                         <input
@@ -795,6 +792,41 @@ const ApplicationModal = () => {
                   )}
                   {appStep === 2 && (
                     <div className="flex flex-1 flex-col lg:flex-row items-start space-y-3 lg:space-x-5 lg:space-y-0 self-start">
+                      <div className="flex flex-col items-start space-y-2">
+                        <span className="font-semibold text-blue">Project name</span>
+                        <input
+                          type="text"
+                          id="website-admin"
+                          value={projectName}
+                          onChange={(e) => setProjectName(e.target.value)}
+                          className="shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sz16 border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          placeholder="Project"
+                        />
+                        <div className="flex flex-col space-y-2">
+                          <span className="font-semibold text-blue">Upload logo</span>
+                          <label
+                            htmlFor="dropzone-file-projimage"
+                            className="h-10 w-28 py-1 rounded-lg shadow-sm border border-blue flex flex-row items-center justify-center"
+                          >
+                            <img src={upload} alt="upload"></img>
+                            <div className="text-sz18">Upload</div>
+                            <input
+                              id="dropzone-file-projimage"
+                              className="hidden"
+                              type="file"
+                              onChange={(e) => handleFileChange(e, 0, 5)}
+                              accept="/image/*"
+                            />
+                          </label>
+                        </div>
+                        {projectImage !== "" && (
+                          <img
+                            className="w-32 h-32 rounded-full object-cover"
+                            src={projectImage}
+                            alt=""
+                          ></img>
+                        )}
+                      </div>
                       <div className="flex flex-col space-y-2">
                         <span className="font-semibold text-blue">Edit Social Links</span>
                         <div className="flex flex-row items-center space-x-4">
@@ -882,53 +914,20 @@ const ApplicationModal = () => {
                           />
                         </div>
                       </div>
-                      <div className="flex flex-col items-start space-y-2">
-                        <span className="font-semibold text-blue">Project name</span>
-                        <input
-                          type="text"
-                          id="website-admin"
-                          value={projectName}
-                          onChange={(e) => setProjectName(e.target.value)}
-                          className="shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sz16 border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                          placeholder="Project"
-                        />
-                        <div className="flex flex-col space-y-2">
-                          <span className="font-semibold text-blue">Upload logo</span>
-                          <label
-                            htmlFor="dropzone-file-projimage"
-                            className="h-10 w-28 py-1 rounded-lg shadow-sm border border-blue flex flex-row items-center justify-center"
-                          >
-                            <img src={upload} alt="upload"></img>
-                            <div className="text-sz18">Upload</div>
-                            <input
-                              id="dropzone-file-projimage"
-                              className="hidden"
-                              type="file"
-                              onChange={(e) => handleFileChange(e, 0, 5)}
-                              accept="/image/*"
-                            />
-                          </label>
-                        </div>
-                        {projectImage !== "" && (
-                          <img
-                            className="w-32 h-32 rounded-full object-cover"
-                            src={projectImage}
-                            alt=""
-                          ></img>
-                        )}
-                      </div>
                     </div>
                   )}
                   {appStep === 3 && (
                     <div className="flex flex-1 flex-col lg:flex-row items-start space-y-3 lg:space-x-5 lg:space-y-0 self-start">
-                      <div className="flex flex-col items-start space-y-2 text-blue">
-                        <span className="text-sz18">Short Project Description:</span>
-                        <textarea
-                          rows={5}
-                          value={description}
-                          onChange={(e) => setDescription(e.target.value)}
-                          className="text-sz14 shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        />
+                      <div className="flex flex-col items-start space-y-6 text-blue">
+                        <div className="flex flex-col space-y-2 w-full">
+                          <span className="text-sz18">Short Project Description:</span>
+                          <textarea
+                            rows={5}
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                            className="text-sz14 shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          />
+                        </div>
                         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4">
                           <div>
                             <span className="text-sz18">Network</span>
@@ -954,15 +953,17 @@ const ApplicationModal = () => {
                           </div>
                         </div>
                       </div>
-                      <div className="flex flex-col items-start space-y-2 text-blue">
-                        <span className="text-sz18">Source Code</span>
-                        <input
-                          type="text"
-                          id="website-admin"
-                          value={codebase}
-                          onChange={(e) => setCodebase(e.target.value)}
-                          className="shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sz16 border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        />
+                      <div className="flex flex-col items-start space-y-6 text-blue">
+                        <div className='flex flex-col space-y-2'>
+                          <span className="text-sz18">Source Code</span>
+                          <input
+                            type="text"
+                            id="website-admin"
+                            value={codebase}
+                            onChange={(e) => setCodebase(e.target.value)}
+                            className="shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sz16 border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          />
+                        </div>
                         {address?.map((addr: any, index: number) => (
                           <div className="flex flex-row items-center space-x-4">
                             <SelectNetwork
@@ -1533,20 +1534,20 @@ const ApplicationModal = () => {
                       <div className="flex items-center space-x-8">
                         {appStep > 1 &&
                           <button className="flex items-center space-x-3 text-sz16 text-white pr-2" onClick={() => setAppStep(x=>x-=1)}>
-                            <img className='w-8 rotate-180' src={back} alt="" />
+                            <img className='w-8' src={back} alt="" />
                             <span>Back</span>
                           </button>}
                         {appStep < 8 &&
                           <button className="flex items-center space-x-3 text-sz16 text-white pr-2" onClick={() => setAppStep(x=>x+=1)}>
                             <span>Next</span>
-                            <img className='w-8' src={back} alt="" />
+                            {appStep>1 &&<img className='w-8 rotate-180' src={back} alt="" />}
                           </button>}
                       </div>
                     }
                     {appStep === 8 &&
                       <div className='flex items-center space-x-3'>
                         <span>Submit</span>
-                        <img className='w-8' src={submit} alt="" />
+                        <img className='w-8 rotate-180' src={submit} alt="" />
                       </div>
                     }
                     {appStep === 9 && "Thank you !!"}

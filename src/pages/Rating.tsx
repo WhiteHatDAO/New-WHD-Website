@@ -3677,8 +3677,8 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
               ) : null}
             </div>
             {tokenData && (
-							<div className="flex flex-col md:flex-row p-3 gap-3 flex-wrap">
-								<div className="flex-1 p-3 rounded-xl bg-gray font-Manrope font-light flex flex-col">
+							<div className="flex flex-col md:flex-row p-8 gap-3 flex-wrap">
+								<div className="flex-1 p-2 sm:p-6 rounded-xl bg-gray font-Manrope font-light flex flex-col" >
 									<div className="flex flex-row justify-end items-center flex-wrap gap-2 mb-5">
 										<div
 											onClick={() => setAppState({ ...appState, days: 1})}
@@ -3751,13 +3751,13 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
 											365d
 										</div>
 									</div>
-									<div style={{ background: "rgb(13, 11, 14)"}} className='h-full xl:h-[70%]'>
+									<div style={{ background: "rgb(13, 11, 14)"}} className='h-full'>
 										<PriceChart />
 									</div>
 								</div>
-								<div className="rounded-xl bg-gray font-Manrope font-light flex flex-col">
+								<div className="flex-1 rounded-xl bg-gray font-Manrope font-light flex flex-col">
 									<div className="bg-darkgray1 px-6 py-4 rounded-t-xl text-blue text-center font-medium">Key Metrics Data</div>
-									<div className="px-3 pb-3">
+									<div className="p-6">
 										<div className="flex flex-row items-center justify-between">
 											<div className="flex flex-col space-y-3 border-b border-pure_blue w-full pb-3">
 												<GradientBox
@@ -3859,21 +3859,21 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
 												</div>
 												<div>${tokenData?.ath}</div>
 											</div>
-											<div className="flex flex-col md:flex-row justify-between gap-2">
+											<div className="flex flex-col md:flex-row justify-between">
 												<div className="flex flex-row items-center space-x-2">
 													<div className="border border-blue shadow-sm rounded-full w-4 h-4" />
 													<div className="text-darkgray">All time low</div>
 												</div>
 												<div>${tokenData?.atl}</div>
 											</div>
-											<div className="flex flex-col md:flex-row justify-between gap-2">
+											<div className="flex flex-col md:flex-row justify-between">
 												<div className="flex flex-row items-center space-x-2">
 													<div className="border border-blue shadow-sm rounded-full w-4 h-4" />
 													<div className="text-darkgray">Market Cap Dominance</div>
 												</div>
 												<div>{tokenData?.market_cap_change}%</div>
 											</div>
-											<div className="flex flex-col md:flex-row justify-between gap-2">
+											<div className="flex flex-col md:flex-row justify-between">
 												<div className="flex flex-row items-center space-x-2">
 													<div className="border border-blue shadow-sm rounded-full w-4 h-4" />
 													<div className="text-darkgray">Volume / Market Cap</div>

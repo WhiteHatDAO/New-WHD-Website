@@ -725,15 +725,8 @@ const Audit = ({
               ) : null}
             </div>
             <div className="px-[15px] pt-5 pb-[112px] md:p-8 flex flex-col font-Manrope font-light space-y-[80px] md:space-y-4">
-              <div className="text-sz12 md:text-sz18 font-medium leading-ht18.49 md:leading-auto text-grey">
+              <div className="text-sz16 md:text-sz18 text-black whitespace-pre-line">
                 {mainProData.audit.audit_report_text}
-              </div>
-              <div className="text-sz12 md:text-sz18 font-medium leading-ht18.49 md:leading-auto text-grey">
-                With every successful audit, we’ll provide you with a listing on
-                the W-HAT Safety rating leaderboard that is shared publicly with
-                the entire crypto community. The Leaderboard contains the
-                details of projects alongside their audit reports, as well as
-                the community’s security sentiment of the project.
               </div>
             </div>
           </div>

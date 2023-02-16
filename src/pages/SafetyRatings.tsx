@@ -379,8 +379,8 @@ const SafetyRatings = ({
               </div>
             </div>
             <div className="flex flex-col gap-[30px] md:gap-8">
-							{filteredProjects.filter((x, index) => index>=curProPage*amountPerPage && index<(curProPage+1)*amountPerPage && x.published === "publish")?.map((project, index) => (
-                <div key={index}>
+							{filteredProjects.filter((x, index) => index>=curProPage*amountPerPage && index<(curProPage+1)*amountPerPage)?.map((project, index) => (
+                <div key={index} className={project.published === "publish" ? "":"hidden"}>
                   <div className="cursor-pointer shadow-xl border border-blue font-Manrope font-light rounded-lg p-4 flex xl:hidden flex-col gap-4">
                     <div className="flex flex-row items-start justify-between">
                       <img

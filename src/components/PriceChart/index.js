@@ -197,6 +197,6 @@ FinancialChart.defaultProps = {
   width: 0
 };
 
-export default withSize({ style: { minHeight: 600 } })(
+export default withSize({ style: { width: "100%", height: "100%" } })(
   withDeviceRatio()(FinancialChart)
 );

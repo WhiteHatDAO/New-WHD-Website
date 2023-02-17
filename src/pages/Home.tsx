@@ -86,7 +86,7 @@ const Home = ({
 	const prev = () => (page > 0) && setPage(x=>x-=1)
 	const prevAnn = () => (curAnnPage > 0) && setCurAnnPage(x=>x-=1)
 	const next = () => (page < Math.ceil(filteredProjects.length / 10) - 1) && setPage(x=>x+=1)
-	const nextAnn = () => (curAnnPage < Math.ceil(announces.length / 4) - 1) && setCurAnnPage(x=>x+=1)
+	const nextAnn = () => (curAnnPage < Math.ceil(announces.length / 3) - 1) && setCurAnnPage(x=>x+=1)
 
   const handleSearchItem = () => {
     if (auditProjects.length === 0) return;
@@ -694,7 +694,7 @@ const Home = ({
                     <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
                   </>
                 ) : null}
-                <div className="md:pt-2 gradient-text-vertical md:gradient-text text-sz28 text-sz28 md:text-sz40 lg:text-sz40 font-black leading-ht36 md:leading-auto">
+                <div className="md:pt-2 gradient-text-vertical md:gradient-text text-sz28 md:text-sz40 lg:text-sz40 font-black leading-ht36 md:leading-auto">
                   {mainProData.home.title}
                 </div>
                 <div className="font-Manrope text-sz16 md:text-sz18 leading-ht21.86 md:leading-auto font-normal md:font-light mt-4">
@@ -775,7 +775,7 @@ const Home = ({
                   </>
                 ) : null}
                 <div className="px-[15px] py-[10px] md:py-6 md:px-6 font-Manrope flex flex-col space-y-6 rounded-xl">
-                  {announces.filter((x, index) => index>=curAnnPage*4 && index<(curAnnPage+1)*4).map((topic: any, index: number) => (
+                  {announces.filter((x, index) => index>=curAnnPage*3 && index<(curAnnPage+1)*3).map((topic: any, index: number) => (
                     <div key={index} className="p-[6px] md:px-4 md:py-2 bg-gray rounded-xl flex flex-col cursor-pointer" onClick={() => handleViewAnnouncement(topic)}>
                       <div className="text-sz14 md:text-sz18 block sm:flex flex-row items-center justify-between">
                         <div className="w-full sm:w-max font-bold">
@@ -785,11 +785,11 @@ const Home = ({
                           {FormatDate(topic.createdAt)}
                         </div>
                       </div>
-                      <div className="text-sz14 md:text-sz18 flex flex-col md:flex-row items-center justify-between mt-2 sm:mt-0 space-y-3">
+											<div className="text-sz14 md:text-sz18 flex flex-col md:flex-row items-start justify-between mt-2 sm:mt-0 gap-3">
                         <div className="sm:flex flex-row items-center self-start w-64 md:w-80 md:self-auto">
                           <div className="text-grey truncate max-w-full">{getTextFromTopic(topic.topic)}</div>
                         </div>
-                        <div className="flex flex-row items-center space-x-2">
+												<div className="flex flex-row justify-end items-center gap-2 flex-wrap">
                           {topic.tags.map((tag: string, i:number) => (
                             <div key={i} className="rounded-full shadow-inner px-4 h-[27px] flex items-center md:blockmd:h-auto md:py-2 text-red text-sz12">
                               {tag}
@@ -808,7 +808,7 @@ const Home = ({
 											<div className="cursor-pointer shadow-sm w-12 h-12 flex flex-row items-center justify-center" onClick={prevAnn}>
 												<img src={prevImage} alt="prev"></img>
 											</div>
-											{Array(Math.ceil(announces.length / 4)).fill("").map((x, i) =>
+											{Array(Math.ceil(announces.length / 3)).fill("").map((x, i) =>
 												<div key={i} className={(curAnnPage === i ? "shadow-sm " : "") + "w-12 h-12 flex flex-row items-center justify-center cursor-pointer"} onClick={() => setCurAnnPage(i)}>
 													{i+1}
 												</div>

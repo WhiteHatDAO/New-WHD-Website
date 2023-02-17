@@ -955,13 +955,14 @@ const ApplicationModal = () => {
                       </div>
                       <div className="flex flex-col items-start space-y-6 text-blue">
                         <div className='flex flex-col space-y-2'>
-                          <span className="text-sz18">Source Code</span>
+                          <span className="text-sz18">Source Code Link</span>
                           <input
                             type="text"
                             id="website-admin"
                             value={codebase}
                             onChange={(e) => setCodebase(e.target.value)}
                             className="shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sz16 border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder='https://github.com/contract'
                           />
                         </div>
                         {address?.map((addr: any, index: number) => (

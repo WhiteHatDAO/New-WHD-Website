@@ -26,7 +26,7 @@ export function useMarketData(updating = false) {
 
   useEffect(() => {
     fetch(
-      `https://api.coingecko.com/api/v3/coins/${token}/ohlc?vs_currency=usd&days=${days}`
+      `https://api.coingecko.com/api/v3/coins/${token}/ohlc?vs_currency=usd&days=${days === -1 ? "max" : days}`
       // `https://raw.githubusercontent.com/reactivemarkets/react-financial-charts/master/packages/stories/src/data/${dataSet}.tsv`
     )
       .then((response) => response.text())

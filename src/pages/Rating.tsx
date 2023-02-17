@@ -3750,6 +3750,16 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
 										>
 											365d
 										</div>
+										<div
+											onClick={() => setAppState({ ...appState, days: -1})}
+											className={
+												timeRange === -1
+													? 'px-3 font-bold rounded-md text-white bg-blue border border-blue shadow-sm cursor-pointer'
+													: 'px-3 font-bold rounded-md text-blue border border-blue shadow-sm cursor-pointer'
+											}
+										>
+											All
+										</div>
 									</div>
 									<div style={{ background: "rgb(13, 11, 14)"}} className='h-full'>
 										<PriceChart />

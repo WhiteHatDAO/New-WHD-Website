@@ -379,8 +379,8 @@ const SafetyRatings = ({
               </div>
             </div>
             <div className="flex flex-col gap-[30px] md:gap-8">
-							{filteredProjects.filter((x, index) => index>=curProPage*amountPerPage && index<(curProPage+1)*amountPerPage)?.map((project, index) => (
-                <div key={index} className={project.published === "publish" ? "":"hidden"}>
+							{filteredProjects.filter((x, index) => index>=curProPage*amountPerPage && index<(curProPage+1)*amountPerPage && x.published === "publish")?.map((project, index) => (
+                <div key={index}>
                   <div className="cursor-pointer shadow-xl border border-blue font-Manrope font-light rounded-lg p-4 flex xl:hidden flex-col gap-4">
                     <div className="flex flex-row items-start justify-between">
                       <img
@@ -398,7 +398,7 @@ const SafetyRatings = ({
                     </div>
                     <div
                       onClick={() =>
-                        navigate(`/safety-ratings/rating/${index}`)
+                        navigate(`/safety-ratings/rating/${project._id}`)
                       }
                       className="flex flex-row items-start space-x-2"
                     >
@@ -497,7 +497,7 @@ const SafetyRatings = ({
                     </div>
                     <div 
                       onClick={() =>
-                        navigate(`/safety-ratings/rating/${index}`)
+                        navigate(`/safety-ratings/rating/${project._id}`)
                       }
                       className="text-sz12 md:text-sz16 leading-ht18.49 md:leading-auto font-Manrope font-medium text-grey"
                     >
@@ -505,7 +505,7 @@ const SafetyRatings = ({
                     </div>
                     <div 
                       onClick={() =>
-                        navigate(`/safety-ratings/rating/${index}`)
+                        navigate(`/safety-ratings/rating/${project._id}`)
                       }
                       className="mt-6 md:mt-0 flex flex-row items-end justify-between"
                     >
@@ -532,7 +532,7 @@ const SafetyRatings = ({
                       <img
                         className="rounded-full min-w-[96px] h-24 object-cover"
                         onClick={() => 
-                          navigate(`/safety-ratings/rating/${index}`)
+                          navigate(`/safety-ratings/rating/${project._id}`)
                         }
                         src={project?.logo}
                         alt=""
@@ -545,7 +545,7 @@ const SafetyRatings = ({
                     <div className="w-full font-Manrope flex flex-col space-y-4">
                       <div
                         onClick={() =>
-                          navigate(`/safety-ratings/rating/${index}`)
+                          navigate(`/safety-ratings/rating/${project._id}`)
                         }
                         className="flex flex-row items-center justify-between"
                       >
@@ -618,7 +618,7 @@ const SafetyRatings = ({
                       </div>
                       <div
                         onClick={() =>
-                          navigate(`/safety-ratings/rating/${index}`)
+                          navigate(`/safety-ratings/rating/${project._id}`)
                         }
 												className="mt-6 md:mt-0 font-Manrope text-sz12 font-light flex flex-row items-center justify-between flex-wrap gap-y-4"
                       >
@@ -668,7 +668,7 @@ const SafetyRatings = ({
                       </div>
                       <div className="text-sz16 flex flex-row items-end justify-between">
                         <div className="w-2/3">{project?.description}</div>
-                        <div className="cursor-pointer font-Manrope border rounded-lg border-blue shadow-sm px-4 py-1 flex flex-row items-center space-x-2" onClick={() => navigate(`/safety-ratings/rating/${index}`)}>
+                        <div className="cursor-pointer font-Manrope border rounded-lg border-blue shadow-sm px-4 py-1 flex flex-row items-center space-x-2" onClick={() => navigate(`/safety-ratings/rating/${project._id}`)}>
                           <div className="text-blue text-sz18">Read More</div>
                         </div>
                       </div>

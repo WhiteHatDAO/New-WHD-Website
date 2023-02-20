@@ -703,14 +703,9 @@ const Home = ({
                 <div className="mt-4 cursor-pointer z-2">
                   <a
                     href={mainProData.home.title_button_link} target="_blank" rel="noreferrer"
-                    className="shadow-sm text-2xl px-4 py-2 border rounded-xl gradient-box text-sz16 flex flex-col items-center font-Manrope"
+                    className="shadow-sm text-2xl px-4 py-2 border rounded-xl gradient-box text-sz16 flex flex-col items-center font-Manrope text-blue"
                   >
-                    <div className="hidden md:block text-blue">
-                      {mainProData.home.title_button}
-                    </div>
-                    <div className="block md:hidden text-blue">
-                      Join the WHD Discussion
-                    </div>
+                    {mainProData.home.title_button}
                   </a>
                 </div>
               </div>
@@ -785,8 +780,8 @@ const Home = ({
                           {FormatDate(topic.createdAt)}
                         </div>
                       </div>
-											<div className="text-sz14 md:text-sz18 flex flex-col md:flex-row items-start justify-between mt-2 sm:mt-0 gap-3">
-                        <div className="sm:flex flex-row items-center self-start w-64 md:w-80 md:self-auto">
+											<div className="text-sz14 md:text-sz18 flex flex-col md:flex-row items-start justify-between mt-2 sm:mt-0 gap-3 overflow-hidden">
+                        <div className="sm:flex flex-row items-center self-start w-64 md:w-80 md:self-auto truncate max-w-full">
                           <div className="text-grey truncate max-w-full">{getTextFromTopic(topic.topic)}</div>
                         </div>
 												<div className="flex flex-row justify-end items-center gap-2 flex-wrap">
@@ -1289,7 +1284,7 @@ const Home = ({
                     <tr
                       key={index}
                       onClick={() => 
-                        navigate(`/safety-ratings/rating/${index}`)
+                        navigate(`/safety-ratings/rating/${project._id}`)
                       }
                       className={
                         filteredProjects?.length === index + 1
@@ -1501,7 +1496,7 @@ const Home = ({
           </div>
           <div className="mt-[72px] bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray py-[13px] md:px-6 md:py-4 rounded-t-xl flex flex-row items-start">
-              <div className="w-full pl-4 text-blue text-sz20 font-bold font-pilat text-center">
+              <div className="w-full text-blue text-sz20 font-bold font-pilat text-center">
                 {mainProData.home.brands_title}
               </div>
               {/* <div
@@ -1614,7 +1609,7 @@ const Home = ({
                 </>
               ) : null}
             </div>
-            <div className="py-6 px-4 font-Manrope flex flex-row flex-wrap items-center justify-center space-x-8 rounded-xl">
+            <div className="py-6 px-4 font-Manrope flex flex-row flex-wrap items-center justify-center gap-x-8 gap-y-3 rounded-xl">
               {mainProData.home.brands.map((brand: any, i: number) => (
                 <a key={i} href={brand.link} target="_blank" rel="noreferrer" className="flex justify-center items-center rounded-full bg-white w-20 h-20 overflow-hidden cursor-pointer">
                   <img src={brand.logolink} alt={brand.name}></img>

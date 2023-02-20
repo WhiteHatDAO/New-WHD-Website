@@ -815,7 +815,7 @@ const Audit = ({
                   {filteredProjects?.sort((a, b) => (new Date(FormatYMD(b.updatedAt)) as any) - (new Date(FormatYMD(a.updatedAt)) as any)).filter((x, index) => index>=page*10 && index<(page+1)*10 && x.published === "publish").map((project, index) => (
                     <tr
                       key={index}
-                      onClick={() => navigate(`/safety-ratings/rating/${index}`)}
+                      onClick={() => navigate(`/safety-ratings/rating/${project._id}`)}
                       className={
                         filteredProjects?.length === index + 1
                           ? "cursor-pointer bg-lightgray border-none"

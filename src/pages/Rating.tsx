@@ -1433,9 +1433,10 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
 
   useEffect(() => {
     if (id !== undefined && auditProjects.length !== 0) {
-      setProject(auditProjects[parseInt(id)]);
-			setAppState({...appState, token: auditProjects[parseInt(id)].token })
-			setOpenEmailBox(Array(auditProjects[parseInt(id)].member.length).fill(false))
+			console.log("proje", auditProjects.find(x=>x._id === id));
+			setProject(auditProjects.find(x=>x._id === id));
+			setAppState({...appState, token: auditProjects.find(x=>x._id === id).token })
+			setOpenEmailBox(Array(auditProjects.find(x=>x._id === id).member.length).fill(false))
     }
   }, [id, auditProjects]);
 
@@ -1695,7 +1696,7 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
                 ) : null}
               </div>
               <div className="font-Manrope text-sz10 font-light md:flex flex-row items-center justify-between">
-                <div className="w-full flex flex-row flex-wrap items-center sm:gap-4">
+                <div className="w-full flex flex-row flex-wrap items-center gap-[10px] sm:gap-4">
                   {project?.tags?.map((tag: any) => (
 										<div className={
 											tag.color === 'Purple'
@@ -1779,7 +1780,7 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
           </div>
           <div className="flex flex-col xl:flex-row items-start gap-12">
             <div className="shadow-xl rounded-xl w-full xl:w-2/3 font-Manrope font-light ">
-              <div className="p-8 flex flex-col justify-center gap-4 ">
+              <div className="px-[15px] pt-5 pb-[15px] sm:p-8 flex flex-col justify-center gap-4">
                 <div className="text-sz14 text-blue flex flex-col items-end justify-end">
                   {/* <div
                     className="text-sz16 font-Manrope flex flex-row items-center space-x-2 cursor-pointer"
@@ -2026,12 +2027,12 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
                   )}
 
                   {project?.codebase && project.contract_addr && (
-                    <div className="font-Manrope font-light flex flex-col gap-4 md:gap-8">
+                    <div className="font-Manrope font-light flex flex-col gap-4 md:gap-8 max-w-full">
                       <div className="flex flex-col">
                         <div className="text-darkgray text-sz14">
                           Source Code
                         </div>
-                        <div className="flex flex-row items-center space-x-2">
+                        <div className="flex flex-row flex-wrap items-center gap-2">
                           <div className="text-blue text-sz16">
                             {project?.codebase}
                           </div>
@@ -2782,7 +2783,7 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
             </div>
             <div className="p-8 font-Manrope font-light">
               {project.distribution_list && (
-                <div className="w-full rounded-xl p-4 bg-gray flex flex-col xl:flex-row flex-wrap items-center gap-8">
+                <div className="w-full rounded-xl p-4 bg-gray flex flex-col xl:flex-row flex-wrap items-center gap-8 overflow-auto">
 									<div className="flex flex-col items-center gap-y-4">
                     <div className="relative flex flex-col items-center">
                       <Doughnut type={true} data={project.distribution_list} />
@@ -3174,21 +3175,21 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
                     <div className="text-sz10">Total Findings</div>
                   </div>
                 </div>
-                <div className="w-full flex flex-col ml-8 px-8 border-none md:border-l border-darkgray gap-4">
+                <div className="w-full flex flex-col px-8 border-none md:border-l border-darkgray gap-4">
                   {project.security_list.map((security: any) => (
                     <div className="w-full grid grid-cols-4 items-start">
                       <div className="col-span-1 font-Manrope font-light text-sz16 flex flex-row items-center space-x-4">
                         <div
                           className={
                             security.color === "Critical"
-                              ? "w-3 h-3 rounded-sm bg-critical"
+                              ? "min-w-[12px] h-3 rounded-sm bg-critical"
                               : security.color === "Major"
-                              ? "w-3 h-3 rounded-sm bg-major"
+                              ? "min-w-[12px] h-3 rounded-sm bg-major"
                               : security.color === "Medium"
-                              ? "w-3 h-3 rounded-sm bg-medium"
+                              ? "min-w-[12px] h-3 rounded-sm bg-medium"
                               : security.color === "Minor"
-                              ? "w-3 h-3 rounded-sm bg-minor"
-                              : "w-3 h-3 rounded-sm bg-informational"
+                              ? "min-w-[12px] h-3 rounded-sm bg-minor"
+                              : "min-w-[12px] h-3 rounded-sm bg-informational"
                           }
                         ></div>
                         <div
@@ -3677,8 +3678,8 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
               ) : null}
             </div>
             {tokenData && (
-							<div className="flex flex-col md:flex-row p-8 gap-3 flex-wrap">
-								<div className="flex-1 p-2 sm:p-6 rounded-xl bg-gray font-Manrope font-light flex flex-col" >
+							<div className="flex flex-col md:flex-row p-5 md:p-8 gap-3 flex-wrap">
+								<div className="flex-1 p-2 sm:p-6 rounded-xl bg-gray font-Manrope font-light flex flex-col w-full" >
 									<div className="flex flex-row justify-end items-center flex-wrap gap-2 mb-5">
 										<div
 											onClick={() => setAppState({ ...appState, days: 1})}
@@ -3761,7 +3762,7 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
 											All
 										</div>
 									</div>
-									<div style={{ background: "rgb(13, 11, 14)"}} className='h-full'>
+									<div style={{ background: "rgb(13, 11, 14)"}} className='h-full min-h-[300px]'>
 										<PriceChart />
 									</div>
 								</div>

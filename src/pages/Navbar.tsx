@@ -246,7 +246,7 @@ const Navbar = ({ showMenu, handleShowMenu }: navProps) => {
             </div>
           </div>
           <div className="flex flex-row items-center space-x-7 md:space-x-4">
-            <div className="md:w-60 relative cursor-pointer z-2">
+            <div className="md:w-60 hidden xl:block relative cursor-pointer z-2">
               <div
                 // className="shadow-sm text-2xl px-6 py-2 border rounded-xl gradient-box text-sz16"
                 className="shadow-sm text-2xl px-6 py-2 border flex items-center justify-center rounded-xl gradient-box text-sz16"

@@ -54,7 +54,7 @@ const ContractAddressBox = ({ data }: boxInterface) => {
   return (
     <>
       {network && (
-        <div className="relative w-64 rounded-md shadow-sm flex flex-row">
+        <div className="relative w-64 rounded-md shadow-sm flex flex-row max-w-full">
           <div className="p-2 w-full flex flex-row items-center space-x-2">
             {
               copyStatus ? (

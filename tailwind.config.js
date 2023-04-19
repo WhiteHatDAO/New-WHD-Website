@@ -5,6 +5,7 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 module.exports = {
   mode: 'jit',
   purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
+  content: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
@@ -43,15 +44,21 @@ module.exports = {
       transparent: "transparent",
       lightgray: "#E6E7EE",
       gray: "#DDDEE8",
+      daisy: "rgba(71, 28, 135, 1)",
       darkgray: "#727272",
       darkblue: "#4D6380",
+      darkblue1: "rgb(22, 65, 124)",
       darkpurple: "#595F8C",
       white: "#ffffff",
       red: "#A70505",
+      lightred: "rgba(179, 15, 61, 1)",
       green: "#059235",
+      green1: "rgb(24, 224, 84)",
       blue: "#346DA1",
       pink: "#CC2D8F",
       black: "#000000",
+      black1: "#2B2B2B",
+      black2: "rgb(13, 11, 14)",
       purple: "#6D29FE",
       yellow: "#EBA10F",
       grey: "#404040",
@@ -63,6 +70,7 @@ module.exports = {
       major: "#E28A59",
       medium: "#E1AA4C",
       minor: "#A9B3BD",
+      magenta: "rgba(173, 50, 122, 1)",
       informational: "#4D6381",
       pure_yellow: "#FFFC00",
       pure_purple: "#9F42CC",

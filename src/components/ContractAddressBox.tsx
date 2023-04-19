@@ -54,7 +54,7 @@ const ContractAddressBox = ({ data }: boxInterface) => {
   return (
     <>
       {network && (
-        <div className="relative w-64 rounded-md shadow-sm flex flex-row">
+        <div className="relative w-64 rounded-md shadow-sm flex flex-row max-w-full">
           <div className="p-2 w-full flex flex-row items-center space-x-2">
             {
               copyStatus ? (
@@ -64,32 +64,32 @@ const ContractAddressBox = ({ data }: boxInterface) => {
               )
             }
             {network.network === "ethereum" ? (
-              <img className="w-6 h-6" src={ethereum} alt="ethereum"></img>
+              <img className="w-5 h-5" src={ethereum} alt="ethereum"></img>
             ) : network.network === "arbitrum" ? (
-              <img className="w-6 h-6" src={arbitrum} alt="arbitrum"></img>
+              <img className="w-5 h-5" src={arbitrum} alt="arbitrum"></img>
             ) : network.network === "binance" ? (
-              <img className="w-6 h-6" src={binance} alt="binance"></img>
+              <img className="w-5 h-5" src={binance} alt="binance"></img>
             ) : network.network === "polygon" ? (
-              <img className="w-6 h-6" src={polygon} alt="polygon"></img>
+              <img className="w-5 h-5" src={polygon} alt="polygon"></img>
             ) : network.network === "optimism" ? (
-              <img className="w-6 h-6" src={optimism} alt="optimism"></img>
+              <img className="w-5 h-5" src={optimism} alt="optimism"></img>
             ) : network.network === "gnosis" ? (
-              <img className="w-6 h-6" src={gnosis} alt="gnosis"></img>
+              <img className="w-5 h-5" src={gnosis} alt="gnosis"></img>
             ) : network.network === "avalanche" ? (
-              <img className="w-6 h-6" src={avalanche} alt="avalanche"></img>
+              <img className="w-5 h-5" src={avalanche} alt="avalanche"></img>
             ) : network.network === "fantom" ? (
-              <img className="w-6 h-6" src={fantom} alt="fantom"></img>
+              <img className="w-5 h-5" src={fantom} alt="fantom"></img>
             ) : network.network === "klaytn" ? (
-              <img className="w-6 h-6" src={klaytn} alt="klaytn"></img>
+              <img className="w-5 h-5" src={klaytn} alt="klaytn"></img>
             ) : network.network === "aurora" ? (
-              <img className="w-6 h-6" src={aurora} alt="aurora"></img>
+              <img className="w-5 h-5" src={aurora} alt="aurora"></img>
             ) : network.network === "zkSync" ? (
-              <img className="w-6 h-6" src={zksync} alt="zkSync"></img>
+              <img className="w-5 h-5" src={zksync} alt="zkSync"></img>
             ) : (
               ""
             )}
             {data && (
-              <div className="text-blue text-sz16">
+              <div className="text-blue">
                 {getSubAddress(network.address as string)}
               </div>
             )}
@@ -99,8 +99,8 @@ const ContractAddressBox = ({ data }: boxInterface) => {
             className="p-2 bg-blue rounded-r-md flex items-center justify-center"
           >
             <svg
-              width="28"
-              height="28"
+              width="19"
+              height="19"
               viewBox="0 0 28 28"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -113,7 +113,7 @@ const ContractAddressBox = ({ data }: boxInterface) => {
           </div>
           {showDropdown && (
             <div
-              className="absolute rounded-md border bg-lightgray text-sz16 text-blue border-blue shadow-sm w-64"
+              className="absolute rounded-md border bg-lightgray text-sz16 text-blue border-blue shadow-sm w-64 z-[1]"
               style={{ top: "60px", right: "0px" }}
             >
               <div className="flex flex-col p-2 gap-4">

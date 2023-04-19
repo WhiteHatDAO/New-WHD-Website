@@ -49,7 +49,7 @@ const MemberContract = ({ address }: memberProps) => {
         )}
       </div>
       <div className="p-2 flex flex-row items-center space-x-2">
-        <div className="text-sz18 text-blue">{getSubAddress(address.address)}</div>
+        <div className="text-sz18 text-blue break-all">{getSubAddress(address.address)}</div>
         {address.network === "ethereum" ? (
           <img className="w-6 h-6" src={ethereum} alt="ethereum"></img>
         ) : address.network === "arbitrum" ? (

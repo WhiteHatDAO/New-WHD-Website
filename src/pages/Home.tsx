@@ -30,8 +30,8 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import {
   FormatYMD,
   // FormatNumber,
-  FormatSmallNumber,
   FormatDate,
+  commafy,
 } from "../utils/utils";
 
 import { useState, useEffect } from "react";
@@ -43,6 +43,7 @@ import { useCoingeckoAPI } from "../utils/useCoingeckoAPI";
 import { FormatBigNumber } from "../utils/utils";
 import SelectNetwork from "../components/SelectNetwork";
 import BlogSlick from "../components/BlogSlick";
+import { useAppContext } from "../context/appContext";
 
 interface homeProps {
   auditProjects: any[];
@@ -59,6 +60,8 @@ const Home = ({
   handleCount,
   handleSelectedTopic,
 }: homeProps) => {
+	const [appState, setAppState] = useAppContext()
+  const {address} = appState
   const [showModal, setShowModal] = useState(false);
   const [showTokenDetailModal, setShowTokenDetailModal] = useState(false);
   const [showTopBrandsModal, setShowTopBrandsModal] = useState(false);
@@ -83,7 +86,7 @@ const Home = ({
 	const prev = () => (page > 0) && setPage(x=>x-=1)
 	const prevAnn = () => (curAnnPage > 0) && setCurAnnPage(x=>x-=1)
 	const next = () => (page < Math.ceil(filteredProjects.length / 10) - 1) && setPage(x=>x+=1)
-	const nextAnn = () => (curAnnPage < Math.ceil(announces.length / 4) - 1) && setCurAnnPage(x=>x+=1)
+	const nextAnn = () => (curAnnPage < Math.ceil(announces.length / 3) - 1) && setCurAnnPage(x=>x+=1)
 
   const handleSearchItem = () => {
     if (auditProjects.length === 0) return;
@@ -93,7 +96,7 @@ const Home = ({
     } else {
       let projects = [];
       for (let i = 0; i < auditProjects.length; i++) {
-        if (auditProjects[i].name.includes(searchText)) {
+				if (auditProjects[i].name.toLowerCase().includes(searchText.toLowerCase())) {
           projects.push(auditProjects[i]);
         }
       }
@@ -691,7 +694,7 @@ const Home = ({
                     <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
                   </>
                 ) : null}
-                <div className="md:pt-2 gradient-text-vertical md:gradient-text text-sz28 text-sz28 md:text-sz40 lg:text-sz40 font-black leading-ht36 md:leading-auto">
+                <div className="md:pt-2 gradient-text-vertical md:gradient-text text-sz28 md:text-sz40 lg:text-sz40 font-black leading-ht36 md:leading-auto">
                   {mainProData.home.title}
                 </div>
                 <div className="font-Manrope text-sz16 md:text-sz18 leading-ht21.86 md:leading-auto font-normal md:font-light mt-4">
@@ -699,15 +702,13 @@ const Home = ({
                 </div>
                 <div className="mt-4 cursor-pointer z-2">
                   <a
-                    href={mainProData.home.title_button_link}
+                    href={mainProData.home.title_button_link} target="_blank" rel="noreferrer"
                     className="shadow-sm text-2xl px-4 py-2 border rounded-xl gradient-box text-sz16 flex flex-col items-center font-Manrope"
                   >
-                    <div className="hidden md:block text-blue">
-                      {mainProData.home.title_button}
-                    </div>
-                    <div className="block md:hidden text-blue">
-                      Join the WHD Discussion
-                    </div>
+                    <span className="text-blue">
+											Apply for White Hat DAO membership NFT
+										</span>
+                    {/* {mainProData.home.title_button} */}
                   </a>
                 </div>
               </div>
@@ -772,7 +773,7 @@ const Home = ({
                   </>
                 ) : null}
                 <div className="px-[15px] py-[10px] md:py-6 md:px-6 font-Manrope flex flex-col space-y-6 rounded-xl">
-                  {announces.filter((x, index) => index>=curAnnPage*4 && index<(curAnnPage+1)*4).map((topic: any, index: number) => (
+                  {announces.filter((x, index) => index>=curAnnPage*3 && index<(curAnnPage+1)*3).map((topic: any, index: number) => (
                     <div key={index} className="p-[6px] md:px-4 md:py-2 bg-gray rounded-xl flex flex-col cursor-pointer" onClick={() => handleViewAnnouncement(topic)}>
                       <div className="text-sz14 md:text-sz18 block sm:flex flex-row items-center justify-between">
                         <div className="w-full sm:w-max font-bold">
@@ -782,11 +783,11 @@ const Home = ({
                           {FormatDate(topic.createdAt)}
                         </div>
                       </div>
-                      <div className="text-sz14 md:text-sz18 flex flex-col md:flex-row items-center justify-between mt-2 sm:mt-0 space-y-3">
-                        <div className="sm:flex flex-row items-center self-start w-64 md:w-80 md:self-auto">
+											<div className="text-sz14 md:text-sz18 flex flex-col md:flex-row items-start justify-between mt-2 sm:mt-0 gap-3 overflow-hidden">
+                        <div className="sm:flex flex-row items-center self-start w-64 md:w-80 md:self-auto truncate max-w-full">
                           <div className="text-grey truncate max-w-full">{getTextFromTopic(topic.topic)}</div>
                         </div>
-                        <div className="flex flex-row items-center space-x-2">
+												<div className="flex flex-row justify-end items-center gap-2 flex-wrap">
                           {topic.tags.map((tag: string, i:number) => (
                             <div key={i} className="rounded-full shadow-inner px-4 h-[27px] flex items-center md:blockmd:h-auto md:py-2 text-red text-sz12">
                               {tag}
@@ -805,7 +806,7 @@ const Home = ({
 											<div className="cursor-pointer shadow-sm w-12 h-12 flex flex-row items-center justify-center" onClick={prevAnn}>
 												<img src={prevImage} alt="prev"></img>
 											</div>
-											{Array(Math.ceil(announces.length / 4)).fill("").map((x, i) =>
+											{Array(Math.ceil(announces.length / 3)).fill("").map((x, i) =>
 												<div key={i} className={(curAnnPage === i ? "shadow-sm " : "") + "w-12 h-12 flex flex-row items-center justify-center cursor-pointer"} onClick={() => setCurAnnPage(i)}>
 													{i+1}
 												</div>
@@ -1145,7 +1146,7 @@ const Home = ({
                     <div className="text-sz18 font-light flex flex-row items-center justify-between">
                       <div className="text-darkgray">All time low</div>
                       <div className="font-bold">
-                        ${FormatSmallNumber(tokenData?.atl?tokenData?.atl:0)}
+                        ${tokenData?.atl?tokenData?.atl:0}
                       </div>
                     </div>
                   </div>
@@ -1178,8 +1179,9 @@ const Home = ({
                     {mainProData.home.exchange.map(
                       (exch: any, index: number) => (
                         <a
-                          href={exch.pairlink}
                           key={index}
+                          href={exch.pairlink}
+													target="_blank" rel="noreferrer"
                           className="pb-4 border-b border-darkgray flex flex-row items-center justify-between flex-wrap gap-3"
                         >
                           <div className="flex flex-row items-center space-x-2">
@@ -1249,6 +1251,7 @@ const Home = ({
                   id="website-admin"
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && handleSearchItem()}
                   className="rounded-none shadow-inner rounded-r-lg bg-lightgray border border-blue md:border-darkgray focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Input Search name"
                 />
@@ -1280,20 +1283,20 @@ const Home = ({
                   </tr>
                 </thead>
                 <tbody>
-									{filteredProjects?.filter((x, index) => index>=page*10 && index<(page+1)*10).map((project, index) => (
+                  {filteredProjects?.sort((a, b) => (new Date(b.updatedAt) as any) - (new Date(a.updatedAt) as any)).filter((x, index) => index>=page*10 && index<(page+1)*10 && x.published === "publish").map((project, index) => (
                     <tr
                       key={index}
                       onClick={() => 
-                        navigate(`/safety-ratings/rating/${index}`)
+                        navigate(`/safety-ratings/rating/${project._id}`)
                       }
                       className={
                         filteredProjects?.length === index + 1
-                          ? "bg-lightgray border-none"
-                          : "bg-lightgray border-b border-blue"
+                          ? "cursor-pointer bg-lightgray border-none"
+                          : "cursor-pointer bg-lightgray border-b border-blue"
                       }
                     >
                       <td className="px-6 py-3">
-                        <img className="rounded-full w-8 h-8" src={project.logo} alt="" />
+                        <img className="rounded-full w-8 h-8 min-w-[32px] min-h-[32px]" src={project.logo} alt="" />
                       </td>
                       <td className="px-6 py-3 cursor-pointer md:text-blue">{project.name}</td>
                       <td className="px-6 py-3">
@@ -1323,7 +1326,7 @@ const Home = ({
                       <td className="px-6 py-3">
                         {
 													(tokensData && tokensData[index]) ? (
-                            (tokensData[index]?.price !== undefined && "$ ") + tokensData[index]?.price
+                            (tokensData[index]?.price !== undefined && "$ ") + commafy(tokensData[index]?.price)
                           ) : "N/A"
                         }
                         {/* {project.price === -1 ? "N/A" : project.price} */}
@@ -1331,7 +1334,7 @@ const Home = ({
                       <td className="px-6 py-3">
                       {
 												  (tokensData && tokensData[index]) ? (
-												    ((tokensData[index]?.market_cap === 0) ? "N/A" : (tokensData[index]?.market_cap !== undefined && "$ ") + tokensData[index]?.market_cap )
+												    ((tokensData[index]?.market_cap === 0) ? "N/A" : (tokensData[index]?.market_cap !== undefined && "$ ") + commafy(tokensData[index]?.market_cap) )
                           ) : "N/A"
                         }
                         {/* {project.market === "-1"
@@ -1350,7 +1353,7 @@ const Home = ({
               <div className="cursor-pointer shadow-sm w-12 h-12 flex flex-row items-center justify-center" onClick={prev}>
 								<img src={prevImage} alt="prev"></img>
 							</div>
-							{Array(Math.ceil(filteredProjects.length / 10)).fill("").map((x, i) =>
+							{Array(Math.ceil(filteredProjects.filter(x=>x.published === "publish").length / 10)).fill("").map((x, i) =>
 								<div key={i} className={(page === i ? "shadow-sm " : "") + "w-12 h-12 flex flex-row items-center justify-center cursor-pointer"} onClick={() => setPage(i)}>
 									{i+1}
 								</div>
@@ -1360,7 +1363,7 @@ const Home = ({
 							</div>
             </div>
           </div>
-          <div className="mt-[60px] md:mt-8 mb-8 w-full flex flex-col">
+          <div className="mt-[60px] md:mt-8 w-full flex flex-col">
             <div className="text-center font-pilat text-sz20 font-semibold flex flex-row items-center leading-ht25.7 md:leading-auto">
               <div className="w-full">SERVICES</div>
               {/* <div
@@ -1455,11 +1458,11 @@ const Home = ({
                   score to allow consumers to make informed decisions about your
                   product.
                 </div>
-                <a href={serviceRatingLink} className="z-2 cursor-pointer">
+                <button className="z-2 cursor-pointer" onClick={() => address ? setAppState({ ...appState, openApplyModal: true}) : alert("Connect wallet")}>
                   <div className="shadow-sm text-2xl px-8 py-2 border rounded-xl gradient-box font-Manrope font-bold text-sz22 md:text-sz18">
                     Apply
                   </div>
-                </a>
+                </button>
               </div>
               <div className="px-5 pt-5 pb-[25.18px] md:p-4 bg-gray border border-blue rounded-xl shadow-xl flex flex-col items-center justify-between space-y-5 md:space-y-2">
                 <img className="w-full" src={servImage2} alt="service2"></img>
@@ -1471,7 +1474,7 @@ const Home = ({
                   creation, Websites creation, Platform integration,
                   Decentralized App creation.
                 </div>
-                <a href={serviceWeb3Link} className="z-2 cursor-pointer">
+                <a href={serviceWeb3Link} target="_blank" rel="noreferrer" className="z-2 cursor-pointer">
                   <div className="shadow-sm text-2xl px-8 py-2 border rounded-xl gradient-box font-Manrope font-bold text-sz22 md:text-sz18">
                     Inquire Here
                   </div>
@@ -1486,7 +1489,7 @@ const Home = ({
                   We provide smart contract audit services for succinct reports
                   on your team’s security risks and optimization oportunties.
                 </div>
-                <a href={serviceContractLink} className="z-2 cursor-pointer">
+                <a href={serviceContractLink} target="_blank" rel="noreferrer" className="z-2 cursor-pointer">
                   <div className="shadow-sm text-2xl px-8 py-2 border rounded-xl gradient-box font-Manrope font-bold text-sz22 md:text-sz18">
                     Get Quote
                   </div>
@@ -1494,9 +1497,9 @@ const Home = ({
               </div>
             </div>
           </div>
-          <div className="mt-[68px] mb-10 md:my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
+          <div className="mt-[72px] bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray py-[13px] md:px-6 md:py-4 rounded-t-xl flex flex-row items-start">
-              <div className="w-full pl-4 text-blue text-sz20 font-bold font-pilat text-center">
+              <div className="w-full text-blue text-sz20 font-bold font-pilat text-center">
                 {mainProData.home.brands_title}
               </div>
               {/* <div
@@ -1609,7 +1612,7 @@ const Home = ({
                 </>
               ) : null}
             </div>
-            <div className="py-6 px-4 font-Manrope flex flex-row flex-wrap items-center justify-center space-x-8 rounded-xl">
+            <div className="py-6 px-4 font-Manrope flex flex-row flex-wrap items-center justify-center gap-x-8 gap-y-3 rounded-xl">
               {mainProData.home.brands.map((brand: any, i: number) => (
                 <a key={i} href={brand.link} target="_blank" rel="noreferrer" className="flex justify-center items-center rounded-full bg-white w-20 h-20 overflow-hidden cursor-pointer">
                   <img src={brand.logolink} alt={brand.name}></img>
@@ -1618,11 +1621,11 @@ const Home = ({
             </div>
           </div>
 
-          <div className="mt-[60px] mb-8 md:my-8 w-full flex flex-col">
+          <div className="mt-12 w-full flex flex-col">
             <div className="text-center font-pilat text-sz20 font-semibold">
               Web3 News
             </div>
-            <div className="mt-8 font-Manrope">
+            <div className="mt-12 font-Manrope">
               {news.length > 0 && (
                 <BlogSlick
                   news={news}

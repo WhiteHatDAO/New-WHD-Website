@@ -4,14 +4,20 @@ interface appState {
   provider? : any,
   web3Provider?: any,
   address?: string,
-  auditProjects?: any[]
+  auditProjects?: any[],
+  openApplyModal?: boolean
+  days?: number;
+  token?: string;
 }
 
 const defaultState: appState = {
   provider: null,
   web3Provider: null,
   address: '',
-  auditProjects: []
+  auditProjects: [],
+  openApplyModal: false,
+  days: 1,
+  token: "bitcoin"
 }
 
 type ContextType<TValue> = [TValue, (newValue: TValue) => void];

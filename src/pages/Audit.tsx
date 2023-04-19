@@ -23,7 +23,7 @@ import save from "../assets/images/modal/save.png";
 import discard from "../assets/images/modal/discard.png";
 // import edit from "../assets/images/edit.png";
 
-import { FormatYMD } from "../utils/utils";
+import { commafy, FormatYMD } from "../utils/utils";
 import { useState, useEffect } from "react";
 
 import axios from "axios";
@@ -97,7 +97,7 @@ const Audit = ({
     } else {
       let projects = [];
       for (let i = 0; i < auditProjects.length; i++) {
-        if (auditProjects[i].name.includes(searchText)) {
+        if (auditProjects[i].name.toLowerCase().includes(searchText.toLowerCase())) {
           projects.push(auditProjects[i]);
         }
       }
@@ -299,7 +299,7 @@ const Audit = ({
   return (
     <>
       {auditProjects && mainProData ? (
-        <div className="mx-[7px] md:mx-4 my-10 flex flex-col space-y-[60px] md:space-y-5">
+        <div className="mx-[7px] md:mx-4 my-10 flex flex-col space-y-12">
           <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
               <div className="w-full md:pl-4 text-blue text-sz16 md:text-sz20 leading-ht20 md:leading-auto font-bold font-pilat text-center">
@@ -429,10 +429,10 @@ const Audit = ({
                       {mainProData.audit.diligence_auditing_note}
                     </div>
                   </div>
-                  <div className="w-full md:w-2/3 rounded-md shadow-sm p-[10px] md:p-4 border border-blue text-pink text-sz16 md:text-sz18 flex flex-row items-center justify-center space-x-2 md:space-x-0">
+                  <div className="px-4 py-[10px] text-sz16 text-blue font-Manrope font-bold md:font-semibold flex flex-row space-x-2 items-center justify-center cursor-pointer rounded-lg shadow-sm">
                     <div>
                       <a className="font-Manrope font-bold md:font-small text-sz16 leading-ht25 md:leading-auto"
-                        href={mainProData.audit.diligence_auditing_button_link}
+                        href={mainProData.audit.diligence_auditing_button_link} target="_blank" rel="noreferrer"
                       >
                         {mainProData.audit.diligence_auditing_button}
                       </a>
@@ -446,7 +446,7 @@ const Audit = ({
                     >
                       <path
                         d="M3.16667 1H14V11.8333M14 1L1 14L14 1Z"
-                        stroke="#CC2D8F"
+                        stroke="#346DA1"
                         strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -499,9 +499,9 @@ const Audit = ({
               </div>
             </div>
             <div className="py-8 md:p-8 flex flex-col font-Manrope font-light space-y-[30px] md:space-y-4">
-              <div className="flex flex-col md:flex-row items-center md:items-start justify-center md:justify-between">
+              <div className="flex flex-col md:flex-row flex-wrap items-center md:items-start justify-center">
                 <div className="md:w-40 text-center flex flex-col items-center space-y-[10px] md:space-y-2">
-                  <div className="w-32 h-32 rounded-[40px] shadow-inner flex flex-col items-center justify-center">
+                  <div className="w-28 h-28 rounded-[40px] shadow-inner flex flex-col items-center justify-center">
                     <img src={step1} alt="step1"></img>
                   </div>
                   <div className="text-pink text-sz16 leading-ht20 font-medium">Step 1</div>
@@ -513,7 +513,7 @@ const Audit = ({
                   alt="arrow"
                 ></img>
                 <div className="md:w-40 text-center flex flex-col items-center space-y-[10px] md:space-y-2">
-                  <div className="w-32 h-32 rounded-[40px] shadow-inner flex flex-col items-center justify-center">
+                  <div className="w-28 h-28 rounded-[40px] shadow-inner flex flex-col items-center justify-center">
                     <img src={step2} alt="step2"></img>
                   </div>
                   <div className="text-pink text-sz16 leading-ht20 font-medium">Step 2</div>
@@ -525,7 +525,7 @@ const Audit = ({
                   alt="arrow"
                 ></img>
                 <div className="md:w-40 text-center flex flex-col items-center space-y-[10px] md:space-y-2">
-                  <div className="w-32 h-32 rounded-[40px] shadow-inner flex flex-col items-center justify-center">
+                  <div className="w-28 h-28 rounded-[40px] shadow-inner flex flex-col items-center justify-center">
                     <img src={step3} alt="step3"></img>
                   </div>
                   <div className="text-pink text-sz16 leading-ht20 font-medium">Step 3</div>
@@ -539,7 +539,7 @@ const Audit = ({
                   alt="arrow"
                 ></img>
                 <div className="md:w-40 text-center flex flex-col items-center space-y-[10px] md:space-y-2">
-                  <div className="w-32 h-32 rounded-[40px] shadow-inner flex flex-col items-center justify-center">
+                  <div className="w-28 h-28 rounded-[40px] shadow-inner flex flex-col items-center justify-center">
                     <img src={step4} alt="step4"></img>
                   </div>
                   <div className="text-pink text-sz16 leading-ht20 font-medium">Step 4</div>
@@ -551,7 +551,7 @@ const Audit = ({
                   alt="arrow"
                 ></img>
                 <div className="md:w-40 text-center flex flex-col items-center space-y-[10px] md:space-y-2">
-                  <div className="w-32 h-32 rounded-[40px] shadow-inner flex flex-col items-center justify-center">
+                  <div className="w-28 h-28 rounded-[40px] shadow-inner flex flex-col items-center justify-center">
                     <img src={step5} alt="step5"></img>
                   </div>
                   <div className="text-pink text-sz16 leading-ht20 font-medium">Step 5</div>
@@ -725,19 +725,12 @@ const Audit = ({
               ) : null}
             </div>
             <div className="px-[15px] pt-5 pb-[112px] md:p-8 flex flex-col font-Manrope font-light space-y-[80px] md:space-y-4">
-              <div className="text-sz12 md:text-sz18 font-medium leading-ht18.49 md:leading-auto text-grey">
+              <div className="text-sz16 md:text-sz18 text-black whitespace-pre-line">
                 {mainProData.audit.audit_report_text}
-              </div>
-              <div className="text-sz12 md:text-sz18 font-medium leading-ht18.49 md:leading-auto text-grey">
-                With every successful audit, we’ll provide you with a listing on
-                the W-HAT Safety rating leaderboard that is shared publicly with
-                the entire crypto community. The Leaderboard contains the
-                details of projects alongside their audit reports, as well as
-                the community’s security sentiment of the project.
               </div>
             </div>
           </div>
-          <div className="pt-[10px] md:py-10 flex flex-col space-y-8">
+          <div className="flex flex-col space-y-8">
             <div className="font-pilat text-sz18 md:text-sz20 text-center">
               Audit Leaderboard
             </div>
@@ -787,6 +780,7 @@ const Audit = ({
                   id="website-admin"
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && handleSearchItem()}
                   className="rounded-none shadow-inner rounded-r-lg bg-lightgray border border-blue md:border-darkgray focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Input Search name"
                 />
@@ -818,18 +812,18 @@ const Audit = ({
                   </tr>
                 </thead>
                 <tbody>
-									{filteredProjects?.filter((x, index) => index>=page*10 && index<(page+1)*10).map((project, index) => (
+                  {filteredProjects?.sort((a, b) => (new Date(b.updatedAt) as any) - (new Date(a.updatedAt) as any)).filter((x, index) => index>=page*10 && index<(page+1)*10 && x.published === "publish").map((project, index) => (
                     <tr
                       key={index}
-                      onClick={() => navigate(`/safety-ratings/rating/${index}`)}
+                      onClick={() => navigate(`/safety-ratings/rating/${project._id}`)}
                       className={
                         filteredProjects?.length === index + 1
-                          ? "bg-lightgray border-none"
-                          : "bg-lightgray border-b border-blue"
+                          ? "cursor-pointer bg-lightgray border-none"
+                          : "cursor-pointer bg-lightgray border-b border-blue"
                       }
                     >
                       <td className="px-6 py-3">
-                        <img className="rounded-full w-8 h-8" src={project.logo} alt="" />
+                        <img className="rounded-full w-8 h-8 min-w-[32px] min-h-[32px]" src={project.logo} alt="" />
                       </td>
                       <td className="px-6 py-3">{project.name}</td>
                       <td className="px-6 py-3">
@@ -859,7 +853,7 @@ const Audit = ({
                       <td className="px-6 py-3">
                         {
 													(tokensData && tokensData[index]) ? (
-														(tokensData[index]?.price !== undefined && "$ ") + tokensData[index]?.price
+														(tokensData[index]?.price !== undefined && "$ ") + commafy(tokensData[index]?.price)
 													) : "N/A"
 												}
                         {/* {(project.price === -1 || project.price === undefined) ? "N/A" : "$ "+project.price} */}
@@ -867,7 +861,7 @@ const Audit = ({
                       <td className="px-6 py-3">
                         {
 												  (tokensData && tokensData[index]) ? (
-												    ((tokensData[index]?.market_cap === 0) ? "N/A" : (tokensData[index]?.market_cap !== undefined && "$ ") + tokensData[index]?.market_cap )
+												    ((tokensData[index]?.market_cap === 0) ? "N/A" : (tokensData[index]?.market_cap !== undefined && "$ ") + commafy(tokensData[index]?.market_cap ))
 												  ) : "N/A"
 												}
                         {/* {(project.market === "-1" || project.market === undefined)
@@ -886,7 +880,7 @@ const Audit = ({
               <div className="shadow-sm w-12 h-12 flex flex-row items-center justify-center" onClick={prev}>
                 <img src={prevImage} alt="prev"></img>
               </div>
-							{Array(Math.ceil(filteredProjects.length / 10)).fill("").map((x, i) =>
+							{Array(Math.ceil(filteredProjects.filter(x=>x.published === "publish").length / 10)).fill("").map((x, i) =>
 								<div key={i} className={(page === i ? "shadow-sm " : "") + "w-12 h-12 flex flex-row items-center justify-center cursor-pointer"} onClick={() => setPage(i)}>
 									{i+1}
 								</div>

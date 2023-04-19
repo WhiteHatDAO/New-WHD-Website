@@ -1,6 +1,8 @@
+import copy from "../assets/images/copy_black.svg";
 import verify from "../assets/images/safety/verify.svg";
 import discord from "../assets/images/footer/discord_black.svg";
 import github from "../assets/images/footer/github_black.svg";
+import github_blue from "../assets/images/footer/github.svg";
 import twitter from "../assets/images/footer/twitter_black.svg";
 import global from "../assets/images/footer/global.svg";
 import medium from "../assets/images/footer/medium.png";
@@ -16,6 +18,9 @@ import save from "../assets/images/modal/save.png";
 import discard from "../assets/images/modal/discard.png";
 // import edit from "../assets/images/edit.png";
 import upload from "../assets/images/upload.png";
+import nftEarth from '../assets/images/select/nftEarth.png';
+import rarible from '../assets/images/select/rarible.png';
+import opensea from '../assets/images/select/opensea.png';
 import addItem from "../assets/images/addItem.png";
 import twit from "../assets/images/rating/twitter.png";
 import linkedin from "../assets/images/rating/linkedin.png";
@@ -23,7 +28,6 @@ import mail from "../assets/images/rating/mail.png";
 import radio_t from "../assets/images/rating/radio_t.svg";
 import radio_f from "../assets/images/rating/radio_f.svg";
 import addtag from "../assets/images/rating/addtag.svg";
-import auditImage from "../assets/images/rating/audit.svg";
 import goImage from "../assets/images/safety/go.svg";
 import check from "../assets/images/rating/check.svg";
 import close from "../assets/images/close.png";
@@ -32,19 +36,18 @@ import ContractAddressBox from "../components/ContractAddressBox";
 import SelectNetwork from "../components/SelectNetwork";
 import GradientBox from "../components/GradientBar";
 import { useParams } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
+import { Tooltip as ReactTooltip } from "react-tooltip";
+import 'react-tooltip/dist/react-tooltip.css';
+import { useState, useEffect, useRef, useMemo } from "react";
 import { useCoingeckoAPI } from "../utils/useCoingeckoAPI";
-import { FormatBigNumber } from "../utils/utils";
-import PrimaryChart from "../components/PrimaryChart";
-import useWindowDimensions from "../hooks/useWindowDimensions";
+import { commafy, FormatBigNumber, FormatYMD, getMetricsByContract, getMetricsByExchange } from "../utils/utils";
 
 import storage from "../utils/firebaseConfig";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { useNavigate } from "react-router-dom";
 import SelectBox from "../components/SelectBox";
 
 import axios from "axios";
-import { BACKEND_SERVER } from "../global/global";
+import { BACKEND_SERVER, monthNames } from "../global/global";
 import ShaComponent from "../components/ShaComponent";
 import MemberContract from "../components/MemberContract";
 
@@ -54,33 +57,38 @@ import binance from "../assets/images/select/binance.svg";
 import polygon from "../assets/images/select/polygon.svg";
 import optimism from "../assets/images/select/optimism.png";
 import gnosis from "../assets/images/select/gnosis.png";
+import harmony from '../assets/images/select/harmony-2.png';
+import canto from "../assets/images/select/canto.webp";
 import avalanche from "../assets/images/select/avalanche.png";
 import fantom from "../assets/images/select/fantom.png";
 import klaytn from "../assets/images/select/klaytn.png";
 import aurora from "../assets/images/select/aurora.png";
 import zksync from "../assets/images/select/zkSync.png";
+import { useAppContext } from '../context/appContext';
+import PriceChart from "../components/PriceChart";
+import ReactApexChart from 'react-apexcharts'
+import CopyHolderBox from "../components/CopyHolderBox";
 
 interface ratingProps {
   auditProjects: any[];
   count: number;
+	mainProData: any;
   handleCount: (count: number) => void;
 }
 
-const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
+const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps) => {
+	const [appState, setAppState] = useAppContext();
+	const {days: timeRange } = appState
   const { id } = useParams();
   const {
     handleGetTokenData,
-    handleGetTokenPriceHistory,
     tokenData,
-    tokenPriceHistory,
   } = useCoingeckoAPI();
+	const [allHolders, setAllHolders] = useState<any>([]);
+	const [nftMetrics, setNFTMetrics] = useState<any>([]);
+	const [openEmailBox, setOpenEmailBox] = useState<any>([]);
   const [project, setProject] = useState<any>(null);
-  const [boxWidth, setBoxWidth] = useState<number>(0);
-  const { height } = useWindowDimensions();
   const gridItemRef = useRef<HTMLDivElement>(null);
-  const [timeRange, setTimeRange] = useState<number>(1);
-
-  const navigate = useNavigate();
 
   const [showFirstModal, setShowFirstModal] = useState(false);
   const [showSecondModal, setShowSecondModal] = useState(false);
@@ -137,51 +145,72 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
   const [currentSecurityTagList, setCurrentSecurityTagList] = useState<string[]>([]);
 
   const networkNames = [
-    {
-      name: "ethereum",
-      image: ethereum,
-    },
-    {
-      name: "binance",
-      image: binance,
-    },
-    {
-      name: "polygon",
-      image: polygon,
-    },
-    {
-      name: "optimism",
-      image: optimism,
-    },
-    {
-      name: "arbitrum",
-      image: arbitrum,
-    },
-    {
-      name: "gnosis",
-      image: gnosis,
-    },
-    {
-      name: "avalanche",
-      image: avalanche,
-    },
-    {
-      name: "fantom",
-      image: fantom,
-    },
-    {
-      name: "klaytn",
-      image: klaytn,
-    },
-    {
-      name: "aurora",
-      image: aurora,
-    },
-    {
-      name: "zkSync",
-      image: zksync,
-    },
-  ];
+		{
+			name: 'ethereum',
+			id: 'eth-mainnet',
+			image: ethereum,
+		},
+		{
+			name: 'binance',
+			id: 'bsc-mainnet',
+			image: binance,
+		},
+		{
+			name: 'polygon',
+			id: 'matic-mainnet',
+			image: polygon,
+		},
+		{
+			name: 'optimism',
+			id: 'optimism-mainnet',
+			image: optimism,
+		},
+		{
+			name: 'arbitrum',
+			id: 'arbitrum-mainnet',
+			image: arbitrum,
+		},
+		{
+			name: 'gnosis',
+			id: 'gnosis-mainnet',
+			image: gnosis,
+		},
+		{
+			name: 'avalanche',
+			id: 'avalanche-mainnet',
+			image: avalanche,
+		},
+		{
+			name: 'fantom',
+			id: 'fantom-mainnet',
+			image: fantom,
+		},
+		{
+			name: 'klaytn',
+			id: 'klaytn-mainnet',
+			image: klaytn,
+		},
+		{
+			name: 'aurora',
+			id: 'aurora-mainnet',
+			image: aurora,
+		},
+		{
+			name: 'zkSync',
+			id: 'zkSync-mainnet',
+			image: zksync,
+		},
+		{
+			name: 'harmony',
+			id: 'harmony-mainnet',
+			image: harmony,
+		},
+		{
+			name: "canto",
+			id: 'canto-mainnet',
+			image: canto,
+		},
+	];
 
   const getNetworkImage = (net: string) => {
     return networkNames.find((element: any) => element.name === net)?.image;
@@ -1418,53 +1447,101 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
     setMemberList(tMembers);
   };
 
-  useEffect(() => {
-    const handleResize = (width?: number) => {
-      setBoxWidth(width || 0);
-    };
+  const handleCopyEmail = async (text: any) => {
+		if(!text) {
+			alert("Nothing to copy");
+			return;
+		}
+    navigator.clipboard.writeText(text);
+		setOpenEmailBox(Array(openEmailBox.length).fill(false));
+	};
 
-    handleResize(gridItemRef.current?.clientWidth || 0);
-
-    window.addEventListener("resize", () =>
-      handleResize(gridItemRef?.current?.clientWidth || 0)
-    );
-
-    return () => {
-      window.removeEventListener("resize", () => handleResize());
-    };
-  }, [gridItemRef, tokenPriceHistory]);
+	const handleOpenEmailBox = (i: number) => {
+		let tmp = [...openEmailBox];
+		tmp[i] = !tmp[i];
+		setOpenEmailBox(tmp);
+	};
 
   useEffect(() => {
     if (id !== undefined && auditProjects.length !== 0) {
-      setProject(auditProjects[parseInt(id)]);
+			console.log("proje", auditProjects.find(x=>x._id === id));
+			setProject(auditProjects.find(x=>x._id === id));
+			setAppState({...appState, token: auditProjects.find(x=>x._id === id).token })
+			setOpenEmailBox(Array(auditProjects.find(x=>x._id === id).member.length).fill(false))
     }
   }, [id, auditProjects]);
 
-  useEffect(() => {
-    if (project && project?.token) {
-      handleGetTokenData(project?.token);
-      handleGetTokenPriceHistory(project?.token, `${timeRange}d`);
-    }
-  }, [project, handleGetTokenData, handleGetTokenPriceHistory, timeRange]);
+	useEffect(() => {
+		if (project && project?.token) {
+			handleGetTokenData(project?.token);
+		}
+	}, [project, handleGetTokenData, timeRange]);
 
-  useEffect(() => {
-    if (project) {
-      handleGetTokenPriceHistory(project?.token, `${timeRange}d`);
-    }
-  }, [timeRange, handleGetTokenPriceHistory, project]);
+  useMemo(async() => {
+		if(project?.contract_addr?.length > 0) {
+			try {
+        let merged: any = []
+        const tmp = await Promise.all(project?.contract_addr.map(async (x: any) => {
+          try {
+            const {data} = await axios.get(`https://api.covalenthq.com/v1/${networkNames.find(y => y.name === x.network)?.id}/tokens/${x.address}/token_holders/?quote-currency=USD&format=JSON&page-size=50&key=ckey_d62b0735d18a4e6680723eb212f`)
+            return data.data.items
+          } catch(e) { return [] }
+        }))
+        tmp.forEach((x: any) => merged = merged.concat(x))
+        setAllHolders(merged.map((x: any)=> {
+          return {
+            "quantity": x.balance / (10**x.contract_decimals),
+            "address": x.address,
+            "percent": (x.balance / x.total_supply) * 100,
+          }
+        }).sort((a:any, b:any) => b.percent - a.percent))
+      } catch(e) { console.log(e) }
+		}
+
+		if(project?.contract_addr1?.length > 0) {
+      try {
+        setNFTMetrics(await Promise.all(project?.contract_addr1.map(async (x: any) => {
+					let tmp = {...x}
+					if(x.network === "ethereum" || x.network === "polygon" || x.network === "optimism" || x.network === "arbitrum") {
+						const _get = await getMetricsByContract(x.address, x, networkNames)
+						tmp.id = _get?.id?.slice(_get.id.search("0x"))
+						tmp.name = _get?.name
+						tmp.verified = _get?.openseaVerificationStatus
+						tmp.itemsCount = _get?.itemCount ?? _get?.statistics?.itemCount
+						tmp.ownersCount = _get?.ownerCount ?? _get?.statistics?.ownerCount
+						tmp.network = _get?.network ?? "-"
+						tmp.holders = _get.holders
+						tmp.platformName = _get?.platformName ?? "-"
+					}
+					if(x.nftExchangeLink) {
+						const _get = await getMetricsByExchange(x)
+						tmp.onSaleCount = _get?.onSaleCount ?? "-"
+						tmp.ownersCountOfExchange = _get?.ownerCount ?? _get?.statistics?.ownerCount ?? "-"
+						tmp.uniqueOwnersCount = isNaN(Math.round(_get?.ownerCount / _get?.itemCount * 100 ?? _get?.statistics?.ownerCount / _get?.statistics?.itemCount * 100)) ? "-" : Math.round(_get.ownerCount / _get.itemCount * 100 ?? _get.statistics.ownerCount / _get.statistics.itemCount * 100)
+						tmp.volume = _get?.volume?.allTime ?? _get?.statistics?.totalVolume?.value ?? _get?.volume ?? "-"
+						tmp.floorPrice = _get?.floorAsk?.price?.amount?.decimal ?? _get?.statistics?.floorPrice?.value ?? _get.floorPrice ?? "-"
+						tmp.bestOffer = _get?.topBid?.price?.amount?.decimal ?? _get?.bestBidOrder?.takePrice ?? "-"
+						tmp.volumeChart = _get?.volumeChart
+						tmp.floorPriceChart = _get?.floorPriceChart
+					}
+					return tmp
+				})))
+      } catch (e) { console.log(e) }
+		}
+	}, [project])
 
   return (
     <>
       {project ? (
-        <div className="mx-4 my-4 md:my-10 flex flex-col" ref={gridItemRef}>
+        <div className="mx-4 my-4 md:my-10 flex flex-col space-y-12" ref={gridItemRef}>
           <div className="w-full flex flex-col md:flex-row items-start md:items-end justify-between gap-4">
             <div className="w-full flex flex-col gap-4">
               <div className="w-full flex flex-row items-center justify-between">
                 <div className="flex flex-row items-center space-x-2">
                   <img
-                    className="w-9 rounded-full"
+                    className="w-9 h-9 object-cover rounded-full"
                     src={project.logo}
-                    alt="idol"
+                    alt=""
                   ></img>
                   <div className="flex flex-row items-start space-x-1">
                     <div className="font-pilat font-bold text-sz16 md:text-sz18">
@@ -1702,8 +1779,8 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                   </>
                 ) : null}
               </div>
-              <div className="font-Manrope text-sz10 font-light flex flex-row items-center justify-between">
-                <div className="w-full flex flex-row flex-wrap items-center gap-4">
+              <div className="font-Manrope text-sz10 font-light md:flex flex-row items-center justify-between">
+                <div className="w-full flex flex-row flex-wrap items-center gap-[10px] sm:gap-4">
                   {project?.tags?.map((tag: any) => (
 										<div className={
 											tag.color === 'Purple'
@@ -1728,7 +1805,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                     </div>
                   ))}
                 </div>
-                <div className="w-full flex flex-row items-end justify-end">
+                <div className="w-full flex flex-row items-end justify-center md:justify-end mt-5 md:mt-0">
                   <div className="flex flex-row items-center space-x-4">
                     {project?.socials?.twitter && (
                       <a href={`${project?.socials?.twitter}`} target="_blank" rel="noreferrer" className="rounded-full shadow-inner cursor-point">
@@ -1785,9 +1862,9 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
               </div>
             </div>
           </div>
-          <div className="my-10 flex flex-col xl:flex-row items-start gap-4 md:gap-8">
+          <div className="flex flex-col xl:flex-row items-start gap-12">
             <div className="shadow-xl rounded-xl w-full xl:w-2/3 font-Manrope font-light ">
-              <div className="p-8 flex flex-col justify-center gap-4 ">
+              <div className="px-[15px] pt-5 pb-[15px] sm:p-8 flex flex-col justify-center gap-4">
                 <div className="text-sz14 text-blue flex flex-col items-end justify-end">
                   {/* <div
                     className="text-sz16 font-Manrope flex flex-row items-center space-x-2 cursor-pointer"
@@ -2019,86 +2096,58 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                     </div>
                   </div>
                   {project?.platform && project?.language && (
-                    <div className="font-Manrope font-light flex flex-col gap-4 md:gap-8">
-                      <div className="flex flex-col">
-                        <div className="text-darkgray text-sz14">Networks</div>
-                        <div className="text-sz14">{project?.platform}</div>
-                      </div>
-                      <div className="flex flex-col">
-                        <div className="text-darkgray text-sz14">
-                          Language used
+										<div className="font-Manrope font-light flex flex-col gap-4 md:gap-8">
+											<div className="flex flex-col gap-[5px]">
+												<div className="text-ligthgrey text-sz16 leading-ht20 font-medium">Networks</div>
+                        <div className="flex flex-wrap gap-x-3 gap-y-2">
+                          {project?.platform.split(",").map((x: any) =>
+                            <div className="rounded-full font-medium text-sz16 px-4 py-1 shadow-inner text-blue">{x.trim()}</div>
+                          )}
                         </div>
-                        <div className="text-sz14">{project?.language}</div>
-                      </div>
-                    </div>
-                  )}
-
-                  {project?.codebase && project.contract_addr && (
-                    <div className="font-Manrope font-light flex flex-col gap-4 md:gap-8">
-                      <div className="flex flex-col">
-                        <div className="text-darkgray text-sz14">
-                          Source Code
+											</div>
+											<div className="flex flex-col gap-[5px]">
+												<div className="text-ligthgrey text-sz16 leading-ht20 font-medium">
+													Language used
+												</div>
+                        <div className="flex flex-wrap gap-x-3 gap-y-2">
+                          {project?.language.split(",").map((x: any) =>
+                            <div className="rounded-full font-medium text-sz16 px-4 py-1 shadow-inner text-blue">{x.trim()}</div>
+                          )}
                         </div>
-                        <div className="flex flex-row items-center space-x-2">
-                          <div className="text-blue text-sz16">
-                            {project?.codebase}
-                          </div>
-                          <a href={"https://" + project?.codebase}>
-                            <svg
-                              width="20"
-                              height="20"
-                              viewBox="0 0 20 20"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M15.625 18.125H1.875V4.0625H9.375V2.8125H0.625V19.375H16.875V10.625H15.625V18.125Z"
-                                fill="#404040"
-                              />
-                              <path
-                                d="M11.8745 0.625V1.875H17.2407L7.37012 11.7456L8.25395 12.6294L18.1245 2.75887V8.125H19.3745V0.625H11.8745Z"
-                                fill="#404040"
-                              />
-                            </svg>
-                          </a>
-                        </div>
-                      </div>
-                      <div className="space-y-2 flex flex-col">
-                        <div className="text-darkgray text-sz14">
-                          Token Contract Address
-                        </div>
-                        <ContractAddressBox
-                          data={project.contract_addr}
-                        ></ContractAddressBox>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-              <div className="py-4 rounded-b-xl bg-blue font-pilat flex flex-col items-center justify-center">
-                <div
-                  onClick={() => navigate("/safety-ratings")}
-                  className="cursor-pointer flex flex-row items-center justify-center"
-                >
-                  <div className="text-sz14 text-white pr-2">
-                    REQUEST FOR SAFETY RATING
-                  </div>
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M15.625 18.125H1.875V4.0625H9.375V2.8125H0.625V19.375H16.875V10.625H15.625V18.125Z"
-                      fill="white"
-                    />
-                    <path
-                      d="M11.875 0.625V1.875H17.2411L7.37059 11.7456L8.25441 12.6294L18.125 2.75887V8.125H19.375V0.625H11.875Z"
-                      fill="white"
-                    />
-                  </svg>
+											</div>
+										</div>
+									)}
+                  
+                  {project?.codebase && project?.codebase1 && project.contract_addr && (
+										<div className="font-Manrope font-light flex flex-col gap-4 md:gap-8 max-w-full">
+											<div className="flex flex-col gap-[5px]">
+												<div className="text-ligthgrey text-sz16 leading-ht20 font-medium">
+													Token Contract Address
+												</div>
+												<div className="flex gap-2">
+													<ContractAddressBox
+														data={project.contract_addr}
+													></ContractAddressBox>
+													<a href={project?.codebase} target="_blank" rel="noreferrer" className="flex justify-center items-center rounded-full shadow-sm p-1">
+														<img src={github_blue} alt="" />
+													</a>
+												</div>
+											</div>
+											<div className="flex flex-col gap-[5px]">
+												<div className="text-ligthgrey text-sz16 leading-ht20 font-medium">
+													NFT Contract Address
+												</div>
+												<div className="flex gap-2">
+													<ContractAddressBox
+														data={project.contract_addr1}
+													></ContractAddressBox>
+													<a href={project?.codebase1} target="_blank" rel="noreferrer" className="flex justify-center items-center rounded-full shadow-sm p-1">
+														<img src={github_blue} alt="" />
+													</a>
+												</div>
+											</div>
+										</div>
+									)}
                 </div>
               </div>
             </div>
@@ -2552,10 +2601,10 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                           </div>
                           <div className="flex flex-wrap gap-4">
                             {project?.contract_audits.map((audit: any, index: number) => (
-                              <a href={audit.link} key={`ca_${index}`}>
-                                <div className="p-2 text-blue text-sz16 rounded-lg shadow-sm flex flex-row items-center justify-between">
-                                  <img src={auditImage} alt="audit"></img>
-                                  <div>{audit.name}</div>
+                              <a href={audit.link} key={`ca_${index}`} target="_blank" rel="noreferrer">
+                                <div className="w-40 px-2 py-1 text-blue text-sz16 rounded-lg shadow-sm flex flex-row items-center justify-between flex-wrap gap-x-3">
+                                  <img src={audit.logolink} className="w-8 h-8 object-cover rounded-full" alt="audit"></img>
+                                  <div className="w-16 truncate">{audit.name}</div>
                                   <img
                                     className="w-4 h-4"
                                     src={goImage}
@@ -2570,12 +2619,12 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                           <div className="text-darkgray text-sz164">
                             Platform Audits:
                           </div>
-                          <div className="grid grid-cols-2 gap-4">
+                          <div className="flex flex-wrap gap-4">
                             {project?.platform_audits.map((audit: any, index: number) => (
-                              <a href={audit.link} key={`pa_${index}`}>
-                                <div className="p-2 text-blue text-sz16 rounded-lg shadow-sm flex flex-row items-center justify-between">
-                                  <img src={auditImage} alt="audit"></img>
-                                  <div>{audit.name}</div>
+                              <a href={audit.link} key={`pa_${index}`} target="_blank" rel="noreferrer">
+                                <div className="w-40 px-2 py-1 text-blue text-sz16 rounded-lg shadow-sm flex flex-row items-center justify-between flex-wrap gap-x-3">
+                                  <img src={audit.logolink} className="w-8 h-8 object-cover rounded-full" alt="audit"></img>
+                                  <div className="w-16 truncate">{audit.name}</div>
                                   <img
                                     className="w-4 h-4"
                                     src={goImage}
@@ -2586,36 +2635,16 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                             ))}
                           </div>
                         </div>)}
-                        <div className="grid grid-cols-2 gap-4">
-                          { project?.bug_bounty && (project?.bug_bounty.length > 0) && (<div className="flex flex-col space-y-2">
-                            <div className="text-darkgray text-sz14">
-                              Bug Bounty:
-                            </div>
-                            <div className="flex flex-col space-y-4">
-                              {project?.bug_bounty.map((audit: any, index: number) => (
-                                <a href={audit.link} key={`bb_${index}`}>
-                                  <div className="p-2 text-blue text-sz16 rounded-lg shadow-sm flex flex-row items-center justify-between">
-                                    <img src={auditImage} alt="audit"></img>
-                                    <div>{audit.name}</div>
-                                    <img
-                                      className="w-4 h-4"
-                                      src={goImage}
-                                      alt="go"
-                                    ></img>
-                                  </div>
-                                </a>
-                              ))}
-                            </div>
-                          </div>)}
-                          { project?.insurance && project?.insurance?.name && (<div className="flex flex-col space-y-2">
-                            <div className="text-darkgray text-sz14">
-                              Insurance:
-                            </div>
-                            <div className="flex flex-col space-y-4">
-                              <a href={project?.insurance?.link}>
-                                <div className="p-2 text-blue text-sz14 rounded-lg shadow-sm flex flex-row items-center justify-between">
-                                  <img src={auditImage} alt="audit"></img>
-                                  <div>{project?.insurance?.name}</div>
+                        { project?.bug_bounty && (project?.bug_bounty.length > 0) && (<div className="flex flex-col space-y-2">
+                          <div className="text-darkgray text-sz14">
+                            Bug Bounty:
+                          </div>
+                          <div className="flex flex-col space-y-4">
+                            {project?.bug_bounty.map((audit: any, index: number) => (
+                              <a href={audit.link} key={`bb_${index}`} target="_blank" rel="noreferrer">
+                                <div className="w-40 px-2 py-1 text-blue text-sz16 rounded-lg shadow-sm flex flex-row items-center justify-between flex-wrap gap-x-3">
+                                  <img src={audit.logolink} className="w-8 h-8 object-cover rounded-full" alt="audit"></img>
+                                  <div className="w-16 truncate">{audit.name}</div>
                                   <img
                                     className="w-4 h-4"
                                     src={goImage}
@@ -2623,9 +2652,27 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                                   ></img>
                                 </div>
                               </a>
-                            </div>
-                          </div>)}
-                        </div>
+                            ))}
+                          </div>
+                        </div>)}
+                        { project?.insurance && project?.insurance?.name && (<div className="flex flex-col space-y-2">
+                          <div className="text-darkgray text-sz14">
+                            Insurance:
+                          </div>
+                          <div className="flex flex-col space-y-4">
+                            <a href={project?.insurance?.link} target="_blank" rel="noreferrer">
+                              <div className="w-40 px-2 py-1 text-blue text-sz16 rounded-lg shadow-sm flex flex-row items-center justify-between flex-wrap gap-x-3">
+																<img src={project?.insurance?.logolink} className="w-8 h-8 object-cover rounded-full" alt="audit"></img>
+                                <div className="w-16 truncate">{project?.insurance?.name}</div>
+                                <img
+                                  className="w-4 h-4"
+                                  src={goImage}
+                                  alt="go"
+                                ></img>
+                              </div>
+                            </a>
+                          </div>
+                        </div>)}
                       </div>
                     </div>
                   )}
@@ -2634,7 +2681,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
           </div>
           <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
-              <div className="w-full pl-4 text-blue text-sz16 md:text-sz18 font-bold font-pilat text-center">
+              <div className="w-full md:pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat text-center">
                 Token Distribution / Tokenomics
               </div>
               {/* <div
@@ -2816,24 +2863,34 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                 </>
               ) : null}
             </div>
-            <div className="p-8 font-Manrope font-light">
+						<div className="flex flex-col gap-4 p-4 sm:p-8 font-Manrope font-light">
               {project.distribution_list && (
-                <div className="w-full rounded-xl p-4 bg-gray flex flex-col xl:flex-row items-center gap-8">
-                  <div className="relative flex flex-col items-center">
-                    <Doughnut type={true} data={project.distribution_list} />
-                    <div className="font-Manrope text-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col">
-                      <div className="text-sz16 font-bold">
-                        {FormatBigNumber(tokenData?.total_supply)}
+                <div className="w-full rounded-xl p-4 bg-gray flex flex-col xl:flex-row flex-wrap items-center gap-8 overflow-auto">
+									<div className="flex flex-col items-center gap-y-4">
+                    <div className="relative flex flex-col items-center">
+                      <Doughnut type={true} data={project.distribution_list} />
+                      <div className="font-Manrope text-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col">
+                        <div className="text-sz18 font-bold">
+                          {FormatBigNumber(tokenData?.total_supply)}
+                        </div>
+                        <div className="text-sz12">TOTAL SUPPLY</div>
                       </div>
-                      <div className="text-sz10">TOTAL SUPPLY</div>
                     </div>
+                    <div className="p-2 text-blue text-sz16 rounded-lg shadow-sm flex items-center gap-x-2">
+											<span>Token Mintable</span>
+											{project.mintable ?
+												<div className="px-2 py-1 text-white rounded-md text-sz14 bg-pink">Yes</div>
+												:	
+												<div className="px-2 py-1 text-white rounded-md text-sz14 bg-pure_green">No</div>
+											}
+										</div>
                   </div>
                   <img
                     className="hidden xl:block h-full"
                     src={line}
                     alt="line"
                   ></img>
-                  <div className="px-2 text-sz16 font-Manrope font-light flex flex-col gap-8">
+                  <div className="px-2 text-sz18 font-Manrope font-light flex flex-col gap-8">
                     {project.distribution_list.map(
                       (data: any, index: number) => (
                         <>
@@ -2919,7 +2976,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                     src={line}
                     alt="line"
                   ></img>
-                  <div className="px-2 text-sz16 font-Manrope font-light flex flex-col gap-8">
+                  <div className="px-2 text-sz18 font-Manrope font-light flex flex-col gap-8">
                     {project.distribution_list.map(
                       (data: any, index: number) => (
                         <>
@@ -3008,28 +3065,55 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                     src={line}
                     alt="line"
                   ></img>
-                  <div className="px-2 text-sz14 font-Manrope font-light flex flex-col gap-8">
-                    <div className="text-center rounded-full shadow-sm text-green p-2">
-                      Max Supply - {FormatBigNumber(tokenData?.max_supply)}
-                    </div>
-                    <div className="text-center rounded-full shadow-sm text-green p-2">
-                      Total Supply - {FormatBigNumber(tokenData?.total_supply)}
-                    </div>
-                    <div className="space-y-2 flex flex-col">
-                      <div className="text-darkgray text-sz14">
-                        Project Treasury multisig address
-                      </div>
-                      <ContractAddressBox
-                        data={project?.multisig_address}
-                      ></ContractAddressBox>
-                    </div>
-                  </div>
+                  <div className="px-2 text-sz18 font-Manrope font-light flex flex-col gap-4">
+										<div className="space-y-2 flex flex-col">
+											<div className="text-center text-green text-sz16">
+												Total Supply
+											</div>
+											<div className="text-center text-sz16 rounded-md shadow-sm text-green p-2">
+												{FormatBigNumber(tokenData?.total_supply)}
+											</div>
+										</div>
+										<div className="space-y-2 flex flex-col">
+											<div className="text-center text-green text-sz16">
+												Max Supply
+											</div>
+											<div className="text-center text-sz16 rounded-md shadow-sm text-green p-2">
+												{FormatBigNumber(tokenData?.max_supply)}
+											</div>
+										</div>
+										<div className="space-y-2 flex flex-col">
+											<div className="text-darkgray text-sz16">
+												Project Treasury multisig address
+											</div>
+											<ContractAddressBox
+												data={project?.multisig_address}
+											></ContractAddressBox>
+										</div>
+									</div>
                 </div>
               )}
+              <div className="flex flex-col gap-4 rounded-xl p-4 bg-gray">
+								<span className="font-pilat font-bold text-sz20 leading-ht30 text-grey">Top 100 Holders</span>
+                <div className="flex justify-between items-center pr-4">
+									<div className="font-bold flex-[2]">Address</div>
+									<div className="font-bold flex-[2]">Quantity</div>
+									<div className="font-bold flex-1">Percent</div>
+								</div>
+								<div className="max-h-[300px] overflow-auto">
+									{allHolders.map((x: any, i: number) =>
+										<div className="flex justify-between items-center" key={i}>
+											<div className="flex-[2]"><CopyHolderBox value={x.address} /></div>
+											<div className="flex-[2]">{x.quantity.toFixed(2)}</div>
+											<div className="flex-1">{x.percent.toFixed(2)} %</div>
+										</div>
+									)}
+								</div>
+              </div>
             </div>
           </div>
 
-          <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
+          <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
               <div className="w-full pl-4 text-blue text-sz18 font-bold font-pilat text-center">
                 Code Security Assessment
@@ -3190,21 +3274,21 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                     <div className="text-sz10">Total Findings</div>
                   </div>
                 </div>
-                <div className="w-full flex flex-col ml-8 px-8 border-none md:border-l border-darkgray gap-4">
+                <div className="w-full flex flex-col px-8 border-none md:border-l border-darkgray gap-4">
                   {project.security_list.map((security: any) => (
                     <div className="w-full grid grid-cols-4 items-start">
                       <div className="col-span-1 font-Manrope font-light text-sz16 flex flex-row items-center space-x-4">
                         <div
                           className={
                             security.color === "Critical"
-                              ? "w-3 h-3 rounded-sm bg-critical"
+                              ? "min-w-[12px] h-3 rounded-sm bg-critical"
                               : security.color === "Major"
-                              ? "w-3 h-3 rounded-sm bg-major"
+                              ? "min-w-[12px] h-3 rounded-sm bg-major"
                               : security.color === "Medium"
-                              ? "w-3 h-3 rounded-sm bg-medium"
+                              ? "min-w-[12px] h-3 rounded-sm bg-medium"
                               : security.color === "Minor"
-                              ? "w-3 h-3 rounded-sm bg-minor"
-                              : "w-3 h-3 rounded-sm bg-informational"
+                              ? "min-w-[12px] h-3 rounded-sm bg-minor"
+                              : "min-w-[12px] h-3 rounded-sm bg-informational"
                           }
                         ></div>
                         <div
@@ -3271,9 +3355,9 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
             )}
           </div>
 
-          <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
+          <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
-              <div className="w-full pl-4 text-blue text-sz16 md:text-sz18 font-bold font-pilat text-center">
+              <div className="w-full md:pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat text-center">
                 Audited Files
               </div>
               {/* <div
@@ -3426,9 +3510,9 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
             )}
           </div>
 
-          <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
+          <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
-              <div className="w-full pl-4 text-blue text-sz16 md:text-sz18 font-bold font-pilat text-center">
+              <div className="w-full md:pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat text-center">
                 Methodology
               </div>
               {/* <div
@@ -3608,10 +3692,117 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
             )}
           </div>
 
-          <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
+          {nftMetrics.map((x: any, i: number) =>
+						<div key={i} className="bg-lightgray rounded-xl shadow-xl flex flex-col">
+							<div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
+								<div className="w-full md:pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat text-center">
+									NFT Key Metrics Data
+								</div>
+							</div>
+							<div className="px-[15px] py-5 md:p-8 font-Manrope font-light flex flex-col gap-10">
+								{x.id &&
+									<>
+										<div className="flex flex-col md:flex-row gap-10">
+											<div className="flex flex-col space-y-3 flex-1 rounded-md shadow-inner flex flex-col p-[15px] md:p-6">
+												<div className="flex items-center gap-x-2 font-bold">
+													{x.name}{x.verified && <img src={verify} alt="" />}
+												</div>
+												<div>
+													{x.itemsCount && <>Items <span className="font-bold">{x.itemsCount}</span></>}
+													{x.createdAt &&
+														<>, Created <span className="font-bold">{monthNames[new Date(FormatYMD(x.createdAt) as any).getMonth()]} {new Date(FormatYMD(x.createdAt) as any).getFullYear()}</span></>
+													}
+												</div>
+												<div className="flex items-center space-x-3">
+													<span>Contract</span>
+													<span className="font-bold"><CopyHolderBox value={x.id} /></span>
+												</div>
+												<div>
+													{x.ownersCount && <>Owners <span className="font-bold">{x.ownersCount}</span> - </>}
+													Chain <span className="font-bold capitalize">{x.network}</span>
+												</div>
+											</div>
+											{x.nftExchangeLink &&
+												<div className="flex flex-col flex-1 rounded-md shadow-inner flex flex-col p-[15px] md:p-6 gap-y-5 relative">
+													<div className="absolute top-[15px] right-[15px] md:top-[24px] md:right-[24px]">
+														<a className="rounded-full overflow-hidden" href={x.nftExchangeLink} target="_blank" rel="noreferrer">
+															{x.platformName === "nftEarth" && <img className="w-[30px] h-[30px] rounded-full" src={nftEarth} alt="" />}
+															{x.platformName === "rarible" && <img className="w-[30px] h-[30px] rounded-full" src={rarible} alt="" />}
+															{x.platformName === "opensea" && <img className="w-[30px] h-[30px] rounded-full" src={opensea} alt="" />}
+														</a>
+													</div>
+													<div className="flex gap-x-7 gap-y-3 flex-wrap">
+														<div className="flex flex-col">
+															<span className="font-bold">{x.onSaleCount}</span>
+															<span className="font-medium text-grey">On Sale</span>
+														</div>
+														<div className="flex flex-col">
+															<span className="font-bold">{x.ownersCountOfExchange}</span>
+															<span className="font-medium text-grey">Owners</span>
+														</div>
+														<div className="flex flex-col">
+															<span className="font-bold">{x.uniqueOwnersCount}%</span>
+															<span className="font-medium text-grey">Unique Owners</span>
+														</div>
+													</div>
+													<div className="flex gap-x-7 gap-y-3 flex-wrap">
+														<div className="flex flex-col">
+															<span className="font-bold">{x.volume} ETH</span>
+															<span className="font-medium text-grey">Volume</span>
+														</div>
+														<div className="flex flex-col">
+															<span className="font-bold">{x.floorPrice} ETH</span>
+															<span className="font-medium text-grey">Floor Price</span>
+														</div>
+														<div className="flex flex-col">
+															<span className="font-bold">{x.bestOffer} ETH</span>
+															<span className="font-medium text-grey">Best Offer</span>
+														</div>
+													</div>
+												</div>
+											}
+										</div>
+										{(x.nftExchangeLink && (x.volumeChart || x.floorPriceChart)) &&
+											<div className="flex flex-col md:flex-row gap-10">
+												{x?.volumeChart &&
+													<div className="flex-1 border border-2 border-gray rounded-md p-4 bg-white">
+														<ReactApexChart options={x?.volumeChart?.options} series={x?.volumeChart?.series} type="bar" height={350} />
+													</div>
+												}
+												{x?.floorPriceChart &&
+													<div className="flex-1 border border-2 border-gray rounded-md p-4 bg-white">
+														<ReactApexChart options={x?.floorPriceChart?.options} series={x?.floorPriceChart?.series} type="line" height={350} />
+													</div>
+												}
+											</div>
+										}
+										</>
+								}
+								<div className="flex flex-col gap-4 rounded-xl p-4 bg-gray">
+									<span className="font-pilat font-bold text-sz20 leading-ht30 text-grey">Top 100 Holders</span>
+									<div className="flex justify-between items-center pr-4">
+										<div className="font-bold flex-[2]">Address</div>
+										<div className="font-bold flex-[2]">Quantity</div>
+										<div className="font-bold flex-1">Percent</div>
+									</div>
+									<div className="max-h-[300px] overflow-auto">
+										{x.holders.map((x: any, i: number) =>
+											<div className="flex justify-between items-center" key={i}>
+												<div className="flex-[2]"><CopyHolderBox value={x.address} /></div>
+												<div className="flex-[2]">{x.quantity.toFixed(2)}</div>
+												<div className="flex-1">{x.percent.toFixed(2)} %</div>
+											</div>
+										)}
+									</div>
+								</div>
+							</div>
+						</div>
+					)}
+
+          <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
-              <div className="w-full pl-4 text-blue text-sz16 md:text-sz18 font-bold font-pilat text-center">
-                Price Data
+              <div className="w-full md:pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat text-center">
+                Token Price Data
               </div>
               {/* <div
                 className="text-blue text-sz16 font-Manrope flex flex-row items-center space-x-2 cursor-pointer"
@@ -3693,260 +3884,233 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
               ) : null}
             </div>
             {tokenData && (
-              <div className="m-8 p-6 rounded-xl bg-gray font-Manrope font-light flex flex-col">
-                <div className="pb-4 border-b border-darkgray font-bold text-blue text-sz16">
-                  {project.token_name} Price Data
-                </div>
-                <div className="flex flex-row items-center justify-between">
-                  <div className="py-4 hidden md:flex flex-row items-center space-x-2">
-                    <div className="font-Manrope text-sz40 font-bold">
-                      ${Number(tokenData?.price)}
-                    </div>
-                    <div className="flex flex-row items-center space-x-1">
-                      <svg
-                        width="22"
-                        height="22"
-                        viewBox="0 0 22 22"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M2.63965 7.04004L10.5596 14.96L18.4796 7.04004H2.63965Z"
-                          fill="#A22E2E"
-                        />
-                      </svg>
-                      <div className="text-sz16 text-red">
-                        {tokenData?.price_change < 0
-                          ? `-${Number(tokenData?.price_change).toFixed(2)}`
-                          : Number(tokenData?.price_change).toFixed(2)}
-                        %
-                      </div>
-                    </div>
-                  </div>
-                  <div className="w-96 flex flex-col space-y-1">
-                    <GradientBox
-                      percentage={
-                        ((tokenData.price - tokenData.lowPrice_24h) /
-                          (tokenData.highPrice_24h - tokenData.lowPrice_24h)) *
-                        100
-                      }
-                    ></GradientBox>
-                    <div className="text-sz16 font-light flex flex-row items-center justify-between">
-                      <div>${tokenData.lowPrice_24h}</div>
-                      <div>24H Range</div>
-                      <div>${tokenData.highPrice_24h}</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="font-Manrope text-sz16 md:text-sz16 grid grid-cols-2 md:grid-cols-3 gap-8 justify-between">
-                  <div className="pt-4 md:pt-0 flex flex-col gap-4">
-                    <div className="border-none md:border-b border-darkgray pb-0 md:pb-4 flex flex-col md:flex-row justify-between">
-                      <div className=" flex flex-row items-center space-x-2">
-                        <div className="text-darkgray">Market cap</div>
-                        <img src={info_small} alt="info_small"></img>
-                      </div>
-                      <div>${FormatBigNumber(tokenData?.market_cap)}</div>
-                    </div>
-                    <div className="border-none md:border-b border-darkgray pb-0 md:pb-4 flex flex-col md:flex-row justify-between">
-                      <div className=" flex flex-row items-center space-x-2">
-                        <div className="text-darkgray">Circulating Supply</div>
-                        <img src={info_small} alt="info_small"></img>
-                      </div>
-                      <div>
-                        $
-                        {FormatBigNumber(
-                          parseFloat(tokenData?.circulating_supply).toFixed(0)
-                        )}
-                      </div>
-                    </div>
-                    <div className="border-none md:border-b border-darkgray pb-0 md:pb-4 flex flex-col md:flex-row justify-between">
-                      <div className=" flex flex-row items-center space-x-2">
-                        <div className="text-darkgray">Max Supply</div>
-                        <img src={info_small} alt="info_small"></img>
-                      </div>
-                      <div>{FormatBigNumber(tokenData?.max_supply)}</div>
-                    </div>
-                    <div className="flex flex-col md:flex-row justify-between">
-                      <div className="text-darkgray">All time high</div>
-                      <div>${tokenData?.ath}</div>
-                    </div>
-                  </div>
-
-                  <div className="pt-4 md:pt-0 flex flex-col gap-4">
-                    <div className="border-none md:border-b border-darkgray pb-0 md:pb-4 flex flex-col md:flex-row justify-between">
-                      <div className=" flex flex-row items-center space-x-2">
-                        <div className="text-darkgray">
-                          Market cap Dominance
-                        </div>
-                        <img src={info_small} alt="info_small"></img>
-                      </div>
-                      <div>{tokenData?.market_cap_change}%</div>
-                    </div>
-                    <div className="border-none md:border-b border-darkgray pb-0 md:pb-4 flex flex-col md:flex-row justify-between">
-                      <div className=" flex flex-row items-center space-x-2">
-                        <div className="text-darkgray">Trading Volume</div>
-                        <div className="text-sz16 bg-white rounded-sm px-1">
-                          24h
-                        </div>
-                      </div>
-                      <div>$1,451,392,754</div>
-                    </div>
-                    <div className="border-none md:border-b border-darkgray pb-0 md:pb-4 flex flex-col md:flex-row justify-between">
-                      <div className="text-darkgray">Total Supply</div>
-                      <div>{FormatBigNumber(tokenData?.total_supply)}</div>
-                    </div>
-                    <div className="flex flex-col md:flex-row justify-between">
-                      <div className="text-darkgray">All time low</div>
-                      <div>${tokenData?.atl}</div>
-                    </div>
-                  </div>
-
-                  <div className="hidden md:flex flex-col space-y-4">
-                    <div className="border-b border-darkgray pb-4 flex flex-row justify-between">
-                      <div className="text-darkgray">Volume / Market Cap</div>
-                      <div>
-                        {(
-                          (tokenData?.market_cap *
-                            tokenData?.market_cap_change) /
-                          tokenData?.total_supply
-                        ).toFixed(2)}
-                      </div>
-                    </div>
-                    <div className="border-b border-darkgray pb-4 flex flex-row justify-between">
-                      <div className="text-darkgray">24h Low / 24h High</div>
-                      <div>
-                        ${parseFloat(tokenData?.lowPrice_24h).toFixed(2)} / $
-                        {parseFloat(tokenData?.highPrice_24h).toFixed(2)}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {tokenData && (
-              <div className="mx-8 mb-8 p-6 rounded-xl bg-gray font-Manrope font-light flex flex-col">
-                <div className="pb-4 border-b border-darkgray flex flex-row items-center justify-between">
-                  <div className="text-blue text-sz16">
-                    {project?.name} Price Chart
-                  </div>
-                  <div className="flex flex-row items-center flex-wrap gap-2">
-                    <div
-                      onClick={() => setTimeRange(1)}
-                      className={
-                        timeRange === 1
-                          ? "px-3 font-bold rounded-md text-white bg-blue border border-blue shadow-sm cursor-pointer"
-                          : "px-3 font-bold rounded-md text-blue border border-blue shadow-sm cursor-pointer"
-                      }
-                    >
-                      1d
-                    </div>
-                    <div
-                      onClick={() => setTimeRange(7)}
-                      className={
-                        timeRange === 7
-                          ? "px-3 font-bold rounded-md text-white bg-blue border border-blue shadow-sm cursor-pointer"
-                          : "px-3 font-bold rounded-md text-blue border border-blue shadow-sm cursor-pointer"
-                      }
-                    >
-                      7d
-                    </div>
-                    <div
-                      onClick={() => setTimeRange(14)}
-                      className={
-                        timeRange === 14
-                          ? "px-3 font-bold rounded-md text-white bg-blue border border-blue shadow-sm cursor-pointer"
-                          : "px-3 font-bold rounded-md text-blue border border-blue shadow-sm cursor-pointer"
-                      }
-                    >
-                      14d
-                    </div>
-                    <div
-                      onClick={() => setTimeRange(30)}
-                      className={
-                        timeRange === 30
-                          ? "px-3 font-bold rounded-md text-white bg-blue border border-blue shadow-sm cursor-pointer"
-                          : "px-3 font-bold rounded-md text-blue border border-blue shadow-sm cursor-pointer"
-                      }
-                    >
-                      30d
-                    </div>
-                    <div
-                      onClick={() => setTimeRange(90)}
-                      className={
-                        timeRange === 90
-                          ? "px-3 font-bold rounded-md text-white bg-blue border border-blue shadow-sm cursor-pointer"
-                          : "px-3 font-bold rounded-md text-blue border border-blue shadow-sm cursor-pointer"
-                      }
-                    >
-                      90d
-                    </div>
-                    <div
-                      onClick={() => setTimeRange(180)}
-                      className={
-                        timeRange === 180
-                          ? "px-3 font-bold rounded-md text-white bg-blue border border-blue shadow-sm cursor-pointer"
-                          : "px-3 font-bold rounded-md text-blue border border-blue shadow-sm cursor-pointer"
-                      }
-                    >
-                      180d
-                    </div>
-                    <div
-                      onClick={() => setTimeRange(365)}
-                      className={
-                        timeRange === 365
-                          ? "px-3 font-bold rounded-md text-white bg-blue border border-blue shadow-sm cursor-pointer"
-                          : "px-3 font-bold rounded-md text-blue border border-blue shadow-sm cursor-pointer"
-                      }
-                    >
-                      365d
-                    </div>
-                  </div>
-                </div>
-                <PrimaryChart
-                  data={tokenPriceHistory ?? []}
-                  height={
-                    boxWidth >= 1024
-                      ? Math.floor(height * 0.6)
-                      : Math.floor(height * 0.4)
-                  }
-                  width={boxWidth * 0.9}
-                  margin={
-                    boxWidth >= 1280
-                      ? {
-                          top: 16,
-                          right: 0,
-                          bottom: 40,
-                          left: 48,
-                        }
-                      : boxWidth >= 1024
-                      ? {
-                          top: 16,
-                          right: 132,
-                          bottom: 40,
-                          left: 48,
-                        }
-                      : boxWidth >= 768
-                      ? {
-                          top: 16,
-                          right: 132,
-                          bottom: 40,
-                          left: 48,
-                        }
-                      : {
-                          top: 16,
-                          right: 100,
-                          bottom: 40,
-                          left: 48,
-                        }
-                  }
-                />
-              </div>
-            )}
+							<div className="flex flex-col md:flex-row p-5 md:p-8 gap-3 flex-wrap">
+								<div className="flex-1 p-2 sm:p-6 rounded-xl bg-gray font-Manrope font-light flex flex-col w-full" >
+									<div className="flex flex-row justify-end items-center flex-wrap gap-2 mb-5">
+										<div
+											onClick={() => setAppState({ ...appState, days: 1})}
+											className={
+												timeRange === 1
+													? 'px-3 font-bold rounded-md text-white bg-blue border border-blue shadow-sm cursor-pointer'
+													: 'px-3 font-bold rounded-md text-blue border border-blue shadow-sm cursor-pointer'
+											}
+										>
+											1d
+										</div>
+										<div
+											onClick={() => setAppState({ ...appState, days: 7})}
+											className={
+												timeRange === 7
+													? 'px-3 font-bold rounded-md text-white bg-blue border border-blue shadow-sm cursor-pointer'
+													: 'px-3 font-bold rounded-md text-blue border border-blue shadow-sm cursor-pointer'
+											}
+										>
+											7d
+										</div>
+										<div
+											onClick={() => setAppState({ ...appState, days: 14})}
+											className={
+												timeRange === 14
+													? 'px-3 font-bold rounded-md text-white bg-blue border border-blue shadow-sm cursor-pointer'
+													: 'px-3 font-bold rounded-md text-blue border border-blue shadow-sm cursor-pointer'
+											}
+										>
+											14d
+										</div>
+										<div
+											onClick={() => setAppState({ ...appState, days: 30})}
+											className={
+												timeRange === 30
+													? 'px-3 font-bold rounded-md text-white bg-blue border border-blue shadow-sm cursor-pointer'
+													: 'px-3 font-bold rounded-md text-blue border border-blue shadow-sm cursor-pointer'
+											}
+										>
+											30d
+										</div>
+										<div
+											onClick={() => setAppState({ ...appState, days: 90})}
+											className={
+												timeRange === 90
+													? 'px-3 font-bold rounded-md text-white bg-blue border border-blue shadow-sm cursor-pointer'
+													: 'px-3 font-bold rounded-md text-blue border border-blue shadow-sm cursor-pointer'
+											}
+										>
+											90d
+										</div>
+										<div
+											onClick={() => setAppState({ ...appState, days: 180})}
+											className={
+												timeRange === 180
+													? 'px-3 font-bold rounded-md text-white bg-blue border border-blue shadow-sm cursor-pointer'
+													: 'px-3 font-bold rounded-md text-blue border border-blue shadow-sm cursor-pointer'
+											}
+										>
+											180d
+										</div>
+										<div
+											onClick={() => setAppState({ ...appState, days: 365})}
+											className={
+												timeRange === 365
+													? 'px-3 font-bold rounded-md text-white bg-blue border border-blue shadow-sm cursor-pointer'
+													: 'px-3 font-bold rounded-md text-blue border border-blue shadow-sm cursor-pointer'
+											}
+										>
+											365d
+										</div>
+										<div
+											onClick={() => setAppState({ ...appState, days: -1})}
+											className={
+												timeRange === -1
+													? 'px-3 font-bold rounded-md text-white bg-blue border border-blue shadow-sm cursor-pointer'
+													: 'px-3 font-bold rounded-md text-blue border border-blue shadow-sm cursor-pointer'
+											}
+										>
+											All
+										</div>
+									</div>
+									<div style={{ background: "rgb(13, 11, 14)"}} className='h-full min-h-[300px]'>
+										<PriceChart />
+									</div>
+								</div>
+								<div className="flex-1 rounded-xl bg-gray font-Manrope font-light flex flex-col">
+									<div className="bg-darkgray1 px-6 py-4 rounded-t-xl text-blue text-center font-medium">Key Metrics Data</div>
+									<div className="p-6">
+										<div className="flex flex-row items-center justify-between">
+											<div className="flex flex-col space-y-3 border-b border-pure_blue w-full pb-3">
+												<GradientBox
+													percentage={
+														((tokenData.price - tokenData.lowPrice_24h) /
+															(tokenData.highPrice_24h - tokenData.lowPrice_24h)) *
+														100
+													}
+												></GradientBox>
+												<div className="text-sz16 font-light flex flex-row items-center justify-between">
+													<div>${tokenData.lowPrice_24h}</div>
+													<div>24H Range</div>
+													<div>${tokenData.highPrice_24h}</div>
+												</div>
+											</div>
+										</div>
+										<div className="font-Manrope text-sz16 md:text-sz18 flex flex-col justify-between gap-2 pt-3">
+											<div className="flex flex-col md:flex-row justify-between gap-2">
+												<div className="flex flex-row items-center space-x-2">
+													<div className="border border-blue shadow-sm rounded-full w-4 h-4" />
+													<div className="text-darkgray">{project.token_name} Price</div>
+												</div>
+												<div>${Number(tokenData?.price)}</div>
+											</div>
+											<div className="flex flex-col md:flex-row justify-between gap-2">
+												<div className="flex flex-row items-center space-x-2">
+													<div className="border border-blue shadow-sm rounded-full w-4 h-4" />
+													<div className="text-darkgray">24h Low / 24h High</div>
+												</div>
+												<div>
+													${parseFloat(tokenData?.lowPrice_24h).toFixed(2)} / $
+													{parseFloat(tokenData?.highPrice_24h).toFixed(2)}
+												</div>
+											</div>
+											<div className="flex flex-col md:flex-row justify-between gap-2">
+												<div className="flex flex-row items-center space-x-2">
+													<div className="border border-blue shadow-sm rounded-full w-4 h-4" />
+													<div className="text-darkgray">24h Trading Volume</div>
+													<img id="coin-info1" src={info_small} alt="info_small"></img>
+													<ReactTooltip
+														anchorId="coin-info1" place="bottom" className="tooltip"
+														content="A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times."
+													/>
+												</div>
+												<div>${commafy(parseFloat(tokenData?.volume_24h.toFixed(3)))}</div>
+											</div>
+											<div className="flex flex-col md:flex-row justify-between gap-2">
+												<div className="flex flex-row items-center space-x-2">
+													<div className="border border-blue shadow-sm rounded-full w-4 h-4" />
+													<div className="text-darkgray">Market Cap</div>
+													<img id="coin-info2" src={info_small} alt="info_small"></img>
+													<ReactTooltip
+														anchorId="coin-info2" place="bottom" className="tooltip"
+														content="Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)"
+													/>
+												</div>
+												<div>${FormatBigNumber(tokenData?.market_cap)}</div>
+											</div>
+											<div className="flex flex-col md:flex-row justify-between gap-2">
+												<div className="flex flex-row items-center space-x-2">
+													<div className="border border-blue shadow-sm rounded-full w-4 h-4" />
+													<div className="text-darkgray">Circulating Supply</div>
+													<img id="coin-info3" src={info_small} alt="info_small" data-tooltip="tooltip text"></img>
+													<ReactTooltip
+														anchorId="coin-info3" place="bottom" className="tooltip"
+														content="The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
+													/>
+												</div>
+												<div>{FormatBigNumber(parseFloat(tokenData?.circulating_supply).toFixed(0))}</div>
+											</div>
+											<div className="flex flex-col md:flex-row justify-between gap-2">
+												<div className="flex flex-row items-center space-x-2">
+													<div className="border border-blue shadow-sm rounded-full w-4 h-4" />
+													<div className="text-darkgray">Total Supply</div>
+													<img id="coin-info4" src={info_small} alt="info_small"></img>
+													<ReactTooltip
+														anchorId="coin-info4" place="bottom" className="tooltip"
+														content="The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market."
+													/>
+												</div>
+												<div>{FormatBigNumber(tokenData?.total_supply)}</div>
+											</div>
+											<div className="flex flex-col md:flex-row justify-between gap-2">
+												<div className="flex flex-row items-center space-x-2">
+													<div className="border border-blue shadow-sm rounded-full w-4 h-4" />
+													<div className="text-darkgray">Max Supply</div>
+													<img id="coin-info5" src={info_small} alt="info_small"></img>
+													<ReactTooltip
+														anchorId="coin-info5" place="bottom" className="tooltip"
+														content="The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market."
+													/>
+												</div>
+												<div>{FormatBigNumber(tokenData?.max_supply)}</div>
+											</div>
+											<div className="flex flex-col md:flex-row justify-between gap-2">
+												<div className="flex flex-row items-center space-x-2">
+													<div className="border border-blue shadow-sm rounded-full w-4 h-4" />
+													<div className="text-darkgray">All time high</div>
+												</div>
+												<div>${tokenData?.ath}</div>
+											</div>
+											<div className="flex flex-col md:flex-row justify-between">
+												<div className="flex flex-row items-center space-x-2">
+													<div className="border border-blue shadow-sm rounded-full w-4 h-4" />
+													<div className="text-darkgray">All time low</div>
+												</div>
+												<div>${tokenData?.atl}</div>
+											</div>
+											<div className="flex flex-col md:flex-row justify-between">
+												<div className="flex flex-row items-center space-x-2">
+													<div className="border border-blue shadow-sm rounded-full w-4 h-4" />
+													<div className="text-darkgray">Market Cap Dominance</div>
+												</div>
+												<div>{tokenData?.market_cap_change}%</div>
+											</div>
+											<div className="flex flex-col md:flex-row justify-between">
+												<div className="flex flex-row items-center space-x-2">
+													<div className="border border-blue shadow-sm rounded-full w-4 h-4" />
+													<div className="text-darkgray">Volume / Market Cap</div>
+												</div>
+												<div>
+													{(
+														(tokenData?.market_cap *
+															tokenData?.market_cap_change) /
+														tokenData?.total_supply
+													).toFixed(2)}
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						)}
           </div>
 
-          <div className="my-0 md:my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
+          <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="px-6 py-4 rounded-t-xl">
               <div className="pl-4 text-blue text-sz16 md:text-sz18 font-bold font-pilat text-center flex flex-row items-center">
                 <div className="w-full">Exchanges</div>
@@ -4083,7 +4247,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
 									<>
 										{index % 2 === 0 && (
 											<a
-												href={exch.pairlink}
+												href={exch.pairlink} target="_blank" rel="noreferrer"
 												key={index}
 												className="pb-4 border-b border-blue border-darkgray flex flex-row items-center justify-between gap-6 flex-wrap"
 											>
@@ -4151,9 +4315,9 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
 						</div>
           </div>
 
-          <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
+          <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
-              <div className="w-full pl-4 text-blue text-sz16 md:text-sz18 font-bold font-pilat text-center">
+              <div className="w-full md:pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat text-center">
                 Project Team Members & Developers
               </div>
               {/* <div
@@ -4392,7 +4556,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                 </div>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-between gap-8">
-                {project?.member?.map((member: any) => (
+                {project?.member?.map((member: any, index: number) => (
                   <div className="rounded-xl shadow-xl flex flex-col items-center justify-center space-y-2 p-4 text-center">
                     <div className="rounded-full shadow-inner flex flex-col items-center justify-center">
                       <img
@@ -4412,7 +4576,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                     </div>
                     <div className="flex flex-row items-center space-x-8">
                       {member?.twitter && (
-                        <a href={member?.twitter}>
+                        <a href={member?.twitter} target="_blank" rel="noreferrer">
                           <div className="shadow-inner rounded-full flex flex-col items-center justify-center">
                             <div className="p-2">
                               <svg
@@ -4446,7 +4610,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                         </a>
                       )}
                       {member?.linkedin && (
-                        <a href={member?.linkedin}>
+                        <a href={member?.linkedin} target="_blank" rel="noreferrer">
                           <div className="shadow-inner rounded-full flex flex-col items-center justify-center">
                             <div className="p-2">
                               <svg
@@ -4468,24 +4632,28 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
                         </a>
                       )}
                       {member?.mail && (
-                        <a href={member?.mail}>
-                          <div className="shadow-inner rounded-full flex flex-col items-center justify-center">
-                            <div className="p-2">
-                              <svg
-                                width="20"
-                                height="20"
-                                viewBox="0 0 20 20"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M18.3337 4.99967C18.3337 4.08301 17.5837 3.33301 16.667 3.33301H3.33366C2.41699 3.33301 1.66699 4.08301 1.66699 4.99967V14.9997C1.66699 15.9163 2.41699 16.6663 3.33366 16.6663H16.667C17.5837 16.6663 18.3337 15.9163 18.3337 14.9997V4.99967ZM16.667 4.99967L10.0003 9.16634L3.33366 4.99967H16.667ZM16.667 14.9997H3.33366V6.66634L10.0003 10.833L16.667 6.66634V14.9997Z"
-                                  fill="#346DA1"
-                                />
-                              </svg>
-                            </div>
+                        <div className="relative shadow-inner rounded-full flex flex-col items-center justify-center">
+													{openEmailBox[index] &&
+                            <div className="absolute bottom-[calc(100%+1rem)] left-1/2 -translate-x-1/2 rounded-md shadow-sm flex justify-center bg-lightgray px-2 py-1 space-x-2 w-36">
+                              <img className="cursor-pointer" onClick={() => handleCopyEmail(member?.mail)} src={copy} alt="copy" />
+                              <span className="truncate">{member?.mail ?? "None"}</span>
+                            </div>                        
+                          }
+													<div className="cursor-pointer p-2" onClick={() => handleOpenEmailBox(index)}>
+                            <svg
+                              width="20"
+                              height="20"
+                              viewBox="0 0 20 20"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M18.3337 4.99967C18.3337 4.08301 17.5837 3.33301 16.667 3.33301H3.33366C2.41699 3.33301 1.66699 4.08301 1.66699 4.99967V14.9997C1.66699 15.9163 2.41699 16.6663 3.33366 16.6663H16.667C17.5837 16.6663 18.3337 15.9163 18.3337 14.9997V4.99967ZM16.667 4.99967L10.0003 9.16634L3.33366 4.99967H16.667ZM16.667 14.9997H3.33366V6.66634L10.0003 10.833L16.667 6.66634V14.9997Z"
+                                fill="#346DA1"
+                              />
+                            </svg>
                           </div>
-                        </a>
+                        </div>
                       )}
                     </div>
                     {member?.address && (
@@ -4498,7 +4666,7 @@ const Rating = ({ auditProjects, count, handleCount }: ratingProps) => {
               </div>
             </div>
           </div>
-          <div className="my-10 bg-lightgray rounded-xl shadow-xl flex flex-col">
+          <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
               <div className="w-full pl-4 text-pink text-sz16 md:text-sz18 font-bold font-pilat text-center">
                 Disclaimer

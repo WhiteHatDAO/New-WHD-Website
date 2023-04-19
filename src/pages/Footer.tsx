@@ -7,7 +7,7 @@ const Footer = () => {
 
   return (
     <div className="px-[7px] md:px-0">
-      <div className="mt-[60px] mb-[19px] md:my-8 pt-[30px] pb-10 md:p-4 sm:flex flex-row items-start justify-between border-b border-t border-darkpurple md:border-0">
+      <div className="mt-[60px] mb-[19px] md:my-8 pt-[30px] pb-10 md:p-4 sm:flex flex-row flex-wrap items-start justify-between border-b border-t border-darkpurple md:border-0">
         <div className="sm:w-2/5 flex flex-col space-y-5 md:space-y-4">
           <div className="flex flex-row items-center space-x-[19px] md:space-x-4">
             <img src={whitehatdao} alt="whitehatdao"></img>

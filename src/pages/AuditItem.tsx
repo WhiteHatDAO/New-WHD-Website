@@ -45,7 +45,7 @@ const AuditItem = ({ auditProjects }: auditItemProps) => {
       <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-4">
         <div className="flex flex-col gap-4">
           <div className="flex flex-row items-center space-x-2">
-            <img src={idolNFtImage} alt="idol"></img>
+            <img src={idolNFtImage} alt=""></img>
             <div className="flex flex-row items-start space-x-1">
               <div className="font-pilat font-bold text-sz18 md:text-sz40">
                 {project?.name}

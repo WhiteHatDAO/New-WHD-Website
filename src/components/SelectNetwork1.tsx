@@ -1,28 +1,14 @@
 import { useState, useEffect } from "react";
 import ethereum from "../assets/images/select/ethereum.svg";
 import arbitrum from "../assets/images/select/arbitrum.svg";
-import binance from "../assets/images/select/binance.svg";
 import polygon from "../assets/images/select/polygon.svg";
 import optimism from "../assets/images/select/optimism.png";
-import gnosis from "../assets/images/select/gnosis.png";
-import avalanche from "../assets/images/select/avalanche.png";
-import fantom from "../assets/images/select/fantom.png";
-import klaytn from "../assets/images/select/klaytn.png";
-import aurora from "../assets/images/select/aurora.png";
-import zksync from "../assets/images/select/zkSync.png";
-import harmony from "../assets/images/select/harmony-2.png";
-import canto from "../assets/images/select/canto.webp";
 
 const networks = [
   {
     name: 'ethereum',
     id: 'eth-mainnet',
     image: ethereum,
-  },
-  {
-    name: 'binance',
-    id: 'bsc-mainnet',
-    image: binance,
   },
   {
     name: 'polygon',
@@ -38,46 +24,6 @@ const networks = [
     name: 'arbitrum',
     id: 'arbitrum-mainnet',
     image: arbitrum,
-  },
-  {
-    name: 'gnosis',
-    id: 'gnosis-mainnet',
-    image: gnosis,
-  },
-  {
-    name: 'avalanche',
-    id: 'avalanche-mainnet',
-    image: avalanche,
-  },
-  {
-    name: 'fantom',
-    id: 'fantom-mainnet',
-    image: fantom,
-  },
-  {
-    name: 'klaytn',
-    id: 'klaytn-mainnet',
-    image: klaytn,
-  },
-  {
-    name: 'aurora',
-    id: 'aurora-mainnet',
-    image: aurora,
-  },
-  {
-    name: 'zkSync',
-    id: 'zkSync-mainnet',
-    image: zksync,
-  },
-  {
-    name: 'harmony',
-    id: 'harmony-mainnet',
-    image: harmony,
-  },
-  {
-    name: "canto",
-    id: 'canto-mainnet',
-    image: canto,
   },
 ];
 
@@ -122,7 +68,7 @@ const SelectNetwork = ({
             onClick={() => setShow(!show)}
           >
             <img
-              className="w-6 h-6"
+              className="w-6 h-6 object-cover"
               src={selectedNetwork.image}
               alt="network"
             ></img>

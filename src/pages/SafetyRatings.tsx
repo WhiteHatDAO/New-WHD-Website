@@ -379,7 +379,7 @@ const SafetyRatings = ({
               </div>
             </div>
             <div className="flex flex-col gap-[30px] md:gap-8">
-							{filteredProjects.filter((x, index) => index>=curProPage*amountPerPage && index<(curProPage+1)*amountPerPage && x.published === "publish")?.map((project, index) => (
+							{filteredProjects?.sort((a, b) => (new Date(b.updatedAt) as any) - (new Date(a.updatedAt) as any)).filter((x, index) => index>=curProPage*amountPerPage && index<(curProPage+1)*amountPerPage && x.published === "publish")?.map((project, index) => (
                 <div key={index}>
                   <div className="cursor-pointer shadow-xl border border-blue font-Manrope font-light rounded-lg p-4 flex xl:hidden flex-col gap-4">
                     <div className="flex flex-row items-start justify-between">
@@ -409,8 +409,14 @@ const SafetyRatings = ({
                         <img className="" src={verify} alt="verify"></img>
                       )}
                     </div>
-                    <span className='text-sz18 leading-ht24.66 font-bold text-blue'>Reviewed by</span>
-										<CopyReviewBox reviewed={project.reviewed} />
+                    {project.reviewed !== "pending" &&
+											<>
+                        <span className='text-sz18 leading-ht24.66 font-bold text-blue'>Reviewed by</span>
+												<div className='mt-2'>
+													<CopyReviewBox reviewed={project.reviewed} />
+												</div>
+											</>
+                    }
                     <div className="flex flex-row items-center gap-2 sm:gap-4 flex-wrap">
                       {project?.tags?.map((tag: any, index: number) => (
                         <div
@@ -536,11 +542,15 @@ const SafetyRatings = ({
                         }
                         src={project?.logo}
                         alt=""
-                      ></img>
-											<span className='mt-5 text-sz15 leading-ht24.66 font-bold text-blue font-Manrope'>Reviewed by</span>
-                      <div className='mt-2'>
-												<CopyReviewBox reviewed={project.reviewed} />
-											</div>
+                      ></img>                      
+                      {project.reviewed !== "pending" &&
+                        <>
+                          <span className='mt-5 text-sz15 leading-ht24.66 font-bold text-blue font-Manrope'>Reviewed by</span>
+                          <div className='mt-2'>
+                            <CopyReviewBox reviewed={project.reviewed} />
+                          </div>
+                        </>
+                      }
                     </div>
                     <div className="w-full font-Manrope flex flex-col space-y-4">
                       <div

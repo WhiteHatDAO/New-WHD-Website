@@ -812,7 +812,7 @@ const Audit = ({
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredProjects?.sort((a, b) => (new Date(FormatYMD(b.updatedAt)) as any) - (new Date(FormatYMD(a.updatedAt)) as any)).filter((x, index) => index>=page*10 && index<(page+1)*10 && x.published === "publish").map((project, index) => (
+                  {filteredProjects?.sort((a, b) => (new Date(b.updatedAt) as any) - (new Date(a.updatedAt) as any)).filter((x, index) => index>=page*10 && index<(page+1)*10 && x.published === "publish").map((project, index) => (
                     <tr
                       key={index}
                       onClick={() => navigate(`/safety-ratings/rating/${project._id}`)}

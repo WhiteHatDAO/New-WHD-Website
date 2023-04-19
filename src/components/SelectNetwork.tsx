@@ -15,55 +15,68 @@ import canto from "../assets/images/select/canto.webp";
 
 const networks = [
   {
-    name: "ethereum",
+    name: 'ethereum',
+    id: 'eth-mainnet',
     image: ethereum,
   },
   {
-    name: "binance",
+    name: 'binance',
+    id: 'bsc-mainnet',
     image: binance,
   },
   {
-    name: "polygon",
+    name: 'polygon',
+    id: 'matic-mainnet',
     image: polygon,
   },
   {
-    name: "optimism",
+    name: 'optimism',
+    id: 'optimism-mainnet',
     image: optimism,
   },
   {
-    name: "arbitrum",
+    name: 'arbitrum',
+    id: 'arbitrum-mainnet',
     image: arbitrum,
   },
   {
-    name: "gnosis",
+    name: 'gnosis',
+    id: 'gnosis-mainnet',
     image: gnosis,
   },
   {
-    name: "avalanche",
+    name: 'avalanche',
+    id: 'avalanche-mainnet',
     image: avalanche,
   },
   {
-    name: "fantom",
+    name: 'fantom',
+    id: 'fantom-mainnet',
     image: fantom,
   },
   {
-    name: "klaytn",
+    name: 'klaytn',
+    id: 'klaytn-mainnet',
     image: klaytn,
   },
   {
-    name: "aurora",
+    name: 'aurora',
+    id: 'aurora-mainnet',
     image: aurora,
   },
   {
-    name: "zkSync",
+    name: 'zkSync',
+    id: 'zkSync-mainnet',
     image: zksync,
   },
   {
-    name: "harmony",
+    name: 'harmony',
+    id: 'harmony-mainnet',
     image: harmony,
   },
   {
     name: "canto",
+    id: 'canto-mainnet',
     image: canto,
   },
 ];

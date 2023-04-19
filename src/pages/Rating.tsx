@@ -2,6 +2,7 @@ import copy from "../assets/images/copy_black.svg";
 import verify from "../assets/images/safety/verify.svg";
 import discord from "../assets/images/footer/discord_black.svg";
 import github from "../assets/images/footer/github_black.svg";
+import github_blue from "../assets/images/footer/github.svg";
 import twitter from "../assets/images/footer/twitter_black.svg";
 import global from "../assets/images/footer/global.svg";
 import medium from "../assets/images/footer/medium.png";
@@ -17,6 +18,9 @@ import save from "../assets/images/modal/save.png";
 import discard from "../assets/images/modal/discard.png";
 // import edit from "../assets/images/edit.png";
 import upload from "../assets/images/upload.png";
+import nftEarth from '../assets/images/select/nftEarth.png';
+import rarible from '../assets/images/select/rarible.png';
+import opensea from '../assets/images/select/opensea.png';
 import addItem from "../assets/images/addItem.png";
 import twit from "../assets/images/rating/twitter.png";
 import linkedin from "../assets/images/rating/linkedin.png";
@@ -34,16 +38,16 @@ import GradientBox from "../components/GradientBar";
 import { useParams } from "react-router-dom";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import 'react-tooltip/dist/react-tooltip.css';
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { useCoingeckoAPI } from "../utils/useCoingeckoAPI";
-import { commafy, FormatBigNumber } from "../utils/utils";
+import { commafy, FormatBigNumber, FormatYMD, getMetricsByContract, getMetricsByExchange } from "../utils/utils";
 
 import storage from "../utils/firebaseConfig";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import SelectBox from "../components/SelectBox";
 
 import axios from "axios";
-import { BACKEND_SERVER } from "../global/global";
+import { BACKEND_SERVER, monthNames } from "../global/global";
 import ShaComponent from "../components/ShaComponent";
 import MemberContract from "../components/MemberContract";
 
@@ -53,6 +57,8 @@ import binance from "../assets/images/select/binance.svg";
 import polygon from "../assets/images/select/polygon.svg";
 import optimism from "../assets/images/select/optimism.png";
 import gnosis from "../assets/images/select/gnosis.png";
+import harmony from '../assets/images/select/harmony-2.png';
+import canto from "../assets/images/select/canto.webp";
 import avalanche from "../assets/images/select/avalanche.png";
 import fantom from "../assets/images/select/fantom.png";
 import klaytn from "../assets/images/select/klaytn.png";
@@ -60,6 +66,8 @@ import aurora from "../assets/images/select/aurora.png";
 import zksync from "../assets/images/select/zkSync.png";
 import { useAppContext } from '../context/appContext';
 import PriceChart from "../components/PriceChart";
+import ReactApexChart from 'react-apexcharts'
+import CopyHolderBox from "../components/CopyHolderBox";
 
 interface ratingProps {
   auditProjects: any[];
@@ -76,6 +84,8 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
     handleGetTokenData,
     tokenData,
   } = useCoingeckoAPI();
+	const [allHolders, setAllHolders] = useState<any>([]);
+	const [nftMetrics, setNFTMetrics] = useState<any>([]);
 	const [openEmailBox, setOpenEmailBox] = useState<any>([]);
   const [project, setProject] = useState<any>(null);
   const gridItemRef = useRef<HTMLDivElement>(null);
@@ -135,51 +145,72 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
   const [currentSecurityTagList, setCurrentSecurityTagList] = useState<string[]>([]);
 
   const networkNames = [
-    {
-      name: "ethereum",
-      image: ethereum,
-    },
-    {
-      name: "binance",
-      image: binance,
-    },
-    {
-      name: "polygon",
-      image: polygon,
-    },
-    {
-      name: "optimism",
-      image: optimism,
-    },
-    {
-      name: "arbitrum",
-      image: arbitrum,
-    },
-    {
-      name: "gnosis",
-      image: gnosis,
-    },
-    {
-      name: "avalanche",
-      image: avalanche,
-    },
-    {
-      name: "fantom",
-      image: fantom,
-    },
-    {
-      name: "klaytn",
-      image: klaytn,
-    },
-    {
-      name: "aurora",
-      image: aurora,
-    },
-    {
-      name: "zkSync",
-      image: zksync,
-    },
-  ];
+		{
+			name: 'ethereum',
+			id: 'eth-mainnet',
+			image: ethereum,
+		},
+		{
+			name: 'binance',
+			id: 'bsc-mainnet',
+			image: binance,
+		},
+		{
+			name: 'polygon',
+			id: 'matic-mainnet',
+			image: polygon,
+		},
+		{
+			name: 'optimism',
+			id: 'optimism-mainnet',
+			image: optimism,
+		},
+		{
+			name: 'arbitrum',
+			id: 'arbitrum-mainnet',
+			image: arbitrum,
+		},
+		{
+			name: 'gnosis',
+			id: 'gnosis-mainnet',
+			image: gnosis,
+		},
+		{
+			name: 'avalanche',
+			id: 'avalanche-mainnet',
+			image: avalanche,
+		},
+		{
+			name: 'fantom',
+			id: 'fantom-mainnet',
+			image: fantom,
+		},
+		{
+			name: 'klaytn',
+			id: 'klaytn-mainnet',
+			image: klaytn,
+		},
+		{
+			name: 'aurora',
+			id: 'aurora-mainnet',
+			image: aurora,
+		},
+		{
+			name: 'zkSync',
+			id: 'zkSync-mainnet',
+			image: zksync,
+		},
+		{
+			name: 'harmony',
+			id: 'harmony-mainnet',
+			image: harmony,
+		},
+		{
+			name: "canto",
+			id: 'canto-mainnet',
+			image: canto,
+		},
+	];
 
   const getNetworkImage = (net: string) => {
     return networkNames.find((element: any) => element.name === net)?.image;
@@ -1446,6 +1477,59 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
 		}
 	}, [project, handleGetTokenData, timeRange]);
 
+  useMemo(async() => {
+		if(project?.contract_addr?.length > 0) {
+			try {
+        let merged: any = []
+        const tmp = await Promise.all(project?.contract_addr.map(async (x: any) => {
+          try {
+            const {data} = await axios.get(`https://api.covalenthq.com/v1/${networkNames.find(y => y.name === x.network)?.id}/tokens/${x.address}/token_holders/?quote-currency=USD&format=JSON&page-size=50&key=ckey_d62b0735d18a4e6680723eb212f`)
+            return data.data.items
+          } catch(e) { return [] }
+        }))
+        tmp.forEach((x: any) => merged = merged.concat(x))
+        setAllHolders(merged.map((x: any)=> {
+          return {
+            "quantity": x.balance / (10**x.contract_decimals),
+            "address": x.address,
+            "percent": (x.balance / x.total_supply) * 100,
+          }
+        }).sort((a:any, b:any) => b.percent - a.percent))
+      } catch(e) { console.log(e) }
+		}
+
+		if(project?.contract_addr1?.length > 0) {
+      try {
+        setNFTMetrics(await Promise.all(project?.contract_addr1.map(async (x: any) => {
+					let tmp = {...x}
+					if(x.network === "ethereum" || x.network === "polygon" || x.network === "optimism" || x.network === "arbitrum") {
+						const _get = await getMetricsByContract(x.address, x, networkNames)
+						tmp.id = _get?.id?.slice(_get.id.search("0x"))
+						tmp.name = _get?.name
+						tmp.verified = _get?.openseaVerificationStatus
+						tmp.itemsCount = _get?.itemCount ?? _get?.statistics?.itemCount
+						tmp.ownersCount = _get?.ownerCount ?? _get?.statistics?.ownerCount
+						tmp.network = _get?.network ?? "-"
+						tmp.holders = _get.holders
+						tmp.platformName = _get?.platformName ?? "-"
+					}
+					if(x.nftExchangeLink) {
+						const _get = await getMetricsByExchange(x)
+						tmp.onSaleCount = _get?.onSaleCount ?? "-"
+						tmp.ownersCountOfExchange = _get?.ownerCount ?? _get?.statistics?.ownerCount ?? "-"
+						tmp.uniqueOwnersCount = isNaN(Math.round(_get?.ownerCount / _get?.itemCount * 100 ?? _get?.statistics?.ownerCount / _get?.statistics?.itemCount * 100)) ? "-" : Math.round(_get.ownerCount / _get.itemCount * 100 ?? _get.statistics.ownerCount / _get.statistics.itemCount * 100)
+						tmp.volume = _get?.volume?.allTime ?? _get?.statistics?.totalVolume?.value ?? _get?.volume ?? "-"
+						tmp.floorPrice = _get?.floorAsk?.price?.amount?.decimal ?? _get?.statistics?.floorPrice?.value ?? _get.floorPrice ?? "-"
+						tmp.bestOffer = _get?.topBid?.price?.amount?.decimal ?? _get?.bestBidOrder?.takePrice ?? "-"
+						tmp.volumeChart = _get?.volumeChart
+						tmp.floorPriceChart = _get?.floorPriceChart
+					}
+					return tmp
+				})))
+      } catch (e) { console.log(e) }
+		}
+	}, [project])
+
   return (
     <>
       {project ? (
@@ -2012,60 +2096,58 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
                     </div>
                   </div>
                   {project?.platform && project?.language && (
-                    <div className="font-Manrope font-light flex flex-col gap-4 md:gap-8">
-                      <div className="flex flex-col">
-                        <div className="text-darkgray text-sz14">Networks</div>
-                        <div className="text-sz14">{project?.platform}</div>
-                      </div>
-                      <div className="flex flex-col">
-                        <div className="text-darkgray text-sz14">
-                          Language used
+										<div className="font-Manrope font-light flex flex-col gap-4 md:gap-8">
+											<div className="flex flex-col gap-[5px]">
+												<div className="text-ligthgrey text-sz16 leading-ht20 font-medium">Networks</div>
+                        <div className="flex flex-wrap gap-x-3 gap-y-2">
+                          {project?.platform.split(",").map((x: any) =>
+                            <div className="rounded-full font-medium text-sz16 px-4 py-1 shadow-inner text-blue">{x.trim()}</div>
+                          )}
                         </div>
-                        <div className="text-sz14">{project?.language}</div>
-                      </div>
-                    </div>
-                  )}
-
-                  {project?.codebase && project.contract_addr && (
-                    <div className="font-Manrope font-light flex flex-col gap-4 md:gap-8 max-w-full">
-                      <div className="flex flex-col">
-                        <div className="text-darkgray text-sz14">
-                          Source Code
+											</div>
+											<div className="flex flex-col gap-[5px]">
+												<div className="text-ligthgrey text-sz16 leading-ht20 font-medium">
+													Language used
+												</div>
+                        <div className="flex flex-wrap gap-x-3 gap-y-2">
+                          {project?.language.split(",").map((x: any) =>
+                            <div className="rounded-full font-medium text-sz16 px-4 py-1 shadow-inner text-blue">{x.trim()}</div>
+                          )}
                         </div>
-                        <div className="flex flex-row flex-wrap items-center gap-2">
-                          <div className="text-blue text-sz16">
-                            {project?.codebase}
-                          </div>
-                          <a href={project?.codebase} target="_blank" rel="noreferrer">
-                            <svg
-                              width="20"
-                              height="20"
-                              viewBox="0 0 20 20"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M15.625 18.125H1.875V4.0625H9.375V2.8125H0.625V19.375H16.875V10.625H15.625V18.125Z"
-                                fill="#404040"
-                              />
-                              <path
-                                d="M11.8745 0.625V1.875H17.2407L7.37012 11.7456L8.25395 12.6294L18.1245 2.75887V8.125H19.3745V0.625H11.8745Z"
-                                fill="#404040"
-                              />
-                            </svg>
-                          </a>
-                        </div>
-                      </div>
-                      <div className="space-y-2 flex flex-col">
-                        <div className="text-darkgray text-sz14">
-                          Token Contract Address
-                        </div>
-                        <ContractAddressBox
-                          data={project.contract_addr}
-                        ></ContractAddressBox>
-                      </div>
-                    </div>
-                  )}
+											</div>
+										</div>
+									)}
+                  
+                  {project?.codebase && project?.codebase1 && project.contract_addr && (
+										<div className="font-Manrope font-light flex flex-col gap-4 md:gap-8 max-w-full">
+											<div className="flex flex-col gap-[5px]">
+												<div className="text-ligthgrey text-sz16 leading-ht20 font-medium">
+													Token Contract Address
+												</div>
+												<div className="flex gap-2">
+													<ContractAddressBox
+														data={project.contract_addr}
+													></ContractAddressBox>
+													<a href={project?.codebase} target="_blank" rel="noreferrer" className="flex justify-center items-center rounded-full shadow-sm p-1">
+														<img src={github_blue} alt="" />
+													</a>
+												</div>
+											</div>
+											<div className="flex flex-col gap-[5px]">
+												<div className="text-ligthgrey text-sz16 leading-ht20 font-medium">
+													NFT Contract Address
+												</div>
+												<div className="flex gap-2">
+													<ContractAddressBox
+														data={project.contract_addr1}
+													></ContractAddressBox>
+													<a href={project?.codebase1} target="_blank" rel="noreferrer" className="flex justify-center items-center rounded-full shadow-sm p-1">
+														<img src={github_blue} alt="" />
+													</a>
+												</div>
+											</div>
+										</div>
+									)}
                 </div>
               </div>
             </div>
@@ -2781,7 +2863,7 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
                 </>
               ) : null}
             </div>
-            <div className="p-8 font-Manrope font-light">
+						<div className="flex flex-col gap-4 p-4 sm:p-8 font-Manrope font-light">
               {project.distribution_list && (
                 <div className="w-full rounded-xl p-4 bg-gray flex flex-col xl:flex-row flex-wrap items-center gap-8 overflow-auto">
 									<div className="flex flex-col items-center gap-y-4">
@@ -3011,6 +3093,23 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
 									</div>
                 </div>
               )}
+              <div className="flex flex-col gap-4 rounded-xl p-4 bg-gray">
+								<span className="font-pilat font-bold text-sz20 leading-ht30 text-grey">Top 100 Holders</span>
+                <div className="flex justify-between items-center pr-4">
+									<div className="font-bold flex-[2]">Address</div>
+									<div className="font-bold flex-[2]">Quantity</div>
+									<div className="font-bold flex-1">Percent</div>
+								</div>
+								<div className="max-h-[300px] overflow-auto">
+									{allHolders.map((x: any, i: number) =>
+										<div className="flex justify-between items-center" key={i}>
+											<div className="flex-[2]"><CopyHolderBox value={x.address} /></div>
+											<div className="flex-[2]">{x.quantity.toFixed(2)}</div>
+											<div className="flex-1">{x.percent.toFixed(2)} %</div>
+										</div>
+									)}
+								</div>
+              </div>
             </div>
           </div>
 
@@ -3593,10 +3692,117 @@ const Rating = ({ auditProjects, mainProData, count, handleCount }: ratingProps)
             )}
           </div>
 
+          {nftMetrics.map((x: any, i: number) =>
+						<div key={i} className="bg-lightgray rounded-xl shadow-xl flex flex-col">
+							<div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
+								<div className="w-full md:pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat text-center">
+									NFT Key Metrics Data
+								</div>
+							</div>
+							<div className="px-[15px] py-5 md:p-8 font-Manrope font-light flex flex-col gap-10">
+								{x.id &&
+									<>
+										<div className="flex flex-col md:flex-row gap-10">
+											<div className="flex flex-col space-y-3 flex-1 rounded-md shadow-inner flex flex-col p-[15px] md:p-6">
+												<div className="flex items-center gap-x-2 font-bold">
+													{x.name}{x.verified && <img src={verify} alt="" />}
+												</div>
+												<div>
+													{x.itemsCount && <>Items <span className="font-bold">{x.itemsCount}</span></>}
+													{x.createdAt &&
+														<>, Created <span className="font-bold">{monthNames[new Date(FormatYMD(x.createdAt) as any).getMonth()]} {new Date(FormatYMD(x.createdAt) as any).getFullYear()}</span></>
+													}
+												</div>
+												<div className="flex items-center space-x-3">
+													<span>Contract</span>
+													<span className="font-bold"><CopyHolderBox value={x.id} /></span>
+												</div>
+												<div>
+													{x.ownersCount && <>Owners <span className="font-bold">{x.ownersCount}</span> - </>}
+													Chain <span className="font-bold capitalize">{x.network}</span>
+												</div>
+											</div>
+											{x.nftExchangeLink &&
+												<div className="flex flex-col flex-1 rounded-md shadow-inner flex flex-col p-[15px] md:p-6 gap-y-5 relative">
+													<div className="absolute top-[15px] right-[15px] md:top-[24px] md:right-[24px]">
+														<a className="rounded-full overflow-hidden" href={x.nftExchangeLink} target="_blank" rel="noreferrer">
+															{x.platformName === "nftEarth" && <img className="w-[30px] h-[30px] rounded-full" src={nftEarth} alt="" />}
+															{x.platformName === "rarible" && <img className="w-[30px] h-[30px] rounded-full" src={rarible} alt="" />}
+															{x.platformName === "opensea" && <img className="w-[30px] h-[30px] rounded-full" src={opensea} alt="" />}
+														</a>
+													</div>
+													<div className="flex gap-x-7 gap-y-3 flex-wrap">
+														<div className="flex flex-col">
+															<span className="font-bold">{x.onSaleCount}</span>
+															<span className="font-medium text-grey">On Sale</span>
+														</div>
+														<div className="flex flex-col">
+															<span className="font-bold">{x.ownersCountOfExchange}</span>
+															<span className="font-medium text-grey">Owners</span>
+														</div>
+														<div className="flex flex-col">
+															<span className="font-bold">{x.uniqueOwnersCount}%</span>
+															<span className="font-medium text-grey">Unique Owners</span>
+														</div>
+													</div>
+													<div className="flex gap-x-7 gap-y-3 flex-wrap">
+														<div className="flex flex-col">
+															<span className="font-bold">{x.volume} ETH</span>
+															<span className="font-medium text-grey">Volume</span>
+														</div>
+														<div className="flex flex-col">
+															<span className="font-bold">{x.floorPrice} ETH</span>
+															<span className="font-medium text-grey">Floor Price</span>
+														</div>
+														<div className="flex flex-col">
+															<span className="font-bold">{x.bestOffer} ETH</span>
+															<span className="font-medium text-grey">Best Offer</span>
+														</div>
+													</div>
+												</div>
+											}
+										</div>
+										{(x.nftExchangeLink && (x.volumeChart || x.floorPriceChart)) &&
+											<div className="flex flex-col md:flex-row gap-10">
+												{x?.volumeChart &&
+													<div className="flex-1 border border-2 border-gray rounded-md p-4 bg-white">
+														<ReactApexChart options={x?.volumeChart?.options} series={x?.volumeChart?.series} type="bar" height={350} />
+													</div>
+												}
+												{x?.floorPriceChart &&
+													<div className="flex-1 border border-2 border-gray rounded-md p-4 bg-white">
+														<ReactApexChart options={x?.floorPriceChart?.options} series={x?.floorPriceChart?.series} type="line" height={350} />
+													</div>
+												}
+											</div>
+										}
+										</>
+								}
+								<div className="flex flex-col gap-4 rounded-xl p-4 bg-gray">
+									<span className="font-pilat font-bold text-sz20 leading-ht30 text-grey">Top 100 Holders</span>
+									<div className="flex justify-between items-center pr-4">
+										<div className="font-bold flex-[2]">Address</div>
+										<div className="font-bold flex-[2]">Quantity</div>
+										<div className="font-bold flex-1">Percent</div>
+									</div>
+									<div className="max-h-[300px] overflow-auto">
+										{x.holders.map((x: any, i: number) =>
+											<div className="flex justify-between items-center" key={i}>
+												<div className="flex-[2]"><CopyHolderBox value={x.address} /></div>
+												<div className="flex-[2]">{x.quantity.toFixed(2)}</div>
+												<div className="flex-1">{x.percent.toFixed(2)} %</div>
+											</div>
+										)}
+									</div>
+								</div>
+							</div>
+						</div>
+					)}
+
           <div className="bg-lightgray rounded-xl shadow-xl flex flex-col">
             <div className="bg-gray px-6 py-4 rounded-t-xl flex flex-row items-start">
               <div className="w-full md:pl-4 text-blue text-sz18 md:text-sz20 font-bold font-pilat text-center">
-                Price Data
+                Token Price Data
               </div>
               {/* <div
                 className="text-blue text-sz16 font-Manrope flex flex-row items-center space-x-2 cursor-pointer"

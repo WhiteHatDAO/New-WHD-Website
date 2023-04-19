@@ -1,3 +1,6 @@
+import nftEarth from "../assets/images/select/nftEarth.png";
+import opensea from "../assets/images/select/opensea.png";
+import rarible from "../assets/images/select/rarible.png";
 import addItem from '../assets/images/addItem.png';
 import discord from '../assets/images/footer/discord_black.svg';
 import github from '../assets/images/footer/github_black.svg';
@@ -12,18 +15,43 @@ import twit from '../assets/images/rating/twitter.png';
 import deleteImage from '../assets/images/remove.png';
 import ExitIcon from '../components/ExitIcon';
 import SelectNetwork from './SelectNetwork';
+import SelectNetwork1 from './SelectNetwork1';
+import SelectPlatform from './SelectPlatform';
 import SelectBox from './SelectBox';
 import back from '../assets/images/next-button.png';
 import submit from '../assets/images/submit-button.png';
 
 import axios from 'axios';
-import { BACKEND_SERVER, SCORER_ENDPOINT } from '../global/global';
+import { BACKEND_SERVER } from '../global/global';
 
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import storage from '../utils/firebaseConfig';
 import { useAppContext } from '../context/appContext';
 
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
+
+const platforms = [
+  {
+    name: 'nftEarth',
+    image: nftEarth,
+    link: "https://nftearth.exchange/"
+  },
+  // {
+  //   name: 'uniswap',
+  //   image: uniswap,
+  //   link: "https://uniswap.org/"
+  // },
+  // {
+  //   name: 'opensea',
+  //   image: opensea,
+  //   link: "https://opensea.io/"
+  // },
+  // {
+  //   name: 'rarible',
+  //   image: rarible,
+  //   link: "https://rarible.com/"
+  // },
+];
 
 const ApplicationModal = () => {
 	const [appState, setAppState] = useAppContext();
@@ -44,7 +72,9 @@ const ApplicationModal = () => {
 	const [platform, setPlatform] = useState<string>();
 	const [language, setLanguage] = useState<string>();
 	const [codebase, setCodebase] = useState<string>();
+	const [codebase1, setCodebase1] = useState<string>();
 	const [address, setAddress] = useState<any[]>([]);
+	const [address1, setAddress1] = useState<any[]>([]);
 	const [multisigAddress, setMultisigAddress] = useState<any[]>([]);
 	const [contractAudits, setContractAudits] = useState<any[]>([]);
 	const [platformAudits, setPlatformAudits] = useState<any[]>([]);
@@ -53,9 +83,40 @@ const ApplicationModal = () => {
 	const [marketData, setMarketData] = useState<any[]>([]);
 	const [memberList, setMemberList] = useState<any[]>([]);
 	const [appStep, setAppStep] = useState(1);
-  const [scorePoint, setScorePoint] = useState<Number>(0);
 
-	const handleAddressChange = (name: string, index: number) => {
+  const handlePlatformChange = (name: string, index: number) => {
+		let tAddress = [];
+		for (let i = 0; i < index; i++) {
+			tAddress.push(address1[i]);
+		}
+		let member = address1[index];
+		member.platform = name;
+		tAddress.push(member);
+
+		for (let i = index + 1; i < address1.length; i++) {
+			tAddress.push(address1[i]);
+		}
+
+		setAddress1(tAddress);
+	};
+
+  const handleNFTExchangeChange = (name: string, index: number) => {
+		let tAddress = [];
+		for (let i = 0; i < index; i++) {
+			tAddress.push(address1[i]);
+		}
+		let member = address1[index];
+		member.nftExchangeLink = name;
+		tAddress.push(member);
+
+		for (let i = index + 1; i < address1.length; i++) {
+			tAddress.push(address1[i]);
+		}
+
+		setAddress1(tAddress);
+	};
+
+  const handleAddressChange = (name: string, index: number) => {
 		let tAddress = [];
 		for (let i = 0; i < index; i++) {
 			tAddress.push(address[i]);
@@ -69,6 +130,22 @@ const ApplicationModal = () => {
 		}
 
 		setAddress(tAddress);
+	};
+
+  const handleAddressChange1 = (name: string, index: number) => {
+		let tAddress = [];
+		for (let i = 0; i < index; i++) {
+			tAddress.push(address1[i]);
+		}
+		let member = address1[index];
+		member.network = name;
+		tAddress.push(member);
+
+		for (let i = index + 1; i < address1.length; i++) {
+			tAddress.push(address1[i]);
+		}
+
+		setAddress1(tAddress);
 	};
 
 	const handleAddressValueChange = (name: string, index: number) => {
@@ -87,10 +164,32 @@ const ApplicationModal = () => {
 		setAddress(tAddress);
 	};
 
+  const handleAddressValueChange1 = (name: string, index: number) => {
+		let tAddress = [];
+		for (let i = 0; i < index; i++) {
+			tAddress.push(address1[i]);
+		}
+		let member = address1[index];
+		member.address = name;
+		tAddress.push(member);
+
+		for (let i = index + 1; i < address1.length; i++) {
+			tAddress.push(address1[i]);
+		}
+
+		setAddress1(tAddress);
+	};
+
 	const handleAddContractAddress = () => {
 		let tAddress = [...address];
 		tAddress.push({ network: 'ethereum', address: '' });
 		setAddress(tAddress);
+	};
+
+  const handleAddContractAddress1 = () => {
+		let tAddress = [...address1];
+		tAddress.push({ network: 'ethereum', address: '', platform: 'nftEarth' });
+		setAddress1(tAddress);
 	};
 
 	const handleDeleteContractAddress = (index: number) => {
@@ -99,6 +198,14 @@ const ApplicationModal = () => {
 			if (i !== index) tAddress.push(address[i]);
 		}
 		setAddress(tAddress);
+	};
+
+  const handleDeleteContractAddress1 = (index: number) => {
+		let tAddress = [];
+		for (let i = 0; i < address1.length; i++) {
+			if (i !== index) tAddress.push(address1[i]);
+		}
+		setAddress1(tAddress);
 	};
 
 	const handleNetworkChange = (name: string, index: number) => {
@@ -646,7 +753,9 @@ const ApplicationModal = () => {
           platform: platform,
           language: language,
           codebase: codebase,
+          codebase1: codebase1,
           contract_addr: address,
+          contract_addr1: address1,
           contract_audits: contractAudits,
           platform_audits: platformAudits,
           bug_bounty: bugBountyAudits,	
@@ -670,21 +779,21 @@ const ApplicationModal = () => {
     }
 	}
 
-  useMemo(async() => {
-    if(walletAddress) {
-      try {
-        const {data:{score}} = await axios.get(`${SCORER_ENDPOINT}/registry/score/51/${walletAddress}`, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer VBlZkarU.5fGCSZ7XPTFewJ7mVOY85DdwF21fD2k8`,
-          },
-        })
-        setScorePoint(parseFloat(score))
-      } catch(e) {
-        console.log(e)
-      }
-    }
-  }, [walletAddress])
+  // useMemo(async() => {
+  //   if(walletAddress) {
+  //     try {
+  //       const {data:{score}} = await axios.get(`${SCORER_ENDPOINT}/registry/score/51/${walletAddress}`, {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer VBlZkarU.5fGCSZ7XPTFewJ7mVOY85DdwF21fD2k8`,
+  //         },
+  //       })
+  //       setScorePoint(parseFloat(score))
+  //     } catch(e) {
+  //       console.log(e)
+  //     }
+  //   }
+  // }, [walletAddress])
 
   return (
     <>
@@ -952,50 +1061,111 @@ const ApplicationModal = () => {
                             />
                           </div>
                         </div>
+                        <div className="flex flex-col items-start space-y-6 text-blue">
+                          <div
+                            onClick={handleAddContractAddress}
+                            className="cursor-pointer text-sz18 text-blue flex flex-row items-center space-x-2 border border-blue shadow-sm px-4 py-2 rounded-lg"
+                          >
+                            <img src={addItem} alt="addItem"></img>
+                            <div>Add Token Contract Address</div>
+                          </div>
+                          {address?.map((addr: any, index: number) => (
+                            <div className="flex flex-row items-center space-x-4">
+                              <SelectNetwork
+                                index={index}
+                                value={addr}
+                                handleNetworkChange={handleAddressChange}
+                              ></SelectNetwork>
+                              <div className="flex flex-row justify-between items-center">
+                                <input
+                                  type="text"
+                                  id="website-admin"
+                                  value={addr.address}
+                                  onChange={(e) => handleAddressValueChange(e.target.value, index)}
+                                  className="shadow-inner w-4/5 rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                  placeholder="Contract Address"
+                                />
+                                <img
+                                  onClick={() => handleDeleteContractAddress(index)}
+                                  className="w-8 h-8 cursor-pointer"
+                                  src={deleteImage}
+                                  alt="delete"
+                                ></img>
+                              </div>
+                            </div>
+                          ))}
+                          <div className='flex flex-col space-y-2'>
+                            <span className="text-sz18">Source Code Link</span>
+                            <input
+                              type="text"
+                              id="website-admin"
+                              value={codebase}
+                              onChange={(e) => setCodebase(e.target.value)}
+                              className="shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sz16 border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              placeholder='https://github.com/contract'
+                            />
+                          </div>
+                        </div>
                       </div>
-                      <div className="flex flex-col items-start space-y-6 text-blue">
+                      <div className="flex flex-col items-start space-y-6 text-blue pt-8">
+                        <div
+                          onClick={handleAddContractAddress1}
+                          className="cursor-pointer text-sz18 text-blue flex flex-row items-center space-x-2 border border-blue shadow-sm px-4 py-2 rounded-lg"
+                        >
+                          <img src={addItem} alt="addItem"></img>
+                          <div>Add NFT Contract Address</div>
+                        </div>
+                        {address1?.map((addr: any, index: number) => (
+                          <div className='flex flex-col space-y-4'>
+                            <div className="flex flex-row items-center space-x-4">
+                              <SelectNetwork1
+                                index={index}
+                                value={addr}
+                                handleNetworkChange={handleAddressChange1}
+                              ></SelectNetwork1>
+                              <div className="flex flex-row justify-between items-center">
+                                <input
+                                  type="text"
+                                  id="website-admin"
+                                  value={addr.address}
+                                  onChange={(e) => handleAddressValueChange1(e.target.value, index)}
+                                  className="shadow-inner w-4/5 rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                  placeholder="Contract Address"
+                                />
+                                <img
+                                  onClick={() => handleDeleteContractAddress1(index)}
+                                  className="w-8 h-8 cursor-pointer"
+                                  src={deleteImage}
+                                  alt="delete"
+                                ></img>
+                              </div>
+                            </div>
+                            <div className="flex flex-row items-center space-x-4">
+                              <SelectPlatform
+                                index={index}
+                                value={0}
+                                handlePlatformChange={handlePlatformChange}
+                              ></SelectPlatform>
+                              <input
+                                type="text"
+                                value={addr.nftExchangeLink}
+                                onChange={(e) => handleNFTExchangeChange(e.target.value, index)}
+                                className="shadow-inner w-4/5 rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder={platforms.find(x => x.name === addr.platform)?.link ?? "https://nftearth.exchange/"}
+                              />
+                            </div>
+                          </div>
+                        ))}
                         <div className='flex flex-col space-y-2'>
                           <span className="text-sz18">Source Code Link</span>
                           <input
                             type="text"
                             id="website-admin"
-                            value={codebase}
-                            onChange={(e) => setCodebase(e.target.value)}
+                            value={codebase1}
+                            onChange={(e) => setCodebase1(e.target.value)}
                             className="shadow-inner w-full rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sz16 border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder='https://github.com/contract'
                           />
-                        </div>
-                        {address?.map((addr: any, index: number) => (
-                          <div className="flex flex-row items-center space-x-4">
-                            <SelectNetwork
-                              index={index}
-                              value={addr}
-                              handleNetworkChange={handleAddressChange}
-                            ></SelectNetwork>
-                            <div className="flex flex-row justify-between items-center">
-                              <input
-                                type="text"
-                                id="website-admin"
-                                value={addr.address}
-                                onChange={(e) => handleAddressValueChange(e.target.value, index)}
-                                className="shadow-inner w-4/5 rounded-lg bg-lightgray border border-blue focus:ring-blue-500 focus:border-blue-500 block text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Wallet address 0x.."
-                              />
-                              <img
-                                onClick={() => handleDeleteContractAddress(index)}
-                                className="w-8 h-8 cursor-pointer"
-                                src={deleteImage}
-                                alt="delete"
-                              ></img>
-                            </div>
-                          </div>
-                        ))}
-                        <div
-                          onClick={handleAddContractAddress}
-                          className="cursor-pointer text-sz18 text-blue flex flex-row items-center space-x-2 border border-blue shadow-sm px-4 py-2 rounded-lg"
-                        >
-                          <img src={addItem} alt="addItem"></img>
-                          <div>Add Contract Address</div>
                         </div>
                       </div>
                     </div>

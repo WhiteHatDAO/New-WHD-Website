@@ -113,7 +113,7 @@ const ContractAddressBox = ({ data }: boxInterface) => {
           </div>
           {showDropdown && (
             <div
-              className="absolute rounded-md border bg-lightgray text-sz16 text-blue border-blue shadow-sm w-64"
+              className="absolute rounded-md border bg-lightgray text-sz16 text-blue border-blue shadow-sm w-64 z-[1]"
               style={{ top: "60px", right: "0px" }}
             >
               <div className="flex flex-col p-2 gap-4">

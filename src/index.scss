@@ -1,5 +1,8 @@
-@tailwind base;
-@tailwind components;
+@import "tailwindcss/base";
+
+@import "tailwindcss/components";
+
+@import "tailwindcss/utilities";
 
 @font-face {
     font-family: "Pilat";
@@ -42,8 +45,6 @@
     src: url("./assets/font/Manrope/Manrope-Bold.ttf");
     font-weight: 900;
 }
-
-@tailwind utilities;
 
 @layer base {
     html {

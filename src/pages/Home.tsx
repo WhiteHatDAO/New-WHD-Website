@@ -703,9 +703,12 @@ const Home = ({
                 <div className="mt-4 cursor-pointer z-2">
                   <a
                     href={mainProData.home.title_button_link} target="_blank" rel="noreferrer"
-                    className="shadow-sm text-2xl px-4 py-2 border rounded-xl gradient-box text-sz16 flex flex-col items-center font-Manrope text-blue"
+                    className="shadow-sm text-2xl px-4 py-2 border rounded-xl gradient-box text-sz16 flex flex-col items-center font-Manrope"
                   >
-                    {mainProData.home.title_button}
+                    <span className="text-blue">
+											Apply for White Hat DAO membership NFT
+										</span>
+                    {/* {mainProData.home.title_button} */}
                   </a>
                 </div>
               </div>
@@ -1280,7 +1283,7 @@ const Home = ({
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredProjects?.sort((a, b) => (new Date(FormatYMD(b.updatedAt)) as any) - (new Date(FormatYMD(a.updatedAt)) as any)).filter((x, index) => index>=page*10 && index<(page+1)*10 && x.published === "publish").map((project, index) => (
+                  {filteredProjects?.sort((a, b) => (new Date(b.updatedAt) as any) - (new Date(a.updatedAt) as any)).filter((x, index) => index>=page*10 && index<(page+1)*10 && x.published === "publish").map((project, index) => (
                     <tr
                       key={index}
                       onClick={() => 

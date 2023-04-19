@@ -20,6 +20,7 @@ interface navProps {
 
 const Navbar = ({ showMenu, handleShowMenu }: navProps) => {
   const [open, setOpen] = useState(false);
+  const [openSubmenu, setOpenSubmenu] = useState(false);
   const [appState, setAppState] = useAppContext();
   const [profileState, setProfileState] = useState<boolean | undefined>(undefined)
   const [title, setTitle] = useState("Governance");
@@ -228,27 +229,28 @@ const Navbar = ({ showMenu, handleShowMenu }: navProps) => {
             >
               AUDIT
             </div>
-            {/* <div
-              onClick={() => navigate("/gift-cards")}
-              className={
-                location.pathname === "/gift-cards" ? "cursor-pointer text-pink" : "cursor-pointer text-black"
-              }
-            >
-              GIFT CARDS
-            </div> */}
             <div
-              onClick={() => window.open(link, "_blank")}
+              onClick={() => setOpenSubmenu(!openSubmenu)}
               className={
-                location.pathname === "/blogpost" ? "cursor-pointer text-pink" : "cursor-pointer text-black"
+                location.pathname === "/governance"
+                  ? "flex gap-x-2 relative cursor-pointer text-pink z-[3]"
+                  : "flex gap-x-2 relative cursor-pointer text-black z-[3]"
               }
             >
-              {title}
+              GOVERNANCE
+              <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" fill="#000000" width="16" version="1.1" id="Layer_1" viewBox="0 0 407.437 407.437" xmlSpace="preserve">
+                <polygon points="386.258,91.567 203.718,273.512 21.179,91.567 0,112.815 203.718,315.87 407.437,112.815 "/>
+              </svg>
+              {openSubmenu &&
+                <div className="flex flex-col gap-4 absolute top-10 p-4 shadow-xl rounded-xl text-grey w-max z-2 bg-lightgray">
+                  <span>Community Forum</span>
+                </div>
+              }
             </div>
           </div>
           <div className="flex flex-row items-center space-x-7 md:space-x-4">
             <div className="md:w-60 hidden xl:block relative cursor-pointer z-2">
               <div
-                // className="shadow-sm text-2xl px-6 py-2 border rounded-xl gradient-box text-sz16"
                 className="shadow-sm text-2xl px-6 py-2 border flex items-center justify-center rounded-xl gradient-box text-sz16"
                 onClick={handleConnect}
               >
@@ -299,12 +301,24 @@ const Navbar = ({ showMenu, handleShowMenu }: navProps) => {
             <div className="cursor-pointer" onClick={() => { navigate("/dao"); setOpen(false)}}>DAO</div>
             <div className="cursor-pointer" onClick={() => { navigate("/safety-ratings"); setOpen(false)}}>SAFETY - RATINGS</div>
             <div className="cursor-pointer" onClick={() => { navigate("/audit"); setOpen(false)}}>AUDIT</div>
-            {/* <a href="/gift-cards">
-              <div>GIFT CARDS</div>
-            </a> */}
-            <a href={link} target="_blank" rel="noreferrer">
-              <div>{title}</div>
-            </a>
+            <div
+              onClick={() => setOpenSubmenu(!openSubmenu)}
+              className={
+                location.pathname === "/governance"
+                  ? "flex gap-x-2 relative cursor-pointer text-pink z-[3]"
+                  : "flex gap-x-2 relative cursor-pointer text-black z-[3]"
+              }
+            >
+              GOVERNANCE
+              <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" fill="#000000" width="16" version="1.1" id="Layer_1" viewBox="0 0 407.437 407.437" xmlSpace="preserve">
+                <polygon points="386.258,91.567 203.718,273.512 21.179,91.567 0,112.815 203.718,315.87 407.437,112.815 "/>
+              </svg>
+              {openSubmenu &&
+                <div className="flex flex-col gap-4 absolute top-10 p-4 shadow-xl rounded-xl text-grey w-max z-2 bg-lightgray">
+                  <span>Community Forum</span>
+                </div>
+              }
+            </div>
             <div className="z-2 cursor-pointer" onClick={appState.web3Provider && address ? handleDisconnect : handleConnect}>
               <div className="shadow-sm text-2xl px-8 py-2 border rounded-xl gradient-box text-sz16 leading-ht30 font-semibold">
                 {appState.web3Provider && address
